@@ -1,0 +1,19 @@
+--cpu Cortex-M3
+".\objects\app.o"
+".\objects\idea_app.o"
+".\objects\idea_cmd.o"
+".\objects\idea_qs.o"
+".\objects\main.o"
+".\objects\startup_max3255x.o"
+"..\..\lib\ideabase.lib"
+"..\..\..\..\..\platform\max32555\sdk\lib\libucl-2.4.7_max32555.lib"
+"..\..\..\..\..\platform\max32555\sdk\drivers\build\libmml.lib"
+".\objects\ga.o"
+".\objects\cjson.o"
+".\objects\cjson_utils.o"
+".\objects\jrand.o"
+".\objects\sfmt.o"
+--strict --scatter ".\Objects\idea.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\idea.map" -o .\Objects\idea.app

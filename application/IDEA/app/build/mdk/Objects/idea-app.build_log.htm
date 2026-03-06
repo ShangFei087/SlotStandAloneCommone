@@ -1,0 +1,493 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.40.0.0
+Copyright (C) 2024 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 11, 1, LIC=8MZI6-DZ0EA-SG77K-ZQD4B-L02QI-42N5B
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.40.0.3
+Toolchain Path:  E:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         
+Dialog DLL:      
+Target DLL:      Segger\JL2CM3.dll V2.99.44.0
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\build\mdk\idea-app.uvproj
+Project File Date:  01/15/2026
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'Target 1'
+compiling idea_app.c...
+..\..\source\./GameAlgo/algo/ga.h(87): warning:  #1-D: last line of file ends without a newline
+  /* END OF FILE */
+..\..\source\idea_app.c(61): warning:  #177-D: variable "mdt"  was declared but never referenced
+  	static uint32_t mdt = 0;
+..\..\source\idea_app.c: 2 warnings, 0 errors
+compiling app.c...
+..\..\source\./GameAlgo/algo/ga.h(87): warning:  #1-D: last line of file ends without a newline
+  /* END OF FILE */
+..\..\source\app.c: 1 warning, 0 errors
+compiling CommonStruct.c...
+..\..\source\Control\GameConfig.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\CommonStruct.c(117): warning:  #167-D: argument of type "const Matrix_u *" is incompatible with parameter of type "Matrix_u *"
+      Matrix_u_copy(&dest->extraMxu, &src->extraMxu); // 注意：需要类型转换
+..\..\source\Control\CommonStruct.c: 2 warnings, 0 errors
+compiling main.c...
+..\..\source\./GameAlgo/algo/ga.h(87): warning:  #1-D: last line of file ends without a newline
+  /* END OF FILE */
+..\..\source\Control/GameConfig.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control/NatureAlg.h(8): warning:  #1295-D: Deprecated declaration NatureAlg_GenRollTable - give arg types
+  void NatureAlg_GenRollTable();
+..\..\source\Control/Test.h(33): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\Control/LotteryManager.h(94): warning:  #1-D: last line of file ends without a newline
+  #endif // _LotteryManager_H_
+..\..\source\main.c(333): warning:  #111-D: statement is unreachable
+      idea_app_close();
+..\..\source\main.c: 7 warnings, 0 errors
+compiling Dll.c...
+..\..\source\Control\GameConfig.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control\NatureAlg.h(8): warning:  #1295-D: Deprecated declaration NatureAlg_GenRollTable - give arg types
+  void NatureAlg_GenRollTable();
+..\..\source\Control\Test.h(33): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\Control\Dll.c(275): warning:  #177-D: variable "a"  was declared but never referenced
+  					int a = 0;
+..\..\source\Control\Dll.c(379): warning:  #167-D: argument of type "int32_t (*)[20]" is incompatible with parameter of type "int32_t *"
+  					info->nBonusBet = Matrix_u_computerMatrixById(&mxu, &idVec, &inst->gameConfig, (uint32_t)gameId);
+..\..\source\Control\Dll.c(435): warning:  #177-D: variable "a"  was declared but never referenced
+                  int a = 0;
+..\..\source\Control\Dll.c(850): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcpy(str, "[");
+..\..\source\Control\Dll.c(856): warning:  #167-D: argument of type "int32_t *" is incompatible with parameter of type "char *__restrict__"
+              sprintf(temp, "%d,", pArray[i]);
+..\..\source\Control\Dll.c(857): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              strcat(str, temp);
+..\..\source\Control\Dll.c(857): warning:  #167-D: argument of type "int32_t *" is incompatible with parameter of type "const char *__restrict__"
+              strcat(str, temp);
+..\..\source\Control\Dll.c(861): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *"
+      int32_t len = strlen(str);
+..\..\source\Control\Dll.c(867): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+          strcat(str, "]");
+..\..\source\Control\Dll.c(878): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcpy(str, "[");
+..\..\source\Control\Dll.c(884): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              sprintf(temp, "%d,", pArray[i]);
+..\..\source\Control\Dll.c(885): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              strcat(str, temp);
+..\..\source\Control\Dll.c(885): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+              strcat(str, temp);
+..\..\source\Control\Dll.c(889): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *"
+      int32_t len = strlen(str);
+..\..\source\Control\Dll.c(894): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+          strcat(str, "]");
+..\..\source\Control\Dll.c(905): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcpy(strRes, "{");
+..\..\source\Control\Dll.c(910): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"OpenType\":%d,", outRes->openType);
+..\..\source\Control\Dll.c(911): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(strRes, temp);
+..\..\source\Control\Dll.c(911): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(strRes, temp);
+..\..\source\Control\Dll.c(914): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"ResultType\":%d,", outRes->resType);
+..\..\source\Control\Dll.c(915): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(strRes, temp);
+..\..\source\Control\Dll.c(915): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(strRes, temp);
+..\..\source\Control\Dll.c(919): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"IDVec\":%s,", idVecStr);
+..\..\source\Control\Dll.c(920): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(strRes, temp);
+..\..\source\Control\Dll.c(920): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(strRes, temp);
+..\..\source\Control\Dll.c(924): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "int8_t *"
+      int8_t* matrixStr = ByteArrayToString(outRes->matrix.dataArray, GE_WheelChessNum);
+..\..\source\Control\Dll.c(925): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"Matrix\":%s,", matrixStr);
+..\..\source\Control\Dll.c(926): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(strRes, temp);
+..\..\source\Control\Dll.c(926): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(strRes, temp);
+..\..\source\Control\Dll.c(931): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+          sprintf(temp, "\"TotalFreeBet\":%d,", outRes->nTotalFreeBet);
+..\..\source\Control\Dll.c(932): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+          strcat(strRes, temp);
+..\..\source\Control\Dll.c(932): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+          strcat(strRes, temp);
+..\..\source\Control\Dll.c(934): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+          sprintf(temp, "\"TotalFreeTime\":%d,", outRes->nTotalFreeTime);
+..\..\source\Control\Dll.c(935): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+          strcat(strRes, temp);
+..\..\source\Control\Dll.c(935): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+          strcat(strRes, temp);
+..\..\source\Control\Dll.c(938): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+          sprintf(temp, "\"FreeBetArray\":%s,", freeBetStr);
+..\..\source\Control\Dll.c(939): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+          strcat(strRes, temp);
+..\..\source\Control\Dll.c(939): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+          strcat(strRes, temp);
+..\..\source\Control\Dll.c(960): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              sprintf(temp, "\"BonusBet\":%d,", outRes->nBonusBet);
+..\..\source\Control\Dll.c(961): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              strcat(strRes, temp);
+..\..\source\Control\Dll.c(961): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+              strcat(strRes, temp);
+..\..\source\Control\Dll.c(963): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              sprintf(temp, "\"BonusType\":%d,", outRes->nBonusType);
+..\..\source\Control\Dll.c(964): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              strcat(strRes, temp);
+..\..\source\Control\Dll.c(964): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+              strcat(strRes, temp);
+..\..\source\Control\Dll.c(970): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+                  sprintf(temp, "\"BonusData\":%s,", bonusStr);
+..\..\source\Control\Dll.c(971): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+                  strcat(strRes, temp);
+..\..\source\Control\Dll.c(971): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+                  strcat(strRes, temp);
+..\..\source\Control\Dll.c(977): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+                  sprintf(temp, "\"BonusData\":%s,", bonusStr);
+..\..\source\Control\Dll.c(978): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+                  strcat(strRes, temp);
+..\..\source\Control\Dll.c(978): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+                  strcat(strRes, temp);
+..\..\source\Control\Dll.c(979): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+                  sprintf(temp, "\"BlindSymbol\":%d,", outRes->BlindSymbol);
+..\..\source\Control\Dll.c(980): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+                  strcat(strRes, temp);
+..\..\source\Control\Dll.c(980): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+                  strcat(strRes, temp);
+..\..\source\Control\Dll.c(985): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+                  sprintf(temp, "\"BonusMultiply\":%d,", outRes->BlindSymbol);
+..\..\source\Control\Dll.c(986): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+                  strcat(strRes, temp);
+..\..\source\Control\Dll.c(986): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+                  strcat(strRes, temp);
+..\..\source\Control\Dll.c(990): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+                  sprintf(temp, "\"BonusMultiply\":%d,", outRes->BlindSymbol);
+..\..\source\Control\Dll.c(991): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+                  strcat(strRes, temp);
+..\..\source\Control\Dll.c(991): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+                  strcat(strRes, temp);
+..\..\source\Control\Dll.c(997): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              sprintf(temp, "\"BonusType\":%d,", outRes->nBonusType);
+..\..\source\Control\Dll.c(998): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              strcat(strRes, temp);
+..\..\source\Control\Dll.c(998): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+              strcat(strRes, temp);
+..\..\source\Control\Dll.c(1000): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              sprintf(temp, "\"BonusBet\":%d,", outRes->nBonusBet);
+..\..\source\Control\Dll.c(1001): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              strcat(strRes, temp);
+..\..\source\Control\Dll.c(1001): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+              strcat(strRes, temp);
+..\..\source\Control\Dll.c(1007): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"TotalBet\":%d", outRes->nMatrixBet);
+..\..\source\Control\Dll.c(1008): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(strRes, temp);
+..\..\source\Control\Dll.c(1008): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(strRes, temp);
+..\..\source\Control\Dll.c(1010): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(strRes, "}");
+..\..\source\Control\Dll.c(953): warning:  #177-D: variable "BlindBoxCountArray"  was declared but never referenced
+      uint8_t BlindBoxCountArray[3] = { 6, 8, 11 };//3涓浆鐩樺浘鏍囧彲浠ュ緱鍒?6涓洸鐩掞紝4涓浆鐩樺彲浠ョ殑8涓洸鐩掑浘鏍?......
+..\..\source\Control\Dll.c(1047): warning:  #181-D: argument is incompatible with corresponding format string conversion
+              info.dwTotalPlayTime, info.dwLooseTime, info.dwNormalWinTime);
+..\..\source\Control\Dll.c(1047): warning:  #181-D: argument is incompatible with corresponding format string conversion
+              info.dwTotalPlayTime, info.dwLooseTime, info.dwNormalWinTime);
+..\..\source\Control\Dll.c(1047): warning:  #181-D: argument is incompatible with corresponding format string conversion
+              info.dwTotalPlayTime, info.dwLooseTime, info.dwNormalWinTime);
+..\..\source\Control\Dll.c: 77 warnings, 0 errors
+compiling GameManager.c...
+..\..\source\Control\GameConfig.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control\NatureAlg.h(8): warning:  #1295-D: Deprecated declaration NatureAlg_GenRollTable - give arg types
+  void NatureAlg_GenRollTable();
+..\..\source\Control\GameManager.c: 3 warnings, 0 errors
+compiling CMD_Fish.c...
+..\..\source\Control\GameConfig.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\Test.h(33): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\Control\CMD_Fish.c(65): warning:  #68-D: integer conversion resulted in a change of sign
+      if (pos > GE_WheelChessNum) return -1;
+..\..\source\Control\CMD_Fish.c(292): warning:  #177-D: variable "nCheckIndex"  was declared but never referenced
+      uint8_t nCheckIndex = 0;            //线上当前要检测的索引
+..\..\source\Control\CMD_Fish.c(294): warning:  #177-D: variable "nFirstChessType"  was declared but never referenced
+      uint8_t nFirstChessType = 0;        //本条线上的第一个ID值
+..\..\source\Control\CMD_Fish.c(525): warning:  #223-D: function "JRand" declared implicitly
+              if (JRand(0, 10000) < 2000)
+..\..\source\Control\CMD_Fish.c(508): warning:  #177-D: variable "freeOdds"  was declared but never referenced
+      uint8_t freeOdds = 0;
+..\..\source\Control\CMD_Fish.c(699): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              sprintf(temp, "%d,", pArray[i]);
+..\..\source\Control\CMD_Fish.c(700): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+              strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(700): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+              strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(704): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *"
+      int32_t len = strlen(buffer);
+..\..\source\Control\CMD_Fish.c(708): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+          strcat(buffer, "]");
+..\..\source\Control\CMD_Fish.c(710): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *"
+      int8_t* result = (int8_t*)malloc(strlen(buffer) + 1);
+..\..\source\Control\CMD_Fish.c(712): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+          strcpy(result, buffer);
+..\..\source\Control\CMD_Fish.c(712): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+          strcpy(result, buffer);
+..\..\source\Control\CMD_Fish.c(721): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcpy(buffer, "{");
+..\..\source\Control\CMD_Fish.c(723): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"dwPlayScore\":%lld,", pInfo->dwPlayScore);
+..\..\source\Control\CMD_Fish.c(724): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(724): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(726): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"dwWinScore\":%lld,", pInfo->dwWinScore);
+..\..\source\Control\CMD_Fish.c(727): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(727): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(729): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"dwTotalPlayTime\":%d,", pInfo->dwTotalPlayTime);
+..\..\source\Control\CMD_Fish.c(729): warning:  #181-D: argument is incompatible with corresponding format string conversion
+      sprintf(temp, "\"dwTotalPlayTime\":%d,", pInfo->dwTotalPlayTime);
+..\..\source\Control\CMD_Fish.c(730): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(730): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(732): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"dwNormalOpenTime\":%d,", pInfo->dwNormalOpenTime);
+..\..\source\Control\CMD_Fish.c(732): warning:  #181-D: argument is incompatible with corresponding format string conversion
+      sprintf(temp, "\"dwNormalOpenTime\":%d,", pInfo->dwNormalOpenTime);
+..\..\source\Control\CMD_Fish.c(733): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(733): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(735): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"dwGiveOpenTime\":%d,", pInfo->dwGiveOpenTime);
+..\..\source\Control\CMD_Fish.c(735): warning:  #181-D: argument is incompatible with corresponding format string conversion
+      sprintf(temp, "\"dwGiveOpenTime\":%d,", pInfo->dwGiveOpenTime);
+..\..\source\Control\CMD_Fish.c(736): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(736): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(738): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"dwBonusTime\":%d,", pInfo->dwBonusTime);
+..\..\source\Control\CMD_Fish.c(738): warning:  #181-D: argument is incompatible with corresponding format string conversion
+      sprintf(temp, "\"dwBonusTime\":%d,", pInfo->dwBonusTime);
+..\..\source\Control\CMD_Fish.c(739): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(739): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(741): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"dwFreeGameTime\":%d,", pInfo->dwFreeGameTime);
+..\..\source\Control\CMD_Fish.c(741): warning:  #181-D: argument is incompatible with corresponding format string conversion
+      sprintf(temp, "\"dwFreeGameTime\":%d,", pInfo->dwFreeGameTime);
+..\..\source\Control\CMD_Fish.c(742): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(742): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(744): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"dwLooseTime\":%d,", pInfo->dwLooseTime);
+..\..\source\Control\CMD_Fish.c(744): warning:  #181-D: argument is incompatible with corresponding format string conversion
+      sprintf(temp, "\"dwLooseTime\":%d,", pInfo->dwLooseTime);
+..\..\source\Control\CMD_Fish.c(745): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(745): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(747): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"dwFreeGameTotalBet\":%d,", pInfo->dwFreeGameTotalBet);
+..\..\source\Control\CMD_Fish.c(747): warning:  #181-D: argument is incompatible with corresponding format string conversion
+      sprintf(temp, "\"dwFreeGameTotalBet\":%d,", pInfo->dwFreeGameTotalBet);
+..\..\source\Control\CMD_Fish.c(748): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(748): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(750): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"dwBonusGameTotalBet\":%d,", pInfo->dwBonusGameTotalBet);
+..\..\source\Control\CMD_Fish.c(750): warning:  #181-D: argument is incompatible with corresponding format string conversion
+      sprintf(temp, "\"dwBonusGameTotalBet\":%d,", pInfo->dwBonusGameTotalBet);
+..\..\source\Control\CMD_Fish.c(751): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(751): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(753): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(temp, "\"dwFreeGameBetError\":%d", pInfo->dwFreeGameBetError);
+..\..\source\Control\CMD_Fish.c(753): warning:  #181-D: argument is incompatible with corresponding format string conversion
+      sprintf(temp, "\"dwFreeGameBetError\":%d", pInfo->dwFreeGameBetError);
+..\..\source\Control\CMD_Fish.c(754): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(754): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcat(buffer, temp);
+..\..\source\Control\CMD_Fish.c(756): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+      strcat(buffer, "}");
+..\..\source\Control\CMD_Fish.c(758): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *"
+      int8_t* result = (int8_t*)malloc(strlen(buffer) + 1);
+..\..\source\Control\CMD_Fish.c(760): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "char *__restrict__"
+          strcpy(result, buffer);
+..\..\source\Control\CMD_Fish.c(760): warning:  #167-D: argument of type "int8_t *" is incompatible with parameter of type "const char *__restrict__"
+          strcpy(result, buffer);
+..\..\source\Control\CMD_Fish.c(763): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\Control\CMD_Fish.c: 63 warnings, 0 errors
+assembling startup_max3255X.s...
+..\..\..\board\startup_max3255X.s(140): warning: A1479W: Requested alignment 32 is greater than area alignment 4, which has been increased
+compiling NatureAlg.c...
+..\..\source\Control\GameConfig.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control\NatureAlg.h(8): warning:  #1295-D: Deprecated declaration NatureAlg_GenRollTable - give arg types
+  void NatureAlg_GenRollTable();
+..\..\source\Control\NatureAlg.c: 3 warnings, 0 errors
+compiling GameConfig.c...
+..\..\source\Control\GameConfig.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\GameConfig.c: 1 warning, 0 errors
+compiling idea_qs.c...
+..\..\source\idea_qs.c(30): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\idea_qs.c: 1 warning, 0 errors
+compiling ComputerData.c...
+..\..\source\Control\GameConfig.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\ComputerData.c(9): warning:  #1-D: last line of file ends without a newline
+  int32_t CenterJPDrawRate[8] = { 25, 50, 75, 100, 125, 150, 175, 200 };
+..\..\source\Control\ComputerData.c: 2 warnings, 0 errors
+compiling LotteryManager.c...
+..\..\source\Control\GameConfig.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\LotteryManager.h(94): warning:  #1-D: last line of file ends without a newline
+  #endif // _LotteryManager_H_
+..\..\source\Control\Test.h(33): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\Control\LotteryManager.c(130): warning:  #550-D: variable "ShowLottery"  was set but never used
+      int32_t ShowLottery[3] = { 0 };
+..\..\source\Control\LotteryManager.c(131): warning:  #550-D: variable "LotteryPool"  was set but never used
+      int32_t LotteryPool[3] = { 0 };
+..\..\source\Control\LotteryManager.c(132): warning:  #550-D: variable "LotteryThresh"  was set but never used
+      int32_t LotteryThresh[3] = { 0 };
+..\..\source\Control\LotteryManager.c(206): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\Control\LotteryManager.c: 7 warnings, 0 errors
+compiling Lottery.c...
+..\..\source\Control\../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control\Lottery.c(203): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\Control\Lottery.c: 2 warnings, 0 errors
+compiling int_vector.c...
+..\..\source\Control\int_vector.h(55): warning:  #1-D: last line of file ends without a newline
+  #endif // INT_VECTOR_H
+..\..\source\Control\int_vector.c(327): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\Control\int_vector.c: 2 warnings, 0 errors
+compiling idea_cmd.c...
+..\..\source\./GameAlgo/algo/ga.h(87): warning:  #1-D: last line of file ends without a newline
+  /* END OF FILE */
+..\..\source\Control/GameConfig.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control/NatureAlg.h(8): warning:  #1295-D: Deprecated declaration NatureAlg_GenRollTable - give arg types
+  void NatureAlg_GenRollTable();
+..\..\source\Control/LotteryManager.h(94): warning:  #1-D: last line of file ends without a newline
+  #endif // _LotteryManager_H_
+..\..\source\idea_cmd.c(93): warning:  #177-D: variable "pos"  was declared but never referenced
+  		uint8_t pos = 0;
+..\..\source\idea_cmd.c(211): warning:  #177-D: variable "pos"  was declared but never referenced
+  			int32_t pos = 0;
+..\..\source\idea_cmd.c(470): warning:  #167-D: argument of type "uint64_t *" is incompatible with parameter of type "int64_t *"
+  			player_total_bets_wins(&bets, &wins);
+..\..\source\idea_cmd.c(747): warning:  #167-D: argument of type "uint32_t *" is incompatible with parameter of type "int32_t *"
+  			LotteryManager_TryGetLottery(&gLotteryManager, betValue, &jpType, &jpvaule);
+..\..\source\idea_cmd.c(747): warning:  #167-D: argument of type "uint32_t *" is incompatible with parameter of type "int32_t *"
+  			LotteryManager_TryGetLottery(&gLotteryManager, betValue, &jpType, &jpvaule);
+..\..\source\idea_cmd.c(756): warning:  #167-D: argument of type "uint32_t *" is incompatible with parameter of type "int32_t *"
+  		DLL_GetGameResultById(pItem, betValue, &outres, &ret, gameId);
+..\..\source\idea_cmd.c(833): warning:  #177-D: variable "pos"  was declared but never referenced
+  		uint8_t pos = 0;
+..\..\source\idea_cmd.c: 12 warnings, 0 errors
+compiling ga.c...
+..\..\source\GameAlgo\algo\ga.h(87): warning:  #1-D: last line of file ends without a newline
+  /* END OF FILE */
+..\..\source\GameAlgo\algo\../common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\GameAlgo\algo\ga.c(87): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\GameAlgo\algo\ga.c: 3 warnings, 0 errors
+compiling cJSON_Utils.c...
+compiling cJSON.c...
+..\..\source\GameAlgo\cJSON\cJSON.c(2025): warning:  #2803-D: unrecognized GCC pragma
+      #pragma GCC diagnostic push
+..\..\source\GameAlgo\cJSON\cJSON.c(2028): warning:  #2803-D: unrecognized GCC pragma
+  #pragma GCC diagnostic ignored "-Wcast-qual"
+..\..\source\GameAlgo\cJSON\cJSON.c(2036): warning:  #2803-D: unrecognized GCC pragma
+      #pragma GCC diagnostic pop
+..\..\source\GameAlgo\cJSON\cJSON.c: 3 warnings, 0 errors
+compiling JRand.c...
+..\..\source\GameAlgo\common\JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\GameAlgo\common\JRand.c(149): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\GameAlgo\common\JRand.c: 2 warnings, 0 errors
+compiling SFMT.c...
+..\..\source\GameAlgo\common\SFMT-params.h(7): warning:  #1215-D: #warning directive: "SFMT_MEXP is not defined. I assume MEXP is 19937."
+    #warning "SFMT_MEXP is not defined. I assume MEXP is 19937."
+..\..\source\GameAlgo\common\SFMT.c: 1 warning, 0 errors
+linking...
+Program Size: Code=83928 RO-data=5196 RW-data=4192 ZI-data=58824  
+After Build - User command #1: fromelf.exe --bin -o ./scp_packets.bin ./Objects/idea-app.axf
+After Build - User command #2: casign.bat
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\build\mdk>.\ConstData.exe const.json scp_packets.bin 288 
+{
+	"fixed_key":	"8957D0725D84E34B",
+	"rsa_key_bits":	960,
+	"system_data":	"",
+	"user_data":	"",
+	"device_id":	"27B80687773D563DA9F0AA3CF4771D0A",
+	"code_id":	"5628BF45892A2CE433D764BF5D65D652",
+	"system_key":	"26C6BEBDB8CCB110",
+	"fram_key":	"7C9176C68A16188F",
+	"flash_key":	"642A3953E38EA973",
+	"nvram_key":	"715638527992C814",
+	"rsa_private_key":	"C0030000A5D0525073B047C40D9EF61809AAD8984B975259CAD863CF1FA8F2D451C6F0B3B476F4BE6D60E2F49C1EFE4189B7938B153357A3D91A9284C38FB63E5BD91660FCF0E97BD04728DBE3FE2B1B647C5DD71F77CBA7DDF386CFF75902AF0A2D93E6C5A66E20D47852E9E8D2907BA88D7F469A84750D421FCFC3000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001733C2618B76DE9523D4D1E2672818369C40EF43267209FACD089EFC8D2D4796FCA996959F656012492638FBC2863A66C605D8028E4B6ECE0CBB052AC40D3B930C072FD0507659B21DFDBDDCC37CD30A792821577BA9E62D0DB5004A47DBE6063015C645DA80535FEDACDA3CE4EA18AC0387857D94134F691DC2EA6A526171AFD409F3CA367230A709CEBB896DD5147E15526593CD051447671B96546A766B78D5DE3A3DC71E61A366832E21760BD2DB4450E714DC0C987AFBBFC40D1B338595ADBB933FAB54192314D02F55927BE23E6762D07ED8E9FBDE39CE2EDA8956658C36C9FB0F088ABADD875355D1FDA99BD4FB9BEE538971C90D92AC5EACAD27C1E178859D71BF652D677C2749A7D9223ACC4DB0592E97AD94D6985D63F6AFDEF2717D4E9701056BCE12C9DC12455257AC89344A3ACE257CA5BACCB4CBD2B3F73C8FD26B0AD8C30AAC985F3719BB9F6615DE4534AD6D350803E3F77EDAFD3836E84F4B10CB7D70A839B075CE1C75D3BCEB5CBCB2DA3B37E45E537361C656069E477077AA8B300B81EC50B03E0F70CD52ABDF858F1A3892F644C56A5B64F6592CF11A79078FB60",
+	"rsa_public_key":	"C0030000A5D0525073B047C40D9EF61809AAD8984B975259CAD863CF1FA8F2D451C6F0B3B476F4BE6D60E2F49C1EFE4189B7938B153357A3D91A9284C38FB63E5BD91660FCF0E97BD04728DBE3FE2B1B647C5DD71F77CBA7DDF386CFF75902AF0A2D93E6C5A66E20D47852E9E8D2907BA88D7F469A84750D421FCFC3000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001"
+}
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\build\mdk>..\..\..\..\..\platform\max32555\sdk\tools\signit_fast_my.bat scp_packets MAX32555 
+Removing old build files
+Sign binary file
+MAX32555 Signing Tool Selected
+CA signature build v1.5.2 (build 99-K) (c)Maxim Integrated 2006-2014
+Convert signed binary to packet stream for SCP loading.
+Read 90496 bytes.
+SBL/SCP packets builder v3.7.9 (build 99-K) (c)Maxim Integrated 2006-2014
+--warning: this tool does not handle keys in a PCI PTS compliant way --
+<scp_packets\scp_packets.output.log> created
+Build Succeeded.
+".\Objects\idea-app.axf" - 0 Error(s), 195 Warning(s).
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>
