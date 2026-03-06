@@ -1,0 +1,5 @@
+11:43:33 - Process with SCP packets from file:
+E:/slotmath/QSoftUnitest/platform/max32555/sdk/tools/MPC/serialsender/MAX32555/phase_3/write_crk/packet.list
+11:43:46 - ERROR
+Unabe to open SCP session !!!	D
+	

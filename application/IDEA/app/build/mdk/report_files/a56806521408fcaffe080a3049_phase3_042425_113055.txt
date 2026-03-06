@@ -1,0 +1,4 @@
+11:30:47 - Process with SCP packets from file:
+G:/gitsrc/QSoftGodW/application/IDEA/app/build/mdk/scp_packets/packet.list
+11:30:55 - ERROR- 
+	Wrong lifecycle, current is  5, expected one is 4 

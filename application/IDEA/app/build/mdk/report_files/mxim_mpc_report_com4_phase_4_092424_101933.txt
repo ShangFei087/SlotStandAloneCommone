@@ -1,0 +1,5 @@
+10:19:33 - Process with SCP packets from file:
+G:/maths/QSoftUnitest/application/IDEA/app/build/mdk/scp_packets/packet.list
+10:20:55 - ERROR
+Unabe to open SCP session !!!	D
+	

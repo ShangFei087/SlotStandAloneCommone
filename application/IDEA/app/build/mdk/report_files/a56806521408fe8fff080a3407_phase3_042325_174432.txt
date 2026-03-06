@@ -1,0 +1,3 @@
+17:44:24 - Process with SCP packets from file:
+G:/gitsrc/QSoftGodW/platform/max32555/sdk/tools/MPC/serialsender/MAX32555/phase_3/write_crk_my/packet.list
+17:44:32 - SUCCESSFULLY DONE

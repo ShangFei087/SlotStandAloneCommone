@@ -1,0 +1,10 @@
+16:33:31 - Process with SCP packets from file:
+G:/gitsrc/QSoftGodW/application/IDEA/app/build/mdk/scp_packets/packet.list
+16:33:32 - ERROR
+Unabe to open SCP session !!!	  File "BootloaderScp.pyo", line 251, in __init__
+	  File "serial\serialwin32.pyo", line 31, in __init__
+	  File "serial\serialutil.pyo", line 261, in __init__
+	  File "serial\serialwin32.pyo", line 71, in open
+	  File "serial\serialwin32.pyo", line 186, in _reconfigurePort
+	ValueError: Cannot configure port, some setting was wrong. Original message: [Error 31] ����ϵͳ�ϵ��豸û�з������á�
+	

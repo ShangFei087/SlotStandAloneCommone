@@ -1,0 +1,7 @@
+14:10:20 - Process with SCP packets from file:
+G:/gitsrc/QSoftGodW/platform/max32555/sdk/tools/MPC/serialsender/MAX32555/phase_3/write_crk_my/packet.list
+14:10:21 - ERROR
+Unabe to open SCP session !!!	  File "serial\serialwin32.pyo", line 71, in open
+	  File "serial\serialwin32.pyo", line 186, in _reconfigurePort
+	ValueError: Cannot configure port, some setting was wrong. Original message: [Error 31] ����ϵͳ�ϵ��豸û�з������á�
+	

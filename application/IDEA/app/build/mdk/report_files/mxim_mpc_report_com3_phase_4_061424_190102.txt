@@ -1,0 +1,5 @@
+19:01:02 - Process with SCP packets from file:
+F:/common/QSoft-1.2/application/IDEA-Dragon/app/build/mdk/scp_packets/packet.list
+19:01:03 - ERROR
+Unabe to open SCP session !!!	l.SerialException: could not open port COM3: [Error 2] ϵͳ�Ҳ���ָ�����ļ���
+	

@@ -1,0 +1,5 @@
+17:05:52 - Process with SCP packets from file:
+F:/common/QSoft-1.2/application/IDEA-Dragon/app/build/mdk/scp_packets/packet.list
+17:05:59 - ERROR
+Unabe to open SCP session !!!	D
+	

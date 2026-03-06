@@ -1,0 +1,5 @@
+17:48:34 - Process with SCP packets from file:
+G:/gitsrc/QSoftGodW/platform/max32555/sdk/tools/MPC/serialsender/MAX32555/phase_3/write_crk_my/packet.list
+17:48:35 - ERROR
+Unabe to open SCP session !!!	D
+	

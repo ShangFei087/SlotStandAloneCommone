@@ -1,0 +1,5 @@
+11:38:17 - Process with SCP packets from file:
+F:/Control/SlotStandAloneControl/QSoftMathCard/application/IDEA/app/build/mdk/scp_packets/packet.list
+11:40:22 - ERROR
+Unabe to open SCP session !!!	D
+	

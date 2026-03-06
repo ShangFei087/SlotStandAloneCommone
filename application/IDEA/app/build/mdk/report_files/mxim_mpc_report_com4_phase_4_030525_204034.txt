@@ -1,0 +1,7 @@
+20:40:34 - Process with SCP packets from file:
+G:/maths/QSoftGodW/application/IDEA/app/build/mdk/scp_packets/packet.list
+20:40:35 - ERROR
+Unabe to open SCP session !!!	  File "serial\serialwin32.pyo", line 71, in open
+	  File "serial\serialwin32.pyo", line 186, in _reconfigurePort
+	ValueError: Cannot configure port, some setting was wrong. Original message: [Error 31] ����ϵͳ�ϵ��豸û�з������á�
+	

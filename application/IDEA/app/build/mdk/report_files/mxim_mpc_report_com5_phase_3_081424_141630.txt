@@ -1,0 +1,7 @@
+14:16:30 - Process with SCP packets from file:
+E:/slotmath/QSoftUnitest/platform/max32555/sdk/tools/MPC/serialsender/MAX32555/phase_3/write_crk/packet.list
+14:16:31 - ERROR
+Unabe to open SCP session !!!	  File "serial\serialutil.pyo", line 261, in __init__
+	  File "serial\serialwin32.pyo", line 59, in open
+	serial.serialutil.SerialException: could not open port COM5: [Error 5] �ܾ����ʡ�
+	

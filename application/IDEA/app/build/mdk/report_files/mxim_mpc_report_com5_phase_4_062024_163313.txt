@@ -1,0 +1,9 @@
+16:33:13 - Process with SCP packets from file:
+F:/common/QSoft-1.2/application/IDEA-Dragon/app/build/mdk/scp_packets/packet.list
+16:33:14 - ERROR
+Unabe to open SCP session !!!	  File "BootloaderScp.pyo", line 251, in __init__
+	  File "serial\serialwin32.pyo", line 31, in __init__
+	  File "serial\serialutil.pyo", line 261, in __init__
+	  File "serial\serialwin32.pyo", line 59, in open
+	serial.serialutil.SerialException: could not open port COM5: [Error 2] ϵͳ�Ҳ���ָ�����ļ���
+	

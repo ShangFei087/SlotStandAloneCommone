@@ -1,0 +1,3 @@
+17:45:41 - Process with SCP packets from file:
+G:/gitsrc/QSoftGodW/application/IDEA/app/build/mdk/scp_packets/packet.list
+17:46:25 - SUCCESSFULLY DONE

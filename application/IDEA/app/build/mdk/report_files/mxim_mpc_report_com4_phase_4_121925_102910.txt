@@ -1,0 +1,5 @@
+10:29:10 - Process with SCP packets from file:
+F:/Control/SlotStandAloneControl/SlotStandAloneCommone02/application/IDEA/app/build/mdk/scp_packets/packet.list
+10:29:11 - ERROR
+Unabe to open SCP session !!!	.SerialException: could not open port COM4: [Error 5] �ܾ����ʡ�
+	

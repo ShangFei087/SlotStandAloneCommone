@@ -1,0 +1,9 @@
+﻿idea_coder.obj : error LNK2019: unresolved external symbol _qs_des_cbc_encrypt referenced in function _coder_get_token1
+idea_coder.obj : error LNK2019: unresolved external symbol _qs_des_cbc_decrypt referenced in function _coder_get_token0
+idea_coder.obj : error LNK2019: unresolved external symbol _qs_rand8 referenced in function _idea_coder_code
+idea_coder.obj : error LNK2019: unresolved external symbol _qs_database_connect referenced in function _coder_data_setup
+idea_comm.obj : error LNK2001: unresolved external symbol _qs_database_connect
+idea_player.obj : error LNK2001: unresolved external symbol _qs_database_connect
+idea_pwd.obj : error LNK2001: unresolved external symbol _qs_database_connect
+MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol _main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+.\Exec\idea.exe : fatal error LNK1120: 5 unresolved externals
