@@ -1,0 +1,4 @@
+-禁用
+1.malloc
+2.printf(改成QS_LOG)
+2.全局常量尽量定义为 #define
