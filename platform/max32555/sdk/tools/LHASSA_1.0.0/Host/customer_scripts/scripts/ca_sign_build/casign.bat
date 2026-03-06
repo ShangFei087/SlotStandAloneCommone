@@ -1,0 +1,2 @@
+cygstart arm-none-eabi-objcopy.exe -O binary mq55_keypad_usecase.elf mq55_keypad_usecase.bin
+cygstart ca_sign_build.exe algo=ecdsa ca=mq55_keypad_usecase.bin sca=mq55_keypad_usecase.sbin load_address=10000000 jump_address=10000020 arguments= version=01000001 application_version=02030001 verbose=no

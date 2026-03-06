@@ -1,0 +1,1 @@
+bash sendscp.sh %3 %2

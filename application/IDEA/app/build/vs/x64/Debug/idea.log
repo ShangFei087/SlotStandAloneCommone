@@ -1,0 +1,265 @@
+﻿  CMD_Fish.c
+  Dll.c
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(525,17): warning C4013: “JRand”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(699,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(700,13): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(704,19): warning C4267: “初始化”: 从“size_t”转换到“int32_t”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(708,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(712,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(729,19): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(729,19):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(729,19):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(729,19):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(732,19): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(732,19):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(732,19):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(732,19):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(735,19): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(735,19):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(735,19):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(735,19):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(738,19): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(738,19):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(738,19):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(738,19):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(741,19): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(741,19):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(741,19):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(741,19):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(744,19): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(744,19):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(744,19):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(744,19):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(747,19): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(747,19):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(747,19):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(747,19):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(750,19): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(750,19):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(750,19):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(750,19):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(753,19): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(753,19):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(753,19):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(753,19):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(721,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(723,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(724,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(726,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(727,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(729,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(730,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(732,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(733,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(735,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(736,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(738,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(739,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(741,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(742,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(744,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(745,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(747,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(748,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(750,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(751,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(753,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(754,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(756,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(760,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\DllInterface.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\GameAlgo\common\JRand.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(379,58): warning C4047: “函数”:“int32_t *”与“int32_t (*)[20]”的间接级别不同
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(379,58): warning C4024: “Matrix_u_computerMatrixById”: 形参和实参 2 的类型不同
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(837,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(762,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(767,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(775,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(776,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(782,17): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(783,17): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(786,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(796,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(797,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(800,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(801,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(807,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(808,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(818,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(822,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(824,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(856,21): warning C4133: “函数”: 从“int32_t [20]”到“char *const ”的类型不兼容
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(857,25): warning C4133: “函数”: 从“int32_t [20]”到“const char *”的类型不兼容
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(850,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(856,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(857,13): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(861,19): warning C4267: “初始化”: 从“size_t”转换到“int32_t”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(867,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(878,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(884,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(885,13): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(889,19): warning C4267: “初始化”: 从“size_t”转换到“int32_t”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(894,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(905,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(910,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(911,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(914,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(915,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(919,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(920,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(925,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(926,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(931,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(932,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(934,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(935,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(938,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(939,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(960,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(961,13): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(963,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(964,13): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(970,17): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(971,17): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(977,17): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(978,17): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(979,17): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(980,17): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(985,17): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(986,17): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(990,17): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(991,17): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(997,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(998,13): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1000,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1001,13): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1007,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1008,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1010,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 2 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 3 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,31):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1046,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1078,9): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  LotteryManager.c
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\LotteryManager.c(20,35): warning C4244: “=”: 从“float”转换到“int32_t”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\LotteryManager.c(129,21): warning C4244: “初始化”: 从“float”转换到“int32_t”，可能丢失数据
+  idea_cmd.c
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\GameAlgo\common\JRand.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/idea_cmd.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\DllInterface.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/idea_cmd.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/idea_cmd.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(198,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(266,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(343,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(373,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(401,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(444,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(493,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(564,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(632,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(672,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(695,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(708,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(795,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(821,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(849,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(881,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(900,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(932,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\idea_cmd.c(993,4): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+  main.c
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\GameAlgo\common\JRand.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\DllInterface.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(294,30): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(294,30):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(294,30):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(294,30):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(294,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(310,41): warning C4244: “初始化”: 从“int64_t”转换到“int32_t”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(314,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  正在生成代码...
+  idea.vcxproj -> F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\x64\Debug\idea.exe

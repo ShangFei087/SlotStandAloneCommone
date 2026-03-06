@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\source">
+      <UniqueIdentifier>{da0fa5a7-6806-4b5d-9a8f-a699d035432c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="board">
+      <UniqueIdentifier>{59b77eb0-8a6a-4b7a-bacd-a17ef8f701c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\source\GameAlgo">
+      <UniqueIdentifier>{d7b3fb4b-e283-4ab5-9fb1-76d44ecd128f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\source\GameAlgo\cJSON">
+      <UniqueIdentifier>{cb312934-4b0e-47e8-949a-c288bd079509}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\source\GameAlgo\common">
+      <UniqueIdentifier>{c2889b3a-3433-46ec-beac-cfc260b053f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\source\GameAlgo\algo">
+      <UniqueIdentifier>{f786f0c3-3452-4a87-840d-0aa6b399c065}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\source\Control">
+      <UniqueIdentifier>{ced7c9a0-514b-4ecf-bd01-419af71ccce9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\source\idea_pwd.h">
+      <Filter>源文件\source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\idea_comm.h">
+      <Filter>源文件\source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\idea_coder.h">
+      <Filter>源文件\source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\idea_player.h">
+      <Filter>源文件\source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\ga_conf.h">
+      <Filter>源文件\source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\idea_qs.h">
+      <Filter>源文件\source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\app.h">
+      <Filter>源文件\source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\idea_app.h">
+      <Filter>源文件\source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\idea_cmd.h">
+      <Filter>源文件\source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\board\win32\qs_board.h">
+      <Filter>board</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\qs_cfg.h">
+      <Filter>源文件\source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameAlgo\cJSON\cJSON.h">
+      <Filter>源文件\source\GameAlgo\cJSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameAlgo\cJSON\cJSON_Utils.h">
+      <Filter>源文件\source\GameAlgo\cJSON</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameAlgo\common\JRand.h">
+      <Filter>源文件\source\GameAlgo\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameAlgo\common\SFMT.h">
+      <Filter>源文件\source\GameAlgo\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameAlgo\common\SFMT-common.h">
+      <Filter>源文件\source\GameAlgo\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameAlgo\common\SFMT-params.h">
+      <Filter>源文件\source\GameAlgo\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameAlgo\common\SFMT-params19937.h">
+      <Filter>源文件\source\GameAlgo\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\GameAlgo\algo\ga.h">
+      <Filter>源文件\source\GameAlgo\algo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\CMD_Fish.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\CommonStruct.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\ComputerData.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\DllInterface.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\NatureAlg.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\Test.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\Lottery.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\LotteryManager.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\GameManager.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\GameConfig.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\source\app.c">
+      <Filter>源文件\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\idea_app.c">
+      <Filter>源文件\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\idea_cmd.c">
+      <Filter>源文件\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\main.c">
+      <Filter>源文件\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\idea_qs.c">
+      <Filter>源文件\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameAlgo\cJSON\cJSON.c">
+      <Filter>源文件\source\GameAlgo\cJSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameAlgo\cJSON\cJSON_Utils.c">
+      <Filter>源文件\source\GameAlgo\cJSON</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameAlgo\common\JRand.c">
+      <Filter>源文件\source\GameAlgo\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameAlgo\common\SFMT.c">
+      <Filter>源文件\source\GameAlgo\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\GameAlgo\algo\ga.c">
+      <Filter>源文件\source\GameAlgo\algo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\CMD_Fish.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\CommonStruct.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\ComputerData.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\Dll.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\NatureAlg.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\Lottery.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\LotteryManager.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\GameManager.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\GameConfig.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

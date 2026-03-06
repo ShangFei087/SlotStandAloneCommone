@@ -1,0 +1,2 @@
+./casign_and_send.bat mq55_keypad_usecase keypad_test COM1
+./gen_OTP_VUSB_USB_0ms.sh OTP_VUSB_USB_0s ../keys/maximtestcrk.key
