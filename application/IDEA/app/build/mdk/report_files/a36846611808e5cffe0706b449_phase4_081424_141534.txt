@@ -1,0 +1,9 @@
+14:15:23 - Process with SCP packets from file:
+E:/slotmath/QSoftUnitest/application/IDEA/app/build/mdk/scp_packets/packet.list
+14:15:50 - ERROR
+Unabe to open SCP session !!!	e
+	       real size = 0
+	       expected size = 26220
+	error: read packet error occur. # 1
+	error: SCP session FAILED
+	

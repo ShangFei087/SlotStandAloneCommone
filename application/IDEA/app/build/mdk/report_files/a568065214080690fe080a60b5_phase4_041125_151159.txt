@@ -1,0 +1,4 @@
+15:11:54 - Process with SCP packets from file:
+G:/gitsrc/QSoftGodW/platform/max32555/sdk/tools/MPC/serialsender/MAX32555/phase_3/write_crk_my/packet.list
+15:11:59 - ERROR- 
+	Wrong lifecycle, current is  4, expected one is 3 

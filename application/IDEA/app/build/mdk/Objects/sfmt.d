@@ -1,0 +1,11 @@
+.\objects\sfmt.o: ..\..\source\GameAlgo\common\SFMT.c
+.\objects\sfmt.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\sfmt.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+.\objects\sfmt.o: ..\..\source\GameAlgo\common\SFMT.h
+.\objects\sfmt.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\sfmt.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+.\objects\sfmt.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\inttypes.h
+.\objects\sfmt.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\sfmt.o: ..\..\source\GameAlgo\common\SFMT-params.h
+.\objects\sfmt.o: ..\..\source\GameAlgo\common\SFMT-params19937.h
+.\objects\sfmt.o: ..\..\source\GameAlgo\common\SFMT-common.h

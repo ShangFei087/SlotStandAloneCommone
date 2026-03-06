@@ -1,0 +1,9 @@
+19:05:54 - Process with SCP packets from file:
+F:/Control/SlotStandAloneControl/SlotStandAloneCommone02/application/IDEA/app/build/mdk/scp_packets/packet.list
+19:06:27 - ERROR
+Unabe to open SCP session !!!	
+	       real size = 1
+	       expected size = 8
+	error: read packet error occur. # 1
+	error: SCP session FAILED
+	
