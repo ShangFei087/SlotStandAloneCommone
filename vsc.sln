@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common", "platform\common\vss\common.vcxitems", "{AA8A5F23-1E23-4A7E-BCB5-26C7494673B3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "idea", "application\IDEA\app\build\vs\idea.vcxproj", "{581F1FB6-8772-43B6-A249-6A79E9C7800C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qs", "qs\vss\qs.vcxitems", "{E725AEBC-2858-4CA2-88A1-041169DA57A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Debug|Any CPU.Build.0 = Debug|x64
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Debug|x64.ActiveCfg = Debug|x64
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Debug|x64.Build.0 = Debug|x64
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Debug|x86.ActiveCfg = Debug|Win32
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Debug|x86.Build.0 = Debug|Win32
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Release|Any CPU.ActiveCfg = Release|x64
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Release|Any CPU.Build.0 = Release|x64
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Release|x64.ActiveCfg = Release|x64
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Release|x64.Build.0 = Release|x64
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Release|x86.ActiveCfg = Release|Win32
+		{581F1FB6-8772-43B6-A249-6A79E9C7800C}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5FF9793B-0EC0-42EE-A037-E404F9571A0C}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		platform\common\vss\common.vcxitems*{aa8a5f23-1e23-4a7e-bcb5-26c7494673b3}*SharedItemsImports = 9
+		qs\vss\qs.vcxitems*{e725aebc-2858-4ca2-88a1-041169da57a5}*SharedItemsImports = 9
+	EndGlobalSection
+EndGlobal

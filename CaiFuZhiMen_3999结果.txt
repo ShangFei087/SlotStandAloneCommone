@@ -1,0 +1,46 @@
+【调试】
+	//debugStr内容如下{"Mode":0,"ResultType":1}
+	//Mode：0:DCM_Normal    1：DCM_PointResData
+	//ResultType:  0:RT_Lose  1:RT_ComboWin  2:RT_FreeWin 3:RT_BonusWin	
+
+【普通中奖】
+{"OpenType":0,"ResultType":1,"IDVec":[4301,7205,11205],"Matrix":[2,5,1,7,4,5,1,4,4,2,1,2,5,4,1],"TotalBet":6}
+-IDVec:万千位标识线， 百位标识消除多少个， 十个位标识ID。
+-OpenType：0:普通开奖 1:赠送
+-ResultType：输 1:盈 2:免费游戏 3:大奖游戏
+-Matrix：滚轮阵列 先从左往右，再从上到下
+-TotalBet：总赔率
+
+【免费游戏】
+{"OpenType":0,"ResultType":2,"IDVec":[],"Matrix":[0,12,0,4,0,3,3,0,5,5,12,4,5,3,12],"TotalFreeBet":350,"TotalFreeTime":12,"FreeBetArray":[0,220,0,30,0,0,0,0,0,0,10,90],"TotalBet":0}
+
+-FreeBetArray：每回合免费游戏的得分
+-TotalFreeBet：免费游戏总得分
+-TotalFreeTime：免费总次数
+【赠送局】
+
+【Bonus彩金游戏】
+{"OpenType":0,"ResultType":3,"IDVec":[],"Matrix":[11,1,6,4,4,2,7,11,4,3,6,11,3,8,0],"BonusType":4,"BonusBet":4080,"TotalBet":0}
+-BonusType：大奖类型
+-BonusBet：大奖赔率
+
+
+//赔率
+int gBetArray[GE_ChessTypeNum][4] = {
+	{ 0, 15, 30, 90 },//0
+	{ 0, 15, 30, 90 },//1
+	{ 0, 15, 30, 90 },//2
+	{ 0, 20, 60, 150 },//3
+	{ 0, 20, 60, 150 },//4
+	{ 15, 30, 150, 600 },//5
+	{ 15, 30, 150, 600 },//6
+	{ 20, 60, 600, 1500 },//7
+	{ 30, 300, 1500, 3000 },//8
+	{ 0, 0, 0, 0 },//9
+	{ 0, 0, 0, 0 },//10
+	{ 0, 0, 0, 0 },//11
+};
+
+	CT_Wild = 9,				//万能牌
+	CT_Scater = 10,				//3个Scatter开免费游戏
+	CT_Bonus = 11,				//6个bonus开出彩金游戏

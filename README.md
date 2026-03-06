@@ -1,0 +1,2 @@
+# QSoftMathCard
+QSoftMathCard for slotgame
