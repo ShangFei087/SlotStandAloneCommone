@@ -1,8 +1,8 @@
 Dependencies for Project 'idea-app', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (..\..\source\qs_cfg.h)(0x6968B1F8)()
+F (..\..\source\qs_cfg.h)(0x69B37980)()
 F (..\..\source\idea_coder.h)(0x678F682E)()
-F (..\..\source\idea_player.h)(0x6940C33A)()
+F (..\..\source\idea_player.h)(0x69B239A0)()
 F (..\..\source\idea_pwd.h)(0x667CD114)()
 F (..\..\source\idea_comm.h)(0x68F723DE)()
 F (..\..\source\app.c)(0x6943B174)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\app.o --omf_browse .\objects\app.crf --depend .\objects\app.d)
@@ -11,7 +11,7 @@ I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -60,7 +60,7 @@ I (..\..\source\idea_comm.h)(0x68F723DE)
 I (..\..\source\idea_coder.h)(0x678F682E)
 I (..\..\source\ga_conf.h)(0x68F704AC)
 I (..\..\source\idea_pwd.h)(0x667CD114)
-I (..\..\source\idea_player.h)(0x6940C33A)
+I (..\..\source\idea_player.h)(0x69B239A0)
 I (..\..\source\idea_cmd.h)(0x6940D4FC)
 I (..\..\source\./GameAlgo/algo/ga.h)(0x68F704A2)
 F (..\..\source\app.h)(0x667D4FF2)()
@@ -71,7 +71,7 @@ I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -120,17 +120,17 @@ I (..\..\source\idea_comm.h)(0x68F723DE)
 I (..\..\source\idea_coder.h)(0x678F682E)
 I (..\..\source\ga_conf.h)(0x68F704AC)
 I (..\..\source\idea_pwd.h)(0x667CD114)
-I (..\..\source\idea_player.h)(0x6940C33A)
+I (..\..\source\idea_player.h)(0x69B239A0)
 I (..\..\source\idea_cmd.h)(0x6940D4FC)
 I (..\..\source\./GameAlgo/algo/ga.h)(0x68F704A2)
 F (..\..\source\idea_app.h)(0x6940D4C8)()
-F (..\..\source\idea_cmd.c)(0x69A82ED0)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\idea_cmd.o --omf_browse .\objects\idea_cmd.crf --depend .\objects\idea_cmd.d)
+F (..\..\source\idea_cmd.c)(0x69B3A8C7)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\idea_cmd.o --omf_browse .\objects\idea_cmd.crf --depend .\objects\idea_cmd.d)
 I (..\..\source\app.h)(0x667D4FF2)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -179,19 +179,19 @@ I (..\..\source\idea_comm.h)(0x68F723DE)
 I (..\..\source\idea_coder.h)(0x678F682E)
 I (..\..\source\ga_conf.h)(0x68F704AC)
 I (..\..\source\idea_pwd.h)(0x667CD114)
-I (..\..\source\idea_player.h)(0x6940C33A)
+I (..\..\source\idea_player.h)(0x69B239A0)
 I (..\..\source\idea_cmd.h)(0x6940D4FC)
 I (..\..\source\./GameAlgo/algo/ga.h)(0x68F704A2)
 I (..\..\source\Control/CMD_Fish.h)(0x6971EF41)
-I (..\..\source\Control/GameConfig.h)(0x6969B2B2)
+I (..\..\source\Control/GameConfig.h)(0x69B130D1)
 I (..\..\source\Control/NatureAlg.h)(0x6969B3A3)
 I (..\..\source\Control/../GameAlgo/common/JRand.h)(0x69679C7E)
 I (..\..\source\Control/ComputerData.h)(0x698304A6)
-I (..\..\source\Control/DllInterface.h)(0x69703989)
+I (..\..\source\Control/DllInterface.h)(0x69B25984)
 I (..\..\source\Control/GameManager.h)(0x6969A63F)
 I (..\..\source\Control/CommonStruct.h)(0x6968D8E7)
 I (..\..\source\Control/LotteryManager.h)(0x69703E45)
-I (..\..\source\Control/Lottery.h)(0x698151F3)
+I (..\..\source\Control/Lottery.h)(0x69AEA523)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
 F (..\..\source\idea_cmd.h)(0x6940D4FC)()
 F (..\..\source\idea_qs.c)(0x68F7316C)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\idea_qs.o --omf_browse .\objects\idea_qs.crf --depend .\objects\idea_qs.d)
@@ -200,7 +200,7 @@ I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -244,13 +244,13 @@ I (..\..\..\..\..\qs\system/qs_system_senv.h)(0x652E9F4A)
 I (..\..\..\..\..\qs\system/senv/qs_senv_manager.h)(0x5FC0B92C)
 I (..\..\..\..\..\qs\system/senv/qs_senv.h)(0x5E1573B6)
 F (..\..\source\idea_qs.h)(0x68F730FC)()
-F (..\..\source\main.c)(0x69A8265D)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (..\..\source\main.c)(0x69B13192)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (..\..\source\app.h)(0x667D4FF2)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -299,20 +299,20 @@ I (..\..\source\idea_comm.h)(0x68F723DE)
 I (..\..\source\idea_coder.h)(0x678F682E)
 I (..\..\source\ga_conf.h)(0x68F704AC)
 I (..\..\source\idea_pwd.h)(0x667CD114)
-I (..\..\source\idea_player.h)(0x6940C33A)
+I (..\..\source\idea_player.h)(0x69B239A0)
 I (..\..\source\idea_cmd.h)(0x6940D4FC)
 I (..\..\source\./GameAlgo/algo/ga.h)(0x68F704A2)
 I (..\..\source\Control/NatureAlg.h)(0x6969B3A3)
 I (..\..\source\Control/CMD_Fish.h)(0x6971EF41)
-I (..\..\source\Control/GameConfig.h)(0x6969B2B2)
+I (..\..\source\Control/GameConfig.h)(0x69B130D1)
 I (..\..\source\Control/../GameAlgo/common/JRand.h)(0x69679C7E)
-I (..\..\source\Control/DllInterface.h)(0x69703989)
+I (..\..\source\Control/DllInterface.h)(0x69B25984)
 I (..\..\source\Control/GameManager.h)(0x6969A63F)
 I (..\..\source\Control/CommonStruct.h)(0x6968D8E7)
 I (..\..\source\Control/ComputerData.h)(0x698304A6)
-I (..\..\source\Control/Test.h)(0x69A8294D)
+I (..\..\source\Control/Test.h)(0x69B133A4)
 I (..\..\source\Control/LotteryManager.h)(0x69703E45)
-I (..\..\source\Control/Lottery.h)(0x698151F3)
+I (..\..\source\Control/Lottery.h)(0x69AEA523)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
 F (..\..\source\Control\CMD_Fish.c)(0x698304C0)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\cmd_fish.o --omf_browse .\objects\cmd_fish.crf --depend .\objects\cmd_fish.d)
 I (..\..\source\Control\CMD_Fish.h)(0x6971EF41)
@@ -320,7 +320,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -363,9 +363,9 @@ I (..\..\..\..\..\qs\system/qs_system.h)(0x652E9F3A)
 I (..\..\..\..\..\qs\system/qs_system_senv.h)(0x652E9F4A)
 I (..\..\..\..\..\qs\system/senv/qs_senv_manager.h)(0x5FC0B92C)
 I (..\..\..\..\..\qs\system/senv/qs_senv.h)(0x5E1573B6)
-I (..\..\source\Control\GameConfig.h)(0x6969B2B2)
+I (..\..\source\Control\GameConfig.h)(0x69B130D1)
 I (..\..\source\Control\ComputerData.h)(0x698304A6)
-I (..\..\source\Control\Test.h)(0x69A8294D)
+I (..\..\source\Control\Test.h)(0x69B133A4)
 I (E:\Keil_v5\ARM\ARMCC\include\assert.h)(0x5E8E3CC2)
 F (..\..\source\Control\CommonStruct.c)(0x6968EC06)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\commonstruct.o --omf_browse .\objects\commonstruct.crf --depend .\objects\commonstruct.d)
 I (..\..\source\Control\CommonStruct.h)(0x6968D8E7)
@@ -374,7 +374,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -417,14 +417,14 @@ I (..\..\..\..\..\qs\system/qs_system.h)(0x652E9F3A)
 I (..\..\..\..\..\qs\system/qs_system_senv.h)(0x652E9F4A)
 I (..\..\..\..\..\qs\system/senv/qs_senv_manager.h)(0x5FC0B92C)
 I (..\..\..\..\..\qs\system/senv/qs_senv.h)(0x5E1573B6)
-I (..\..\source\Control\GameConfig.h)(0x6969B2B2)
+I (..\..\source\Control\GameConfig.h)(0x69B130D1)
 F (..\..\source\Control\ComputerData.c)(0x6968E1A6)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\computerdata.o --omf_browse .\objects\computerdata.crf --depend .\objects\computerdata.d)
 I (..\..\source\Control\ComputerData.h)(0x698304A6)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -468,15 +468,15 @@ I (..\..\..\..\..\qs\system/qs_system_senv.h)(0x652E9F4A)
 I (..\..\..\..\..\qs\system/senv/qs_senv_manager.h)(0x5FC0B92C)
 I (..\..\..\..\..\qs\system/senv/qs_senv.h)(0x5E1573B6)
 I (..\..\source\Control\CMD_Fish.h)(0x6971EF41)
-I (..\..\source\Control\GameConfig.h)(0x6969B2B2)
-F (..\..\source\Control\Dll.c)(0x698304BB)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\dll.o --omf_browse .\objects\dll.crf --depend .\objects\dll.d)
-I (..\..\source\Control\DllInterface.h)(0x69703989)
+I (..\..\source\Control\GameConfig.h)(0x69B130D1)
+F (..\..\source\Control\Dll.c)(0x69B25AE2)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\dll.o --omf_browse .\objects\dll.crf --depend .\objects\dll.d)
+I (..\..\source\Control\DllInterface.h)(0x69B25984)
 I (..\..\source\Control\GameManager.h)(0x6969A63F)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -521,12 +521,12 @@ I (..\..\..\..\..\qs\system/senv/qs_senv_manager.h)(0x5FC0B92C)
 I (..\..\..\..\..\qs\system/senv/qs_senv.h)(0x5E1573B6)
 I (..\..\source\Control\NatureAlg.h)(0x6969B3A3)
 I (..\..\source\Control\CMD_Fish.h)(0x6971EF41)
-I (..\..\source\Control\GameConfig.h)(0x6969B2B2)
+I (..\..\source\Control\GameConfig.h)(0x69B130D1)
 I (..\..\source\Control\../GameAlgo/common/JRand.h)(0x69679C7E)
 I (..\..\source\Control\CommonStruct.h)(0x6968D8E7)
 I (..\..\source\Control\ComputerData.h)(0x698304A6)
-I (..\..\source\idea_player.h)(0x6940C33A)
-I (..\..\source\Control\Test.h)(0x69A8294D)
+I (..\..\source\idea_player.h)(0x69B239A0)
+I (..\..\source\Control\Test.h)(0x69B133A4)
 F (..\..\source\Control\NatureAlg.c)(0x6969D535)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\naturealg.o --omf_browse .\objects\naturealg.crf --depend .\objects\naturealg.d)
 I (..\..\source\Control\NatureAlg.h)(0x6969B3A3)
 I (..\..\source\Control\CMD_Fish.h)(0x6971EF41)
@@ -534,7 +534,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -577,16 +577,16 @@ I (..\..\..\..\..\qs\system/qs_system.h)(0x652E9F3A)
 I (..\..\..\..\..\qs\system/qs_system_senv.h)(0x652E9F4A)
 I (..\..\..\..\..\qs\system/senv/qs_senv_manager.h)(0x5FC0B92C)
 I (..\..\..\..\..\qs\system/senv/qs_senv.h)(0x5E1573B6)
-I (..\..\source\Control\GameConfig.h)(0x6969B2B2)
+I (..\..\source\Control\GameConfig.h)(0x69B130D1)
 I (..\..\source\Control\../GameAlgo/common/JRand.h)(0x69679C7E)
 I (..\..\source\Control\ComputerData.h)(0x698304A6)
 F (..\..\source\Control\GameConfig.c)(0x69699C44)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\gameconfig.o --omf_browse .\objects\gameconfig.crf --depend .\objects\gameconfig.d)
-I (..\..\source\Control\GameConfig.h)(0x6969B2B2)
+I (..\..\source\Control\GameConfig.h)(0x69B130D1)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -637,7 +637,7 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -682,19 +682,19 @@ I (..\..\..\..\..\qs\system/senv/qs_senv_manager.h)(0x5FC0B92C)
 I (..\..\..\..\..\qs\system/senv/qs_senv.h)(0x5E1573B6)
 I (..\..\source\Control\NatureAlg.h)(0x6969B3A3)
 I (..\..\source\Control\CMD_Fish.h)(0x6971EF41)
-I (..\..\source\Control\GameConfig.h)(0x6969B2B2)
+I (..\..\source\Control\GameConfig.h)(0x69B130D1)
 I (..\..\source\Control\../GameAlgo/common/JRand.h)(0x69679C7E)
 I (..\..\source\Control\CommonStruct.h)(0x6968D8E7)
 I (..\..\source\Control\ComputerData.h)(0x698304A6)
-F (..\..\source\Control\Lottery.c)(0x69703126)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\lottery.o --omf_browse .\objects\lottery.crf --depend .\objects\lottery.d)
-I (..\..\source\Control\Lottery.h)(0x698151F3)
+F (..\..\source\Control\Lottery.c)(0x69B132C3)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\lottery.o --omf_browse .\objects\lottery.crf --depend .\objects\lottery.d)
+I (..\..\source\Control\Lottery.h)(0x69AEA523)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
 I (..\..\source\Control\../GameAlgo/common/JRand.h)(0x69679C7E)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -737,16 +737,16 @@ I (..\..\..\..\..\qs\system/qs_system.h)(0x652E9F3A)
 I (..\..\..\..\..\qs\system/qs_system_senv.h)(0x652E9F4A)
 I (..\..\..\..\..\qs\system/senv/qs_senv_manager.h)(0x5FC0B92C)
 I (..\..\..\..\..\qs\system/senv/qs_senv.h)(0x5E1573B6)
-F (..\..\source\Control\LotteryManager.c)(0x69830991)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\lotterymanager.o --omf_browse .\objects\lotterymanager.crf --depend .\objects\lotterymanager.d)
+F (..\..\source\Control\LotteryManager.c)(0x69AE8EFD)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\lotterymanager.o --omf_browse .\objects\lotterymanager.crf --depend .\objects\lotterymanager.d)
 I (..\..\source\Control\LotteryManager.h)(0x69703E45)
-I (..\..\source\Control\Lottery.h)(0x698151F3)
+I (..\..\source\Control\Lottery.h)(0x69AEA523)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
 I (..\..\source\Control\ComputerData.h)(0x698304A6)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -790,25 +790,25 @@ I (..\..\..\..\..\qs\system/qs_system_senv.h)(0x652E9F4A)
 I (..\..\..\..\..\qs\system/senv/qs_senv_manager.h)(0x5FC0B92C)
 I (..\..\..\..\..\qs\system/senv/qs_senv.h)(0x5E1573B6)
 I (..\..\source\Control\CMD_Fish.h)(0x6971EF41)
-I (..\..\source\Control\GameConfig.h)(0x6969B2B2)
-I (..\..\source\Control\Test.h)(0x69A8294D)
+I (..\..\source\Control\GameConfig.h)(0x69B130D1)
+I (..\..\source\Control\Test.h)(0x69B133A4)
 F (..\..\source\Control\CMD_Fish.h)(0x6971EF41)()
 F (..\..\source\Control\CommonStruct.h)(0x6968D8E7)()
 F (..\..\source\Control\ComputerData.h)(0x698304A6)()
-F (..\..\source\Control\DllInterface.h)(0x69703989)()
-F (..\..\source\Control\GameConfig.h)(0x6969B2B2)()
+F (..\..\source\Control\DllInterface.h)(0x69B25984)()
+F (..\..\source\Control\GameConfig.h)(0x69B130D1)()
 F (..\..\source\Control\GameManager.h)(0x6969A63F)()
-F (..\..\source\Control\Lottery.h)(0x698151F3)()
+F (..\..\source\Control\Lottery.h)(0x69AEA523)()
 F (..\..\source\Control\LotteryManager.h)(0x69703E45)()
 F (..\..\source\Control\NatureAlg.h)(0x6969B3A3)()
-F (..\..\source\Control\Test.h)(0x69A8294D)()
+F (..\..\source\Control\Test.h)(0x69B133A4)()
 F (..\..\source\Control\int_vector.c)(0x696856F4)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\int_vector.o --omf_browse .\objects\int_vector.crf --depend .\objects\int_vector.d)
 I (..\..\source\Control\int_vector.h)(0x696856F8)
 I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -904,7 +904,7 @@ F (..\..\..\..\..\qs\modules\lib\utility\qs_utility.h)(0x634ABC18)()
 F (..\..\..\..\..\qs\modules\device\qs_database.h)(0x6650A63E)()
 F (..\..\..\..\..\qs\system\senv\qs_senv.h)(0x5E1573B6)()
 F (..\..\..\..\..\qs\system\senv\qs_senv_manager.h)(0x5FC0B92C)()
-F (..\..\lib\ideabase.lib)(0x68F773EA)()
+F (..\..\lib\ideabase.lib)(0x69B3713C)()
 F (..\..\..\..\..\platform\max32555\sdk\lib\libucl-2.4.7_max32555.lib)(0x5E1564CA)()
 F (..\..\..\..\..\platform\max32555\sdk\drivers\build\libmml.lib)(0x62FB3776)()
 F (..\..\source\GameAlgo\algo\ga.c)(0x68F6F36E)(--c99 -c --cpu Cortex-M3 -g -O1 --apcs=interwork --split_sections -I ..\..\source -I ..\..\..\board -I ..\..\..\..\..\qs -I ..\..\..\..\..\qs\modules -I ..\..\..\..\..\qs\modules\device -I ..\..\..\..\..\qs\modules\lib\utility -I ..\..\..\..\..\qs\modules\lib\json -I ..\..\..\..\..\qs\modules\lib\base64 -I ..\..\..\..\..\qs\modules\lib\algo -I ..\..\..\..\..\platform\max32555 -I ..\..\..\..\..\platform\max32555\sdk\include -I ..\..\..\..\..\platform\max32555\sdk\include\ucl -I ..\..\..\..\..\platform\max32555\sdk\drivers\common -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\arch -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\dev -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\core\arm -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\devclass -I ..\..\..\..\..\platform\max32555\sdk\drivers\max3255X\include\usb\enumerate -I ..\..\..\..\..\platform\win32\ae -I ..\..\..\..\..\qs\system -I ..\..\..\..\..\qs\system\senv --gnu-IE:\Keil_v5\ARM\RV31\INC-D__UVISION_VERSION="540" --wchar32-o .\objects\ga.o --omf_browse .\objects\ga.crf --depend .\objects\ga.d)
@@ -913,7 +913,7 @@ I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)
@@ -988,7 +988,7 @@ I (..\..\..\..\..\qs\qs.h)(0x69679C7E)
 I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\..\source\qs_cfg.h)(0x6968B1F8)
+I (..\..\source\qs_cfg.h)(0x69B37980)
 I (..\..\..\..\..\qs\qs_driver.h)(0x6382227E)
 I (..\..\..\..\..\platform\max32555\qs_platform.h)(0x639EB3BC)
 I (..\..\..\..\..\platform\win32\ae\qs_ae_algo.h)(0x5E1564CA)

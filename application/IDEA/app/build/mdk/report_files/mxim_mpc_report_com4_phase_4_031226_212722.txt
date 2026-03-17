@@ -1,0 +1,9 @@
+21:27:22 - Process with SCP packets from file:
+F:/Control/SlotStandAloneControl/SlotStandAloneCommone_debug_1/application/IDEA/app/build/mdk/scp_packets/packet.list
+21:27:23 - ERROR
+Unabe to open SCP session !!!	  File "BootloaderScp.pyo", line 251, in __init__
+	  File "serial\serialwin32.pyo", line 31, in __init__
+	  File "serial\serialutil.pyo", line 261, in __init__
+	  File "serial\serialwin32.pyo", line 59, in open
+	serial.serialutil.SerialException: could not open port COM4: [Error 5] �ܾ����ʡ�
+	

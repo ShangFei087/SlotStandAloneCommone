@@ -30,7 +30,6 @@ typedef struct {
 	uint8_t reserved[1];			// ±£Áô×Ö¶Î
 } GameConfigHeader_t;
 
-
 typedef struct 
 {
 	//uint8_t* wildSymbol;                         // Wild·ûºÅÅâÂÊ

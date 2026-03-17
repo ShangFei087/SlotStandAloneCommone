@@ -44,17 +44,11 @@ typedef GameInstanceId_t GameId_t;
  void DLL_OnBegin(player_data_item* pUserInfo, GameId_t gameId);
  void DLL_OnBeginEx(player_data_item* pUserInfo, int8_t isReconnect, GameId_t gameId);  // bool改为int32_t
 
-//获取游戏结果（使用当前游戏）
- void DLL_GetGameResult(player_data_item* pUserInfo, int32_t betValue, OutResult_t* res, int32_t *ret);
 //获取游戏结果（指定游戏ID）
  void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutResult_t* outRes, int32_t* ret, GameId_t gameId);
 
  void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* outRes, int32_t* ret, GameId_t gameId);
-
- void DLL_GetGameResultJson(player_data_item* pUserInfo, int32_t betValue, int8_t openType, int8_t resStr[2048]);
-
- void DLL_GetGameResultJsonById(player_data_item* pUserInfo, int32_t betValue, int8_t openType, int8_t resStr[2048], GameId_t gameId);
-
+;
 //获取调试信息
  void DLL_GetDebugInfo(DebugInfo* pDebugInfo, GameId_t gameId);
  void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo, GameId_t gameId);
@@ -65,9 +59,6 @@ typedef GameInstanceId_t GameId_t;
 
 //清除调试数据
  void DLL_DebugClearData(GameId_t gameId);
-
-
-
 
  void DLL_GameClose(GameId_t gameId);
  void DLL_GameCloseAll(void);

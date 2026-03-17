@@ -83,7 +83,7 @@ int32_t giveTime = 0;//免费次数
 static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 {
 	uint32_t cmd = qs_json_GetObjectItem(json, "cmd")->valueint;
-
+	QS_LOG("\r\n Cmd:%d", cmd);
 	switch (cmd) 
 	{
 	//游戏初始化, 用于IDEA程序做一些必要的初始化操作
@@ -98,7 +98,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		
 		//初始化彩金
 		LotteryManager_Init();
-		int32_t baseValueArray[3] = { 30,15,5 };
+		int32_t baseValueArray[3] = { 3000,1500,500 };
 		int32_t maxValueArray[3] = { JPWeight[1], JPWeight[2] , JPWeight[3] };
 		LotteryManager_SetBaseValue(&gLotteryManager, baseValueArray, maxValueArray);
 
@@ -727,10 +727,9 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		uint32_t player_id = qs_json_GetArrayItem(pJsonArray, 0)->valueint;
 		player_data_item* pItem = player_statistics(player_id);
 		
-		uint32_t betValue = 0;
-		
-		betValue = pItem->Bet;
-		
+		uint32_t totalbet = pItem->Bet;//总押注
+		uint32_t betmultiple = pItem->Bet / 50;//下注倍数
+		QS_LOG("\r\n Bet:%d", totalbet);
 		outres.openType = OT_Normal;
 		if (giveTime > 0)
 		{
@@ -740,11 +739,13 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 
 		if (outres.openType == OT_Normal)
 		{
-			pItem->Credit -= betValue;
-			pItem->Bets += betValue;
-			LotteryManager_OnPlay(&gLotteryManager, betValue);
+			BOOL xret = player_bets_info_update(player_id, totalbet, 0);
+			if (xret) {
+				QS_LOG("\r\n 1111");
+			}
+			LotteryManager_OnPlay(&gLotteryManager, totalbet);
 			//检测是否可以获得彩金
-			LotteryManager_TryGetLottery(&gLotteryManager, betValue, &jpType, &jpvaule);
+			LotteryManager_TryGetLottery(&gLotteryManager, totalbet, &jpType, &jpvaule);
 			if (jpvaule > 0)
 			{
 				outres.JPType = jpType;
@@ -753,7 +754,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		}
 
 		//调用游戏算法生成结果
-		DLL_GetGameResultById(pItem, betValue, &outres, &ret, gameId);
+		DLL_GetGameResultById(pItem, betmultiple, &outres, &ret, gameId);
 		if (outres.resType == RT_FreeWin)
 		{
 			giveTime = outres.nTotalFreeTime;
@@ -763,9 +764,10 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		//先把所有的分数加完
 		if (outres.openType == OT_Normal)
 		{
-			TotalWin = (outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
-			pItem->Credit += TotalWin;
-			pItem->Wins += TotalWin;
+			TotalWin = betmultiple *(outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
+
+			QS_LOG("\r\n Win:%d", TotalWin);
+			player_bets_info_update(player_id, 0, TotalWin);
 		}
 	
 		ret = gameId;
@@ -933,6 +935,53 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		qs_senv_manager_write(gpCtx->pSenv, json);
 	}
 	break;
+	// 玩家赢得联网彩金的彩金信息
+	case 20030:
+	{
+		qs_json* pJsonArray = qs_json_GetObjectItem(json, "data");
+		size_t JsonArraySize = qs_json_GetArraySize(pJsonArray);
+		uint32_t PlayerId = 0;;
+		uint32_t MachineId = 0;
+		uint32_t JackpotType = 0;
+		uint32_t JackpotWins = 0;
+		uint32_t pos = 0;
+		int32_t res[4] = { 0 };
+
+		uint32_t beforeCredit = 0;
+		uint32_t afterCredit = 0;
+		if (JsonArraySize && JsonArraySize ==4)
+		{
+			MachineId= qs_json_GetArrayItem(pJsonArray, 0)->valueint;
+			PlayerId = qs_json_GetArrayItem(pJsonArray, 1)->valueint;
+			JackpotType = qs_json_GetArrayItem(pJsonArray, 2)->valueint;
+			JackpotWins = qs_json_GetArrayItem(pJsonArray, 3)->valueint;
+
+			player_data_item* pItem = player_statistics(PlayerId);
+			beforeCredit = pItem->Credit;
+			player_bets_info_update(PlayerId, 0, JackpotWins);
+			afterCredit = pItem->Credit ;
+			res[0] = 0;
+			res[1] = JackpotWins;
+			res[2] = beforeCredit;
+			res[3] = afterCredit;
+			/*QS_LOG("\r\n PlayerId:%d", PlayerId);
+			QS_LOG("\r\n beforeCredit:%d", beforeCredit);
+			QS_LOG("\r\n afterCredit:%d", afterCredit);*/
+		}
+		else
+		{
+			res[0] =-1;
+			res[1] = 0;
+		}
+
+
+		//TODO
+		qs_json_DeleteItemFromObject(json, "data");
+		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
+		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
+		qs_senv_manager_write(gpCtx->pSenv, json);
+	}
+	break;
 	}
 }
 static void cmd_exec_0(uint32_t millisecond)
@@ -940,7 +989,7 @@ static void cmd_exec_0(uint32_t millisecond)
 	static uint32_t mdt = 0;
 
 	mdt += millisecond;
-	if ((mdt >= 10000) || (gpCtx->update == TRUE)) {
+	if ((mdt >= 300) || (gpCtx->update == TRUE)) {
 		//player_data_item* pPlayer;
 		//ga_player_reward PlayerReward;
 		uint32_t i;

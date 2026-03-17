@@ -88,9 +88,9 @@ int32_t main(int32_t argc, char *argv[])
 
 	DebugControlMode_t debugMode;
     DebugControlMode_Init(&debugMode);
-	//debugMode.resType = RT_Win;
+	debugMode.resType = RT_Win;
 	//debugMode.resType = RT_Lose;
-	debugMode.resType = RT_FreeWin;
+	//debugMode.resType = RT_FreeWin;
 	//debugMode.resType = RT_BonusWin;
     //debugMode.bonusType =1;
 	debugMode.mode = DCM_PointResData;
@@ -108,7 +108,7 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     //初始化彩金
     LotteryManager_Init();
-    int32_t baseValueArray[3] = { 30,15,5 };
+    int32_t baseValueArray[3] = { 3000,1500,500 };
     int32_t maxValueArray[3] = { JPWeight[1], JPWeight[2] , JPWeight[3] };
     LotteryManager_SetBaseValue(&gLotteryManager, baseValueArray, maxValueArray);
 
@@ -221,7 +221,7 @@ int32_t main(int32_t argc, char *argv[])
 
     player_coin_info_update(player_id, CoinIn, 0, 0, 0, 0);
     pItem->Credit = CoinIn * Score_Scale;
-    pItem->Wins += CoinIn * Score_Scale;
+    pItem->Wins = 0;
     pItem->Bet = 100 ;
    
     int32_t ret = 0;
@@ -272,7 +272,7 @@ int32_t main(int32_t argc, char *argv[])
        
         if (outres.openType == OT_Normal)
         {
-            TotalWin = (outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
+            TotalWin = pItem->Bet*(outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
             pItem->Credit += TotalWin;
             pItem->Wins += TotalWin;
         }

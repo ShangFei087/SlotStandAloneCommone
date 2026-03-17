@@ -612,7 +612,8 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
     else
     {
         //累计投注
-        inst->debugInfo.dwPlayScore += betVal;
+         //inst->debugInfo.dwPlayScore+= betVal;
+        inst->debugInfo.dwPlayScore += betVal*50;
 
         Matrix_u mxu;
         Matrix_u_reset(&mxu);
@@ -723,7 +724,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
         }
 
         outRes->openType = OT_Normal;
-        inst->debugInfo.dwWinScore += (outRes->nMatrixBet + outRes->nTotalFreeBet + outRes->nBonusBet);
+        inst->debugInfo.dwWinScore += betVal * (outRes->nMatrixBet + outRes->nTotalFreeBet + outRes->nBonusBet);
     }
 
 }
@@ -733,6 +734,7 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
     GetNormalResult(pUserInfo, betValue, outRes, ret, gameId);
     GameInstance_t* inst = get_instance(gameId);
     if (!inst) return;
+
 
     inst->debugInfo.dwTotalPlayTime++;
     if (outRes->resType == RT_Win) {
@@ -753,9 +755,8 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
         inst->debugInfo.dwLooseTime++;
     }
     inst->debugInfo.dwFreeGameBetError = inst->freeGameInfo.nRemainFreeBet;
-
-#ifdef LocalDebug
     //日志
+#ifdef LocalDebug
     //int8_t* resTypeNameStrVec[] = { "输", "赢", "免费游戏", "奖池" };
     int8_t* resTypeNameStrVec[] = { "Lose", "Win", "FreeGame", "BonusGame" };
     int8_t resTypeStr[100];
@@ -1058,29 +1059,6 @@ void DLL_DebugClearData(GameId_t gameId)
     GameInstance_t* inst = get_instance(gameId);
     if (inst ) {
         DebugInfo_reset(&inst->debugInfo);
-    }
-}
-
-void DLL_GetGameResultJson(player_data_item* pUserInfo, int32_t betValue, int8_t openType, int8_t resStr[2048])
-{
-    GameId_t id = DLL_GetCurrentGameId();
-    DLL_GetGameResultJsonById(pUserInfo, betValue, openType, resStr, id);
-}
-
-void DLL_GetGameResultJsonById(player_data_item* pUserInfo, int32_t betValue, int8_t openType, int8_t resStr[2048], GameId_t gameId)
-{
-    OutResult_t outRes = {0};
-    int32_t ret = 0;
-    outRes.openType = openType;
-    DLL_GetGameResultById(pUserInfo, betValue, &outRes, &ret, gameId);
-    int8_t* jsonStr = OutResToJsonnById(&outRes,gameId);
-    if (jsonStr) {
-        strncpy((char*)resStr, (char*)jsonStr, 2047);
-        //memcpy();
-        resStr[2047] = '\0';
-        free(jsonStr);
-    } else {
-        resStr[0] = '\0';
     }
 }
 

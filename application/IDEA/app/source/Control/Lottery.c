@@ -9,6 +9,8 @@ void Lottery_Init(Lottery* self,int32_t threshMax, int32_t threshMin, int32_t dr
     self->mDrawRate = drawRate;     // 抽取率（决定每局游戏贡献多少到奖池）
     self->mMaxLottery = 0;         // 彩票最大值（后续由setBaseValue初始化）
     self->scale = scale;
+    self->mAccumScore = 0;
+    self->mAccumDrawVal = 0;
 }
 
 void Lottery_SetBaseValue(Lottery* self, int32_t baseValue, int32_t maxValue)
@@ -16,6 +18,8 @@ void Lottery_SetBaseValue(Lottery* self, int32_t baseValue, int32_t maxValue)
     self->mBaseLottery = baseValue;// 基础值（彩票的初始基数）
     self->mShowLottery = self->mBaseLottery;// 显示值（前端展示的奖池数值，初始等于基础值）
     self->mLotteryPool = self->mBaseLottery * 0.6;// 实际奖池金额（初始为基础值的60%）
+    self->mAccumScore = 0;
+    self->mAccumDrawVal = 0;
 
     // 最大值边界校验：限制在基础值的1.5~10倍之间（超过10倍强制拉回1.5倍）
     if (maxValue < self->mBaseLottery * 1.5) 
@@ -125,15 +129,33 @@ int32_t Lottery_CheckGet(Lottery* self, int32_t playScore)
 
 void Lottery_OnPlay(Lottery* self, int32_t score)
 {
+    // 计算本局贡献到奖池的金额
+    // int32_t drawVal = score * self->mDrawRate / 1000000 ;
+    //// 累计总贡献金额
+    //self->mDbTotalAccumPool += drawVal;
+    
+     // 计算增量系数：0.05~0.95之间（平衡显示值和奖池的增长速度）
+    //int32_t fDelta = fShowDiffVal / fPoolDiffVal; 
+    //if (fShowDiffVal / fPoolDiffVal > 95)
+    //   {
+    //       // 显示值增量 = 本局贡献 * 系数
+    //       self->mDbShowLottery += drawVal * 0.95;
+    //}
+
+    //   if (fShowDiffVal / fPoolDiffVal < 5)
+    //   {
+    //       self->mDbShowLottery += drawVal * 0.05;
+    //   }
+
     //不让彩金超过最大值
-    if (self->mDbShowLottery > self->mMaxLottery) 
+    if (self->mDbShowLottery > self->mMaxLottery)
     {
         return;
     }
-    // 计算本局贡献到奖池的金额
-    int32_t drawVal = score * self->mDrawRate / 1000000 ;
-    // 累计总贡献金额
-    self->mDbTotalAccumPool += drawVal;
+    //  先累积score
+    self->mAccumScore += score * 100;//放大100倍
+    // 计算累积的抽取值
+    self->mAccumDrawVal = self->mAccumScore * self->mDrawRate / 1000000 ;
 
     // 动态计算显示值的增量（核心算法）
     int32_t fShowDiffVal = self->mNextGiveLotteryThresh - self->mShowLottery; // 显示值与阈值的差值（最小0.01）
@@ -147,25 +169,21 @@ void Lottery_OnPlay(Lottery* self, int32_t score)
     {
 		fPoolDiffVal = 1;
 	}
-   
-    // 计算增量系数：0.05~0.95之间（平衡显示值和奖池的增长速度）
-	//int32_t fDelta = fShowDiffVal / fPoolDiffVal; 
-	//if (fShowDiffVal / fPoolDiffVal > 95)
-    //   {
-    //       // 显示值增量 = 本局贡献 * 系数
-    //       self->mDbShowLottery += drawVal * 0.95;
-	//}
 
-    //   if (fShowDiffVal / fPoolDiffVal < 5)
-    //   {
-    //       self->mDbShowLottery += drawVal * 0.05;
-    //   }
-    //int32_t ShowdrawVal = drawVal * fShowDiffVal / fPoolDiffVal;
-    int32_t ShowdrawVal = drawVal *JRandFrom(5,95)/100;
-    self->mDbShowLottery += ShowdrawVal;
-    // 奖池金额累加本局贡献
-    self->mDbLotteryPool += drawVal;
-    // 同步到int32_t变量（供外部调用）
+    if (self->mAccumDrawVal > 0)
+    {
+        // 增加奖池
+        self->mDbTotalAccumPool += self->mAccumDrawVal;
+        //int32_t ShowdrawVal = drawVal * fShowDiffVal / fPoolDiffVal;
+        int32_t ShowdrawVal = self->mAccumDrawVal * JRandFrom(5, 95) / 100;
+        self->mDbShowLottery += ShowdrawVal;
+        // 奖池金额累加本局贡献
+        self->mDbLotteryPool += self->mAccumDrawVal;
+        // 减去已转换的score
+        self->mAccumScore -= (self->mAccumDrawVal * 1000000 / self->mDrawRate);
+    }
+
+    //  同步到外部变量
     self->mShowLottery = self->mDbShowLottery;
     self->mLotteryPool = self->mDbLotteryPool;
     self->mTotalAccumPool = self->mDbTotalAccumPool;

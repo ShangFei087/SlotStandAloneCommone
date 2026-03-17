@@ -22,17 +22,17 @@ void LotteryManager_Init(void)
     int32_t nLocalJpUnit = JPDrawRateUnit[3];
     int32_t minThresh =0;
     int32_t threshRange[] = { 25, 50, 75, 100 };
-	if (0 > 10) {
-		minThresh = 25;
-	}
-	else {
-		minThresh = threshRange[0];
-	}
-       
-
+	
+	minThresh = threshRange[0];
     for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
     {
-        Lottery_Init(&gLotteryManager.mLotterys[i], 2 * gLotteryManager.mScale, minThresh, JPWeight[i+1] * nLocalJpUnit * gLotteryManager.mScale, gLotteryManager.mScale);
+        Lottery_Init
+        (
+            &gLotteryManager.mLotterys[i],
+            2 * gLotteryManager.mScale,
+            minThresh,
+            JPWeight[i+1] * nLocalJpUnit * gLotteryManager.mScale,
+            gLotteryManager.mScale);
     }
 
 }

@@ -24,6 +24,8 @@ typedef struct Lottery {
 	int64_t mDbTotalAccumPool;//高精度累计总奖池
 
 	int32_t scale; //放大奖池的倍数
+	int32_t mAccumDrawVal;    // 累积的抽取值
+	int32_t mAccumScore;      // 累积的score
 } Lottery;
 
 // 函数声明（替代类成员函数）
