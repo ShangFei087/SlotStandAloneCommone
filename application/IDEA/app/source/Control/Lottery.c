@@ -3,10 +3,6 @@
 
 // mDrawRate 使用万分比配置（1/10000）
 #define LOTTERY_DRAW_RATE_DENOM 10000
-#define LOTTERY_SHOW_RATIO_MAX_PERMIL 950
-#define LOTTERY_SHOW_CATCHUP_LOW_PERMIL 180
-#define LOTTERY_SHOW_CATCHUP_MID_PERMIL 280
-#define LOTTERY_SHOW_CATCHUP_HIGH_PERMIL 420
 
 
 void Lottery_Init(Lottery* self,int32_t threshMax, int32_t threshMin, int32_t drawRate, int32_t scale)
@@ -26,7 +22,7 @@ void Lottery_SetBaseValue(Lottery* self, int32_t baseValue, int32_t maxValue)
 {
     self->mBaseLottery = baseValue;                 // 基础值：彩金初始值
     self->mShowLottery = self->mBaseLottery;        // 显示值：初始化为基础值
-    self->mLotteryPool = self->mBaseLottery * 0.6;  // 实际池值：初始为基础值的 60%
+    self->mLotteryPool = self->mBaseLottery;        // 实际池值：与显示值同起点
     self->mTotalAccumPool = 0;
     self->mAccumScore = 0;
     self->mAccumDrawVal = 0;
@@ -77,7 +73,7 @@ int32_t Lottery_TryGet(Lottery* self, int32_t playScore, int32_t* val, int32_t* 
 
     if (self->mLotteryPool > self->mBaseLottery * 1)
     {
-        self->mLotteryPool = self->mBaseLottery * 0.6;
+        self->mLotteryPool = self->mBaseLottery;
     }
     self->mNextGiveLotteryThresh = self->mBaseLottery * 1 +(self->mMaxLottery - self->mBaseLottery) * JRandFrom(40, 95)/100;
     self->mShowSpeedPermil = 300;
@@ -126,54 +122,40 @@ void Lottery_OnPlay(Lottery* self, int32_t score)
 
     if (self->mAccumDrawVal > 0)
     {
-        int32_t showGap = 0;
-        int32_t showCatchupPermil = LOTTERY_SHOW_CATCHUP_LOW_PERMIL;
+        int32_t poolDiffVal = 0;
+        int32_t showDiffVal = 0;
+        int32_t deltaPermil = 0;
         int32_t showDrawVal = 0;
-        int32_t showCap = 0;
-        int32_t progressPermil = 0;
 
-        // 真实奖池优先增长，展示值通过 gap 追赶，避免两者等速同涨。
         self->mTotalAccumPool += self->mAccumDrawVal;
-        self->mLotteryPool += self->mAccumDrawVal;
 
-        if (self->mNextGiveLotteryThresh > 0)
+        // 动态计算显示值增量：根据 show 与 pool 到阈值的距离调整增长速度。
+        poolDiffVal = self->mNextGiveLotteryThresh - self->mLotteryPool;
+        if (poolDiffVal < 1)
         {
-            progressPermil = (int32_t)(((int64_t)self->mLotteryPool * 1000) / self->mNextGiveLotteryThresh);
-            if (progressPermil < 0) progressPermil = 0;
-            if (progressPermil > 1000) progressPermil = 1000;
+            poolDiffVal = 1;
         }
 
-        // 分阶段追赶：离阈值越近，展示追赶越快。
-        if (progressPermil >= 900)
+        showDiffVal = self->mNextGiveLotteryThresh - self->mShowLottery;
+        if (showDiffVal < 1)
         {
-            showCatchupPermil = LOTTERY_SHOW_CATCHUP_HIGH_PERMIL;
-        }
-        else if (progressPermil >= 700)
-        {
-            showCatchupPermil = LOTTERY_SHOW_CATCHUP_MID_PERMIL;
+            showDiffVal = 1;
         }
 
-        showGap = self->mLotteryPool - self->mShowLottery;
-        if (showGap < 1)
-        {
-            showGap = 1;
-        }
+        // 等价于 fDelta = showDiff/poolDiff，使用千分比避免浮点。
+        deltaPermil = (int32_t)(((int64_t)showDiffVal * 1000) / poolDiffVal);
+        if (deltaPermil > 950) deltaPermil = 950;
+        if (deltaPermil < 50) deltaPermil = 50;
 
-        showDrawVal = (int32_t)(((int64_t)showGap * showCatchupPermil) / 1000);
-        if (showDrawVal < 1) showDrawVal = 1;
-        if (showDrawVal > self->mAccumDrawVal) showDrawVal = self->mAccumDrawVal;
+        showDrawVal = (int32_t)(((int64_t)self->mAccumDrawVal * deltaPermil) / 1000);
+        if (showDrawVal < 1)
+        {
+            showDrawVal = 1;
+        }
 
         self->mShowLottery += showDrawVal;
+        self->mLotteryPool += self->mAccumDrawVal;
 
-        showCap = (int32_t)(((int64_t)self->mLotteryPool * LOTTERY_SHOW_RATIO_MAX_PERMIL) / 1000);
-        if (showCap < self->mBaseLottery)
-        {
-            showCap = self->mBaseLottery;
-        }
-        if (self->mShowLottery > showCap)
-        {
-            self->mShowLottery = showCap;
-        }
         if (self->mShowLottery > self->mMaxLottery)
         {
             self->mShowLottery = self->mMaxLottery;

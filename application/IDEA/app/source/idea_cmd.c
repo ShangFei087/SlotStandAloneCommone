@@ -26,6 +26,7 @@
 #include "Control/DllInterface.h"
 #include "Control/GameConfig.h"
 #include "Control/LotteryManager.h"
+#include "Control/GameRegistry.h"
 /**************************************************************************
  *                   G E N E R A L    C O N S T A N T S                   *
  **************************************************************************/
@@ -91,106 +92,16 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 	{
 		int32_t res[6] = { 0 };
 		uint8_t pos = 0;
-		uint8_t ret = 0;
-
-		//初始化游戏管理
-		GameManager_Init();
-		
-		//初始化彩金
-		LotteryManager_Init();
-		int32_t baseValueArray[3] = { 3000,1500,500 };
-		int32_t maxValueArray[3] = { JPWeight[1], JPWeight[2] , JPWeight[3] };
-		LotteryManager_SetBaseValue(&gLotteryManager, baseValueArray, maxValueArray);
-
-		//游戏配置初始化
+		int32_t ret = 0;
 		GameId_t gameId = GAME_ID_INVALID;
-		SlotGameConfig_t tempConfig;
-		GameConfig_Init(&tempConfig);
-		//初始化ZhuZaiJinBi_1700
+		if (GameRegistry_InitAndRegisterDefaults(&gameId))
 		{
-			gameId = GameManager_RegisterGame("ZhuZaiJinBi_1700", 1700);//注册1700
-			//初始化配置
-			//GameConfigHeader_t
-			tempConfig.header.id = 0;               // 是否启用
-			tempConfig.header.enabled = 0;          // 是否启用
-			tempConfig.header.gameMode = 0;         // 游戏模式：0=普通，1=技巧，2=专家
-			tempConfig.header.difficulty = 0;       // 难度：0-8
-			tempConfig.header.minBet = 0;            // 最小押注
-			tempConfig.header.maxBet = 0;           // 最大押注
-			tempConfig.header.ChessTypeNum = 12;    //总计图标个数
-			tempConfig.header.ChessNorTypeNum = 9;  //普通图标个数
-			tempConfig.header.lineCount = 15;       // 线数
-			tempConfig.header.reelCount = 5;        // 列数
-			tempConfig.header.rowCount = 3;         // 行数
-			tempConfig.header.MaxIDNyn = 15;        //最大可以消除线数
-			tempConfig.header.freeGameMax = 20;     //最大免费游戏次数
-			tempConfig.header.Wild = 9;              // Wild图标
-			tempConfig.header.Scatter = 10;          // 免费图标
-			tempConfig.header.Bonus = 11;             // 大奖图标 
-			tempConfig.header.normalRollTableId = 0;             // 普通滚轮表id
-			tempConfig.header.freeRollTableId = 0;             // 免费滚轮表id
-
-			GameConfig_Copy(&GameManager_GetInstance(gameId)->gameConfig, &tempConfig);
+			ret = gameId;
 		}
-
-		GameConfig_Init(&tempConfig);
-		//初始化CaiFuZhiMen_3999
+		else
 		{
-			gameId = GameManager_RegisterGame("CaiFuZhiMen_3999", 3999);//注册3999
-			//初始化配置
-		   //GameConfigHeader_t
-			tempConfig.header.id = 1;               // 内部id
-			tempConfig.header.enabled = 0;          // 是否启用
-			tempConfig.header.gameMode = 0;         // 游戏模式：0=普通，1=技巧，2=专家
-			tempConfig.header.difficulty = 0;       // 难度：0-8
-			tempConfig.header.minBet = 0;            // 最小押注
-			tempConfig.header.maxBet = 0;           // 最大押注
-			tempConfig.header.ChessTypeNum = 12;    //总计图标个数
-			tempConfig.header.ChessNorTypeNum = 9;  //普通图标个数
-			tempConfig.header.lineCount = 20;       // 线数
-			tempConfig.header.reelCount = 5;        // 列数
-			tempConfig.header.rowCount = 3;         // 行数
-			tempConfig.header.MaxIDNyn = 20;        //最大可以消除线数
-			tempConfig.header.freeGameMax = 12;     //最大免费游戏次数
-			tempConfig.header.Wild = 9;              // Wild图标
-			tempConfig.header.Scatter = 10;          // 免费图标
-			tempConfig.header.Bonus = 11;             // 大奖图标 
-			tempConfig.header.normalRollTableId = 1;             // 普通滚轮表id
-			tempConfig.header.freeRollTableId = 1;             // 免费滚轮表id
-
-			GameConfig_Copy(&GameManager_GetInstance(gameId)->gameConfig, &tempConfig);
+			ret = 0;
 		}
-
-		//初始化XingYunZhiLun_3998
-		GameConfig_Init(&tempConfig);
-		{
-			gameId = GameManager_RegisterGame("XingYunZhiLun_3998", 3998);//注册3998
-			//初始化配置
-		   //GameConfigHeader_t
-			tempConfig.header.id = 2;               // 内部id
-			tempConfig.header.enabled = 0;          // 是否启用
-			tempConfig.header.gameMode = 0;         // 游戏模式：0=普通，1=技巧，2=专家
-			tempConfig.header.difficulty = 0;       // 难度：0-8
-			tempConfig.header.minBet = 0;            // 最小押注
-			tempConfig.header.maxBet = 0;           // 最大押注
-			tempConfig.header.ChessTypeNum = 10;    //总计图标个数
-			tempConfig.header.ChessNorTypeNum = 8;  //普通图标个数
-			tempConfig.header.lineCount = 20;       // 线数
-			tempConfig.header.reelCount = 5;        // 列数
-			tempConfig.header.rowCount = 3;         // 行数
-			tempConfig.header.MaxIDNyn = 20;        //最大可以消除线数
-			tempConfig.header.freeGameMax = 6;     //最大免费游戏次数
-			tempConfig.header.Wild = 8;              // Wild图标
-			tempConfig.header.Bonus = 9;             // 大奖图标 
-			tempConfig.header.Scatter = 10;          // 免费图标 
-			tempConfig.header.normalRollTableId = 2;             // 普通滚轮表id
-			tempConfig.header.freeRollTableId = 3;             // 免费滚轮表id
-
-			GameConfig_Copy(&GameManager_GetInstance(gameId)->gameConfig, &tempConfig);
-		}
-
-
-		ret = gameId;
 		res[0] = ret;
 		//TODO
 		qs_json_DeleteItemFromObject(json, "data");

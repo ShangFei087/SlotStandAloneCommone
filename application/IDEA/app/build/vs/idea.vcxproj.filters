@@ -123,6 +123,9 @@
     <ClInclude Include="..\..\source\Control\GameConfig.h">
       <Filter>源文件\source\Control</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\Control\GameRegistry.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\app.c">
@@ -180,6 +183,9 @@
       <Filter>源文件\source\Control</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Control\GameConfig.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\GameRegistry.c">
       <Filter>源文件\source\Control</Filter>
     </ClCompile>
   </ItemGroup>

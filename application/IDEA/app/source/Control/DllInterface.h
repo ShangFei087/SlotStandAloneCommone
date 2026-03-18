@@ -30,6 +30,7 @@ typedef GameInstanceId_t GameId_t;
 //获取当前游戏ID
  GameId_t DLL_GetCurrentGameId(void);
 
+ // 返回堆内存字符串，调用方必须 free
  int8_t* OutResToJsonnById(OutResult_t* outRes, GameId_t gameId);
  //生成一个免费局
  void GenerateARoundWithFreeWinById(RoundInfo_t* info, GameId_t gameId, Matrix_u* freeMxu);

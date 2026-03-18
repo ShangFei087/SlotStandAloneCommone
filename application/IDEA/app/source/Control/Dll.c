@@ -4,6 +4,10 @@
 #include "CMD_Fish.h"
 #include "Test.h"
 #include "../GameAlgo/common/JRand.h"
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 GameInstance_t* g_CurrentGameInstance = NULL;  // 定义并初始化
 
 GameInstance_t* get_instance(GameId_t gameId)
@@ -17,6 +21,37 @@ GameInstance_t* get_instance(GameId_t gameId)
         return g_CurrentGameInstance;
     }
     return GameManager_GetInstance(gameId);
+}
+
+static void append_format(char* buffer, size_t buffer_size, size_t* used, const char* format, ...)
+{
+    va_list args;
+    int32_t written = 0;
+    size_t remain = 0;
+
+    // 统一的安全追加：所有 JSON/日志字符串都走这里，防止越界写入。
+    if (buffer == NULL || used == NULL || format == NULL || *used >= buffer_size) return;
+
+    remain = buffer_size - *used;
+    va_start(args, format);
+    written = vsnprintf(buffer + *used, remain, format, args);
+    va_end(args);
+
+    if (written < 0)
+    {
+        buffer[buffer_size - 1] = '\0';
+        *used = buffer_size - 1;
+        return;
+    }
+
+    if ((size_t)written >= remain)
+    {
+        buffer[buffer_size - 1] = '\0';
+        *used = buffer_size - 1;
+        return;
+    }
+
+    *used += (size_t)written;
 }
 
 GameId_t DLL_GameInit(int8_t* gameName, GameId_t gameId)
@@ -758,33 +793,29 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
     //日志
 #ifdef LocalDebug
     //int8_t* resTypeNameStrVec[] = { "输", "赢", "免费游戏", "奖池" };
-    int8_t* resTypeNameStrVec[] = { "Lose", "Win", "FreeGame", "BonusGame" };
-    int8_t resTypeStr[100];
-    sprintf(resTypeStr, "%s", resTypeNameStrVec[outRes->resType]);
+    const char* resTypeNameStrVec[] = { "Lose", "Win", "FreeGame", "BonusGame" };
+    const char* resTypeStr = resTypeNameStrVec[outRes->resType];
 
     //int8_t* optTypeNameStrVec[] = { "普通", "赠送" };
-    int8_t* optTypeNameStrVec[] = { "Normal", "Give" };
-    int8_t optTypeStr[100];
-    sprintf(optTypeStr, "%s", optTypeNameStrVec[outRes->openType]);
+    const char* optTypeNameStrVec[] = { "Normal", "Give" };
+    const char* optTypeStr = optTypeNameStrVec[outRes->openType];
 
-    int8_t finalString[1024] = { 0 };
-    int8_t resString[512] = { 0 };
-    int8_t tempBuffer[100] = { 0 };
+    char finalString[1024] = { 0 };
+    char resString[512] = { 0 };
+    size_t resUsed = 0;
+    size_t finalUsed = 0;
 
     if (outRes->resType == RT_Win) {
         //strcat(resString, "  补偿线：");
-        strcat(resString, "  IDVec:");
-        strcat(resString, " [");
+        append_format(resString, sizeof(resString), &resUsed, "  IDVec: [");
 
         for (int32_t j = 0; j < GE_MaxIDNum; ++j) {
             if (outRes->IDVec[j] > 0) {
-                int8_t idStr[50];
                 int32_t betValue = GetIDBetValue(outRes->IDVec[j]);
-                sprintf(idStr, "%d<%d> ", outRes->IDVec[j], betValue);
-                strcat(resString, idStr);
+                append_format(resString, sizeof(resString), &resUsed, "%d<%d> ", outRes->IDVec[j], betValue);
             }
         }
-        strcat(resString, "]");
+        append_format(resString, sizeof(resString), &resUsed, "]");
     }
 
     if (outRes->openType == OT_Give) {
@@ -792,21 +823,16 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
     }
 
     if (outRes->resType == RT_FreeWin) {
-        int8_t freeStr[100];
         //sprintf(freeStr, " 免费次数:%d", outRes->nTotalFreeTime);
-        sprintf(freeStr, " nTotalFreeTime:%d", outRes->nTotalFreeTime);
-        strcat(resString, freeStr);
+        append_format(resString, sizeof(resString), &resUsed, " nTotalFreeTime:%d", outRes->nTotalFreeTime);
 
         //sprintf(freeStr, " 预计总免费注:%d", outRes->nTotalFreeBet);
-        sprintf(freeStr, " nTotalFreeBet:%d", outRes->nTotalFreeBet);
-        strcat(resString, freeStr);
+        append_format(resString, sizeof(resString), &resUsed, " nTotalFreeBet:%d", outRes->nTotalFreeBet);
     }
 
     if (outRes->resType == RT_BonusWin) {
-        int8_t bonusStr[100];
         //sprintf(bonusStr, " 奖池总注数:%d", outRes->nBonusBet);
-        sprintf(bonusStr, " nBonusBet:%d", outRes->nBonusBet);
-        strcat(resString, bonusStr);
+        append_format(resString, sizeof(resString), &resUsed, " nBonusBet:%d", outRes->nBonusBet);
     }
 
     // 拼接最终字符串
@@ -816,22 +842,27 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
     int8_t scoreStr[200];
     sprintf(scoreStr, "总分:%d 期望:%d %s pool:%f",
         (int32_t)pUserInfo->lScore, expScore, resString, _gc.fTotalWinLoosePool);*/
-    sprintf(finalString, " optTypeStr:%s resTypeStr:%s betValue:%d nMatrixBet:%d ",
+    append_format(finalString, sizeof(finalString), &finalUsed, " optTypeStr:%s resTypeStr:%s betValue:%d nMatrixBet:%d ",
         optTypeStr, resTypeStr, betValue, outRes->nMatrixBet);
     int32_t expScore = (int32_t)pUserInfo->Wins + betValue * outRes->nMatrixBet;
-    int8_t scoreStr[1024];
-    sprintf(scoreStr, "totalscore:%d expectation:%d %s",
+    append_format(finalString, sizeof(finalString), &finalUsed, "totalscore:%d expectation:%d %s",
         (int32_t)pUserInfo->Wins, expScore, resString);
-    strcat(finalString, scoreStr);
 
 
     QS_LOG("%s\n", finalString);
 
     int8_t* jsonStr = OutResToJsonnById(outRes,gameId);
-    QS_LOG("%s\n", jsonStr);
+    if (jsonStr != NULL)
+    {
+        QS_LOG("%s\n", jsonStr);
+        free(jsonStr);
+    }
+    else
+    {
+        QS_LOG("{\"err\":\"OutResToJsonnById failed\"}\n");
+    }
 
     QS_LOG("-----------------\n");
-    free(jsonStr);
 
 #endif
 
@@ -845,99 +876,94 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 
 int8_t* ArrayToString(int32_t* pArray, int32_t length, int32_t keepZero)
 {
-    int8_t* str = (int8_t*)malloc(1024); // 根据需要调整缓冲区大小
-    if (!str) return NULL;
+    char* str = (char*)malloc(1024);
+    size_t used = 0;
 
-    strcpy(str, "[");
-    int32_t temp[20];
+    if (str == NULL) return NULL;
+
+    str[0] = '\0';
+    append_format(str, 1024, &used, "[");
 
     for (int8_t i = 0; i < length; ++i)
     {
-        if (keepZero || pArray[i] != 0) {
-            sprintf(temp, "%d,", pArray[i]);
-            strcat(str, temp);
+        if (keepZero || pArray[i] != 0)
+        {
+            append_format(str, 1024, &used, "%d,", pArray[i]);
         }
     }
 
-    int32_t len = strlen(str);
-    if (str[len - 1] == ',')
+    if (used > 1 && str[used - 1] == ',')
     {
-        str[len - 1] = ']';
+        str[used - 1] = ']';
     }
-    else {
-        strcat(str, "]");
+    else
+    {
+        append_format(str, 1024, &used, "]");
     }
 
-    return str;
+    return (int8_t*)str;
 }
 
 int8_t* ByteArrayToString(int8_t* pArray, int8_t length)
 {
-    int8_t* str = (int8_t*)malloc(1024); // 根据需要调整缓冲区大小
-    if (!str) return NULL;
+    char* str = (char*)malloc(1024);
+    size_t used = 0;
 
-    strcpy(str, "[");
-    int8_t temp[20];
+    if (str == NULL) return NULL;
+
+    str[0] = '\0';
+    append_format(str, 1024, &used, "[");
 
     for (int8_t i = 0; i < length; ++i)
     {
-        if (pArray[i] != 15) {
-            sprintf(temp, "%d,", pArray[i]);
-            strcat(str, temp);
+        if (pArray[i] != 15)
+        {
+            append_format(str, 1024, &used, "%d,", pArray[i]);
         }
     }
 
-    int32_t len = strlen(str);
-    if (str[len - 1] == ',') {
-        str[len - 1] = ']';
+    if (used > 1 && str[used - 1] == ',')
+    {
+        str[used - 1] = ']';
     }
-    else {
-        strcat(str, "]");
+    else
+    {
+        append_format(str, 1024, &used, "]");
     }
 
-    return str;
+    return (int8_t*)str;
 }
 
 int8_t* OutResToJsonnById(OutResult_t* outRes, GameId_t gameId)
 {
-    int8_t* strRes = (int8_t*)malloc(2048); // 根据需要调整缓冲区大小
-    if (!strRes) return NULL;
+    char* strRes = (char*)malloc(2048);
+    size_t used = 0;
+    int8_t* idVecStr = NULL;
+    int8_t* matrixStr = NULL;
 
-    strcpy(strRes, "{");
+    // 返回堆内存，调用方负责 free；失败返回 NULL。
+    if (strRes == NULL || outRes == NULL) return NULL;
 
-    int8_t temp[2048];
+    strRes[0] = '\0';
+    append_format(strRes, 2048, &used, "{");
 
-    // OpenType
-    sprintf(temp, "\"OpenType\":%d,", outRes->openType);
-    strcat(strRes, temp);
+    append_format(strRes, 2048, &used, "\"OpenType\":%d,", outRes->openType);
+    append_format(strRes, 2048, &used, "\"ResultType\":%d,", outRes->resType);
 
-    // ResultType
-    sprintf(temp, "\"ResultType\":%d,", outRes->resType);
-    strcat(strRes, temp);
+    idVecStr = ArrayToString((int32_t*)outRes->IDVec, GE_MaxIDNum, 0);
+    append_format(strRes, 2048, &used, "\"IDVec\":%s,", idVecStr ? (const char*)idVecStr : "[]");
 
-    // IDVec
-    int8_t* idVecStr = ArrayToString((int32_t*)outRes->IDVec, GE_MaxIDNum, 0);
-    sprintf(temp, "\"IDVec\":%s,", idVecStr);
-    strcat(strRes, temp);
-    
-
-    // Matrix
-    int8_t* matrixStr = ByteArrayToString(outRes->matrix.dataArray, GE_WheelChessNum);
-    sprintf(temp, "\"Matrix\":%s,", matrixStr);
-    strcat(strRes, temp);
+    matrixStr = ByteArrayToString(outRes->matrix.dataArray, GE_WheelChessNum);
+    append_format(strRes, 2048, &used, "\"Matrix\":%s,", matrixStr ? (const char*)matrixStr : "[]");
 
 
     if (outRes->resType == RT_FreeWin)
     {
-        sprintf(temp, "\"TotalFreeBet\":%d,", outRes->nTotalFreeBet);
-        strcat(strRes, temp);
-
-        sprintf(temp, "\"TotalFreeTime\":%d,", outRes->nTotalFreeTime);
-        strcat(strRes, temp);
+        append_format(strRes, 2048, &used, "\"TotalFreeBet\":%d,", outRes->nTotalFreeBet);
+        append_format(strRes, 2048, &used, "\"TotalFreeTime\":%d,", outRes->nTotalFreeTime);
 
         int8_t* freeBetStr = ArrayToString((int32_t*)outRes->FreeBetArray, outRes->nTotalFreeTime, 1);
-        sprintf(temp, "\"FreeBetArray\":%s,", freeBetStr);
-        strcat(strRes, temp);
+        append_format(strRes, 2048, &used, "\"FreeBetArray\":%s,", freeBetStr ? (const char*)freeBetStr : "[]");
         free(freeBetStr);
     } 
 
@@ -949,70 +975,65 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameId_t gameId)
     }
 
     GameInstance_t* inst = get_instance(gameId);
-    uint8_t bonusCount = Matrix_u_getTypeNum(&outRes->matrix, inst->gameConfig.header.Bonus);
+    uint8_t bonusCount = 0;
     uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3个转盘图标可以得到1列wild图标，4个转盘可以的2列......
-    uint8_t BlindBoxCountArray[3] = { 6, 8, 11 };//3个转盘图标可以得到6个盲盒，4个转盘可以的8个盲盒图标......
     int8_t* bonusStr;
+    // gameId 失配时给默认值，避免空实例导致访问非法内存。
+    if (inst != NULL)
+    {
+        bonusCount = Matrix_u_getTypeNum(&outRes->matrix, inst->gameConfig.header.Bonus);
+    }
     if (outRes->resType == RT_BonusWin)
     {
         switch (gameId)
         {
         case 3998:
-            sprintf(temp, "\"BonusBet\":%d,", outRes->nBonusBet);
-            strcat(strRes, temp);
-
-            sprintf(temp, "\"BonusType\":%d,", outRes->nBonusType);
-            strcat(strRes, temp);
+            append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
+            append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
             switch (outRes->nBonusType)
             {
                 //wild
             case 0:
-                bonusStr = ArrayToString((int32_t*)outRes->BonusData, wildColCountArray[bonusCount-3], 1);
-                sprintf(temp, "\"BonusData\":%s,", bonusStr);
-                strcat(strRes, temp);
+                // wild 模式依赖 3~6 个 bonus 触发，先夹断避免数组越界。
+                if (bonusCount < 3) bonusCount = 3;
+                if (bonusCount > 6) bonusCount = 6;
+                bonusStr = ArrayToString((int32_t*)outRes->BonusData, wildColCountArray[bonusCount - 3], 1);
+                append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
                 free(bonusStr);
                 break;
                 //神秘
             case 1:
                 bonusStr = ArrayToString((int32_t*)outRes->BonusData, GE_WheelChessNum, 1);
-                sprintf(temp, "\"BonusData\":%s,", bonusStr);
-                strcat(strRes, temp);
-                sprintf(temp, "\"BlindSymbol\":%d,", outRes->BlindSymbol);
-                strcat(strRes, temp);
+                append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
+                append_format(strRes, 2048, &used, "\"BlindSymbol\":%d,", outRes->BlindSymbol);
                 free(bonusStr);
                 break;
                 //乘数
             case 2:
-                sprintf(temp, "\"BonusMultiply\":%d,", outRes->BlindSymbol);
-                strcat(strRes, temp);
+                append_format(strRes, 2048, &used, "\"BonusMultiply\":%d,", outRes->BlindSymbol);
                 break;
                 //大奖
             case 3:
-                sprintf(temp, "\"BonusMultiply\":%d,", outRes->BlindSymbol);
-                strcat(strRes, temp);
+                append_format(strRes, 2048, &used, "\"BonusMultiply\":%d,", outRes->BlindSymbol);
                 break;
             }
            
             break;
         default:
-            sprintf(temp, "\"BonusType\":%d,", outRes->nBonusType);
-            strcat(strRes, temp);
-
-            sprintf(temp, "\"BonusBet\":%d,", outRes->nBonusBet);
-            strcat(strRes, temp);
+            append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
+            append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
             break;
         }
       
     }
 
-    sprintf(temp, "\"TotalBet\":%d", outRes->nMatrixBet);
-    strcat(strRes, temp);
+    append_format(strRes, 2048, &used, "\"TotalBet\":%d", outRes->nMatrixBet);
 
-    strcat(strRes, "}");
+    append_format(strRes, 2048, &used, "}");
 
     free(idVecStr);  
     free(matrixStr);  
-    return strRes;
+    return (int8_t*)strRes;
 }
 
 void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo, GameId_t gameId)
@@ -1044,7 +1065,7 @@ void DLL_GetDebugInfoJson(int8_t debugInfo[2048], GameId_t gameId)
 {
     DebugInfo info = {0};
     DLL_GetDebugInfo(&info, gameId);
-    sprintf((char*)debugInfo, "{\"TotalPlayTime\":%d,\"LooseTime\":%d,\"NormalWinTime\":%d}",
+    snprintf((char*)debugInfo, 2048, "{\"TotalPlayTime\":%d,\"LooseTime\":%d,\"NormalWinTime\":%d}",
             info.dwTotalPlayTime, info.dwLooseTime, info.dwNormalWinTime);
 }
 

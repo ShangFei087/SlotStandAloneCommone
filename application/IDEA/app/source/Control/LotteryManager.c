@@ -202,7 +202,6 @@ static int32_t LotteryManager_GetTierPermil(const LotteryManager* manager, int32
 static void LotteryManager_ApplyGuaranteedGrowth(LotteryManager* manager)
 {
     const int32_t growth = manager->mGuaranteeMinGrowthPerLottery * manager->mScale;
-    const int32_t showFollowPermil = 300;
     if (growth <= 0)
     {
         return;
@@ -211,25 +210,9 @@ static void LotteryManager_ApplyGuaranteedGrowth(LotteryManager* manager)
     for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
     {
         Lottery* lottery = &manager->mLotterys[i];
-        int32_t showFollow = (int32_t)(((int64_t)growth * showFollowPermil) / 1000);
-        int32_t showCap = 0;
-
+        // 保底同量增长，显示与实际池保持同步。
         lottery->mLotteryPool += growth;
-        if (showFollow < 1)
-        {
-            showFollow = 1;
-        }
-        lottery->mShowLottery += showFollow;
-
-        showCap = (int32_t)(((int64_t)lottery->mLotteryPool * 950) / 1000);
-        if (showCap < lottery->mBaseLottery)
-        {
-            showCap = lottery->mBaseLottery;
-        }
-        if (lottery->mShowLottery > showCap)
-        {
-            lottery->mShowLottery = showCap;
-        }
+        lottery->mShowLottery += growth;
         if (lottery->mShowLottery > lottery->mMaxLottery)
         {
             lottery->mShowLottery = lottery->mMaxLottery;

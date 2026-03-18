@@ -4,9 +4,8 @@
 
 #define   _InternalVersion 1  // 内部版本号
 #define   _Version "20251104.100" // 版本字符串
-//#define   LocalDebug   //本地跑
+#define   LocalDebug   //本地跑
 //#define   _Release    // 开启此宏定义即为发布版本，该宏定义只能出现在该文件，不可在任何地方引用
-#define _LocalLottery
 
 #ifdef _Release
 #define _WritePlayerData			// 写算法Json到日志

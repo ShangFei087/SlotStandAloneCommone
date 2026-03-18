@@ -152,6 +152,7 @@
     <ClInclude Include="..\..\source\Control\ComputerData.h" />
     <ClInclude Include="..\..\source\Control\DllInterface.h" />
     <ClInclude Include="..\..\source\Control\GameConfig.h" />
+    <ClInclude Include="..\..\source\Control\GameRegistry.h" />
     <ClInclude Include="..\..\source\Control\GameManager.h" />
     <ClInclude Include="..\..\source\Control\Lottery.h" />
     <ClInclude Include="..\..\source\Control\LotteryManager.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="..\..\source\Control\ComputerData.c" />
     <ClCompile Include="..\..\source\Control\Dll.c" />
     <ClCompile Include="..\..\source\Control\GameConfig.c" />
+    <ClCompile Include="..\..\source\Control\GameRegistry.c" />
     <ClCompile Include="..\..\source\Control\GameManager.c" />
     <ClCompile Include="..\..\source\Control\Lottery.c" />
     <ClCompile Include="..\..\source\Control\LotteryManager.c" />

@@ -23,14 +23,15 @@
 #include <string.h>
 #include <stdio.h>
 #include "app.h"
-#include"Control/NatureAlg.h"
-#include"Control/DllInterface.h"
+#include "Control/NatureAlg.h"
+#include "Control/DllInterface.h"
 #include "Control/CMD_Fish.h"
 #include "Control/Test.h"
 #include "Control/LotteryManager.h"
 #include "Control/ComputerData.h"
 #include "GameAlgo/common/JRand.h"
 #include "Control/GameManager.h"
+#include "Control/GameRegistry.h"
 /**************************************************************************
  *                   G E N E R A L    C O N S T A N T S                   *
  **************************************************************************/
@@ -93,12 +94,20 @@ int32_t main(int32_t argc, char *argv[])
 	//debugMode.resType = RT_FreeWin;
 	//debugMode.resType = RT_BonusWin;
     //debugMode.bonusType =1;
-	debugMode.mode = DCM_PointResData;
+	//debugMode.mode = DCM_PointResData;
 
-	//debugMode.mode = DCM_Normal;
+	debugMode.mode = DCM_Normal;
     DLL_SetControlDebugMode(&debugMode);
-
-    GameManager_Init();
+   
+    GameId_t gameId = GAME_ID_INVALID;
+   
+  
+    if (!GameRegistry_InitAndRegisterDefaults(&gameId))
+    {
+        QS_LOG("init game registry failed\n");
+        return -1;
+    }
+ 
     //初始化随机种子
     JSrand(12345);
     U32 seed_array[4] = { 0x123, 0x456, 0x789, 0xabc };
@@ -106,108 +115,15 @@ int32_t main(int32_t argc, char *argv[])
     //初始化输出
     OutResult_t outres ;
     OutResult_Init(&outres);
-    //初始化彩金
-    LotteryManager_Init();
-    int32_t baseValueArray[3] = { 3000,1500,500 };
-    int32_t maxValueArray[3] = { JPWeight[1], JPWeight[2] , JPWeight[3] };
-    LotteryManager_SetBaseValue(&gLotteryManager, baseValueArray, maxValueArray);
-
     int32_t giveTime = 0;//免费次数
     int32_t giveBetVal = 0;//免费押注
     int32_t totalTime = 0; //总玩次数
-    GameId_t gameId = GAME_ID_INVALID;
-    SlotGameConfig_t tempConfig;
-    GameConfig_Init(&tempConfig);
-    //初始化ZhuZaiJinBi_1700
-    {
-        gameId = GameManager_RegisterGame("ZhuZaiJinBi_1700", 1700);//注册1700
-        //初始化配置
-        //GameConfigHeader_t
-        tempConfig.header.id = 0;               // 内部id
-        tempConfig.header.enabled = 0;          // 是否启用
-        tempConfig.header.gameMode = 0;         // 游戏模式：0=普通，1=技巧，2=专家
-        tempConfig.header.difficulty = 0;       // 难度：0-8
-        tempConfig.header.minBet = 0;            // 最小押注
-        tempConfig.header.maxBet = 0;           // 最大押注
-        tempConfig.header.ChessTypeNum = 12;    //总计图标个数
-        tempConfig.header.ChessNorTypeNum = 9;  //普通图标个数
-        tempConfig.header.lineCount = 15;       // 线数
-        tempConfig.header.reelCount = 5;        // 列数
-        tempConfig.header.rowCount = 3;         // 行数
-        tempConfig.header.MaxIDNyn = 15;        //最大可以消除线数
-        tempConfig.header.freeGameMax = 20;     //最大免费游戏次数
-        tempConfig.header.Wild = 9;              // Wild图标
-        tempConfig.header.Scatter = 10;          // 免费图标
-        tempConfig.header.Bonus =11;             // 大奖图标 
-        tempConfig.header.normalRollTableId = 0;             // 普通滚轮表id
-        tempConfig.header.freeRollTableId = 0;             // 免费滚轮表id
-
-        GameConfig_Copy(&GameManager_GetInstance(gameId)->gameConfig, &tempConfig);
-       
-    }
-
-    GameConfig_Init(&tempConfig);
-    //初始化CaiFuZhiMen_3999
-    {
-        gameId = GameManager_RegisterGame("CaiFuZhiMen_3999", 3999);//注册3999
-        //初始化配置
-       //GameConfigHeader_t
-        tempConfig.header.id = 1;               // 内部id
-        tempConfig.header.enabled = 0;          // 是否启用
-        tempConfig.header.gameMode = 0;         // 游戏模式：0=普通，1=技巧，2=专家
-        tempConfig.header.difficulty = 0;       // 难度：0-8
-        tempConfig.header.minBet = 0;            // 最小押注
-        tempConfig.header.maxBet = 0;           // 最大押注
-        tempConfig.header.ChessTypeNum = 12;    //总计图标个数
-        tempConfig.header.ChessNorTypeNum = 9;  //普通图标个数
-        tempConfig.header.lineCount = 20;       // 线数
-        tempConfig.header.reelCount = 5;        // 列数
-        tempConfig.header.rowCount = 3;         // 行数
-        tempConfig.header.MaxIDNyn = 20;        //最大可以消除线数
-        tempConfig.header.freeGameMax = 12;     //最大免费游戏次数
-        tempConfig.header.Wild = 9;              // Wild图标
-        tempConfig.header.Scatter = 10;          // 免费图标
-        tempConfig.header.Bonus = 11;             // 大奖图标 
-        tempConfig.header.normalRollTableId = 1;             // 普通滚轮表id
-        tempConfig.header.freeRollTableId = 1;             // 免费滚轮表id
-
-        GameConfig_Copy(&GameManager_GetInstance(gameId)->gameConfig, &tempConfig);
-    }
-
-    GameConfig_Init(&tempConfig);
-    //初始化XingYunZhiLun_3998
-    {
-        gameId = GameManager_RegisterGame("XingYunZhiLun_3998", 3998);//注册3998
-        //初始化配置
-       //GameConfigHeader_t
-        tempConfig.header.id = 2;               // 内部id
-        tempConfig.header.enabled = 0;          // 是否启用
-        tempConfig.header.gameMode = 0;         // 游戏模式：0=普通，1=技巧，2=专家
-        tempConfig.header.difficulty = 0;       // 难度：0-8
-        tempConfig.header.minBet = 0;            // 最小押注
-        tempConfig.header.maxBet = 0;           // 最大押注
-        tempConfig.header.ChessTypeNum = 10;    //总计图标个数
-        tempConfig.header.ChessNorTypeNum = 8;  //普通图标个数
-        tempConfig.header.lineCount = 20;       // 线数
-        tempConfig.header.reelCount = 5;        // 列数
-        tempConfig.header.rowCount = 3;         // 行数
-        tempConfig.header.MaxIDNyn = 20;        //最大可以消除线数
-        tempConfig.header.freeGameMax = 6;     //最大免费游戏次数
-        tempConfig.header.Wild = 8;              // Wild图标
-        tempConfig.header.Bonus = 9;             // 大奖图标 
-        tempConfig.header.Scatter = 10;          // 免费图标 
-        tempConfig.header.normalRollTableId = 2;             // 普通滚轮表id
-        tempConfig.header.freeRollTableId = 3;             // 免费滚轮表id
-
-        GameConfig_Copy(&GameManager_GetInstance(gameId)->gameConfig, &tempConfig);
-    }
-
 	//切换游戏
-	if (DLL_GameSwitch(3998))
-	{
-		gameId = 3998;
-	
-	}
+    if (DLL_GameSwitch(3998))
+    {
+        gameId = 3998;
+
+    }
 
     if (gameId == GAME_ID_INVALID) 
     {
@@ -228,7 +144,7 @@ int32_t main(int32_t argc, char *argv[])
     int32_t jpvaule = 0;
     int32_t jpType = 0;
     uint32_t TotalWin = 0;
-#define _TestTime 10000
+#define _TestTime 100000
 
     while (totalTime < _TestTime)
     {
