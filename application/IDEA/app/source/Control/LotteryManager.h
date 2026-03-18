@@ -17,9 +17,6 @@ typedef struct LotteryManager {
 	int32_t mTierHighBet;                   // 高档下注阈值
 	int32_t mTierMidInjectPermil;           // 中档注入倍率（千分比）
 	int32_t mTierHighInjectPermil;          // 高档注入倍率（千分比）
-	int32_t mGuaranteeEveryNPlay;           // 每 N 局触发一次保底增长
-	int32_t mGuaranteeMinGrowthPerLottery;  // 每个池子的最小保底增长
-	int32_t mGuaranteePlayCounter;          // 保底增长计数器
 	int32_t mWinFreezeTime;                 // 命中彩金后的冷却时间
 	int32_t mMinPlayScoreToTrigger;         // 触发开奖检查的最小下注
 	int32_t mMinPlayGapAfterWin;            // 两次开奖之间最小间隔局数

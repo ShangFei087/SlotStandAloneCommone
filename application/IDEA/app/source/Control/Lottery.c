@@ -22,7 +22,7 @@ void Lottery_SetBaseValue(Lottery* self, int32_t baseValue, int32_t maxValue)
 {
     self->mBaseLottery = baseValue;                 // 基础值：彩金初始值
     self->mShowLottery = self->mBaseLottery;        // 显示值：初始化为基础值
-    self->mLotteryPool = self->mBaseLottery;        // 实际池值：与显示值同起点
+    self->mLotteryPool = self->mBaseLottery * 0.6f;// 实际奖池金额（初始为基础值的60%）
     self->mTotalAccumPool = 0;
     self->mAccumScore = 0;
     self->mAccumDrawVal = 0;
@@ -120,7 +120,7 @@ void Lottery_OnPlay(Lottery* self, int32_t score)
     // 计算当前可抽取值
     self->mAccumDrawVal = (int32_t)(((int64_t)self->mAccumScore * self->mDrawRate) / LOTTERY_DRAW_RATE_DENOM);
 
-    if (self->mAccumDrawVal > 0)
+    if (self->mAccumDrawVal > 5)
     {
         int32_t poolDiffVal = 0;
         int32_t showDiffVal = 0;

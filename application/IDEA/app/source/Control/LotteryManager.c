@@ -5,7 +5,6 @@
 // 静态函数声明
 //static void LotteryManager_SaveData(LotteryManager* manager);
 static int32_t LotteryManager_GetTierPermil(const LotteryManager* manager, int32_t score);
-static void LotteryManager_ApplyGuaranteedGrowth(LotteryManager* manager);
 
 /**
  * @brief 初始化 LotteryManager 实例。
@@ -25,10 +24,7 @@ void LotteryManager_Init(void)
     gLotteryManager.mTierHighBet = 5000;          // 高档下注阈值
     gLotteryManager.mTierMidInjectPermil = 1200;  // 中档注入：1.2x
     gLotteryManager.mTierHighInjectPermil = 1500; // 高档注入：1.5x
-    gLotteryManager.mGuaranteeEveryNPlay = 20;    // 每 20 局触发一次保底增长
-    gLotteryManager.mGuaranteeMinGrowthPerLottery = 1; // 每池最小保底增长
-    gLotteryManager.mGuaranteePlayCounter = 0;
-    gLotteryManager.mWinFreezeTime = 120;         // 命中彩金后的冷却
+    gLotteryManager.mWinFreezeTime = 0;         // 命中彩金后的冷却
     gLotteryManager.mMinPlayScoreToTrigger = 50;  // 触发开奖的最小下注
     gLotteryManager.mMinPlayGapAfterWin = 10;     // 两次开奖最小间隔局数
     gLotteryManager.mPlaySinceLastWin = gLotteryManager.mMinPlayGapAfterWin;
@@ -63,7 +59,6 @@ void LotteryManager_Destroy(LotteryManager* manager)
     manager->mTotalPlay = 0;
     manager->mTotalDraw = 0;
     manager->mFrozenTime = 0;
-    manager->mGuaranteePlayCounter = 0;
     manager->mPlaySinceLastWin = 0;
 }
 
@@ -92,7 +87,6 @@ void LotteryManager_OnPlay(LotteryManager* manager, int32_t value)
 
     manager->mTotalPlayTime++;
     manager->mPlaySinceLastWin++;
-    manager->mGuaranteePlayCounter++;
 
 #ifdef _DebugControlMode
 
@@ -108,14 +102,6 @@ void LotteryManager_OnPlay(LotteryManager* manager, int32_t value)
     for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
     {
         Lottery_OnPlay(&manager->mLotterys[i], injectValue);
-    }
-
-    //触发保底增长
-    if (manager->mGuaranteeEveryNPlay > 0 &&
-        manager->mGuaranteePlayCounter >= manager->mGuaranteeEveryNPlay)
-    {
-        LotteryManager_ApplyGuaranteedGrowth(manager);
-        manager->mGuaranteePlayCounter = 0;
     }
 
     manager->mTotalPlay += value / 100;
@@ -196,26 +182,3 @@ static int32_t LotteryManager_GetTierPermil(const LotteryManager* manager, int32
     return 1000;
 }
 
-/**
- * @brief 彩金保底增长
- */
-static void LotteryManager_ApplyGuaranteedGrowth(LotteryManager* manager)
-{
-    const int32_t growth = manager->mGuaranteeMinGrowthPerLottery * manager->mScale;
-    if (growth <= 0)
-    {
-        return;
-    }
-
-    for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
-    {
-        Lottery* lottery = &manager->mLotterys[i];
-        // 保底同量增长，显示与实际池保持同步。
-        lottery->mLotteryPool += growth;
-        lottery->mShowLottery += growth;
-        if (lottery->mShowLottery > lottery->mMaxLottery)
-        {
-            lottery->mShowLottery = lottery->mMaxLottery;
-        }
-    }
-}

@@ -80,12 +80,6 @@ int32_t main(int32_t argc, char *argv[])
  //测试
 #ifdef LocalDebug
     comm_data CommData;
-    uint32_t result = 0;
-	result = comm_data_set(&CommData);
-	if (!result)
-	{
-		QS_LOG("init Conf failed\n");
-	}
 
 	DebugControlMode_t debugMode;
     DebugControlMode_Init(&debugMode);
@@ -133,11 +127,9 @@ int32_t main(int32_t argc, char *argv[])
   
     uint32_t player_id = 0;
     player_data_item* pItem = player_statistics(player_id);
-    uint32_t CoinIn = 2;
+    uint32_t CoinIn = 2000;
 
     player_coin_info_update(player_id, CoinIn, 0, 0, 0, 0);
-    pItem->Credit = CoinIn * Score_Scale;
-    pItem->Wins = 0;
     pItem->Bet = 100 ;
    
     int32_t ret = 0;
@@ -148,7 +140,9 @@ int32_t main(int32_t argc, char *argv[])
 
     while (totalTime < _TestTime)
     {
-        int32_t jpvaule = 0;
+        OutResult_Init(&outres);
+        jpvaule = 0;
+        jpType = 0;
         totalTime++;
     
         outres.openType = OT_Normal;
@@ -158,18 +152,21 @@ int32_t main(int32_t argc, char *argv[])
             outres.openType = OT_Give;
         }
 
-        int32_t betValue = pItem->Bet;
+        uint32_t totalbet = pItem->Bet;//总押注
+        uint32_t betmultiple = pItem->Bet / 50;//下注倍数
         if (outres.openType == OT_Give)
         {
-            betValue = giveBetVal;
+            totalbet = giveBetVal;
         }
         else
         {
-            pItem->Credit -= betValue;
-            pItem->Bets += betValue;
+            BOOL xret = player_bets_info_update(player_id, totalbet, 0);
+            if (xret) {
+                //QS_LOG("\r\n 1111");
+            }
             //检测是否可以获得彩金
-            LotteryManager_OnPlay(&gLotteryManager, betValue);
-            LotteryManager_TryGetLottery(&gLotteryManager, betValue, &jpType, &jpvaule);
+            LotteryManager_OnPlay(&gLotteryManager, totalbet);
+            LotteryManager_TryGetLottery(&gLotteryManager, totalbet, &jpType, &jpvaule);
             if (jpvaule > 0)
             {
                 outres.JPType = jpType;
@@ -177,24 +174,23 @@ int32_t main(int32_t argc, char *argv[])
             }
         }
 
-        DLL_GetGameResultById(pItem, betValue, &outres, &ret, gameId);
+        DLL_GetGameResultById(pItem, totalbet, &outres, &ret, gameId);
 
         if (outres.resType == RT_FreeWin)
         {
             giveTime += outres.nTotalFreeTime;
-            giveBetVal = betValue;
+            giveBetVal = totalbet;
         }
        
        
         if (outres.openType == OT_Normal)
         {
-            TotalWin = pItem->Bet*(outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
-            pItem->Credit += TotalWin;
-            pItem->Wins += TotalWin;
+            TotalWin = betmultiple *(outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
+            TotalWin += outres.nJPBet;//彩金单独计算
+            //pItem->Credit += TotalWin;
+           // pItem->Wins += TotalWin;
+            player_bets_info_update(player_id, 0, TotalWin);
         }
-      
-      
-       
     }
 
 
@@ -207,12 +203,13 @@ int32_t main(int32_t argc, char *argv[])
         int8_t finalString[1024] = { 0 };
         DLL_GetUserDebugInfo(&userDebugInfo, gameId);
 
-        sprintf(finalString, "TotalPlayTime:%d LoseProb:%f NormalWinProb:%f FreeGameProb:%f BonusGamesProb:%f  TotalProb:%f",
+        sprintf(finalString, "TotalPlayTime:%d LoseProb:%f NormalWinProb:%f FreeGameProb:%f BonusGamesProb:%f JackpotProb:%f  TotalProb:%f",
             userDebugInfo.dwTotalPlayTime,
             userDebugInfo.dwLooseTime * 1.0f / userDebugInfo.dwTotalPlayTime,
             userDebugInfo.dwNormalWinTime * 1.0f / userDebugInfo.dwTotalPlayTime,
             userDebugInfo.dwFreeGameTime * 1.0f / userDebugInfo.dwTotalPlayTime,
             userDebugInfo.dwBonusTime * 1.0f / userDebugInfo.dwTotalPlayTime,
+            userDebugInfo.dwJackpotTime * 1.0f / userDebugInfo.dwTotalPlayTime,
             (userDebugInfo.dwLooseTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwNormalWinTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwFreeGameTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwBonusTime * 1.0f / userDebugInfo.dwTotalPlayTime));
         QS_LOG("%s\n", finalString);
 
@@ -222,17 +219,22 @@ int32_t main(int32_t argc, char *argv[])
         float WinProb = userDebugInfo.dwNormalWinTime * 1.0f / userDebugInfo.dwTotalPlayTime;
         float FreeProb = userDebugInfo.dwFreeGameTime * 1.0f / userDebugInfo.dwTotalPlayTime;
         float BonusProb = userDebugInfo.dwBonusTime * 1.0f / userDebugInfo.dwTotalPlayTime;
+        float JackPotProb = userDebugInfo.dwJackpotTime * 1.0f / userDebugInfo.dwTotalPlayTime;
 
         int32_t TotalBet = userDebugInfo.dwPlayScore;
         float BaseRTP = userDebugInfo.dwNormalWinTotalBet * 1.0f / TotalBet;
         float FreeRTP = userDebugInfo.dwFreeGameTotalBet * 1.0f / TotalBet;
         float BounsRTP = userDebugInfo.dwBonusGameTotalBet * 1.0f / TotalBet;
-        sprintf(RTPStr, "BaseRTP:%f FreeRTP:%f-%f BounsRTP:%f-%f TotalRTP:%f",
+        float JackpotRTP = userDebugInfo.dwJackpotTotalBet * 1.0f / TotalBet;
+        float TotalRTP = userDebugInfo.dwWinScore * 1.0f / TotalBet;
+        sprintf(RTPStr, "BaseRTP:%f FreeRTP:%f-%f BounsRTP:%f-%f JackpotRTP:%f-%f TotalRTP:%f",
             BaseRTP,
             FreeRTP / FreeProb,
             FreeRTP,
             BounsRTP / BonusProb,
             BounsRTP,
+            JackpotRTP / JackPotProb,
+            JackpotRTP,
             BaseRTP + FreeRTP + BounsRTP);
         QS_LOG("%s\n", RTPStr); \
     }

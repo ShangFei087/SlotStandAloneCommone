@@ -84,7 +84,7 @@ int32_t giveTime = 0;//免费次数
 static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 {
 	uint32_t cmd = qs_json_GetObjectItem(json, "cmd")->valueint;
-	QS_LOG("\r\n Cmd:%d", cmd);
+	//QS_LOG("\r\n Cmd:%d", cmd);
 	switch (cmd) 
 	{
 	//游戏初始化, 用于IDEA程序做一些必要的初始化操作
@@ -652,7 +652,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		{
 			BOOL xret = player_bets_info_update(player_id, totalbet, 0);
 			if (xret) {
-				QS_LOG("\r\n 1111");
+				//QS_LOG("\r\n 1111");
 			}
 			LotteryManager_OnPlay(&gLotteryManager, totalbet);
 			//检测是否可以获得彩金
@@ -677,7 +677,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		{
 			TotalWin = betmultiple *(outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
 
-			QS_LOG("\r\n Win:%d", TotalWin);
+			//QS_LOG("\r\n Win:%d", TotalWin);
 			player_bets_info_update(player_id, 0, TotalWin);
 		}
 	

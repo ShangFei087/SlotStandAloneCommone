@@ -4,34 +4,34 @@
 #include "qs.h"
 
 typedef struct {
-    int32_t* data;        // Êı¾İÊı×é
-    size_t size;      // µ±Ç°ÔªËØÊıÁ¿
-    size_t capacity;  // µ±Ç°ÈİÁ¿
+    int32_t* data;    // åº•å±‚æ•°æ®æ•°ç»„
+    size_t size;      // å½“å‰å…ƒç´ æ•°é‡
+    size_t capacity;  // å½“å‰å®¹é‡
 } int_vector;
 
-//´ÓÊı×éÖĞ´´½¨vector
+// ä»æ•°ç»„åˆ›å»º vector
 int_vector* int_vector_from_array(const int* arr, size_t count);
-// °²È«µÄËæ»ú·ÃÎÊ²¢ÒÆ³ıÔªËØ
+// éšæœºç§»é™¤ä¸€ä¸ªå…ƒç´ ï¼ˆå®‰å…¨æ¥å£ï¼‰
 int int_vector_random_remove(int_vector* vec, int* out_value);
-// ´´½¨ºÍÏú»Ù
+// åŸºç¡€ç”Ÿå‘½å‘¨æœŸ
 int_vector* int_vector_create(size_t initial_capacity);
 void int_vector_destroy(int_vector* vec);
 
-// ÈİÁ¿¹ÜÀí
+// å®¹é‡ç›¸å…³
 int32_t int_vector_reserve(int_vector* vec, size_t new_capacity);
 int32_t int_vector_shrink_to_fit(int_vector* vec);
 size_t int_vector_capacity(const int_vector* vec);
 size_t int_vector_size(const int_vector* vec);
 int32_t int_vector_empty(const int_vector* vec);
 
-// ÔªËØ·ÃÎÊ
+// å…ƒç´ è®¿é—®
 int32_t int_vector_at(const int_vector* vec, size_t index, int32_t* out_value);
-int32_t int_vector_get(const int_vector* vec, size_t index);  // ²»°²È«µ«¿ìËÙµÄ·ÃÎÊ
+int32_t int_vector_get(const int_vector* vec, size_t index);  // æ›´è½»é‡çš„è¯»å–æ¥å£
 int32_t int_vector_front(const int_vector* vec);
 int32_t int_vector_back(const int_vector* vec);
-int32_t* int_vector_data(int_vector* vec);  // »ñÈ¡Ô­Ê¼Êı×éÖ¸Õë
+int32_t* int_vector_data(int_vector* vec);  // è·å–åº•å±‚åŸå§‹æŒ‡é’ˆ
 
-// ĞŞ¸ÄÔªËØ
+// ä¿®æ”¹å…ƒç´ 
 int32_t int_vector_set(int_vector* vec, size_t index, int32_t value);
 int32_t int_vector_push_back(int_vector* vec, int32_t value);
 void int_vector_pop_back(int_vector* vec);
@@ -39,17 +39,17 @@ int32_t int_vector_insert(int_vector* vec, size_t index, int32_t value);
 int32_t int_vector_erase(int_vector* vec, size_t index);
 void int_vector_clear(int_vector* vec);
 
-// ÅúÁ¿²Ù×÷
+// æ‰¹é‡æ“ä½œ
 int32_t int_vector_append(int_vector* vec, const int32_t* values, size_t count);
 int32_t int_vector_insert_range(int_vector* vec, size_t index, const int32_t* values, size_t count);
 
-// ²éÕÒ²Ù×÷
+// æŸ¥æ‰¾ä¸æœç´¢
 int32_t int_vector_find(const int_vector* vec, int32_t value);
-int32_t int_vector_binary_search(const int_vector* vec, int32_t value);  // ¼ÙÉèÒÑÅÅĞò
+int32_t int_vector_binary_search(const int_vector* vec, int32_t value);  // äºŒåˆ†æŸ¥æ‰¾ï¼ˆéœ€æœ‰åºï¼‰
 
-// ¹¤¾ßº¯Êı
+// å…¶ä»–å·¥å…·å‡½æ•°
 void int_vector_swap(int_vector* vec1, int_vector* vec2);
 int32_t int_vector_resize(int_vector* vec, size_t new_size, int32_t default_value);
-void int_vector_sort(int_vector* vec);  // ÉıĞòÅÅĞò
+void int_vector_sort(int_vector* vec);  // å‡åºæ’åº
 
 #endif // INT_VECTOR_H

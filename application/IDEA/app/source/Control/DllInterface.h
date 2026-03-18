@@ -54,10 +54,6 @@ typedef GameInstanceId_t GameId_t;
  void DLL_GetDebugInfo(DebugInfo* pDebugInfo, GameId_t gameId);
  void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo, GameId_t gameId);
 
-//获取Json调试信息
- void DLL_GetDebugInfoJson(int8_t debugInfo[2048], GameId_t gameId);
- void DLL_GetUserDebugInfoJson(int32_t chairID, int8_t debugInfo[2048], GameId_t gameId);
-
 //清除调试数据
  void DLL_DebugClearData(GameId_t gameId);
 

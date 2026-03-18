@@ -52,9 +52,9 @@ void Matrix_u_reset(Matrix_u* pMatrix)
 void Matrix_u_copy(Matrix_u* pDest, Matrix_u* pSrc)
 {
     if (pDest == NULL || pSrc == NULL) {
-        return; // ���ߴ�����
+        return; // 输入为空，直接返回
     }
-    // ���������ṹ�壬���������� dataArray
+    // 复制矩阵结构体成员（包含 dataArray）
     pDest->resultType = pSrc->resultType;
     pDest->idVecSize = pSrc->idVecSize;
     memcpy(pDest->dataArray, pSrc->dataArray, sizeof(pSrc->dataArray));
@@ -289,16 +289,16 @@ void Matrix_u_setIntData(Matrix_u* pMatrix, uint8_t* pData)
 //-------------------------------------------------------------------------------------
 
 uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResult_t* clr, SlotGameConfig_t* gameConfig) {
-    uint8_t nCheckIndex = 0;            //���ϵ�ǰҪ��������
-    int8_t nFirstAvailChessIndex = -1; //�������ϵĵ�һ����Ч��ID������λ��,��ͨͼ��,����Wild,Bonus,Scatter
-    uint8_t nFirstChessType = 0;        //�������ϵĵ�һ��IDֵ
-    uint8_t nFirstAvailChessType = 0;   //�������ϵ�һ����Ч��ID,��ͨͼ��,����Wild,Bonus,Scatter
+    uint8_t nCheckIndex = 0;            // 当前检查下标（保留字段）
+    int8_t nFirstAvailChessIndex = -1;  // 第一枚有效普通图标的位置（非 Wild/Bonus/Scatter）
+    uint8_t nFirstChessType = 0;        // 第一枚图标类型（保留字段）
+    uint8_t nFirstAvailChessType = 0;   // 第一枚有效普通图标类型
     uint8_t nIdPos = 0;
 
     clr->bIsEliminate = 0;
     clr->bHasWild = 0;
 
-    uint8_t nConWildNum = 0;  //������wildNum
+    uint8_t nConWildNum = 0;  // 从左开始连续 Wild 数量
     uint8_t nWildIdx = 0;
     uint8_t BetValue = 0;
 
@@ -318,7 +318,7 @@ uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
             }
         }
         else {
-            //�ҵ���һ����ͨͼ��
+            // 找到第一枚普通图标
             if (nFirstAvailChessIndex == -1)
             {
                 nFirstAvailChessIndex = nIdPos;
@@ -328,7 +328,7 @@ uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
     }
 
     
-    //���ȫ��wild
+    // 5 连 Wild 的特殊处理
     if (nConWildNum == 5)
     {
         clr->nAvailChessType = gameConfig->header.Wild;
@@ -346,16 +346,16 @@ uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
         }
     }
 
-    //δ�ҵ���һ����ͨͼ�꣬��������ȫ��wild��bonus��scatter
+    // 未找到普通图标，说明该线仅由 Wild/Bonus/Scatter 组成
     if (nFirstAvailChessIndex == -1)
     {
         return 0;
     }
 
-    //��һ��ͼ��ΪBonus����Scatter����������
+    // 第一枚有效图标是 Bonus/Scatter，不参与线奖判定
     if (nFirstAvailChessType== gameConfig->header.Scatter|| nFirstAvailChessType == gameConfig->header.Bonus) 
     {
-        //����scatter��bonus����wild
+        // 仅处理前缀 Wild 的情况
         if (nConWildNum >= 3)
         {
             clr->nAvailChessType = gameConfig->header.Wild;
@@ -376,7 +376,7 @@ uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
         return 0;
     }
 
-    //���Һ���ͼ�����ж��ٸ�ͼ����ͬ�׸���wildͼ��ͬ�������ͻ���Ϊwild����
+    // 统计从左开始与首个有效图标（或 Wild）连续匹配的数量
     int8_t j = 1;
     for (j = 1; j < 5; j++) 
     {
@@ -391,7 +391,7 @@ uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
         }
     }
 
-    //�������ϱض��н����������Ƿ����������н� //��һ��
+    // 至少连中 2 个才有机会构成线奖
     if (j >= 3)
     {
         BetValue = GET_BET_VALUE(gameConfig->header.id, clr->nAvailChessType, j - 2);
@@ -423,7 +423,7 @@ uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
     clr->nEliminateLineId = lineIdx;
     clr->nEliminateNum = j;
 
-    //����CT_Wild���͵�ͼ�굥���㽱
+    // Wild 及其右侧特殊图标不单独作为普通线奖
     if (nFirstAvailChessType >= gameConfig->header.Wild && nConWildNum < 3)
     {
         clr->bIsEliminate = 0;
@@ -445,7 +445,7 @@ uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
         }
         else
         {
-            //����3������������wild���ȽϿ�����wild���ʴ�����ͬ��ͨͼ��������ʴ�ѡ��ϴ��һ��
+            // 3 连及以上 Wild 时，比较“按普通图标赔付”和“按 Wild 赔付”，取更优
             int8_t nNormalBet = GET_BET_VALUE(gameConfig->header.id, clr->nAvailChessType, clr->nEliminateNum - 2);
             int8_t nWildBet = GET_BET_VALUE(gameConfig->header.id, gameConfig->header.Wild, nConWildNum - 2);
               
@@ -480,7 +480,7 @@ int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameC
     uint8_t idVecCount = 0;
     uint32_t nID = 0;
 
-    //����ͬ15����һ�ζԱ�
+    // 按线逐条计算中奖
     for (uint8_t i = 0; i < gameConfig->header.lineCount; ++i)
     {
         CheckOnLineResult_Init(&clr);
@@ -490,12 +490,12 @@ int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameC
         {
             if (clr.bHasWild) 
             {
-                // ��Щ��Ϸ����������wild��Ҫ�����������⴦��
+                // 部分玩法中，含 Wild 的线奖需要额外处理
             }
 
             nLocalWinBet += GET_BET_VALUE(gameConfig->header.id, clr.nAvailChessType, clr.nEliminateNum - 2);
 
-            //ID����λǧλ��ʾ�����ߣ���λ��ʾ������Ŀ��ʮ��λ��ʾType
+            // ID 编码：千位=线号，百位=连中数量，十位/个位=图标类型
             nID = i  * 1000 + clr.nEliminateNum * 100 + clr.nAvailChessType;
           
             pMatrix->resultType = RT_Win;// RT_Win
@@ -511,7 +511,7 @@ int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameC
     switch (gameId)
     {
     case 3998:
-        //�жϴ��н�
+        // 判定 Bonus
         for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
         {
             if (pMatrix->dataArray[i] == gameConfig->header.Bonus)
@@ -521,7 +521,7 @@ int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameC
         }
         if (_bonusCount >= 3)
         {
-            //���֮һ����ѽ�
+            // 3998 玩法：Bonus 与 Free 二选一
             if (JRand(0, 10000) < 2000)
             {
                 pMatrix->resultType = RT_BonusWin;
@@ -535,7 +535,7 @@ int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameC
         }
      break;
     default:
-        //�ж�����н�
+        // 判定 Scatter（免费游戏）
         for (uint8_t i = 0; i < gameConfig->header.lineCount * gameConfig->header.rowCount; ++i)
         {
             if (pMatrix->dataArray[i] == gameConfig->header.Scatter)
@@ -548,7 +548,7 @@ int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameC
             pMatrix->resultType = RT_FreeWin;// RT_FreeWin
         }
 
-        //�жϴ��н�
+        // 判定 Bonus
         for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
         {
             if (pMatrix->dataArray[i] == gameConfig->header.Bonus)
@@ -571,39 +571,39 @@ int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameC
 void OutResult_Init(OutResult_t* pResult)
 {
     if (pResult == NULL) {
-        // �������Ӵ�������ֱ�ӷ���
+        // 空指针保护
         return;
     }
 
-    // ��ʼ��ö������
-    pResult->openType = OT_Normal;      // Ĭ��Ϊ��ͨ����
-    pResult->resType = RT_Lose;         // Ĭ��Ϊ��
+    // 初始化结果枚举
+    pResult->openType = OT_Normal;      // 默认普通开奖
+    pResult->resType = RT_Lose;         // 默认未中奖
 
-    // ��ʼ��ID����
+    // 初始化 ID 数组
     for (int8_t i = 0; i < GE_MaxIDNum; i++) {
-        pResult->IDVec[i] = 0;         // ʹ��-1��ʾ��ЧID
+        pResult->IDVec[i] = 0;
     }
 
-    // ��ʼ������
-    pResult->nMatrixBet = 0;            // ��������Ϊ0
-    pResult->nTotalFreeBet = 0;         // �����Ϸ������
-    pResult->nTotalFreeTime = 0;        // �����Ϸ����
-    pResult->nBonusBet = 0;             // �ʽ�����
-    pResult->nBonusType = 0;            // �ʽ�����
-    pResult->BlindSymbol = 0;            // �ʽ�����
+    // 初始化核心数值
+    pResult->nMatrixBet = 0;            // 线奖倍数
+    pResult->nTotalFreeBet = 0;         // 免费总倍数
+    pResult->nTotalFreeTime = 0;        // 免费总次数
+    pResult->nBonusBet = 0;             // Bonus 倍数
+    pResult->nBonusType = 0;            // Bonus 类型
+    pResult->BlindSymbol = 0;           // 神秘图标/乘数
 
-    // ��ʼ������
-    Matrix_u_reset(&pResult->matrix);   // ����Matrix_u��reset����
+    // 初始化矩阵
+    Matrix_u_reset(&pResult->matrix);
 
-    // ��ʼ�������Ϸ��������
+    // 初始化免费游戏数组
     for (int8_t i = 0; i < GE_MaxFreeNum; i++) {
-        pResult->FreeBetArray[i] = 0;   // ��ʼ��Ϊ0
+        pResult->FreeBetArray[i] = 0;
     }
 
-    // ��ʼ������������
+    // 初始化 Bonus 数据数组
     for (int8_t i = 0; i < GE_WheelChessNum; i++)
     {
-        pResult->BonusData[i] = 0;      // ��ʼ��Ϊ0
+        pResult->BonusData[i] = 0;
     }
 
     pResult->JPType = JT_None;
@@ -615,32 +615,32 @@ void OutResult_reset(OutResult_t* pResult)
         return;
     }
 
-    // ����ö������ΪĬ��ֵ
+    // 重置结果枚举
     pResult->openType = OT_Normal;
     pResult->resType = RT_Lose;
 
-    // ����ID����
+    // 重置 ID 数组
     for (int8_t i = 0; i < GE_MaxIDNum; i++) {
         pResult->IDVec[i] =0;
     }
 
-    // ������������Ϊ0
+    // 重置核心数值
     pResult->nMatrixBet = 0;
     pResult->nTotalFreeBet = 0;
     pResult->nTotalFreeTime = 0;
     pResult->nBonusBet = 0;
     pResult->nBonusType = 0;
-    pResult->BlindSymbol = 0;            // �ʽ�����
+    pResult->BlindSymbol = 0;            // 神秘图标/乘数
 
-    // ��������
+    // 重置矩阵
     Matrix_u_reset(&pResult->matrix);
 
-    // ���������Ϸ��������
+    // 重置免费游戏数组
     for (int8_t i = 0; i < GE_MaxFreeNum; i++) {
         pResult->FreeBetArray[i] = 0;
     }
 
-    // ���òʽ���������
+    // 重置 Bonus 数据
     for (int8_t i = 0; i < GE_WheelChessNum; i++) {
         pResult->BonusData[i] = 0;
     }
@@ -682,6 +682,8 @@ void DebugInfo_accum(DebugInfo* pDest, DebugInfo* pSrc)
     pDest->dwLooseTime += pSrc->dwLooseTime;
     pDest->dwFreeGameTotalBet += pSrc->dwFreeGameTotalBet;
     pDest->dwBonusGameTotalBet += pSrc->dwBonusGameTotalBet;
+    pDest->dwJackpotTime += pSrc->dwJackpotTime;
+    pDest->dwJackpotTotalBet += pSrc->dwJackpotTotalBet;
     pDest->dwFreeGameBetError += pSrc->dwFreeGameBetError;
     pDest->dwNormalWinTime += pSrc->dwNormalWinTime;
     pDest->dwNormalWinTotalBet+= pSrc->dwNormalWinTotalBet;
@@ -741,6 +743,14 @@ int8_t* DebugInfo_toJason(DebugInfo* pInfo)
     used += (size_t)written;
 
     written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwBonusGameTotalBet\":%d,", pInfo->dwBonusGameTotalBet);
+    if (written < 0) return NULL;
+    used += (size_t)written;
+
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotTime\":%d,", pInfo->dwJackpotTime);
+    if (written < 0) return NULL;
+    used += (size_t)written;
+
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotTotalBet\":%d,", pInfo->dwJackpotTotalBet);
     if (written < 0) return NULL;
     used += (size_t)written;
 

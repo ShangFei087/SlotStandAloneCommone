@@ -1,23 +1,42 @@
-﻿  Lottery.c
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Lottery.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  LotteryManager.c
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Lottery.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/Lottery.c”)
+﻿  main.c
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\GameConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
   
 F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\GameAlgo\common\JRand.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/Lottery.c”)
+  (编译源文件“../../source/main.c”)
   
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Lottery.c(34,39): warning C4244: “=”: 从“double”转换到“int32_t”，可能丢失数据
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\LotteryManager.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\DllInterface.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Test.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
 F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\LotteryManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/LotteryManager.c”)
+  (编译源文件“../../source/main.c”)
   
 F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Lottery.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/LotteryManager.c”)
+  (编译源文件“../../source/main.c”)
   
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/LotteryManager.c”)
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\GameRegistry.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
   
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\LotteryManager.c(135,21): warning C4244: “初始化”: 从“float”转换到“int32_t”，可能丢失数据
-  正在生成代码...
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(206,30): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(206,30):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(206,30):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(206,30):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(206,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(224,41): warning C4244: “初始化”: 从“int64_t”转换到“int32_t”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(230,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(82,15): warning C4101: “CommData”: 未引用的局部变量
   idea.vcxproj -> F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\x64\Debug\idea.exe
