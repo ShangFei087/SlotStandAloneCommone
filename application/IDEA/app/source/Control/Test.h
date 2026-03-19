@@ -4,7 +4,6 @@
 
 #define   _InternalVersion 1  // 内部版本号
 #define   _Version "20251104.100" // 版本字符串
-#define   LocalDebug   // 本地调试
 //#define   _Release    // 定义后为发布版本；该宏仅允许在本文件中配置
 
 #ifdef _Release
@@ -12,16 +11,13 @@
 #define _ShowConsole
 #else
 #define _ShowConsole
-#define _WritePlayerData			// 写算法 Json 日志
-#define _WritePlayerLog				// 写玩家日志
-
+//#define _WritePlayerData			// 写算法 Json 日志
+//#define _WritePlayerLog				// 写玩家日志
 #define _DebugControlMode			// 启用调试控制模式
-#define _AlwaysNewControlData		// 每次启动都初始化控制数据
-
 #define _ShowDebugInfo				// 显示算法调试信息
-#define _DebugInfoInterval  100		// 每 100 局显示一次调试信息
+#define _DebugInfoInterval  1000		// 每 1000 局显示RTP
 //#define _IMHERE						// 临时调试标记位（调试完成后请移除）
-
+#define  _LocalDebug                 // 本地调试
 #endif
 
 

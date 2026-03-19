@@ -782,8 +782,9 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 		inst->debugInfo.dwJackpotTime++;
 	}
 	inst->debugInfo.dwFreeGameBetError = inst->freeGameInfo.nRemainFreeBet;
-	//日志
-#ifdef LocalDebug
+
+	//玩家日志
+#ifdef _WritePlayerLog
 	//int8_t* resTypeNameStrVec[] = { "输", "赢", "免费游戏", "奖池" };
 	const char* resTypeNameStrVec[] = { "Lose", "Win", "FreeGame", "BonusGame" };
 	const char* resTypeStr = resTypeNameStrVec[outRes->resType];
@@ -836,7 +837,7 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 
 
 	QS_LOG("%s\n", finalString);
-
+#ifdef _WritePlayerData
 	int8_t* jsonStr = OutResToJsonnById(outRes, gameId);
 	if (jsonStr != NULL)
 	{
@@ -849,10 +850,11 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 	}
 
 	QS_LOG("-----------------\n");
+#endif
 
 #endif
 
-#ifdef LocalDebug
+#ifdef _LocalDebug
 	int32_t testTime = 0;
 	testTime++;
 	if (testTime < _DebugInfoInterval)return;

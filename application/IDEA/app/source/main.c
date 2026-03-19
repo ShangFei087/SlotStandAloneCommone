@@ -79,7 +79,7 @@ int32_t main(int32_t argc, char *argv[])
 	qs_start();
 
  //测试
-#ifdef LocalDebug
+#ifdef _LocalDebug
     comm_data CommData;
 
 	DebugControlMode_t debugMode;
@@ -111,14 +111,11 @@ int32_t main(int32_t argc, char *argv[])
     //初始化输出
     OutResult_t outres ;
     OutResult_Init(&outres);
-    int32_t giveTime = 0;//免费次数
-    int32_t giveBetVal = 0;//免费押注
-    int32_t totalTime = 0; //总玩次数
+    int32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
     if (DLL_GameSwitch(3998))
     {
         gameId = 3998;
-
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -127,78 +124,134 @@ int32_t main(int32_t argc, char *argv[])
         return -1;
     }
   
-    uint32_t player_id = 0;
-    player_data_item* pItem = player_statistics(player_id);
-    uint32_t CoinIn = 2000;
+    // 本地压测机位：每个元素代表一台独立机子的账户状态（不依赖 PLAYER_NUM_MAX）。
+    #define _TestMachineCount 1
+    player_data_item testPlayers[_TestMachineCount];
 
-    player_coin_info_update(player_id, CoinIn, 0, 0, 0, 0);
-    pItem->Bet = 100 ;
-   
+    // 免费局状态按机位隔离，避免不同机子的免费次数互相污染。
+    int32_t giveTime[_TestMachineCount];
+    int32_t giveBetVal[_TestMachineCount];
+    memset(testPlayers, 0, sizeof(testPlayers));
+    memset(giveTime, 0, sizeof(giveTime));
+    memset(giveBetVal, 0, sizeof(giveBetVal));
+    for (int32_t i = 0; i < _TestMachineCount; ++i)
+    {
+        testPlayers[i].Bet = 100;
+    }
+
     int32_t ret = 0;
     int32_t jpvaule = 0;
     int32_t jpType = 0;
     uint32_t TotalWin = 0;
-#define _TestTime 100000
+#define _TestTime 10000
 
     while (totalTime < _TestTime)
     {
-        OutResult_Init(&outres);
-        jpvaule = 0;
-        jpType = 0;
         totalTime++;
-    
-        outres.openType = OT_Normal;
-        if (giveTime > 0)
+        //10台机子并行跑
+        for (int32_t machineIdx = 0; machineIdx < _TestMachineCount; ++machineIdx)
         {
-            giveTime--;
-            outres.openType = OT_Give;
-        }
+            player_data_item* pItem = &testPlayers[machineIdx];
+            OutResult_Init(&outres);
+            jpvaule = 0;
+            jpType = 0;
 
-        uint32_t totalbet = pItem->Bet;//总押注
-        uint32_t betmultiple = pItem->Bet / 50;//下注倍数
-        if (outres.openType == OT_Give)
-        {
-            totalbet = giveBetVal;
-        }
-        else
-        {
-            BOOL xret = player_bets_info_update(player_id, totalbet, 0);
-            if (xret) {
-                //QS_LOG("\r\n 1111");
-            }
-            //检测是否可以获得彩金
-            LotteryManager_OnPlay(&gLotteryManager, totalbet);
-            LotteryManager_TryGetLottery(&gLotteryManager, totalbet, &jpType, &jpvaule);
-            if (jpvaule > 0)
+            outres.openType = OT_Normal;
+            if (giveTime[machineIdx] > 0)
             {
-                outres.JPType = jpType;
-                outres.nJPBet = jpvaule;
+                giveTime[machineIdx]--;
+                // 免费局沿用触发时的下注额（giveBetVal）。
+                outres.openType = OT_Give;
+            }
+
+            uint32_t totalbet = pItem->Bet;//总押注
+            uint32_t betmultiple = pItem->Bet / 50;//下注倍数
+            if (outres.openType == OT_Give)
+            {
+                totalbet = giveBetVal[machineIdx];
+            }
+            else
+            {
+                pItem->Bets += totalbet;
+                // 仅普通付费局参与彩金检测。
+                LotteryManager_OnPlay(&gLotteryManager, totalbet);
+                LotteryManager_TryGetLottery(&gLotteryManager, totalbet, &jpType, &jpvaule);
+                if (jpvaule > 0)
+                {
+                    outres.JPType = jpType;
+                    outres.nJPBet = jpvaule;
+                }
+            }
+            //获取一局数据
+            DLL_GetGameResultById(pItem, betmultiple, &outres, &ret, gameId);
+
+            if (outres.resType == RT_FreeWin)
+            {
+                // 触发免费游戏后，把次数和基准下注记录到当前机位。
+                giveTime[machineIdx] += outres.nTotalFreeTime;
+                giveBetVal[machineIdx] = totalbet;
+            }
+
+            if (outres.openType == OT_Normal)
+            {
+                // 本地账户统计只在普通付费局更新；免费局收益已在触发局的 nTotalFreeBet 中结算。
+                TotalWin = betmultiple * (outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
+                TotalWin += outres.nJPBet;//彩金单独计算
+                pItem->Wins += TotalWin;
             }
         }
 
-        DLL_GetGameResultById(pItem, totalbet, &outres, &ret, gameId);
-
-        if (outres.resType == RT_FreeWin)
+        // 每100局输出一次10台机子的实时RTP
+        if ((totalTime % _DebugInfoInterval) == 0)
         {
-            giveTime += outres.nTotalFreeTime;
-            giveBetVal = totalbet;
+            float totalMachineRtp = 0.0f;
+            QS_LOG("=== Round:%d RTP Snapshot ===\n", totalTime);
+            for (int32_t i = 0; i < _TestMachineCount; ++i)
+            {
+                float machineRtp = 0.0f;
+                if (testPlayers[i].Bets > 0)
+                {
+                    machineRtp = testPlayers[i].Wins * 1.0f / testPlayers[i].Bets;
+                }
+                totalMachineRtp += machineRtp;
+                QS_LOG("Machine[%d] RTP:%f Bets:%u Wins:%u\n",
+                    i,
+                    machineRtp,
+                    testPlayers[i].Bets,
+                    testPlayers[i].Wins);
+            }
+            QS_LOG("Round:%d MachineAvgRTP:%f\n", totalTime, totalMachineRtp / _TestMachineCount);
+            QS_LOG("\n");
         }
-       
-       
-        if (outres.openType == OT_Normal)
+      
+    }
+   
+    // 输出 10 台机子的独立 RTP（Wins / Bets），用于观察机位离散度。
+    {
+        QS_LOG("\n\n\n");
+        float totalMachineRtp = 0.0f;
+        for (int32_t i = 0; i < _TestMachineCount; ++i)
         {
-            TotalWin = betmultiple *(outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
-            TotalWin += outres.nJPBet;//彩金单独计算
-            //pItem->Credit += TotalWin;
-           // pItem->Wins += TotalWin;
-            player_bets_info_update(player_id, 0, TotalWin);
+            float machineRtp = 0.0f;
+            if (testPlayers[i].Bets > 0)
+            {
+                machineRtp = testPlayers[i].Wins * 1.0f / testPlayers[i].Bets;
+            }
+            totalMachineRtp += machineRtp;
+            QS_LOG("Machine[%d] Bets:%u Wins:%u RTP:%f\n",
+                i,
+                testPlayers[i].Bets,
+                testPlayers[i].Wins,
+                machineRtp);
         }
+        QS_LOG("MachineAvgRTP:%f\n", totalMachineRtp / _TestMachineCount);
+       
     }
 
-    QS_LOG("\n\n\n");
-    DebugInfo userDebugInfo;
     //汇总测试信息
     {
+        QS_LOG("\n\n\n");
+        DebugInfo userDebugInfo;
         DebugInfo_reset(&userDebugInfo);
         int8_t finalString[1024] = { 0 };
         DLL_GetUserDebugInfo(&userDebugInfo, gameId);
@@ -244,11 +297,8 @@ int32_t main(int32_t argc, char *argv[])
 
         sprintf(RTPStr, "BaseRTP:%f FreeRTP:%f BounsRTP:%f JackpotRTP:%f TotalRTP:%f TotalRTPByParts:%f",
             BaseRTP,
-            //FreePerHitRTP,
             FreeRTP,
-            //BonusPerHitRTP,
             BounsRTP,
-            //JackpotPerHitRTP,
             JackpotRTP,
             TotalRTP,
             BaseRTP + FreeRTP + BounsRTP + JackpotRTP);

@@ -1,4 +1,123 @@
-﻿  main.c
+﻿  CMD_Fish.c
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/CMD_Fish.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\GameConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/CMD_Fish.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Test.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/CMD_Fish.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(525,17): warning C4013: “JRand”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(717,62): warning C4477: “snprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(717,62):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(717,62):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(717,62):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(721,62): warning C4477: “snprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(721,62):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(721,62):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(721,62):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(725,62): warning C4477: “snprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(725,62):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(725,62):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(725,62):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(729,62): warning C4477: “snprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(729,62):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(729,62):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(729,62):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(733,62): warning C4477: “snprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(733,62):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(733,62):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(733,62):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(737,62): warning C4477: “snprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(737,62):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(737,62):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(737,62):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(749,62): warning C4477: “snprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(749,62):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(749,62):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(749,62):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(761,62): warning C4477: “snprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(761,62):
+      请考虑在格式字符串中使用“%lld”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(761,62):
+      请考虑在格式字符串中使用“%Id”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(761,62):
+      请考虑在格式字符串中使用“%I64d”
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.c(769,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Dll.c
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\DllInterface.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\GameConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\GameAlgo\common\JRand.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Test.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(441,58): warning C4047: “函数”:“int32_t *”与“int32_t (*)[20]”的间接级别不同
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(441,58): warning C4024: “Matrix_u_computerMatrixById”: 形参和实参 2 的类型不同
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(681,47): warning C4047: “函数”:“int32_t *”与“int32_t (*)[20]”的间接级别不同
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Dll.c(681,47): warning C4024: “ApplyDebugMode”: 形参和实参 5 的类型不同
+  LotteryManager.c
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\LotteryManager.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\LotteryManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/LotteryManager.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Lottery.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/LotteryManager.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/LotteryManager.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\GameConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/LotteryManager.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\Test.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/LotteryManager.c”)
+  
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\LotteryManager.c(121,21): warning C4244: “初始化”: 从“float”转换到“int32_t”，可能丢失数据
+  main.c
 F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\CMD_Fish.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/main.c”)
@@ -27,15 +146,21 @@ F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\
 F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\Control\GameRegistry.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/main.c”)
   
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(206,30): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
-      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(206,30):
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(108,12): warning C4244: “函数”: 从“time_t”转换到“U32”，可能丢失数据
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(259,30): warning C4477: “sprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int64_t”
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(259,30):
       请考虑在格式字符串中使用“%lld”
-      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(206,30):
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(259,30):
       请考虑在格式字符串中使用“%Id”
-      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(206,30):
+      F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(259,30):
       请考虑在格式字符串中使用“%I64d”
   
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(206,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(245,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(82,15): warning C4101: “CommData”: 未引用的局部变量
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(259,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(298,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(83,15): warning C4101: “CommData”: 未引用的局部变量
+  正在生成代码...
+ideabase.lib(idea_coder.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(idea_coder.obj)”或在“F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(driver_serial.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(driver_serial.obj)”或在“F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_platform.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_platform.obj)”或在“F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_json.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_json.obj)”或在“F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
   idea.vcxproj -> F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\x64\Debug\idea.exe
