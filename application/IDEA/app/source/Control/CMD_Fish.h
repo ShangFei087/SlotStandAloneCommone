@@ -23,7 +23,7 @@
 #define RT_Win 1
 #define RT_FreeWin 2
 #define RT_BonusWin 3
-//#define RT_Jackpot  4 彩金中奖应该独立出来
+#define RT_Jackpot  4 
 
 // 开奖方式定义
 #define OT_Normal 0
@@ -131,10 +131,10 @@ typedef struct {
 	int64_t dwFreeGameTime;       // 免费游戏触发次数
 	int64_t dwLooseTime;          // 输局次数
 	int64_t dwJackpotTime;        // Jackpot 次数
-	int64_t dwNormalWinTotalBet;  // 普通中奖总倍数
-	int64_t dwFreeGameTotalBet;   // 免费游戏总倍数
-	int64_t dwBonusGameTotalBet;  // Bonus 游戏总倍数
-	int64_t dwJackpotTotalBet;    // Jackpot 总赢钱
+	int64_t dwBaseWinScore;       // 线奖赢钱总额（金额口径）
+	int64_t dwFreeWinScore;       // 免费游戏赢钱总额（金额口径）
+	int64_t dwBonusWinScore;      // Bonus 游戏赢钱总额（金额口径）
+	int64_t dwJackpotWinScore;    // Jackpot 赢钱总额（金额口径）
 	int64_t dwFreeGameBetError;   // 免费游戏剩余倍数误差
 } DebugInfo;
 

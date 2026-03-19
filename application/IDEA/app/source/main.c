@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 #include "app.h"
 #include "Control/NatureAlg.h"
 #include "Control/DllInterface.h"
@@ -83,7 +84,7 @@ int32_t main(int32_t argc, char *argv[])
 
 	DebugControlMode_t debugMode;
     DebugControlMode_Init(&debugMode);
-	debugMode.resType = RT_Win;
+	//debugMode.resType = RT_Win;
 	//debugMode.resType = RT_Lose;
 	//debugMode.resType = RT_FreeWin;
 	//debugMode.resType = RT_BonusWin;
@@ -103,7 +104,8 @@ int32_t main(int32_t argc, char *argv[])
     }
  
     //初始化随机种子
-    JSrand(12345);
+    //测试用时间作为种子，正式的时候种子需要另外处理
+    JSrand(time(NULL));
     U32 seed_array[4] = { 0x123, 0x456, 0x789, 0xabc };
     JSrandArray(seed_array, 4);
     //初始化输出
@@ -213,7 +215,7 @@ int32_t main(int32_t argc, char *argv[])
             (userDebugInfo.dwLooseTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwNormalWinTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwFreeGameTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwBonusTime * 1.0f / userDebugInfo.dwTotalPlayTime));
         QS_LOG("%s\n", finalString);
 
-        int8_t RTPStr[200];
+        int8_t RTPStr[256];
         //输赢概率
         float LoseProb = userDebugInfo.dwLooseTime * 1.0f / userDebugInfo.dwTotalPlayTime;
         float WinProb = userDebugInfo.dwNormalWinTime * 1.0f / userDebugInfo.dwTotalPlayTime;
@@ -221,26 +223,39 @@ int32_t main(int32_t argc, char *argv[])
         float BonusProb = userDebugInfo.dwBonusTime * 1.0f / userDebugInfo.dwTotalPlayTime;
         float JackPotProb = userDebugInfo.dwJackpotTime * 1.0f / userDebugInfo.dwTotalPlayTime;
 
-        int32_t TotalBet = userDebugInfo.dwPlayScore;
-        float BaseRTP = userDebugInfo.dwNormalWinTotalBet * 1.0f / TotalBet;
-        float FreeRTP = userDebugInfo.dwFreeGameTotalBet * 1.0f / TotalBet;
-        float BounsRTP = userDebugInfo.dwBonusGameTotalBet * 1.0f / TotalBet;
-        float JackpotRTP = userDebugInfo.dwJackpotTotalBet * 1.0f / TotalBet;
-        float TotalRTP = userDebugInfo.dwWinScore * 1.0f / TotalBet;
-        sprintf(RTPStr, "BaseRTP:%f FreeRTP:%f-%f BounsRTP:%f-%f JackpotRTP:%f-%f TotalRTP:%f",
+        int64_t TotalBet = userDebugInfo.dwPlayScore;
+        float BaseRTP = 0.0f;
+        float FreeRTP = 0.0f;
+        float BounsRTP = 0.0f;
+        float JackpotRTP = 0.0f;
+        float TotalRTP = 0.0f;
+        float FreePerHitRTP = 0.0f;
+        float BonusPerHitRTP = 0.0f;
+        float JackpotPerHitRTP = 0.0f;
+        if (TotalBet > 0)
+        {
+            BaseRTP = userDebugInfo.dwBaseWinScore * 1.0f / TotalBet;
+            FreeRTP = userDebugInfo.dwFreeWinScore * 1.0f / TotalBet;
+            BounsRTP = userDebugInfo.dwBonusWinScore * 1.0f / TotalBet;
+            JackpotRTP = userDebugInfo.dwJackpotWinScore * 1.0f / TotalBet;
+            TotalRTP = userDebugInfo.dwWinScore * 1.0f / TotalBet;
+        }
+        if (FreeProb > 0.0f) FreePerHitRTP = FreeRTP / FreeProb;
+        if (BonusProb > 0.0f) BonusPerHitRTP = BounsRTP / BonusProb;
+        if (JackPotProb > 0.0f) JackpotPerHitRTP = JackpotRTP / JackPotProb;
+
+        sprintf(RTPStr, "BaseRTP:%f FreeRTP:%f BounsRTP:%f JackpotRTP:%f TotalRTP:%f TotalRTPByParts:%f",
             BaseRTP,
-            FreeRTP / FreeProb,
+            //FreePerHitRTP,
             FreeRTP,
-            BounsRTP / BonusProb,
+            //BonusPerHitRTP,
             BounsRTP,
-            JackpotRTP / JackPotProb,
+            //JackpotPerHitRTP,
             JackpotRTP,
-            BaseRTP + FreeRTP + BounsRTP);
+            TotalRTP,
+            BaseRTP + FreeRTP + BounsRTP + JackpotRTP);
         QS_LOG("%s\n", RTPStr); \
     }
-
-   
-   
 #endif
 
 	while(1) //主循环

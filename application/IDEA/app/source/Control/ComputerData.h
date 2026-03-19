@@ -163,7 +163,6 @@ static uint8_t* gLineCheckArray[GAME_INSTANCE_ID_MAX] =
 };
 //获取线
 #define GET_LINE_VALUE(game, line, col) (gLineCheckArray[game][(line) * COL_MAX + (col)]* COL_MAX + col)   //直接转换成在阵列里的位置 阵列从左到右在从上到下
-//gZhuZaiJinBi_1700_BetArray[i * COL_MAX + j])* COL_MAX + j
 //---------------------------------------免费次数------------------------------------------------//;;
 
 static uint8_t gCaiFuZhiMen_3999_FreeTime[6] = { 8, 10, 12, 0, 0, 0 };
@@ -238,22 +237,5 @@ static uint8_t* gRTSizes[RollTabel_MAX] = {
 	gXingYunZhiLun_3998_Free_RT_sizes
 };
 #define GET_ROLLTABLE_SIZE(game_id, level) (gRTSizes[game_id][level])  
-
-//---------------------------------------滚轮表配置------------------------------------------------//
-//  - 图标在每个列出现个数
-//static uint8_t SymbolDis[GE_ChessTypeNum][5] = {
-//	{10, 7,  7, 4,  8},
-//	{ 0, 0,  5, 8, 10},
-//	{ 7, 4, 10, 8,  0},
-//	{11, 6,  7, 8,  7},
-//	{ 7, 4,  6, 9, 11},
-//	{ 5, 6,  3, 5,  6},
-//	{ 5, 3,  5, 5,  7},
-//	{ 3, 6, 11, 5,  7},
-//	{ 4, 3,  6, 5, 10},
-//	{10, 2,  2, 3,  2},
-//	{ 2, 3,  2, 2,  2},
-//	{ 2, 2,  2, 2,  2},
-//};
 
 #endif

@@ -680,13 +680,13 @@ void DebugInfo_accum(DebugInfo* pDest, DebugInfo* pSrc)
     pDest->dwBonusTime += pSrc->dwBonusTime;
     pDest->dwFreeGameTime += pSrc->dwFreeGameTime;
     pDest->dwLooseTime += pSrc->dwLooseTime;
-    pDest->dwFreeGameTotalBet += pSrc->dwFreeGameTotalBet;
-    pDest->dwBonusGameTotalBet += pSrc->dwBonusGameTotalBet;
+    pDest->dwFreeWinScore += pSrc->dwFreeWinScore;
+    pDest->dwBonusWinScore += pSrc->dwBonusWinScore;
     pDest->dwJackpotTime += pSrc->dwJackpotTime;
-    pDest->dwJackpotTotalBet += pSrc->dwJackpotTotalBet;
+    pDest->dwJackpotWinScore += pSrc->dwJackpotWinScore;
     pDest->dwFreeGameBetError += pSrc->dwFreeGameBetError;
     pDest->dwNormalWinTime += pSrc->dwNormalWinTime;
-    pDest->dwNormalWinTotalBet+= pSrc->dwNormalWinTotalBet;
+    pDest->dwBaseWinScore += pSrc->dwBaseWinScore;
 }
 //-------------------------------------------------------------------------------------
 int8_t* DebugInfo_toJason(DebugInfo* pInfo)
@@ -738,11 +738,11 @@ int8_t* DebugInfo_toJason(DebugInfo* pInfo)
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwFreeGameTotalBet\":%d,", pInfo->dwFreeGameTotalBet);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwBaseWinScore\":%lld,", pInfo->dwBaseWinScore);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwBonusGameTotalBet\":%d,", pInfo->dwBonusGameTotalBet);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwFreeWinScore\":%lld,", pInfo->dwFreeWinScore);
     if (written < 0) return NULL;
     used += (size_t)written;
 
@@ -750,7 +750,11 @@ int8_t* DebugInfo_toJason(DebugInfo* pInfo)
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotTotalBet\":%d,", pInfo->dwJackpotTotalBet);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwBonusWinScore\":%lld,", pInfo->dwBonusWinScore);
+    if (written < 0) return NULL;
+    used += (size_t)written;
+
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotWinScore\":%lld,", pInfo->dwJackpotWinScore);
     if (written < 0) return NULL;
     used += (size_t)written;
 

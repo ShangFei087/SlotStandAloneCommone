@@ -36,7 +36,6 @@ F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\
       请考虑在格式字符串中使用“%I64d”
   
 F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(206,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(224,41): warning C4244: “初始化”: 从“int64_t”转换到“int32_t”，可能丢失数据
-F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(230,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(245,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\application\IDEA\app\source\main.c(82,15): warning C4101: “CommData”: 未引用的局部变量
   idea.vcxproj -> F:\Control\SlotStandAloneControl\SlotStandAloneCommone_debug_1\x64\Debug\idea.exe

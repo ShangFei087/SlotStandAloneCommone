@@ -4,7 +4,7 @@
 #include "Lottery.h"
 #include "ComputerData.h"
 
-// C 版本的彩金管理器数据结构
+//彩金管理器数据结构
 typedef struct LotteryManager {
 	int32_t mTotalPlayTime;   // 总游玩局数
 	int32_t mTotalPlay;       // 总游玩分值

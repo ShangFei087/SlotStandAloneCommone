@@ -43,8 +43,7 @@ GameInstanceId_t GameManager_GetCurrentGameId(void);//当前游戏Id
 
 GameInstance_t* GameManager_GetInstance(GameInstanceId_t gameId);//查找实例
 GameInstance_t* GameManager_GetCurrentInstance(void);//当前游戏实例
-int8_t GameManager_IsInstanceExists(GameInstanceId_t gameId);
-int8_t GameManager_GetAllGameIds(GameInstanceId_t* idArray, int8_t maxCount);
+
 int8_t GameManager_GetInstanceCount(void); //已经初始化游戏的数量
 GameInstanceId_t GameManager_FindGameByName(const int8_t* gameName); //根据名称查找实例 ID
 
