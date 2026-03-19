@@ -195,10 +195,8 @@ int32_t main(int32_t argc, char *argv[])
         }
     }
 
-
     QS_LOG("\n\n\n");
     DebugInfo userDebugInfo;
-   
     //汇总测试信息
     {
         DebugInfo_reset(&userDebugInfo);
