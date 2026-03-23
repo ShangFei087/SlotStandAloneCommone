@@ -166,3 +166,17 @@ void FreeGameInfo_t_Reset(FreeGameInfo_t* obj)
 	obj->nTotalFreeTime = 0;
 	// 注意：原C++代码中不重置roundInfo，保持相同行为
 }
+
+
+// JackpotOnlineInfo_t 函数实现
+void JackpotOnlineInfo_t_Init(JackpotOnlineInfo_t* obj)
+{
+    if (obj == NULL) return;
+    memset(obj, 0, sizeof(JackpotOnlineInfo_t));
+}
+
+void JackpotOnlineInfo_t_Reset(JackpotOnlineInfo_t* obj)
+{
+    if (obj == NULL) return;
+    memset(obj, 0, sizeof(JackpotOnlineInfo_t));
+}

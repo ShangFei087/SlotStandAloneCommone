@@ -27,6 +27,8 @@
 #include "Control/GameConfig.h"
 #include "Control/LotteryManager.h"
 #include "Control/GameRegistry.h"
+#include "Control/GameManager.h"
+
 /**************************************************************************
  *                   G E N E R A L    C O N S T A N T S                   *
  **************************************************************************/
@@ -80,7 +82,6 @@ static void idea_decode_proc(idea_coder_decode_data* pData)
 */
 
 
-int32_t giveTime = 0;//免费次数
 static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 {
 	uint32_t cmd = qs_json_GetObjectItem(json, "cmd")->valueint;
@@ -633,18 +634,19 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		GameId_t gameId = g_CurrentGameInstance->id;
 		OutResult_t outres;
 		uint32_t TotalWin = 0;
+		uint32_t  lineNum = g_CurrentGameInstance->gameConfig.header.lineCount;
+		uint32_t giveTime = g_CurrentGameInstance->freeGameInfo.nTotalFreeTime - g_CurrentGameInstance->freeGameInfo.nCurFreeIdx;
 		OutResult_Init(&outres);
 		
 		uint32_t player_id = qs_json_GetArrayItem(pJsonArray, 0)->valueint;
 		player_data_item* pItem = player_statistics(player_id);
 		
 		uint32_t totalbet = pItem->Bet;//总押注
-		uint32_t betmultiple = pItem->Bet / 50;//下注倍数
+		uint32_t betmultiple = pItem->Bet / lineNum;//下注倍数
 		QS_LOG("\r\n Bet:%d", totalbet);
 		outres.openType = OT_Normal;
 		if (giveTime > 0)
 		{
-			giveTime--;
 			outres.openType = OT_Give;
 		}
 
@@ -659,18 +661,13 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 			LotteryManager_TryGetLottery(&gLotteryManager, totalbet, &jpType, &jpvaule);
 			if (jpvaule > 0)
 			{
-				outres.JPType = jpType;
+				outres.nJPType = jpType;
 				outres.nJPBet = jpvaule;
 			}
 		}
 
 		//调用游戏算法生成结果
 		DLL_GetGameResultById(pItem, betmultiple, &outres, &ret, gameId);
-		if (outres.resType == RT_FreeWin)
-		{
-			giveTime = outres.nTotalFreeTime;
-
-		}
 		
 		//先把所有的分数加完
 		if (outres.openType == OT_Normal)
@@ -698,8 +695,10 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		res[pos++] = GE_WheelChessNum;						// MatrixLength
 		res[pos++] = outres.nTotalFreeTime;					// nTotalFreeTime
 		res[pos++] = outres.nTotalFreeBet;					// nTotalFreeBet
-		res[pos++] = outres.nBonusBet;						// nTotalFreeBet
-		res[pos++] = outres.nBonusType;						// nTotalFreeBet
+		res[pos++] = outres.nBonusBet;						// nBonusBet
+		res[pos++] = outres.nBonusType;						// nBonusType
+		res[pos++] = outres.nJPBet;							// nJPBet
+		res[pos++] = outres.nJPType;						// nJPType
 		
 
 		// IDVec
@@ -732,8 +731,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		qs_json_DeleteItemFromObject(json, "data");
 		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
 		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
-		qs_senv_manager_write(gpCtx->pSenv, json);
-		
+		qs_senv_manager_write(gpCtx->pSenv, json);	
 	}
 	break;
 	//滚轮停止后发送
@@ -744,7 +742,9 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		int32_t res[2] = { 0 };
 		uint8_t idx = 0;
 		uint8_t pos = 0;
-		if (JsonArraySize == 1) {
+		if (JsonArraySize == 1)
+		{
+			JackpotOnlineInfo_t_Reset(&g_GameManager.jackpotOnlineInfo);
 			player_data_item* pItem = player_statistics(idx);
 			res[0] = 0;
 			res[1] = pItem->Credit;
@@ -854,7 +854,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		uint32_t PlayerId = 0;;
 		uint32_t MachineId = 0;
 		uint32_t JackpotType = 0;
-		uint32_t JackpotWins = 0;
+		uint32_t JackpotWin = 0;
 		uint32_t pos = 0;
 		int32_t res[4] = { 0 };
 
@@ -865,19 +865,20 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 			MachineId= qs_json_GetArrayItem(pJsonArray, 0)->valueint;
 			PlayerId = qs_json_GetArrayItem(pJsonArray, 1)->valueint;
 			JackpotType = qs_json_GetArrayItem(pJsonArray, 2)->valueint;
-			JackpotWins = qs_json_GetArrayItem(pJsonArray, 3)->valueint;
+			JackpotWin = qs_json_GetArrayItem(pJsonArray, 3)->valueint;
 
 			player_data_item* pItem = player_statistics(PlayerId);
 			beforeCredit = pItem->Credit;
-			player_bets_info_update(PlayerId, 0, JackpotWins);
+			player_bets_info_update(PlayerId, 0, JackpotWin);
 			afterCredit = pItem->Credit ;
 			res[0] = 0;
-			res[1] = JackpotWins;
+			res[1] = JackpotWin;
 			res[2] = beforeCredit;
 			res[3] = afterCredit;
-			/*QS_LOG("\r\n PlayerId:%d", PlayerId);
-			QS_LOG("\r\n beforeCredit:%d", beforeCredit);
-			QS_LOG("\r\n afterCredit:%d", afterCredit);*/
+
+			g_GameManager.jackpotOnlineInfo.nJpOnlineType = JackpotType;
+			g_GameManager.jackpotOnlineInfo.nJpOnlineWin = JackpotWin;
+			DLL_OnJackpotOnlineWin((int32_t)JackpotWin);
 		}
 		else
 		{

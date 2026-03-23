@@ -157,6 +157,8 @@
     <ClInclude Include="..\..\source\Control\Lottery.h" />
     <ClInclude Include="..\..\source\Control\LotteryManager.h" />
     <ClInclude Include="..\..\source\Control\NatureAlg.h" />
+    <ClInclude Include="..\..\source\Control\RtpConfig.h" />
+    <ClInclude Include="..\..\source\Control\TableControl.h" />
     <ClInclude Include="..\..\source\Control\Test.h" />
     <ClInclude Include="..\..\source\GameAlgo\algo\ga.h" />
     <ClInclude Include="..\..\source\GameAlgo\cJSON\cJSON.h" />
@@ -188,6 +190,8 @@
     <ClCompile Include="..\..\source\Control\Lottery.c" />
     <ClCompile Include="..\..\source\Control\LotteryManager.c" />
     <ClCompile Include="..\..\source\Control\NatureAlg.c" />
+    <ClCompile Include="..\..\source\Control\RtpConfig.c" />
+    <ClCompile Include="..\..\source\Control\TableControl.c" />
     <ClCompile Include="..\..\source\GameAlgo\algo\ga.c" />
     <ClCompile Include="..\..\source\GameAlgo\cJSON\cJSON.c" />
     <ClCompile Include="..\..\source\GameAlgo\cJSON\cJSON_Utils.c" />

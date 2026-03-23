@@ -24,6 +24,7 @@
 #define RT_FreeWin 2
 #define RT_BonusWin 3
 #define RT_Jackpot  4 
+#define RT_JackpotOnline  5
 
 // 开奖方式定义
 #define OT_Normal 0
@@ -82,7 +83,6 @@ uint8_t Matrix_u_checkOnLine(Matrix_u* pMatrix, uint8_t lineIdx, CheckOnLineResu
 typedef struct {
 	uint8_t  openType;                      // 开奖类型：普通/赠送
 	uint8_t  resType;                       // 结果类型
-	uint8_t  JPType;                        // 彩金类型
 	int32_t  IDVec[GE_MaxIDNum];            // 中奖线 ID 信息（最多 20 条）
 	int32_t  nMatrixBet;                    // 线奖总倍数
 	Matrix_u matrix;                        // 开奖矩阵
@@ -100,6 +100,7 @@ typedef struct {
 	uint8_t nBonusType;
 	
 	int32_t nJPBet;
+	uint8_t nJPType;                        // 彩金类型
 } OutResult_t;
 
 // OutResult_t 相关接口
@@ -121,21 +122,23 @@ extern DebugControlMode_t gDebugControlMode;
 
 // 调试统计信息
 typedef struct {
-	int64_t dwPlayScore;          // 总下注
-	int64_t dwWinScore;           // 总赢钱
-	int64_t dwTotalPlayTime;      // 总局数
-	int64_t dwNormalOpenTime;     // 普通开局次数
-	int64_t dwGiveOpenTime;       // 赠送开局次数
-	int64_t dwNormalWinTime;      // 普通中奖次数
-	int64_t dwBonusTime;          // Bonus 次数
-	int64_t dwFreeGameTime;       // 免费游戏触发次数
-	int64_t dwLooseTime;          // 输局次数
-	int64_t dwJackpotTime;        // Jackpot 次数
-	int64_t dwBaseWinScore;       // 线奖赢钱总额（金额口径）
-	int64_t dwFreeWinScore;       // 免费游戏赢钱总额（金额口径）
-	int64_t dwBonusWinScore;      // Bonus 游戏赢钱总额（金额口径）
-	int64_t dwJackpotWinScore;    // Jackpot 赢钱总额（金额口径）
-	int64_t dwFreeGameBetError;   // 免费游戏剩余倍数误差
+	int64_t dwPlayScore;				// 总下注
+	int64_t dwWinScore;					// 总赢钱
+	int64_t dwTotalPlayTime;			// 总局数
+	int64_t dwNormalOpenTime;			// 普通开局次数
+	int64_t dwGiveOpenTime;				// 赠送开局次数
+	int64_t dwNormalWinTime;			// 普通中奖次数
+	int64_t dwBonusTime;				// Bonus 次数
+	int64_t dwFreeGameTime;				// 免费游戏触发次数
+	int64_t dwLooseTime;				// 输局次数
+	int64_t dwJackpotTime;				// Jackpot 次数
+	int64_t dwJackpotOnlineTime;		// 联网Jackpot 次数
+	int64_t dwBaseWinScore;				// 线奖赢钱总额（金额口径）
+	int64_t dwFreeWinScore;				// 免费游戏赢钱总额（金额口径）
+	int64_t dwBonusWinScore;			// Bonus 游戏赢钱总额（金额口径）
+	int64_t dwJackpotWinScore;			// Jackpot 赢钱总额（金额口径）
+	int64_t dwJackpotOnlineWinScore;    // 联网Jackpot 赢钱总额（金额口径）
+	int64_t dwFreeGameBetError;			// 免费游戏剩余倍数误差
 } DebugInfo;
 
 void DebugInfo_reset(DebugInfo* pInfo);
@@ -144,6 +147,4 @@ int8_t* DebugInfo_toJason(DebugInfo* pInfo);
 // DebugInfo_toJason 返回堆内存字符串，调用方必须 free
 
 // 全局变量声明
-
-
 #endif // CMD_FISH_H_

@@ -44,6 +44,10 @@ void LotteryManager_OnPlay(LotteryManager* manager, int32_t value);
  * @return 成功返回 1，失败返回 0。
  */
 int32_t LotteryManager_TryGetLottery(LotteryManager* manager, int32_t playScore, int32_t* id, int32_t* val);
+// 候选彩金放行后提交落账（id 支持 0~2 下标或 1~3 类型值）
+void LotteryManager_CommitLottery(LotteryManager* manager, int32_t id, int32_t val);
+// 回补指定彩金池（id 支持 0~2 下标或 1~3 类型值）
+void LotteryManager_RefundLottery(LotteryManager* manager, int32_t id, int32_t val);
 
 /**
  * @brief 设置所有彩金池的基础值和上限值。

@@ -606,7 +606,7 @@ void OutResult_Init(OutResult_t* pResult)
         pResult->BonusData[i] = 0;
     }
 
-    pResult->JPType = JT_None;
+    pResult->nJPType = JT_None;
     pResult->nJPBet = 0;
 }
 void OutResult_reset(OutResult_t* pResult)
@@ -684,6 +684,8 @@ void DebugInfo_accum(DebugInfo* pDest, DebugInfo* pSrc)
     pDest->dwBonusWinScore += pSrc->dwBonusWinScore;
     pDest->dwJackpotTime += pSrc->dwJackpotTime;
     pDest->dwJackpotWinScore += pSrc->dwJackpotWinScore;
+    pDest->dwJackpotOnlineTime += pSrc->dwJackpotOnlineTime;
+    pDest->dwJackpotOnlineWinScore += pSrc->dwJackpotOnlineWinScore;
     pDest->dwFreeGameBetError += pSrc->dwFreeGameBetError;
     pDest->dwNormalWinTime += pSrc->dwNormalWinTime;
     pDest->dwBaseWinScore += pSrc->dwBaseWinScore;
@@ -755,6 +757,14 @@ int8_t* DebugInfo_toJason(DebugInfo* pInfo)
     used += (size_t)written;
 
     written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotWinScore\":%lld,", pInfo->dwJackpotWinScore);
+    if (written < 0) return NULL;
+    used += (size_t)written;
+
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotOnlineTime\":%d,", pInfo->dwJackpotOnlineTime);
+    if (written < 0) return NULL;
+    used += (size_t)written;
+
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotOnlineWinScore\":%lld,", pInfo->dwJackpotOnlineWinScore);
     if (written < 0) return NULL;
     used += (size_t)written;
 

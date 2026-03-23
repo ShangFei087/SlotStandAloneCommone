@@ -30,6 +30,7 @@ void Lottery_Init(Lottery* self, int32_t threshMax, int32_t threshMin, int32_t d
 
 void Lottery_OnPlay(Lottery* self, int32_t score);
 int32_t Lottery_TryGet(Lottery* self, int32_t playScore, int32_t* val, int32_t* rate); // 返回 0/1
+void Lottery_CommitGet(Lottery* self, int32_t val); // 候选放行后再落账
 int32_t Lottery_CheckGet(Lottery* self, int32_t playScore); // 返回 0/1
 
 int32_t Lottery_GetShowValue(Lottery* self);

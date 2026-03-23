@@ -29,8 +29,11 @@ typedef struct {
 typedef struct {
     GameInstance_t instances[GAME_INSTANCE_ID_MAX];
     GameInstanceId_t currentGameId;
+    JackpotOnlineInfo_t jackpotOnlineInfo;
     int8_t instanceCount;
 } GameManager_t;
+
+extern GameManager_t g_GameManager;
 
 
 int8_t GameManager_Init(void);//初始化管理器

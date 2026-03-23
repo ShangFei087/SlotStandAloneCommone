@@ -9,7 +9,7 @@
 
 // 配置头结构，固定大小 64 字节
 typedef struct {
-	uint32_t	id;                 // 内部游戏 ID
+	uint8_t		id;                 // 内部游戏 ID（当前仅 0~2）
 	uint8_t		enabled;            // 是否启用
 	uint8_t		gameMode;           // 游戏模式：0=普通，1=技巧，2=专家
 	uint8_t		difficulty;         // 难度：0-8
@@ -17,17 +17,17 @@ typedef struct {
 	uint32_t	maxBet;             // 最大押注
 	uint8_t		ChessTypeNum;       // 总图标种类数
 	uint8_t		ChessNorTypeNum;    // 普通图标种类数
-	uint32_t	lineCount;          // 线数（如 15/20）或 ways（如 243）
+	uint16_t	lineCount;          // 线数（如 15/20）或 ways（如 243）
 	uint8_t		reelCount;          // 轴数（通常为 5）
 	uint8_t		rowCount;           // 行数（通常为 3）
-	uint32_t	MaxIDNyn;           // 中奖 ID 最大数量
+	uint16_t	MaxIDNyn;           // 中奖 ID 最大数量
 	uint8_t		freeGameMax;        // 免费游戏最大次数
 	uint8_t		Scatter;            // Scatter 图标
 	uint8_t		Wild;               // Wild 图标
 	uint8_t		Bonus;				// Bonus 图标
 	int8_t		normalRollTableId;	// 普通卷轴表 ID
 	int8_t		freeRollTableId;	// 免费卷轴表 ID
-	uint8_t reserved[1];			// 预留字段
+	uint8_t reserved[2];			// 预留字段（对齐）
 } GameConfigHeader_t;
 
 typedef struct 

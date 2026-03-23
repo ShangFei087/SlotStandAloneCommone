@@ -80,8 +80,13 @@ int32_t main(int32_t argc, char *argv[])
 
  //测试
 #ifdef _LocalDebug
-    comm_data CommData;
+     //初始化随机种子
+    //测试用时间作为种子，正式的时候种子需要另外处理
+    JSrand(time(NULL));
+    U32 seed_array[4] = { 1 * time(NULL), 2 * time(NULL), 3 * time(NULL), 4 * time(NULL) };
+    JSrandArray(seed_array, 4);
 
+    //初始化调试
 	DebugControlMode_t debugMode;
     DebugControlMode_Init(&debugMode);
 	//debugMode.resType = RT_Win;
@@ -90,32 +95,32 @@ int32_t main(int32_t argc, char *argv[])
 	//debugMode.resType = RT_BonusWin;
     //debugMode.bonusType =1;
 	//debugMode.mode = DCM_PointResData;
-
 	debugMode.mode = DCM_Normal;
     DLL_SetControlDebugMode(&debugMode);
+
+    // 设置当前区域+RTP档位（这里使用国内 99.2 档）。
+    DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 3);   // 可选：先固定区域并使用该区域默认基准
+    DLL_SetDifficultyLevel(3);                      // 难度
+    // 设置免费/Bonus概率覆盖（-1 表示不覆盖，沿用档位默认）。
+    //DLL_SetRtpPassOverride(9920, 9920);// 99.2
+    //DLL_SetRtpPassOverride(9980, 9980);//99.8
    
+    //初始化配置
     GameId_t gameId = GAME_ID_INVALID;
-   
-  
     if (!GameRegistry_InitAndRegisterDefaults(&gameId))
     {
         QS_LOG("init game registry failed\n");
         return -1;
     }
- 
-    //初始化随机种子
-    //测试用时间作为种子，正式的时候种子需要另外处理
-    JSrand(time(NULL));
-    U32 seed_array[4] = { 0x123, 0x456, 0x789, 0xabc };
-    JSrandArray(seed_array, 4);
+    
     //初始化输出
     OutResult_t outres ;
     OutResult_Init(&outres);
-    int32_t totalTime = 0; // 每台机子的总玩次数
+    uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(3998))
+    if (DLL_GameSwitch(3999))
     {
-        gameId = 3998;
+        gameId = 3999;
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -136,20 +141,20 @@ int32_t main(int32_t argc, char *argv[])
     memset(giveBetVal, 0, sizeof(giveBetVal));
     for (int32_t i = 0; i < _TestMachineCount; ++i)
     {
-        testPlayers[i].Bet = 100;
+        testPlayers[i].Bet = 200;
     }
 
     int32_t ret = 0;
     int32_t jpvaule = 0;
-    int32_t jpType = 0;
+    uint8_t jpType = 0;
     uint32_t TotalWin = 0;
-#define _TestTime 10000
+#define _TestTime 500000
 
     while (totalTime < _TestTime)
     {
         totalTime++;
         //10台机子并行跑
-        for (int32_t machineIdx = 0; machineIdx < _TestMachineCount; ++machineIdx)
+        for (uint32_t machineIdx = 0; machineIdx < _TestMachineCount; ++machineIdx)
         {
             player_data_item* pItem = &testPlayers[machineIdx];
             OutResult_Init(&outres);
@@ -165,7 +170,7 @@ int32_t main(int32_t argc, char *argv[])
             }
 
             uint32_t totalbet = pItem->Bet;//总押注
-            uint32_t betmultiple = pItem->Bet / 50;//下注倍数
+            uint32_t betmultiple = pItem->Bet / g_CurrentGameInstance->gameConfig.header.lineCount;//下注倍数
             if (outres.openType == OT_Give)
             {
                 totalbet = giveBetVal[machineIdx];
@@ -178,7 +183,7 @@ int32_t main(int32_t argc, char *argv[])
                 LotteryManager_TryGetLottery(&gLotteryManager, totalbet, &jpType, &jpvaule);
                 if (jpvaule > 0)
                 {
-                    outres.JPType = jpType;
+                    outres.nJPType = jpType;
                     outres.nJPBet = jpvaule;
                 }
             }
@@ -201,11 +206,11 @@ int32_t main(int32_t argc, char *argv[])
             }
         }
 
-        // 每100局输出一次10台机子的实时RTP
+        // 每10000局输出一次10台机子的实时RTP
         if ((totalTime % _DebugInfoInterval) == 0)
         {
             float totalMachineRtp = 0.0f;
-            QS_LOG("=== Round:%d RTP Snapshot ===\n", totalTime);
+            QS_LOG("=== Round:%u RTP Snapshot ===\n", totalTime);
             for (int32_t i = 0; i < _TestMachineCount; ++i)
             {
                 float machineRtp = 0.0f;
@@ -220,7 +225,7 @@ int32_t main(int32_t argc, char *argv[])
                     testPlayers[i].Bets,
                     testPlayers[i].Wins);
             }
-            QS_LOG("Round:%d MachineAvgRTP:%f\n", totalTime, totalMachineRtp / _TestMachineCount);
+            QS_LOG("Round:%u MachineAvgRTP:%f\n", totalTime, totalMachineRtp / _TestMachineCount);
             QS_LOG("\n");
         }
       
@@ -256,53 +261,61 @@ int32_t main(int32_t argc, char *argv[])
         int8_t finalString[1024] = { 0 };
         DLL_GetUserDebugInfo(&userDebugInfo, gameId);
 
-        sprintf(finalString, "TotalPlayTime:%d LoseProb:%f NormalWinProb:%f FreeGameProb:%f BonusGamesProb:%f JackpotProb:%f  TotalProb:%f",
+        sprintf(finalString, "TotalPlayTime:%d LoseProb:%f NormalWinProb:%f FreeGameProb:%f BonusGamesProb:%f JackpotProb:%f JackpotOnlineProb:%f TotalProb:%f",
             userDebugInfo.dwTotalPlayTime,
             userDebugInfo.dwLooseTime * 1.0f / userDebugInfo.dwTotalPlayTime,
             userDebugInfo.dwNormalWinTime * 1.0f / userDebugInfo.dwTotalPlayTime,
             userDebugInfo.dwFreeGameTime * 1.0f / userDebugInfo.dwTotalPlayTime,
             userDebugInfo.dwBonusTime * 1.0f / userDebugInfo.dwTotalPlayTime,
             userDebugInfo.dwJackpotTime * 1.0f / userDebugInfo.dwTotalPlayTime,
+            userDebugInfo.dwJackpotOnlineTime * 1.0f / userDebugInfo.dwTotalPlayTime,
             (userDebugInfo.dwLooseTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwNormalWinTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwFreeGameTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwBonusTime * 1.0f / userDebugInfo.dwTotalPlayTime));
         QS_LOG("%s\n", finalString);
 
-        int8_t RTPStr[256];
+        int8_t RTPStr[512];
         //输赢概率
         float LoseProb = userDebugInfo.dwLooseTime * 1.0f / userDebugInfo.dwTotalPlayTime;
         float WinProb = userDebugInfo.dwNormalWinTime * 1.0f / userDebugInfo.dwTotalPlayTime;
         float FreeProb = userDebugInfo.dwFreeGameTime * 1.0f / userDebugInfo.dwTotalPlayTime;
         float BonusProb = userDebugInfo.dwBonusTime * 1.0f / userDebugInfo.dwTotalPlayTime;
         float JackPotProb = userDebugInfo.dwJackpotTime * 1.0f / userDebugInfo.dwTotalPlayTime;
+        float JackPotOnlineProb = userDebugInfo.dwJackpotOnlineTime * 1.0f / userDebugInfo.dwTotalPlayTime;
 
         int64_t TotalBet = userDebugInfo.dwPlayScore;
         float BaseRTP = 0.0f;
         float FreeRTP = 0.0f;
         float BounsRTP = 0.0f;
         float JackpotRTP = 0.0f;
+        float JackpotOnlineRTP = 0.0f;
         float TotalRTP = 0.0f;
         float FreePerHitRTP = 0.0f;
         float BonusPerHitRTP = 0.0f;
         float JackpotPerHitRTP = 0.0f;
+        float JackpotOnlinePerHitRTP = 0.0f;
         if (TotalBet > 0)
         {
             BaseRTP = userDebugInfo.dwBaseWinScore * 1.0f / TotalBet;
             FreeRTP = userDebugInfo.dwFreeWinScore * 1.0f / TotalBet;
             BounsRTP = userDebugInfo.dwBonusWinScore * 1.0f / TotalBet;
             JackpotRTP = userDebugInfo.dwJackpotWinScore * 1.0f / TotalBet;
+            JackpotOnlineRTP = userDebugInfo.dwJackpotOnlineWinScore * 1.0f / TotalBet;
             TotalRTP = userDebugInfo.dwWinScore * 1.0f / TotalBet;
         }
         if (FreeProb > 0.0f) FreePerHitRTP = FreeRTP / FreeProb;
         if (BonusProb > 0.0f) BonusPerHitRTP = BounsRTP / BonusProb;
         if (JackPotProb > 0.0f) JackpotPerHitRTP = JackpotRTP / JackPotProb;
+        if (JackPotOnlineProb > 0.0f) JackpotOnlinePerHitRTP = JackpotOnlineRTP / JackPotOnlineProb;
 
-        sprintf(RTPStr, "BaseRTP:%f FreeRTP:%f BounsRTP:%f JackpotRTP:%f TotalRTP:%f TotalRTPByParts:%f",
+        sprintf(RTPStr, "BaseRTP:%f FreeRTP:%f BounsRTP:%f JackpotRTP:%f JackpotOnlineRTP:%f TotalRTP:%f TotalRTPByParts:%f " ,
             BaseRTP,
             FreeRTP,
             BounsRTP,
             JackpotRTP,
+            JackpotOnlineRTP,
             TotalRTP,
-            BaseRTP + FreeRTP + BounsRTP + JackpotRTP);
-        QS_LOG("%s\n", RTPStr); \
+            BaseRTP + FreeRTP + BounsRTP + JackpotRTP + JackpotOnlineRTP
+       );
+        QS_LOG("%s\n", RTPStr); 
     }
 #endif
 

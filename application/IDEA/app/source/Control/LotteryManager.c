@@ -19,19 +19,19 @@ void LotteryManager_Init(void)
     gLotteryManager.mScale = 1;  // 彩金缩放系数
     gLotteryManager.mFrozenTime = 0;
     gLotteryManager.mFrozenTime = 0;
-    gLotteryManager.mInjectRatePermil = 1200;     // 基础注入倍率：1.2x
+    gLotteryManager.mInjectRatePermil = 1000;     // 基础注入倍率：1.0x
     gLotteryManager.mTierMidBet = 1000;           // 中档下注阈值
     gLotteryManager.mTierHighBet = 5000;          // 高档下注阈值
     gLotteryManager.mTierMidInjectPermil = 1200;  // 中档注入：1.2x
     gLotteryManager.mTierHighInjectPermil = 1500; // 高档注入：1.5x
     gLotteryManager.mWinFreezeTime = 0;         // 命中彩金后的冷却
-    gLotteryManager.mMinPlayScoreToTrigger = 50;  // 触发开奖的最小下注
+    gLotteryManager.mMinPlayScoreToTrigger = 20;  // 触发开奖的最小下注
     gLotteryManager.mMinPlayGapAfterWin = 10;     // 两次开奖最小间隔局数
     gLotteryManager.mPlaySinceLastWin = gLotteryManager.mMinPlayGapAfterWin;
 
-    int32_t nLocalJpUnit = JPDrawRateUnit[3];
+    int32_t nLocalJpUnit = JPDrawRateUnit[4];
     int32_t minThresh =0;
-    int32_t threshRange[] = { 25, 50, 75, 100 };
+    int32_t threshRange[] = { 20, 50, 75, 100 };
 
     minThresh = threshRange[0];
     for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
@@ -39,10 +39,11 @@ void LotteryManager_Init(void)
         Lottery_Init
         (
             &gLotteryManager.mLotterys[i],
-            2 * gLotteryManager.mScale,
-            minThresh,
+            2 * gLotteryManager.mScale, // 开奖阈值上限
+            minThresh, // 开奖阈值下限
             JPWeight[i+1] * nLocalJpUnit * gLotteryManager.mScale,  // 抽取率
-            gLotteryManager.mScale);
+            gLotteryManager.mScale // 彩金上限
+        );
     }
 
 }
@@ -138,11 +139,6 @@ int32_t LotteryManager_TryGetLottery(LotteryManager* manager, int32_t playScore,
         if (*id >= 0 && *id < GAME_Local_JP_MAX)
         {
             res = Lottery_TryGet(&manager->mLotterys[*id], playScore, val, &fRate);
-            if (res)
-            {
-                manager->mFrozenTime += manager->mWinFreezeTime;
-                manager->mPlaySinceLastWin = 0;
-            }
         }
     }
     else
@@ -155,14 +151,58 @@ int32_t LotteryManager_TryGetLottery(LotteryManager* manager, int32_t playScore,
             if (res)
             {
                 *id = i;
-                manager->mFrozenTime += manager->mWinFreezeTime;
-                manager->mPlaySinceLastWin = 0;
                 break;
             }
         }
     }
 
     return res;
+}
+
+// 候选彩金放行后，提交到本地奖池并更新冷却/间隔。
+void LotteryManager_CommitLottery(LotteryManager* manager, int32_t id, int32_t val)
+{
+    int32_t idx = id;
+    if (manager == NULL || val <= 0)
+    {
+        return;
+    }
+
+    if (idx < 0 || idx >= GAME_Local_JP_MAX)
+    {
+        return;
+    }
+
+    Lottery_CommitGet(&manager->mLotterys[idx], val);
+    manager->mTotalDraw += val;
+    manager->mFrozenTime += manager->mWinFreezeTime;
+    manager->mPlaySinceLastWin = 0;
+}
+
+// 回补已扣出的本地彩金到指定奖池。
+void LotteryManager_RefundLottery(LotteryManager* manager, int32_t id, int32_t val)
+{
+    int32_t idx = id;
+    if (manager == NULL || val <= 0)
+    {
+        return;
+    }
+
+    // 兼容两种入参：0~2（数组下标）或 1~3（业务类型值）。
+    if (idx >= 1 && idx <= GAME_Local_JP_MAX)
+    {
+        idx -= 1;
+    }
+    if (idx < 0 || idx >= GAME_Local_JP_MAX)
+    {
+        return;
+    }
+
+    manager->mLotterys[idx].mLotteryPool += val;
+    if (manager->mTotalDraw >= val)
+    {
+        manager->mTotalDraw -= val;
+    }
 }
 
 

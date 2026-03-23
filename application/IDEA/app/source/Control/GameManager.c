@@ -1,6 +1,6 @@
 #include "GameManager.h"
 
-extern GameManager_t g_GameManager = {0};
+GameManager_t g_GameManager = {0};
 
 GameInstance_t* find_slot(void) 
 {

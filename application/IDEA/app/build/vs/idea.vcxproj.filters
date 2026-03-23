@@ -126,6 +126,12 @@
     <ClInclude Include="..\..\source\Control\GameRegistry.h">
       <Filter>源文件\source\Control</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\Control\RtpConfig.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\TableControl.h">
+      <Filter>源文件\source\Control</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\app.c">
@@ -186,6 +192,12 @@
       <Filter>源文件\source\Control</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Control\GameRegistry.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\RtpConfig.c">
+      <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\TableControl.c">
       <Filter>源文件\source\Control</Filter>
     </ClCompile>
   </ItemGroup>

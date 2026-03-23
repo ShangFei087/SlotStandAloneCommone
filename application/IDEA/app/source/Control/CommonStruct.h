@@ -20,7 +20,7 @@ typedef struct {
 	int32_t nMatrixBet;      // 阵列赔率
 	int32_t nPlayBetValue;   // 压分
 
-	Matrix_u extraMxu;   // 用于免费或彩金游戏阵列
+	Matrix_u extraMxu;   // 用于免费或大奖游戏阵列
 
 	// 免费数据
 	ComboResultInfo_t* pCurCri;
@@ -32,7 +32,7 @@ typedef struct {
 	Matrix_u LooseMxus[GE_MaxFreeNum];
 	int8_t WildPosArray[GE_MaxFreeNum][GE_WheelChessNum];
 
-	// 彩金数据
+	// 大奖数据
 	int32_t nBonusBet;
 	int8_t nBonusType;
 	int8_t BlindSymbol; //神秘图标或者乘数游戏的倍数
@@ -55,6 +55,17 @@ typedef struct {
 // FreeGameInfo_t 初始化函数
 void FreeGameInfo_t_Init(FreeGameInfo_t* obj);
 void FreeGameInfo_t_Reset(FreeGameInfo_t* obj);
+
+//联网彩金信息结构体
+typedef struct {
+	int32_t nBetVal;
+	int8_t nJpOnlineType;
+	int32_t nJpOnlineWin;
+}JackpotOnlineInfo_t;
+
+// JackpotOnlineInfo_t 初始化函数
+void JackpotOnlineInfo_t_Init(JackpotOnlineInfo_t* obj);
+void JackpotOnlineInfo_t_Reset(JackpotOnlineInfo_t* obj);
 
 
 

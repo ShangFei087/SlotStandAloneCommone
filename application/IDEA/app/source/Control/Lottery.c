@@ -61,30 +61,36 @@ int32_t Lottery_TryGet(Lottery* self, int32_t playScore, int32_t* val, int32_t* 
     // 本次派奖值取当前显示值（整数）
     int32_t nIntVal = (int32_t)self->mShowLottery;
     *val = nIntVal * 1;
-    // 从池中扣除派奖金额
-    self->mLotteryPool -= *val;
-    // 开奖后显示值重置为基础值
+    if (rate != NULL)
+    {
+        *rate = 0;
+    }
+
+    return 1;
+}
+
+void Lottery_CommitGet(Lottery* self, int32_t val)
+{
+    if (self == NULL || val <= 0)
+    {
+        return;
+    }
+
+    // 放行后再落账：扣池、重置显示值、重置阈值与统计。
+    self->mLotteryPool -= val;
     self->mShowLottery = self->mBaseLottery;
-    // 修正池值，并重新生成下一次开奖阈值
     if (self->mLotteryPool < 0)
     {
         self->mLotteryPool = 0;
     }
-
     if (self->mLotteryPool > self->mBaseLottery * 1)
     {
         self->mLotteryPool = self->mBaseLottery;
     }
-    self->mNextGiveLotteryThresh = self->mBaseLottery * 1 +(self->mMaxLottery - self->mBaseLottery) * JRandFrom(40, 95)/100;
+    self->mNextGiveLotteryThresh = self->mBaseLottery * 1 + (self->mMaxLottery - self->mBaseLottery) * JRandFrom(40, 95) / 100;
     self->mShowSpeedPermil = 300;
-    self->mTotalGivePool += *val;
+    self->mTotalGivePool += val;
     self->mTotalGiveTime++;
-    if (self->mTotalGiveTime > 50000)
-    {
-        self->mTotalGiveTime = 0;
-    }
-
-    return 1;
 }
 
 int32_t Lottery_CheckGet(Lottery* self, int32_t playScore)
