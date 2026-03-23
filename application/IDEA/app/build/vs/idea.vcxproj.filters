@@ -34,6 +34,9 @@
     <Filter Include="源文件\source\Control">
       <UniqueIdentifier>{ced7c9a0-514b-4ecf-bd01-419af71ccce9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\source\Control\GenerationResult">
+      <UniqueIdentifier>{fa75ad18-384a-40ae-9428-9ffb8f42728c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\idea_pwd.h">
@@ -132,6 +135,15 @@
     <ClInclude Include="..\..\source\Control\TableControl.h">
       <Filter>源文件\source\Control</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\Control\GameResult_Generic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\GameResultRegistry.h">
+      <Filter>源文件\source\Control\GenerationResult</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Control\GenerationResult.h">
+      <Filter>源文件\source\Control\GenerationResult</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\app.c">
@@ -199,6 +211,24 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Control\TableControl.c">
       <Filter>源文件\source\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\GameResult_3998.c">
+      <Filter>源文件\source\Control\GenerationResult</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\GameResult_1700.c">
+      <Filter>源文件\source\Control\GenerationResult</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\GameResult_3999.c">
+      <Filter>源文件\source\Control\GenerationResult</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\GameResult_Generic.c">
+      <Filter>源文件\source\Control\GenerationResult</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\GenerationResult.c">
+      <Filter>源文件\source\Control\GenerationResult</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\GameResultRegistry.c">
+      <Filter>源文件\source\Control\GenerationResult</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

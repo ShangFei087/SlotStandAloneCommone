@@ -2,6 +2,7 @@
 
 #include "ComputerData.h"
 #include "CMD_Fish.h"
+#include "GenerationResult.h"
 #include "TableControl.h"
 #include "LotteryManager.h"
 #include "Test.h"
@@ -107,42 +108,7 @@ int8_t DLL_GameSwitch(GameId_t gameId)
 // 生成一局结果
 void GenerateARound(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameId_t gameId)
 {
-	NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, mxu);
-	//全线计算
-	//matrixBet=Matrix_u_computerMatrix_243(mxu, idVec);
-	//有线计算
-	*matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
-
-	switch (mxu->resultType)
-	{
-	case RT_Lose:
-	{
-
-	}
-	break;
-	case RT_Win:
-	{
-
-	}
-	break;
-	case RT_FreeWin:
-	{
-		//生成免费局数
-		GenerateARoundWithFreeWinById(info,betVal, gameId, mxu);
-	}
-	break;
-	case RT_BonusWin:
-	{
-		//生成大奖结果
-		GenerateARoundWithBonusWinById(info, betVal, gameId, mxu);
-	}
-	break;
-	default:
-	{
-
-	}
-	break;
-	}
+	GenerationResult_GenerateNormal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
 }
 //应用调试模式
 void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameId_t gameId)
@@ -187,13 +153,13 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 		case RT_FreeWin:
 		{
 			//生成免费局数
-			GenerateARoundWithFreeWinById(info, betVal, gameId, mxu);
+			GenerationResult_GenerateFree(info, betVal, inst, mxu, gameId);
 		}
 		break;
 		case RT_BonusWin:
 		{
 			//生成大奖结果
-			GenerateARoundWithBonusWinById(info, betVal, gameId, mxu);
+			GenerationResult_GenerateBonus(info, betVal, inst, mxu, gameId);
 		}
 		break;
 		default:
@@ -260,485 +226,6 @@ void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* 
 	}
 }
 //生成一个免费局
-void GenerateARoundWithFreeWinById(RoundInfo_t* info, int32_t betVal, GameId_t gameId, Matrix_u* freeMxu)
-{
-	Matrix_u mxu;
-	Matrix_u_reset(&mxu);
-	int32_t idVec[GE_MaxIDNum] = { 0 };
-	GameInstance_t* inst = get_instance(gameId);
-
-	uint8_t scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig.header.Scatter);
-
-	info->nFreeNum = GET_FREE_TIME(inst->gameConfig.header.id, scatterCount - 3);
-	info->nFreeBet = 0;
-
-	switch (gameId)
-	{
-	case 1700:
-	{
-		for (uint8_t index = 0; index < info->nFreeNum; index++)
-		{
-			Matrix_u_reset(&mxu);
-			NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu);
-			int32_t matrixBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
-
-			info->nFreeBet += matrixBet;
-			Matrix_u_copy(&info->pFreeMxu[index], &mxu);
-			info->FreeBetArray[index] = matrixBet;
-
-			if (matrixBet > 0)
-			{
-				for (uint8_t i = 0; i < mxu.idVecSize; ++i)
-				{
-					info->FreeIDVec[index][i] = idVec[i];
-				}
-			}
-			info->pFreeMxu[index].idVecSize = mxu.idVecSize;
-			info->pFreeMxu[index].resultType = mxu.resultType;
-		}
-	}
-	break;
-	case 3999:
-	{
-		for (uint8_t index = 0; index < info->nFreeNum; index++)
-		{
-			while (1)
-			{
-				Matrix_u_reset(&mxu);
-				NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu);
-				//随机一列填满wild
-				uint8_t rndCol = JRandFrom(0, 4);
-				Matrix_u_insertCol(&mxu, inst->gameConfig.header.Wild, rndCol);
-				int32_t matrixBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
-
-				info->nFreeBet += matrixBet;
-				Matrix_u_copy(&info->pFreeMxu[index], &mxu);
-				info->FreeBetArray[index] = matrixBet;
-
-				if (matrixBet > 0)
-				{
-					for (uint8_t i = 0; i < mxu.idVecSize; ++i)
-					{
-						info->FreeIDVec[index][i] = idVec[i];
-					}
-				}
-
-				uint8_t scatterCount = Matrix_u_getTypeNum(&mxu, inst->gameConfig.header.Scatter);
-				if (info->nFreeNum + scatterCount <= 20)
-				{
-					info->nFreeNum += scatterCount;
-					break;
-				}
-				continue;
-			}
-
-			info->pFreeMxu[index].idVecSize = mxu.idVecSize;
-			info->pFreeMxu[index].resultType = mxu.resultType;
-		}
-	}
-	break;
-	case 3998:
-	{
-		scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig.header.Bonus);
-		info->nFreeNum = GET_FREE_TIME(inst->gameConfig.header.id, scatterCount - 3);
-		Matrix_u tempmxu;
-		Matrix_u_reset(&tempmxu);
-		//收集wild位置
-		for (uint8_t i = 0; i < GE_WheelChessNum; i++)
-		{
-			if (Matrix_u_getIntData(freeMxu, i) == inst->gameConfig.header.Bonus)
-			{
-				info->WildPosArray[0][i] = 1;
-			}
-		}
-
-		for (uint8_t index = 0; index < info->nFreeNum; index++)
-		{
-			Matrix_u_reset(&mxu);
-			Matrix_u_reset(&tempmxu);
-			NatureAlg_GenRndMxu(inst->gameConfig.header.freeRollTableId, &mxu);
-
-			Matrix_u_copy(&tempmxu, &mxu);
-			//填入wild位置
-			for (int32_t i = 0; i < GE_WheelChessNum; i++)
-			{
-				if (info->WildPosArray[index][i] == 1)
-				{
-					tempmxu.dataArray[i] = inst->gameConfig.header.Wild;
-				}
-			}
-			int32_t matrixBet = Matrix_u_computerMatrixById(&tempmxu, idVec, &inst->gameConfig, gameId);
-
-			info->nFreeBet += matrixBet;
-			Matrix_u_copy(&info->pFreeMxu[index], &mxu);
-			info->FreeBetArray[index] = matrixBet;
-
-			if (matrixBet > 0)
-			{
-				for (int32_t i = 0; i < tempmxu.idVecSize; ++i)
-				{
-					info->FreeIDVec[index][i] = idVec[i];
-				}
-			}
-
-			//收集wild位置,最后一把不收集
-			if (index < info->nFreeNum - 1)
-			{
-				for (uint8_t i = 0; i < GE_WheelChessNum; i++)
-				{
-					if (Matrix_u_getIntData(&tempmxu, i) == inst->gameConfig.header.Wild)
-					{
-						info->WildPosArray[index + 1][i] = 1;
-					}
-				}
-			}
-			info->pFreeMxu[index].idVecSize = tempmxu.idVecSize;
-			info->pFreeMxu[index].resultType = tempmxu.resultType;
-		}
-	}
-	break;
-	}
-}
-//生成一个大奖局
-void GenerateARoundWithBonusWinById(RoundInfo_t* info, int32_t betVal, GameId_t gameId, Matrix_u* bonusMxu)
-{
-	Matrix_u mxu;
-	Matrix_u_reset(&mxu);
-	int32_t idVec[GE_MaxIDNum] = { 0 };
-	GameInstance_t* inst = get_instance(gameId);
-
-	uint8_t bonusCount = Matrix_u_getTypeNum(bonusMxu, inst->gameConfig.header.Bonus);
-	Matrix_u_copy(&mxu, bonusMxu);
-	info->nBonusBet = 0;
-	uint32_t randNum = 0;
-	uint8_t bonusMulpitly = 0;
-	uint8_t bonusMulpitlyArray[4] = { 50,100,150,200 };
-	switch (gameId)
-	{
-	case 1700:
-	{
-		info->nBonusBet = 1000;
-	}
-	break;
-	case 3999:
-	{
-		randNum = JRandFrom(0, 3);
-		bonusMulpitly = bonusMulpitlyArray[randNum];
-		info->nBonusBet =inst->gameConfig.header.lineCount * bonusMulpitly;
-		info->nBonusType = randNum;
-	}
-	break;
-	case 3998:
-	{
-		//随机大奖
-		randNum = JRandFrom(0, 10000);
-#ifdef _DebugControlMode
-		if (gDebugControlMode.mode == DCM_PointResData)
-		{
-			if (gDebugControlMode.bonusType == 0)
-			{
-				//Wild游戏功能
-				info->nBonusType = 0;
-				uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3个转盘图标可以得到1列wild图标，4个转盘可以的2列......
-				uint8_t wildArray[COL_MAX] = { 0, 1, 2, 3 , 4 };
-				uint8_t  wildPosVec[COL_MAX];
-				uint8_t  wildSize = COL_MAX;
-				uint8_t randNum = 0;
-				uint8_t randPos = 0;
-				// 复制原始数组
-				for (uint8_t i = 0; i < wildSize; i++)
-				{
-					wildPosVec[i] = wildArray[i];
-				}
-				if (bonusCount >= 6)
-				{
-					int a = 0;
-				}
-				for (uint8_t i = 0; i < wildColCountArray[bonusCount - 3]; ++i)
-				{
-					// 随机选择一个位置索引
-					randNum = JRandFrom(0, wildSize - 1);
-					//获取实际的列位置
-					randPos = wildPosVec[randNum];
-					info->BonusData[i] = randPos;
-					Matrix_u_insertCol(&mxu, inst->gameConfig.header.Wild, randPos);
-					// 从数组中删除已使用的位置
-					for (int j = randNum; j < wildSize - 1; j++)
-					{
-						wildPosVec[j] = wildPosVec[j + 1];
-					}
-					wildSize--;
-				}
-				info->BlindSymbol = bonusCount;
-				info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
-				bonusMxu->idVecSize = mxu.idVecSize;
-				for (uint8_t i = 0; i < mxu.idVecSize; ++i)
-				{
-					info->FreeIDVec[0][i] = idVec[i];
-				}
-			}
-			else
-			{
-				if (gDebugControlMode.bonusType == 1)
-				{
-					//神秘游戏
-					info->nBonusType = 1;
-					uint8_t  BlindSymbol = JRandFrom(0, 7);
-					uint8_t BlindBoxCountArray[3] = { 6, 8, 11 };//3个转盘图标可以得到6个盲盒，4个转盘可以的8个盲盒图标......
-					uint8_t BlindBoxCount = BlindBoxCountArray[bonusCount - 3];
-					int dataArray[15] = { 0, 1, 2, 3 , 4 ,5,6,7,8,9,10,11,12,13,14 };
-					uint8_t  PosVec[15];
-					uint8_t  PosSize = 15;
-					// 复制原始数组
-					for (uint8_t i = 0; i < PosSize; i++)
-					{
-						PosVec[i] = dataArray[i];
-					}
-					uint8_t randNum = 0;
-					uint8_t randPos = 0;
-					//先填满bonus位置
-					for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
-					{
-						if (bonusMxu->dataArray[i] == inst->gameConfig.header.Bonus)
-						{
-							info->BonusData[i] = 1;
-							// 从数组中删除已使用的位置
-							for (int j = randNum; j < PosSize - 1; j++)
-							{
-								PosVec[j] = PosVec[j + 1];
-							}
-							PosSize--;
-						}
-					}
-
-					//在填其他位置
-					for (uint8_t i = 0; i < BlindBoxCount - bonusCount; ++i)
-					{
-						//// 随机选择一个位置索引
-						randNum = JRandFrom(0, PosSize - 1);
-						//获取实际的列位置
-						randPos = PosVec[randNum];
-						info->BonusData[randPos] = 1;
-						// 从数组中删除已使用的位置
-						for (int j = randNum; j < PosSize - 1; j++)
-						{
-							PosVec[j] = PosVec[j + 1];
-						}
-						PosSize--;
-
-					}
-
-					for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
-					{
-						if (info->BonusData[i] == 1)
-						{
-							mxu.dataArray[i] = BlindSymbol;
-						}
-					}
-#ifdef _IMHERE
-					Matrix_u_copy(&mxu, bonusMxu);
-					BlindSymbol = 0;
-					uint8_t temp[GE_WheelChessNum] =
-					{
-					   0,0,1,0,0,1,0,1,1,0,0,1,0,0,0
-					};
-					for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
-					{
-						info->BonusData[i] = temp[i];
-						if (temp[i] > 0)
-						{
-							mxu.dataArray[i] = BlindSymbol;
-						}
-					}
-
-					//0, 0, 6, 5, 0,
-					//0, 0, 0, 0, 8,
-					//0, 0, 7, 5, 0
-
-#endif // _IMHERE
-					info->nBonusBet = Matrix_u_computerMatrixById(&mxu, &idVec, &inst->gameConfig, (uint32_t)gameId);
-					bonusMxu->idVecSize = mxu.idVecSize;
-					for (uint8_t i = 0; i < mxu.idVecSize; ++i)
-					{
-						info->FreeIDVec[0][i] = idVec[i];
-					}
-					info->BlindSymbol = BlindSymbol; //代替一下
-				}
-				else
-				{
-					if (gDebugControlMode.bonusType == 2)
-					{
-						//乘数游戏
-						info->nBonusType = 2;
-						uint8_t WheelArray[3][4] = { { 3, 4, 5, 7 } ,{6,7,8,10},{9,10,11,15} };
-						uint8_t WheelMulptiy = WheelArray[bonusCount - 3][JRandFrom(0, 3)];
-						info->BlindSymbol = WheelMulptiy; //代替一下
-						info->nBonusBet = WheelMulptiy * inst->gameConfig.header.lineCount * bonusCount;
-					}
-					else
-					{
-						if (gDebugControlMode.bonusType == 3)
-						{
-							//大奖游戏
-							info->nBonusType = 3;
-							randNum = JRandFrom(0, 4);
-							bonusMulpitly = bonusMulpitlyArray[randNum];
-							info->BlindSymbol = bonusMulpitly; //代替一下
-							info->nBonusBet = inst->gameConfig.header.lineCount * bonusMulpitly;
-						}
-					}
-				}
-			}
-
-			return;
-		}
-#endif // _DebugControlMode
-
-		if (randNum < 2500)
-		{
-			//Wild游戏功能
-			info->nBonusType = 0;
-			uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3个转盘图标可以得到1列wild图标，4个转盘可以的2列......
-			uint8_t wildArray[COL_MAX] = { 0, 1, 2, 3 , 4 };
-			uint8_t  wildPosVec[COL_MAX];
-			uint8_t  wildSize = COL_MAX;
-			uint8_t randNum = 0;
-			uint8_t randPos = 0;
-			// 复制原始数组
-			for (uint8_t i = 0; i < wildSize; i++)
-			{
-				wildPosVec[i] = wildArray[i];
-			}
-			if (bonusCount >= 6)
-			{
-				int a = 0;
-			}
-			for (uint8_t i = 0; i < wildColCountArray[bonusCount - 3]; ++i)
-			{
-				// 随机选择一个位置索引
-				randNum = JRandFrom(0, wildSize - 1);
-				//获取实际的列位置
-				randPos = wildPosVec[randNum];
-				info->BonusData[i] = randPos;
-				Matrix_u_insertCol(&mxu, inst->gameConfig.header.Wild, randPos);
-				// 从数组中删除已使用的位置
-				for (int j = randNum; j < wildSize - 1; j++)
-				{
-					wildPosVec[j] = wildPosVec[j + 1];
-				}
-				wildSize--;
-			}
-			info->BlindSymbol = bonusCount;
-			info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
-			bonusMxu->idVecSize = mxu.idVecSize;
-			for (uint8_t i = 0; i < mxu.idVecSize; ++i)
-			{
-				info->FreeIDVec[0][i] = idVec[i];
-			}
-		}
-		else
-		{
-			if (randNum < 5000)
-			{
-				//神秘游戏
-				info->nBonusType = 1;
-				uint8_t  BlindSymbol = JRandFrom(0, 7);
-				uint8_t BlindBoxCountArray[3] = { 6, 8, 11 };//3个转盘图标可以得到6个盲盒，4个转盘可以的8个盲盒图标......
-				uint8_t BlindBoxCount = BlindBoxCountArray[bonusCount - 3];
-				int dataArray[15] = { 0, 1, 2, 3 , 4 ,5,6,7,8,9,10,11,12,13,14 };
-				uint8_t  PosVec[15];
-				uint8_t  PosSize = 15;
-				// 复制原始数组
-				for (uint8_t i = 0; i < PosSize; i++)
-				{
-					PosVec[i] = dataArray[i];
-				}
-				uint8_t randNum = 0;
-				uint8_t randPos = 0;
-				//先填满bonus位置
-				for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
-				{
-					if (bonusMxu->dataArray[i] == inst->gameConfig.header.Bonus)
-					{
-						info->BonusData[i] = 1;
-						mxu.dataArray[i] = BlindSymbol;
-						// 从数组中删除已使用的位置
-						for (int j = randNum; j < PosSize - 1; j++)
-						{
-							PosVec[j] = PosVec[j + 1];
-						}
-						PosSize--;
-					}
-				}
-
-				//在填其他位置
-				for (uint8_t i = 0; i < BlindBoxCount - bonusCount; ++i)
-				{
-					//// 随机选择一个位置索引
-					randNum = JRandFrom(0, PosSize - 1);
-					//获取实际的列位置
-					randPos = PosVec[randNum];
-					info->BonusData[randPos] = 1;
-					mxu.dataArray[randPos] = BlindSymbol;
-					// 从数组中删除已使用的位置
-					for (int j = randNum; j < PosSize - 1; j++)
-					{
-						PosVec[j] = PosVec[j + 1];
-					}
-					PosSize--;
-
-				}
-				info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
-				bonusMxu->idVecSize = mxu.idVecSize;
-				for (uint8_t i = 0; i < mxu.idVecSize; ++i)
-				{
-					info->FreeIDVec[0][i] = idVec[i];
-				}
-			}
-			else
-			{
-				if (randNum < 7500)
-				{
-					//乘数游戏
-					info->nBonusType = 2;
-					uint8_t WheelArray[3][4] = { { 3, 4, 5, 7 } ,{6,7,8,10},{9,10,11,15} };
-					uint8_t WheelMulptiy = WheelArray[bonusCount - 3][JRandFrom(0, 3)];
-					info->BlindSymbol = WheelMulptiy; //代替一下
-					info->nBonusBet = WheelMulptiy * inst->gameConfig.header.lineCount * bonusCount;
-				}
-				else
-				{
-					//大奖游戏
-					info->nBonusType = 3;
-					randNum = JRandFrom(0, 4);
-					bonusMulpitly = bonusMulpitlyArray[randNum];
-					info->BlindSymbol = bonusMulpitly; //代替一下
-					info->nBonusBet = inst->gameConfig.header.lineCount * bonusMulpitly;
-				}
-			}
-		}
-	}
-	break;
-	}
-}
-//生成一个输局
-void GenerateARoundWithLoseById(GameInstance_t* inst, Matrix_u* LoseMxu, int32_t* idVec, GameId_t gameId)
-{
-	while (1)
-	{
-		Matrix_u_reset(LoseMxu);
-		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, LoseMxu);
-		//全线计算
-		//matrixBet=Matrix_u_computerMatrix_243(mxu, idVec);
-		//有线计算
-		Matrix_u_computerMatrixById(LoseMxu, idVec, &inst->gameConfig, (uint32_t)gameId);
-		if (LoseMxu->resultType == RT_Lose)
-		{
-			break;
-		}
-	}
-}
-//为免费游戏应用矩阵
 void ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx)
 {
 	OutResult_reset(pRes);
@@ -824,7 +311,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 			outRes->nJPType = JT_None;
 			outRes->nJPBet = 0;
 			//强制输局
-			GenerateARoundWithLoseById(inst, &mxu, &idVec, gameId);
+			GenerationResult_GenerateLose(inst, &mxu, &idVec, gameId);
 			outRes->resType = RT_Lose;     // 标记输局
 			outRes->nMatrixBet = 0;        // 线奖清零
 			outRes->openType = OT_Normal;  // 仍属于普通付费开局
@@ -883,7 +370,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 			break;
 			case RT_Jackpot:
 			{
-				outRes->resType = RT_Jackpot; // 落地Jackpot类型（预留）
+				//outRes->resType = RT_Jackpot; // 落地Jackpot类型（预留）
 			}
 			break;
 			default:
@@ -901,9 +388,6 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 			outRes->openType = OT_Normal; // 付费局统一标记普通开局
 			inst->debugInfo.dwWinScore += betVal * (outRes->nMatrixBet + outRes->nTotalFreeBet + outRes->nBonusBet) + outRes->nJPBet; // 累计本局总赢分
 		}
-
-
-
 	}
 }
 //生成指定Id结果

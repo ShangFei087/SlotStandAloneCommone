@@ -1,10 +1,13 @@
 #include "CMD_Fish.h"
+#include "Matrix_u_LineById.h"
+#include "Matrix_u_TriggersById.h"
 #include "ComputerData.h"
 #include "Test.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include "../GameAlgo/common/JRand.h"
 
 DebugControlMode_t gDebugControlMode;
 //-------------------------------------------------------------------------------------
@@ -470,101 +473,9 @@ uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
 
 int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId)
 {
-    for (uint8_t i = 0; i < gameConfig->header.lineCount; ++i)
-    {
-        idVec[i] = 0;
-    }
-
-    uint32_t nLocalWinBet = 0;
-    CheckOnLineResult_t clr;
-    uint8_t idVecCount = 0;
-    uint32_t nID = 0;
-
-    // 按线逐条计算中奖
-    for (uint8_t i = 0; i < gameConfig->header.lineCount; ++i)
-    {
-        CheckOnLineResult_Init(&clr);
-        Matrix_u_checkOnLine(pMatrix, i, &clr, gameConfig);
-
-        if (clr.bIsEliminate) 
-        {
-            if (clr.bHasWild) 
-            {
-                // 部分玩法中，含 Wild 的线奖需要额外处理
-            }
-
-            nLocalWinBet += GET_BET_VALUE(gameConfig->header.id, clr.nAvailChessType, clr.nEliminateNum - 2);
-
-            // ID 编码：千位=线号，百位=连中数量，十位/个位=图标类型
-            nID = i  * 1000 + clr.nEliminateNum * 100 + clr.nAvailChessType;
-          
-            pMatrix->resultType = RT_Win;// RT_Win
-            idVec[idVecCount++] = nID;
-        }
-    }
-    pMatrix->idVecSize = idVecCount;
-
-    uint8_t scatterCount = 0;
-    uint8_t freeOdds = 0;
-    uint8_t _bonusCount = 0;
-    uint8_t bounsOdds = 0;
-    switch (gameId)
-    {
-    case 3998:
-        // 判定 Bonus
-        for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
-        {
-            if (pMatrix->dataArray[i] == gameConfig->header.Bonus)
-            {
-                ++_bonusCount;
-            }
-        }
-        if (_bonusCount >= 3)
-        {
-            // 3998 玩法：Bonus 与 Free 二选一
-            if (JRand(0, 10000) < 2000)
-            {
-                pMatrix->resultType = RT_BonusWin;
-            }
-            else
-            {
-                pMatrix->resultType = RT_FreeWin; 
-            }
-          
-            nLocalWinBet += bounsOdds;
-        }
-     break;
-    default:
-        // 判定 Scatter（免费游戏）
-        for (uint8_t i = 0; i < gameConfig->header.lineCount * gameConfig->header.rowCount; ++i)
-        {
-            if (pMatrix->dataArray[i] == gameConfig->header.Scatter)
-            {
-                ++scatterCount;
-            }
-        }
-        if (scatterCount >= 3)
-        {
-            pMatrix->resultType = RT_FreeWin;// RT_FreeWin
-        }
-
-        // 判定 Bonus
-        for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
-        {
-            if (pMatrix->dataArray[i] == gameConfig->header.Bonus)
-            {
-                ++_bonusCount;
-            }
-        }
-        if (_bonusCount >= 3)
-        {
-            pMatrix->resultType = RT_BonusWin; //RT_BonusWin
-            nLocalWinBet += bounsOdds;
-        }
-     break;
-    }
-   
-    return nLocalWinBet;
+    uint32_t nLocalWinBet = Matrix_u_computeLineWinsById(pMatrix, idVec, gameConfig);
+    Matrix_u_applyTriggersByGameId(pMatrix, gameConfig, gameId, &nLocalWinBet);
+    return (int32_t)nLocalWinBet;
 }
 
 //-------------------------------------------------------------------------------------
@@ -647,7 +558,6 @@ void OutResult_reset(OutResult_t* pResult)
 }
 //-------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------
-
 void DebugControlMode_Init(DebugControlMode_t* pMode)
 {
     pMode->mode = DCM_Normal;

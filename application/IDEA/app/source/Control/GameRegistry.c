@@ -3,6 +3,7 @@
 #include "GameConfig.h"
 #include "LotteryManager.h"
 #include "ComputerData.h"
+#include "GameResultRegistry.h"
 
 // 注册单个游戏并拷贝配置
 static int8_t GameRegistry_RegisterGameWithConfig(const int8_t* gameName, GameId_t gameId, const SlotGameConfig_t* config)
@@ -122,11 +123,11 @@ int8_t GameRegistry_InitAndRegisterDefaults(GameId_t* pLastGameId)
         return 0;
     }
     lastGameId = 3998;
-
     if (pLastGameId != NULL)
     {
         *pLastGameId = lastGameId;
     }
 
+    GameResultRegistry_InitDefaults();
     return 1;
 }
