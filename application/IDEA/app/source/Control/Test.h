@@ -3,7 +3,7 @@
 
 
 #define   _InternalVersion 1  // 内部版本号
-#define   _Version "20251104.100" // 版本字符串
+#define   _Version "2026324.100" // 版本字符串
 //#define   _Release    // 定义后为发布版本；该宏仅允许在本文件中配置
 
 #ifdef _Release
@@ -12,7 +12,7 @@
 #define _ShowConsole
 #else
 #define _WritePlayerData			// 写算法 Json 日志
-//#define _WritePlayerLog				// 写玩家日志
+#define _WritePlayerLog				// 写玩家日志
 #define _ShowConsole
 #define _DebugControlMode			// 启用调试控制模式
 #define _ShowDebugInfo				// 显示算法调试信息

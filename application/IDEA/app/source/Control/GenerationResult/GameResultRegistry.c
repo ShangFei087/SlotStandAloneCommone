@@ -41,18 +41,16 @@ void GameResult_Generic_Lose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* i
 //生成一局
 void GenerationResult_GenerateNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
 {
-	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
+	GameResultOps_t* ops = GameResultRegistry_Get(gameId);
 	if (ops == NULL || ops->genNormal == NULL)
 	{
 		return;
 	}
-
 	// 1) 生成“普通候选矩阵”：计算 mxu->resultType 与 matrixBet/idVec
 	ops->genNormal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
 
 	// 2) 根据候选类型生成子局（Free / Bonus）
 	if (mxu == NULL) return;
-
 	switch (mxu->resultType)
 	{
 	case RT_Lose:
@@ -201,5 +199,6 @@ void GameResultRegistry_InitDefaults(void)
 	ops3998.genFree = GameResult_3998_GenFree;
 	ops3998.genBonus = GameResult_3998_GenBonus;
 	ops3998.genLose = GameResult_3998_GenLose;
+	(void)GameResultRegistry_Register(3998, &ops3998);
 }
 

@@ -85,7 +85,7 @@ static void idea_decode_proc(idea_coder_decode_data* pData)
 static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 {
 	uint32_t cmd = qs_json_GetObjectItem(json, "cmd")->valueint;
-	//QS_LOG("\r\n Cmd:%d", cmd);
+	QS_LOG("\r\n Cmd:%d", cmd);
 	switch (cmd) 
 	{
 	//游戏初始化, 用于IDEA程序做一些必要的初始化操作
@@ -94,6 +94,8 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		int32_t res[6] = { 0 };
 		uint8_t pos = 0;
 		int32_t ret = 0;
+		// 设置当前区域+RTP档位（这里使用国内 99.2 档）。
+		DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 3);
 		GameId_t gameId = GAME_ID_INVALID;
 		if (GameRegistry_InitAndRegisterDefaults(&gameId))
 		{
@@ -103,6 +105,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		{
 			ret = 0;
 		}
+		QS_LOG("\r\n 20000:%d", gameId);
 		res[0] = ret;
 		//TODO
 		qs_json_DeleteItemFromObject(json, "data");
@@ -643,7 +646,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		
 		uint32_t totalbet = pItem->Bet;//总押注
 		uint32_t betmultiple = pItem->Bet / lineNum;//下注倍数
-		QS_LOG("\r\n Bet:%d", totalbet);
+		//QS_LOG("\r\n Bet:%d", totalbet);
 		outres.openType = OT_Normal;
 		if (giveTime > 0)
 		{
@@ -654,7 +657,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		{
 			BOOL xret = player_bets_info_update(player_id, totalbet, 0);
 			if (xret) {
-				//QS_LOG("\r\n 1111");
+				
 			}
 			LotteryManager_OnPlay(&gLotteryManager, totalbet);
 			//检测是否可以获得彩金

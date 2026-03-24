@@ -68,36 +68,143 @@ GameInstance_t* get_instance(GameId_t gameId)
 	}
 	return GameManager_GetInstance(gameId);
 }
-// 安全追加格式化字符串，避免缓冲区越界。
+// 嵌入式友好的轻量字符串拼接：避免依赖 vsnprintf 的库实现差异和较大体积。
+static void append_raw(char* buffer, size_t buffer_size, size_t* used, const char* src)
+{
+	size_t i = 0;
+	if (buffer == NULL || used == NULL || src == NULL || buffer_size == 0 || *used >= buffer_size) return;
+	while (src[i] != '\0' && *used < (buffer_size - 1))
+	{
+		buffer[*used] = src[i];
+		(*used)++;
+		i++;
+	}
+	buffer[*used] = '\0';
+}
+
+static void append_char(char* buffer, size_t buffer_size, size_t* used, char c)
+{
+	if (buffer == NULL || used == NULL || buffer_size == 0 || *used >= (buffer_size - 1)) return;
+	buffer[*used] = c;
+	(*used)++;
+	buffer[*used] = '\0';
+}
+
+static void append_uint64_dec(char* buffer, size_t buffer_size, size_t* used, uint64_t value)
+{
+	char tmp[21];
+	int32_t idx = 0;
+	if (value == 0)
+	{
+		append_char(buffer, buffer_size, used, '0');
+		return;
+	}
+	while (value > 0 && idx < (int32_t)sizeof(tmp))
+	{
+		tmp[idx++] = (char)('0' + (value % 10));
+		value /= 10;
+	}
+	while (idx > 0)
+	{
+		append_char(buffer, buffer_size, used, tmp[--idx]);
+	}
+}
+
+static void append_int64_dec(char* buffer, size_t buffer_size, size_t* used, int64_t value)
+{
+	uint64_t abs_value = 0;
+	if (value < 0)
+	{
+		append_char(buffer, buffer_size, used, '-');
+		abs_value = (uint64_t)(-(value + 1)) + 1U;
+	}
+	else
+	{
+		abs_value = (uint64_t)value;
+	}
+	append_uint64_dec(buffer, buffer_size, used, abs_value);
+}
+
 static void append_format(char* buffer, size_t buffer_size, size_t* used, const char* format, ...)
 {
 	va_list args;
-	int32_t written = 0;
-	size_t remain = 0;
+	size_t i = 0;
 
-	// 统一的安全追加：所有 JSON/日志字符串都走这里，防止越界写入。
-	if (buffer == NULL || used == NULL || format == NULL || *used >= buffer_size) return;
+	if (buffer == NULL || used == NULL || format == NULL || buffer_size == 0) return;
+	if (*used >= buffer_size)
+	{
+		*used = buffer_size - 1;
+		buffer[*used] = '\0';
+		return;
+	}
+	buffer[*used] = '\0';
 
-	remain = buffer_size - *used;
 	va_start(args, format);
-	written = vsnprintf(buffer + *used, remain, format, args);
+	while (format[i] != '\0' && *used < (buffer_size - 1))
+	{
+		if (format[i] != '%')
+		{
+			append_char(buffer, buffer_size, used, format[i]);
+			i++;
+			continue;
+		}
+
+		i++;
+		if (format[i] == '\0') break;
+
+		if (format[i] == '%')
+		{
+			append_char(buffer, buffer_size, used, '%');
+			i++;
+			continue;
+		}
+
+		if (format[i] == 's')
+		{
+			const char* s = va_arg(args, const char*);
+			append_raw(buffer, buffer_size, used, (s != NULL) ? s : "(null)");
+			i++;
+			continue;
+		}
+
+		if (format[i] == 'c')
+		{
+			int32_t c = va_arg(args, int32_t);
+			append_char(buffer, buffer_size, used, (char)c);
+			i++;
+			continue;
+		}
+
+		if (format[i] == 'd' || format[i] == 'i')
+		{
+			int32_t v = va_arg(args, int32_t);
+			append_int64_dec(buffer, buffer_size, used, (int64_t)v);
+			i++;
+			continue;
+		}
+
+		if (format[i] == 'u')
+		{
+			uint32_t v = va_arg(args, uint32_t);
+			append_uint64_dec(buffer, buffer_size, used, (uint64_t)v);
+			i++;
+			continue;
+		}
+
+		if (format[i] == 'l' && format[i + 1] == 'l' && (format[i + 2] == 'd' || format[i + 2] == 'i'))
+		{
+			long long v = va_arg(args, long long);
+			append_int64_dec(buffer, buffer_size, used, (int64_t)v);
+			i += 3;
+			continue;
+		}
+
+		// 未支持的格式占位符，按字面输出，避免静默丢信息。
+		append_char(buffer, buffer_size, used, '%');
+		append_char(buffer, buffer_size, used, format[i]);
+		i++;
+	}
 	va_end(args);
-
-	if (written < 0)
-	{
-		buffer[buffer_size - 1] = '\0';
-		*used = buffer_size - 1;
-		return;
-	}
-
-	if ((size_t)written >= remain)
-	{
-		buffer[buffer_size - 1] = '\0';
-		*used = buffer_size - 1;
-		return;
-	}
-
-	*used += (size_t)written;
 }
 // 切换游戏实例并刷新当前实例指针。
 int8_t DLL_GameSwitch(GameId_t gameId)
@@ -307,6 +414,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 		bRes = TableControl_GetShotResult(pUserInfo, betVal, fishValue, inst->gameConfig.header.lineCount, &ri, profile, &outRes->nJPType, &outRes->nJPBet); //判定（含JP候选）
 		TableControl_OnEndShot(pUserInfo, bRes, fishValue);
 
+		
 		if (!bRes)
 		{
 			outRes->nJPType = JT_None;
@@ -398,7 +506,6 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 	GameInstance_t* inst = get_instance(gameId);
 	if (!inst) return;
 
-
 	g_GameManager.debugInfo.dwTotalPlayTime++;
 	if (outRes->resType == RT_Win) {
 		g_GameManager.debugInfo.dwNormalWinTime++;
@@ -430,39 +537,51 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 	}
 	g_GameManager.debugInfo.dwFreeGameBetError = inst->freeGameInfo.nRemainFreeBet;
 
-	//玩家日志
+//玩家日志
 #ifdef _WritePlayerLog
-	//int8_t* resTypeNameStrVec[] = { "输", "赢", "免费游戏", "奖池" };
 	const char* resTypeNameStrVec[] = { "Lose", "Win", "FreeGame", "BonusGame" };
-	const char* resTypeStr = resTypeNameStrVec[outRes->resType];
-
-	//int8_t* optTypeNameStrVec[] = { "普通", "赠送" };
 	const char* optTypeNameStrVec[] = { "Normal", "Give" };
-	const char* optTypeStr = optTypeNameStrVec[outRes->openType];
+	const size_t resTypeCount = sizeof(resTypeNameStrVec) / sizeof(resTypeNameStrVec[0]);
+	const size_t optTypeCount = sizeof(optTypeNameStrVec) / sizeof(optTypeNameStrVec[0]);
+	const char* resTypeStr = "UnknownRes";
+	const char* optTypeStr = "UnknownOpen";
 
-	char finalString[1024] = { 0 };
-	char resString[512] = { 0 };
+	if ((int32_t)outRes->resType >= 0 && (size_t)outRes->resType < resTypeCount)
+	{
+		resTypeStr = resTypeNameStrVec[outRes->resType];
+	}
+	if ((int32_t)outRes->openType >= 0 && (size_t)outRes->openType < optTypeCount) 
+	{
+		optTypeStr = optTypeNameStrVec[outRes->openType];
+	}
+
+	char finalString[384] = { 0 };
+	char resString[256] = { 0 };
 	size_t resUsed = 0;
 	size_t finalUsed = 0;
 
-	if (outRes->resType == RT_Win) {
-		//strcat(resString, "  补偿线：");
+	if (outRes->resType == RT_Win)
+	{
 		append_format(resString, sizeof(resString), &resUsed, "  IDVec: [");
 
-		for (int32_t j = 0; j < GE_MaxIDNum; ++j) {
-			if (outRes->IDVec[j] > 0) {
-				int32_t betValue = GetIDBetValue(outRes->IDVec[j]);
-				append_format(resString, sizeof(resString), &resUsed, "%d<%d> ", outRes->IDVec[j], betValue);
+		for (int32_t j = 0; j < GE_MaxIDNum; ++j)
+		{
+			if (outRes->IDVec[j] > 0)
+			{
+				int32_t lineWin = GetIDBetValue(outRes->IDVec[j]);
+				append_format(resString, sizeof(resString), &resUsed, "%d<%d> ", outRes->IDVec[j], lineWin);
 			}
 		}
 		append_format(resString, sizeof(resString), &resUsed, "]");
 	}
 
-	if (outRes->openType == OT_Give) {
-
+	if (outRes->openType == OT_Give)
+	{
+		
 	}
 
-	if (outRes->resType == RT_FreeWin) {
+	if (outRes->resType == RT_FreeWin) 
+	 {
 		//sprintf(freeStr, " 免费次数:%d", outRes->nTotalFreeTime);
 		append_format(resString, sizeof(resString), &resUsed, " nTotalFreeTime:%d", outRes->nTotalFreeTime);
 
@@ -478,9 +597,9 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 	// 拼接最终字符串
 	append_format(finalString, sizeof(finalString), &finalUsed, " optTypeStr:%s resTypeStr:%s betValue:%d nMatrixBet:%d ",
 		optTypeStr, resTypeStr, betValue, outRes->nMatrixBet);
-	int32_t expScore = (int32_t)pUserInfo->Wins + betValue * outRes->nMatrixBet;
-	append_format(finalString, sizeof(finalString), &finalUsed, "totalscore:%d expectation:%d %s",
-		(int32_t)pUserInfo->Wins, expScore, resString);
+	int64_t expScore = (int64_t)pUserInfo->Wins + ((int64_t)betValue * (int64_t)outRes->nMatrixBet);
+	append_format(finalString, sizeof(finalString), &finalUsed, "totalscore:%lld expectation:%lld %s",
+		(long long)pUserInfo->Wins, (long long)expScore, resString);
 
 
 	QS_LOG("%s\n", finalString);
@@ -499,13 +618,6 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 	QS_LOG("-----------------\n");
 #endif
 
-#endif
-
-#ifdef _LocalDebug
-	int32_t testTime = 0;
-	testTime++;
-	if (testTime < _DebugInfoInterval)return;
-	testTime = 0;
 #endif
 }
 
