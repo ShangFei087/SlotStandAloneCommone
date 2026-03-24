@@ -2,6 +2,7 @@
 .\objects\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h
 .\objects\main.o: ..\..\source\app.h
 .\objects\main.o: ..\..\..\..\..\qs\qs.h
 .\objects\main.o: ..\..\source\qs_cfg.h
@@ -65,7 +66,9 @@
 .\objects\main.o: ..\..\source\Control/GameManager.h
 .\objects\main.o: ..\..\source\Control/CommonStruct.h
 .\objects\main.o: ..\..\source\Control/ComputerData.h
+.\objects\main.o: ..\..\source\Control/RtpConfig.h
+.\objects\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\main.o: ..\..\source\Control/Test.h
 .\objects\main.o: ..\..\source\Control/LotteryManager.h
 .\objects\main.o: ..\..\source\Control/Lottery.h
-.\objects\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\main.o: ..\..\source\Control/GameRegistry.h

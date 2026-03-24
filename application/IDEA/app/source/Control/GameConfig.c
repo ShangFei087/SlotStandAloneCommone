@@ -1,4 +1,3 @@
-// GameConfig.c
 #include "GameConfig.h"
 #include "ComputerData.h"
 

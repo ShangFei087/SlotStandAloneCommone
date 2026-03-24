@@ -1,3 +1,4 @@
+#include <stddef.h>  
 #include "RtpConfig.h" // 引入 RTP 配置头文件
 
 // 获取区域配置数组与默认 RTP 档位；返回 1 表示成功，0 表示失败。

@@ -55,5 +55,12 @@
 .\objects\dll.o: ..\..\source\Control\../GameAlgo/common/JRand.h
 .\objects\dll.o: ..\..\source\Control\CommonStruct.h
 .\objects\dll.o: ..\..\source\Control\ComputerData.h
+.\objects\dll.o: ..\..\source\Control\RtpConfig.h
+.\objects\dll.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\dll.o: ..\..\source\idea_player.h
+.\objects\dll.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\dll.o: ..\..\source\Control\GenerationResult/GameResultRegistry.h
+.\objects\dll.o: ..\..\source\Control\TableControl.h
+.\objects\dll.o: ..\..\source\Control\LotteryManager.h
+.\objects\dll.o: ..\..\source\Control\Lottery.h
 .\objects\dll.o: ..\..\source\Control\Test.h

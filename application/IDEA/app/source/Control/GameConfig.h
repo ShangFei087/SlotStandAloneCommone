@@ -47,17 +47,12 @@ typedef struct
 } PaytableConfig_t;
 
 
-// 老虎机完整配置结构
+//配置表
 typedef struct {
     GameConfigHeader_t header;           // 配置头
 	PaytableConfig_t   paytable;         // 赔率配置（扩展）
 } SlotGameConfig_t;
 
-//#pragma pack(pop)
-
-// 配置标识常量
-#define GAME_CONFIG_MAGIC   0x534C4F54  // "SLOT"
-#define GAME_CONFIG_VERSION 0x00010001  // v1.0.1
 
 // 配置结构初始化/拷贝
 void GameConfig_Init(SlotGameConfig_t* slotConfig);  // 初始化

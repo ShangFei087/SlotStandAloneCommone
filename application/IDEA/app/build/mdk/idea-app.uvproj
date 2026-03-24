@@ -504,31 +504,6 @@
               <FilePath>..\..\source\Control\CMD_Fish.c</FilePath>
             </File>
             <File>
-              <FileName>Matrix_u_LineById.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\source\Control\Matrix_u_LineById.c</FilePath>
-            </File>
-            <File>
-              <FileName>Matrix_u_TriggersById.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\source\Control\Matrix_u_TriggersById.c</FilePath>
-            </File>
-            <File>
-              <FileName>MatrixApplyTriggers_1700.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\source\Control\MatrixApplyTriggers_1700.c</FilePath>
-            </File>
-            <File>
-              <FileName>MatrixApplyTriggers_3999.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\source\Control\MatrixApplyTriggers_3999.c</FilePath>
-            </File>
-            <File>
-              <FileName>MatrixApplyTriggers_3998.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\source\Control\MatrixApplyTriggers_3998.c</FilePath>
-            </File>
-            <File>
               <FileName>CommonStruct.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\source\Control\CommonStruct.c</FilePath>
@@ -537,36 +512,6 @@
               <FileName>ComputerData.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\source\Control\ComputerData.c</FilePath>
-            </File>
-            <File>
-              <FileName>GameResultRegistry.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\source\Control\GameResultRegistry.c</FilePath>
-            </File>
-            <File>
-              <FileName>GameResult_1700.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\source\Control\GameResult_1700.c</FilePath>
-            </File>
-            <File>
-              <FileName>GameResult_3999.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\source\Control\GameResult_3999.c</FilePath>
-            </File>
-            <File>
-              <FileName>GameResult_3998.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\source\Control\GameResult_3998.c</FilePath>
-            </File>
-            <File>
-              <FileName>GameResult_Generic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\source\Control\GameResult_Generic.c</FilePath>
-            </File>
-            <File>
-              <FileName>GenerationResult.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\source\Control\GenerationResult.c</FilePath>
             </File>
             <File>
               <FileName>Dll.c</FileName>
@@ -602,16 +547,6 @@
               <FileName>CMD_Fish.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\source\Control\CMD_Fish.h</FilePath>
-            </File>
-            <File>
-              <FileName>Matrix_u_LineById.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\source\Control\Matrix_u_LineById.h</FilePath>
-            </File>
-            <File>
-              <FileName>Matrix_u_TriggersById.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\source\Control\Matrix_u_TriggersById.h</FilePath>
             </File>
             <File>
               <FileName>CommonStruct.h</FileName>
@@ -659,14 +594,59 @@
               <FilePath>..\..\source\Control\Test.h</FilePath>
             </File>
             <File>
-              <FileName>int_vector.c</FileName>
+              <FileName>GameResult_1700.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\source\Control\int_vector.c</FilePath>
+              <FilePath>..\..\source\Control\GenerationResult\GameResult_1700.c</FilePath>
             </File>
             <File>
-              <FileName>int_vector.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\source\Control\int_vector.h</FilePath>
+              <FileName>GameResult_3998.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\GenerationResult\GameResult_3998.c</FilePath>
+            </File>
+            <File>
+              <FileName>GameResult_3999.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\GenerationResult\GameResult_3999.c</FilePath>
+            </File>
+            <File>
+              <FileName>GameResultRegistry.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\GenerationResult\GameResultRegistry.c</FilePath>
+            </File>
+            <File>
+              <FileName>Matrix_u_TriggersById.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\Matrix\Matrix_u_TriggersById.c</FilePath>
+            </File>
+            <File>
+              <FileName>MatrixApplyTriggers_1700.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\Matrix\MatrixApplyTriggers_1700.c</FilePath>
+            </File>
+            <File>
+              <FileName>MatrixApplyTriggers_3998.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\Matrix\MatrixApplyTriggers_3998.c</FilePath>
+            </File>
+            <File>
+              <FileName>MatrixApplyTriggers_3999.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\Matrix\MatrixApplyTriggers_3999.c</FilePath>
+            </File>
+            <File>
+              <FileName>GameRegistry.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\GameRegistry.c</FilePath>
+            </File>
+            <File>
+              <FileName>RtpConfig.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\RtpConfig.c</FilePath>
+            </File>
+            <File>
+              <FileName>TableControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\TableControl.c</FilePath>
             </File>
           </Files>
         </Group>

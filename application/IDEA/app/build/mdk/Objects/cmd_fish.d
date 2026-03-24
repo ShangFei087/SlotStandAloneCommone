@@ -49,6 +49,8 @@
 .\objects\cmd_fish.o: ..\..\..\..\..\qs\system/senv/qs_senv_manager.h
 .\objects\cmd_fish.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
 .\objects\cmd_fish.o: ..\..\source\Control\GameConfig.h
+.\objects\cmd_fish.o: ..\..\source\Control\Matrix/Matrix_u_TriggersById.h
 .\objects\cmd_fish.o: ..\..\source\Control\ComputerData.h
 .\objects\cmd_fish.o: ..\..\source\Control\Test.h
 .\objects\cmd_fish.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+.\objects\cmd_fish.o: ..\..\source\Control\../GameAlgo/common/JRand.h
