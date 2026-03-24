@@ -54,11 +54,6 @@ void GameResult_1700_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 
 void GameResult_1700_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* bonusMxu,GameInstanceId_t gameId)
 {
-	(void)betVal;
-	(void)inst;
-	(void)bonusMxu;
-	(void)gameId;
-
 	if (info == NULL) return;
 
 	// 1700 的 Bonus 局逻辑：固定大奖注数（与原 switch case 保持一致）
