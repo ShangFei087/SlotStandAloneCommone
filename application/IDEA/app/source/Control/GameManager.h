@@ -21,7 +21,6 @@ typedef struct {
     int8_t isInitialized;
 
     FreeGameInfo_t freeGameInfo;
-    DebugInfo debugInfo;
     SlotGameConfig_t gameConfig;
 } GameInstance_t;
 
@@ -30,6 +29,7 @@ typedef struct {
     GameInstance_t instances[GAME_INSTANCE_ID_MAX];
     GameInstanceId_t currentGameId;
     JackpotOnlineInfo_t jackpotOnlineInfo;
+    DebugInfo debugInfo;
     int8_t instanceCount;
 } GameManager_t;
 

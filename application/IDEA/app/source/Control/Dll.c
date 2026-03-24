@@ -1,16 +1,17 @@
 #include "DllInterface.h"
 
-#include "ComputerData.h"
-#include "CMD_Fish.h"
-#include "GenerationResult.h"
-#include "TableControl.h"
-#include "LotteryManager.h"
-#include "Test.h"
-#include "../GameAlgo/common/JRand.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "ComputerData.h"
+#include "CMD_Fish.h"
+#include "GenerationResult/GameResultRegistry.h"
+#include "TableControl.h"
+#include "LotteryManager.h"
+#include "Test.h"
+#include "../GameAlgo/common/JRand.h"
+
 
 // 前置声明：避免先调用后定义触发隐式声明告警/错误。
 GameInstance_t* get_instance(GameId_t gameId);
@@ -44,9 +45,9 @@ void DLL_OnJackpotOnlineWin(int32_t jpOnlineBet)
 	TableControl_OnJackpotOnlineWin(jpOnlineBet);
 	if (inst != NULL && jpOnlineBet > 0)
 	{
-		inst->debugInfo.dwJackpotOnlineTime++;
-		inst->debugInfo.dwJackpotOnlineWinScore += jpOnlineBet;
-		inst->debugInfo.dwWinScore += jpOnlineBet;
+		g_GameManager.debugInfo.dwJackpotOnlineTime++;
+		g_GameManager.debugInfo.dwJackpotOnlineWinScore += jpOnlineBet;
+		g_GameManager.debugInfo.dwWinScore += jpOnlineBet;
 	}
 }
 // 读取当前生效难度配置（覆盖值优先于档位默认值）。
@@ -299,7 +300,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 		ri.nMatrixBet = matrixBet;
 
 		// 累计下注
-		inst->debugInfo.dwPlayScore += betVal * g_CurrentGameInstance->gameConfig.header.lineCount;
+		g_GameManager.debugInfo.dwPlayScore += betVal * g_CurrentGameInstance->gameConfig.header.lineCount;
 
 		TableControl_OnFireWeapon(pUserInfo, betVal, inst->gameConfig.header.lineCount); // 记录下注统计
 		fishValue = (int64_t)betVal * (ri.nMatrixBet + ri.nFreeBet + ri.nBonusBet) + outRes->nJPBet;      // 计算候选总支付（含JP）
@@ -386,7 +387,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 				LotteryManager_CommitLottery(&gLotteryManager, outRes->nJPType, outRes->nJPBet);
 			}
 			outRes->openType = OT_Normal; // 付费局统一标记普通开局
-			inst->debugInfo.dwWinScore += betVal * (outRes->nMatrixBet + outRes->nTotalFreeBet + outRes->nBonusBet) + outRes->nJPBet; // 累计本局总赢分
+			g_GameManager.debugInfo.dwWinScore += betVal * (outRes->nMatrixBet + outRes->nTotalFreeBet + outRes->nBonusBet) + outRes->nJPBet; // 累计本局总赢分
 		}
 	}
 }
@@ -398,36 +399,36 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 	if (!inst) return;
 
 
-	inst->debugInfo.dwTotalPlayTime++;
+	g_GameManager.debugInfo.dwTotalPlayTime++;
 	if (outRes->resType == RT_Win) {
-		inst->debugInfo.dwNormalWinTime++;
+		g_GameManager.debugInfo.dwNormalWinTime++;
 	}
-	if (outRes->openType == OT_Normal) inst->debugInfo.dwNormalOpenTime++;
-	else inst->debugInfo.dwGiveOpenTime++;
+	if (outRes->openType == OT_Normal) g_GameManager.debugInfo.dwNormalOpenTime++;
+	else g_GameManager.debugInfo.dwGiveOpenTime++;
 	if (outRes->resType == RT_FreeWin) {
-		inst->debugInfo.dwFreeGameTime++;
+		g_GameManager.debugInfo.dwFreeGameTime++;
 	}
 	else if (outRes->resType == RT_BonusWin) {
-		inst->debugInfo.dwBonusTime++;
+		g_GameManager.debugInfo.dwBonusTime++;
 	}
 	else if (outRes->resType == RT_Lose) {
-		inst->debugInfo.dwLooseTime++;
+		g_GameManager.debugInfo.dwLooseTime++;
 	}
 
 	// RTP 分项统一按“金额口径”累计，仅统计真实付费局（普通开局）。
 	if (outRes->openType == OT_Normal) {
-		inst->debugInfo.dwBaseWinScore += (int64_t)betValue * outRes->nMatrixBet;
-		inst->debugInfo.dwFreeWinScore += (int64_t)betValue * outRes->nTotalFreeBet;
-		inst->debugInfo.dwBonusWinScore += (int64_t)betValue * outRes->nBonusBet;
-		inst->debugInfo.dwJackpotWinScore += outRes->nJPBet;
+		g_GameManager.debugInfo.dwBaseWinScore += (int64_t)betValue * outRes->nMatrixBet;
+		g_GameManager.debugInfo.dwFreeWinScore += (int64_t)betValue * outRes->nTotalFreeBet;
+		g_GameManager.debugInfo.dwBonusWinScore += (int64_t)betValue * outRes->nBonusBet;
+		g_GameManager.debugInfo.dwJackpotWinScore += outRes->nJPBet;
 	}
 
 	//本地彩金
 	if (outRes->nJPBet > 0) 
 	{
-		inst->debugInfo.dwJackpotTime++;
+		g_GameManager.debugInfo.dwJackpotTime++;
 	}
-	inst->debugInfo.dwFreeGameBetError = inst->freeGameInfo.nRemainFreeBet;
+	g_GameManager.debugInfo.dwFreeGameBetError = inst->freeGameInfo.nRemainFreeBet;
 
 	//玩家日志
 #ifdef _WritePlayerLog
@@ -707,9 +708,7 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameId_t gameId)
 void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo, GameId_t gameId)
 {
 	GameInstance_t* inst = get_instance(gameId);
-	if (inst) {
-		DebugInfo_accum(pDebugInfo, &inst->debugInfo);
-	}
+	if (inst) DebugInfo_accum(pDebugInfo, &g_GameManager.debugInfo);
 }
 // 关闭指定游戏实例并释放资源。
 void DLL_GameClose(GameId_t gameId)

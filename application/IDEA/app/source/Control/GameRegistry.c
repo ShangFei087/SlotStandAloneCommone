@@ -3,7 +3,7 @@
 #include "GameConfig.h"
 #include "LotteryManager.h"
 #include "ComputerData.h"
-#include "GameResultRegistry.h"
+#include "GenerationResult/GameResultRegistry.h"
 
 // 注册单个游戏并拷贝配置
 static int8_t GameRegistry_RegisterGameWithConfig(const int8_t* gameName, GameId_t gameId, const SlotGameConfig_t* config)
