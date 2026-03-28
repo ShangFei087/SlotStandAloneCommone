@@ -8,7 +8,7 @@ void GameResult_Generic_Normal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u
 {
 	if (inst == NULL || mxu == NULL || matrixBet == NULL || idVec == NULL) return;
 
-	NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, mxu);
+	NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, mxu, inst->gameConfig.header.rowCount);
 	*matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
 }
 //正常赢
@@ -29,7 +29,7 @@ void GameResult_Generic_Lose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* i
 	while (1)
 	{
 		Matrix_u_reset(loseMxu);
-		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, loseMxu);
+		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, loseMxu, inst->gameConfig.header.rowCount);
 		Matrix_u_computerMatrixById(loseMxu, idVec, &inst->gameConfig, (uint32_t)gameId);
 		if (loseMxu->resultType == RT_Lose)
 		{
@@ -224,6 +224,6 @@ void GameResultRegistry_InitDefaults(void)
 	ops3995.genFree = GameResult_3995_GenFree;
 	ops3995.genBonus = GameResult_3995_GenBonus;
 	ops3995.genLose = GameResult_3995_GenLose;
-	(void)GameResultRegistry_Register(3993, &ops3993);
+	(void)GameResultRegistry_Register(3995, &ops3995);
 }
 

@@ -367,7 +367,7 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 	{
 		Matrix_u_reset(&mxu);
 		Matrix_u_reset(&tempmxu);
-		NatureAlg_GenRndMxu(inst->gameConfig.header.freeRollTableId, &mxu);
+		NatureAlg_GenRndMxu(inst->gameConfig.header.freeRollTableId, &mxu, inst->gameConfig.header.rowCount);
 
 		Matrix_u_copy(&tempmxu, &mxu);
 

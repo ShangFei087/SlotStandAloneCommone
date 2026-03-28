@@ -266,13 +266,12 @@ void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig
 }
 //--------------------------------------------解耦--------------------------------------------//
 void MatrixApplyTriggers_1700(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
-
+//财富类
 void MatrixApplyTriggers_3999(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
-
 void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
-
+//动物类
 void MatrixApplyTriggers_3993(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
-
+void MatrixApplyTriggers_3995(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
 typedef struct
 {
     GameInstanceId_t gameId;
@@ -346,6 +345,12 @@ void MatrixTriggerOps_t_InitDefaults(void)
     ops3993.checkOnLine = checkOnLine_Defaults;
     ops3993.computeLineWin = computeLineWins_Defaults;
     (void)MatrixTrigger_Register(3993, &ops3993);
+
+    MatrixTriggerOps_t ops3995 = { 0 };
+    ops3995.applyTriggers = MatrixApplyTriggers_3995;
+    ops3995.checkOnLine = checkOnLine_Defaults;
+    ops3995.computeLineWin = computeLineWins_Defaults;
+    (void)MatrixTrigger_Register(3995, &ops3995);
 }
 
 

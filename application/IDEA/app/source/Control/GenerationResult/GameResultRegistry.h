@@ -3,6 +3,7 @@
 
 #include "Control/CommonStruct.h"
 #include "Control/GameManager.h"
+#include "Control/NatureAlg.h"
 
 void GameResult_Generic_Normal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
 void GameResult_Generic_Lose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId);

@@ -199,6 +199,7 @@
     <ClCompile Include="..\..\source\Control\LotteryManager.c" />
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_1700.c" />
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3993.c" />
+    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3995.c" />
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3998.c" />
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3999.c" />
     <ClCompile Include="..\..\source\Control\Matrix\Matrix_u_TriggersById.c" />

@@ -31,7 +31,7 @@ void GameResult_3999_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 		while (1)
 		{
 			Matrix_u_reset(&mxu);
-			NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu);
+			NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu, inst->gameConfig.header.rowCount);
 
 			// 随机一列填满 wild
 			uint8_t rndCol = JRandFrom(0, 4);

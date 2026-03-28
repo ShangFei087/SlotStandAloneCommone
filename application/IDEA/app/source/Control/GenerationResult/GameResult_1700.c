@@ -29,7 +29,7 @@ void GameResult_1700_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 	for (uint8_t index = 0; index < info->nFreeNum; index++)
 	{
 		Matrix_u_reset(&mxu);
-		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu);
+		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu, inst->gameConfig.header.rowCount);
 		int32_t matrixBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
 
 		info->nFreeBet += matrixBet;

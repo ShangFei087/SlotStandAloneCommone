@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "Matrix/Matrix_u_TriggersById.h"
 DebugControlMode_t gDebugControlMode;
 //-------------------------------------------------------------------------------------
 void CheckOnLineResult_Init(CheckOnLineResult_t* pResult)

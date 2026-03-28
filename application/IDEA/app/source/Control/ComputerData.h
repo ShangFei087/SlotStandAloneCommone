@@ -23,7 +23,7 @@ typedef uint32_t GameInstanceId_t;			//游戏实例ID类型
 #define GE_WheelChessMaxNum 20 //最大滚轮数量
 #define GE_WheelChess3x5Num 15 //滚轮数量
 #define GE_WheelChess4X5Num 20  //滚轮数量
-#define GE_MaxIDNum 25
+#define GE_MaxIDNum 50
 #define GE_Line15Num  15  // 15 线
 #define GE_Line20Num  20  // 20 线
 #define GE_Line25Num  25  // 25 线

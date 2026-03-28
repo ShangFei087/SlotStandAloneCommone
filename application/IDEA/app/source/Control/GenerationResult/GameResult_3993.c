@@ -14,7 +14,7 @@ void GameResult_3993_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* i
 	GameResult_Generic_Lose(inst, loseMxu, idVec, gameId);
 }
 // Ìæ»»ºÚ±ªÍ¼±ê
-void ReplaceSymbol(Matrix_u* pMatrix, uint8_t type)
+void BPReplaceSymbol(Matrix_u* pMatrix, uint8_t type)
 {
 	for (int8_t i = 0; i < GE_WheelChessMaxNum; ++i)
 	{
@@ -48,7 +48,7 @@ void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 	for (uint8_t index = 0; index < info->nFreeNum; index++)
 	{
 		Matrix_u_reset(&mxu);
-		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu);
+		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu, inst->gameConfig.header.rowCount);
 
 		//Í³¼ÆºÚ±ªÍ¼±êÊýÁ¿
 		blackPantherCount += Matrix_u_getTypeNum(&mxu, 9);
@@ -60,7 +60,7 @@ void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 				//ºÚ±ªÌæ»»Í¼±ê
 				for (int8_t j = 0; j <= i; ++j)
 				{
-					ReplaceSymbol(&mxu, symbolChangeArray[j]);
+					BPReplaceSymbol(&mxu, symbolChangeArray[j]);
 				}
 			}
 		}

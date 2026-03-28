@@ -14,6 +14,7 @@
 
 // 前置声明：避免先调用后定义触发隐式声明告警/错误。
 GameInstance_t* get_instance(GameInstanceId_t gameId);
+int32_t GetIDBetValue(int32_t ID);
 
 GameInstance_t* g_CurrentGameInstance = NULL;  // 定义并初始化
 
@@ -227,7 +228,7 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 		while (1)
 		{
 			Matrix_u_reset(mxu);
-			NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, mxu);
+			NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, mxu, inst->gameConfig.header.rowCount);
 #ifdef _IMHERE
 			uint8_t temp[GE_WheelChessMaxNum] =
 			{
@@ -621,19 +622,23 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 #endif
 }
 
-int32_t  GetIDBetValue(int32_t ID)
+int32_t GetIDBetValue(int32_t ID)
 {
-	/*if (ID % 100 == 99)
-	{
-		return gScatterBet[ID / 100];
-	}
-	int32_t scale = 1;
-	if (ID > 100000)scale = ID / 100000;
+	if (ID <= 0)
+		return 0;
 
-	ID %= 1000;
+	GameInstance_t* inst = get_instance(GAME_ID_INVALID);
+	if (inst == NULL)
+		return 0;
 
-	return  GameConfig_GetBet(g_CurrentGameInstance->gameConfig, ID % 100, (ID / 100)-2 ) * scale;*/
-	return 0;
+	uint8_t betTableIdx = inst->gameConfig.header.id;
+	int32_t chessType = ID % 100;
+	int32_t nEliminateNum = (ID % 1000) / 100;
+
+	if (nEliminateNum < 2 || nEliminateNum > 5)
+		return 0;
+
+	return (int32_t)GET_BET_VALUE(betTableIdx, chessType, nEliminateNum - 2);
 }
 
 int8_t* ArrayToString(int32_t* pArray, int32_t length, int32_t keepZero)
@@ -702,7 +707,8 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 	size_t used = 0;
 	int8_t* idVecStr = NULL;
 	int8_t* matrixStr = NULL;
-
+	GameInstance_t* inst = get_instance(gameId);
+	int8_t curwheelChessNum = inst->gameConfig.header.wheelChessNum;
 	// 返回堆内存，调用方负责 free；失败返回 NULL。
 	if (strRes == NULL || outRes == NULL) return NULL;
 
@@ -715,7 +721,7 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 	idVecStr = ArrayToString((int32_t*)outRes->IDVec, GE_MaxIDNum, 0);
 	append_format(strRes, 2048, &used, "\"IDVec\":%s,", idVecStr ? (const char*)idVecStr : "[]");
 
-	matrixStr = ByteArrayToString(outRes->matrix.dataArray, GE_WheelChessMaxNum);
+	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
 	append_format(strRes, 2048, &used, "\"Matrix\":%s,", matrixStr ? (const char*)matrixStr : "[]");
 
 	if (outRes->resType == RT_FreeWin)
@@ -734,7 +740,7 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 		{
 		case 3993:
 		{
-			wildStr = ByteArrayToString(outRes->WildPosArray, GE_WheelChessMaxNum);
+			wildStr = ByteArrayToString(outRes->WildPosArray, curwheelChessNum);
 			append_format(strRes, 2048, &used, "\"WildData\":%s,", wildStr ? (const char*)wildStr : "[]");
 			free(wildStr);
 		}
@@ -747,7 +753,6 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 		}
 	}
 
-	GameInstance_t* inst = get_instance(gameId);
 	uint8_t bonusCount = 0;
 	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3个转盘图标可以得到1列wild图标，4个转盘可以的2列......
 	int8_t* bonusStr;
@@ -780,7 +785,7 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 			//神秘
 			case 1:
 			{
-				bonusStr = ArrayToString((int32_t*)outRes->BonusData, GE_WheelChessMaxNum, 1);
+				bonusStr = ArrayToString((int32_t*)outRes->BonusData, curwheelChessNum, 1);
 				append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
 				append_format(strRes, 2048, &used, "\"BlindSymbol\":%d,", outRes->BlindSymbol);
 				free(bonusStr);
@@ -805,7 +810,7 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 		{
 			append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
 			append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
-			bonusStr = ArrayToString((int32_t*)outRes->BonusData,GE_WheelChessMaxNum, 1);
+			bonusStr = ArrayToString((int32_t*)outRes->BonusData, curwheelChessNum, 1);
 			append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
 			free(bonusStr);
 		}

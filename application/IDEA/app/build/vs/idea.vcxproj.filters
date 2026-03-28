@@ -251,5 +251,8 @@
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3993.c">
       <Filter>源文件\source\Control\Matrix</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3995.c">
+      <Filter>源文件\source\Control\Matrix</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

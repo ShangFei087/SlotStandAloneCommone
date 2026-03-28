@@ -3,8 +3,10 @@
 
 void GameResult_3995_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
 {
-	// 当前与通用逻辑一致
-	GameResult_Generic_Normal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
+	if (inst == NULL || mxu == NULL || matrixBet == NULL || idVec == NULL) return;
+
+	NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, mxu, inst->gameConfig.header.rowCount);
+	*matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
 }
 
 void GameResult_3995_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId)
@@ -13,7 +15,7 @@ void GameResult_3995_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* i
 	GameResult_Generic_Lose(inst, loseMxu, idVec, gameId);
 }
 // 公牛替换图标
-void ReplaceSymbol(Matrix_u* pMatrix, uint8_t type)
+void BullReplaceSymbol(Matrix_u* pMatrix, uint8_t type)
 {
 	for (int8_t i = 0; i < GE_WheelChessMaxNum; ++i)
 	{
@@ -46,19 +48,19 @@ void GameResult_3995_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 	for (uint8_t index = 0; index < info->nFreeNum; index++)
 	{
 		Matrix_u_reset(&mxu);
-		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu);
+		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu, inst->gameConfig.header.rowCount);
 
-		//统计黑豹图标数量
+		//统计公牛图标数量
 		blackPantherCount += Matrix_u_getTypeNum(&mxu, 9);
-		//需要黑豹替换图标的区间
+		//需要公牛替换图标的区间
 		for (int8_t i = 3; i >= 0; --i)
 		{
 			if (blackPantherCount >= BPCollectArray[i])
 			{
-				//黑豹替换图标
+				//公牛替换图标
 				for (int8_t j = 0; j <= i; ++j)
 				{
-					ReplaceSymbol(&mxu, symbolChangeArray[j]);
+					BullReplaceSymbol(&mxu, symbolChangeArray[j]);
 				}
 			}
 		}

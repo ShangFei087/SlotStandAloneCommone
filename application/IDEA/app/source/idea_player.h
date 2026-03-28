@@ -22,7 +22,7 @@
 #ifndef _IDEA_PLAYER_H_
 #define _IDEA_PLAYER_H_
 
-
+#include  "qs.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
