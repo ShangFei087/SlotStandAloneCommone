@@ -53,5 +53,4 @@ GameInstanceId_t GameManager_FindGameByName(const int8_t* gameName); //根据名
 int8_t GameManager_InitInstance(GameInstance_t* instance);//初始化游戏实例
 void GameManager_CleanupInstance(GameInstance_t* instance); //重置游戏实例
 
-
 #endif /* _GAME_MANAGER_H_ */

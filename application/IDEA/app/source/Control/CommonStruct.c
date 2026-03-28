@@ -43,7 +43,7 @@ void RoundInfo_t_Init(RoundInfo_t* obj) {
             obj->FreeIDVec[i][j] = 0;
         }
 
-        for (int8_t j = 0; j < GE_WheelChessNum; j++) {
+        for (int8_t j = 0; j < GE_WheelChessMaxNum; j++) {
             obj->WildPosArray[i][j] = 0;
         }
         // 初始化LooseMxus数组
@@ -54,7 +54,7 @@ void RoundInfo_t_Init(RoundInfo_t* obj) {
     obj->nBonusBet = 0;
     obj->nBonusType = 0;
     obj->BlindSymbol = 0;
-    for (int8_t i = 0; i < GE_WheelChessNum; i++) 
+    for (int8_t i = 0; i < GE_WheelChessMaxNum; i++) 
     {
         obj->BonusData[i] = 0;
     }
@@ -88,7 +88,7 @@ void RoundInfo_t_Reset(RoundInfo_t* obj) {
         for (int32_t j = 0; j < GE_MaxIDNum; j++) {
             obj->FreeIDVec[i][j] = 0;
         }
-        for (int32_t j = 0; j < GE_WheelChessNum; j++) {
+        for (int32_t j = 0; j < GE_WheelChessMaxNum; j++) {
             obj->WildPosArray[i][j] = 0;
         }
         // 重置LooseMxus数组
@@ -99,7 +99,7 @@ void RoundInfo_t_Reset(RoundInfo_t* obj) {
     obj->nBonusBet = 0;
     obj->nBonusType = 0;
     obj->BlindSymbol = 0;
-    for (int8_t i = 0; i < GE_WheelChessNum; i++) {
+    for (int8_t i = 0; i < GE_WheelChessMaxNum; i++) {
         obj->BonusData[i] = 0;
     }
 }
@@ -133,7 +133,7 @@ void RoundInfo_t_Copy(RoundInfo_t* dest, const RoundInfo_t* src) {
             dest->FreeIDVec[i][j] = src->FreeIDVec[i][j];
         }
 
-        for (int32_t j = 0; j < GE_WheelChessNum; j++) {
+        for (int32_t j = 0; j < GE_WheelChessMaxNum; j++) {
             dest->WildPosArray[i][j] = src->WildPosArray[i][j];
         }
         // 拷贝LooseMxus数组
@@ -144,7 +144,7 @@ void RoundInfo_t_Copy(RoundInfo_t* dest, const RoundInfo_t* src) {
     dest->nBonusBet = src->nBonusBet;
     dest->nBonusType = src->nBonusType;
     dest->BlindSymbol = src->BlindSymbol;
-    for (int8_t i = 0; i < GE_WheelChessNum; i++) {
+    for (int8_t i = 0; i < GE_WheelChessMaxNum; i++) {
         dest->BonusData[i] = src->BonusData[i];
     }
 }

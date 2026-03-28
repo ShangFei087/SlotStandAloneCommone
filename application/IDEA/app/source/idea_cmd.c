@@ -96,16 +96,16 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		int32_t ret = 0;
 		// 设置当前区域+RTP档位（这里使用国内 99.2 档）。
 		DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 3);
-		GameId_t gameId = GAME_ID_INVALID;
-		if (GameRegistry_InitAndRegisterDefaults(&gameId))
-		{
-			ret = gameId;
-		}
-		else
+		
+		if (GameRegistry_InitAndRegisterDefaults())
 		{
 			ret = 0;
 		}
-		QS_LOG("\r\n 20000:%d", gameId);
+		else
+		{
+			ret = 1;
+		}
+	
 		res[0] = ret;
 		//TODO
 		qs_json_DeleteItemFromObject(json, "data");
@@ -695,7 +695,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		res[pos++] = (int32_t)outres.resType;				// ResultType
 		res[pos++] = outres.matrix.idVecSize;				// lineNum
 		res[pos++] = outres.nMatrixBet;						// TotalBet
-		res[pos++] = GE_WheelChessNum;						// MatrixLength
+		res[pos++] = GE_WheelChessMaxNum;						// MatrixLength
 		res[pos++] = outres.nTotalFreeTime;					// nTotalFreeTime
 		res[pos++] = outres.nTotalFreeBet;					// nTotalFreeBet
 		res[pos++] = outres.nBonusBet;						// nBonusBet
@@ -710,7 +710,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 			res[pos++] = outres.IDVec[i];
 		}
 		//Matrix
-		for (int32_t i = 0; i < GE_WheelChessNum; i++)
+		for (int32_t i = 0; i < GE_WheelChessMaxNum; i++)
 		{
 			res[pos++] = outres.matrix.dataArray[i];
 		}
@@ -722,7 +722,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		}
 
 		//BonusData
-		for (int32_t i = 0; i < GE_WheelChessNum; i++)
+		for (int32_t i = 0; i < GE_WheelChessMaxNum; i++)
 		{
 			res[pos++] = outres.BonusData[i];
 		}

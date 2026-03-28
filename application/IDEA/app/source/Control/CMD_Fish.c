@@ -36,7 +36,7 @@ uint8_t Matrix_u_getTypeNum(Matrix_u* pMatrix, uint8_t type)
 {
     uint8_t nNum = 0;
     uint8_t i = 0;
-    for (; i < GE_WheelChessNum; ++i)
+    for (; i < GE_WheelChessMaxNum; ++i)
     {
         if (pMatrix->dataArray[i] == type) nNum++;
     }
@@ -64,7 +64,7 @@ void Matrix_u_copy(Matrix_u* pDest, Matrix_u* pSrc)
 //-------------------------------------------------------------------------------------
 uint8_t Matrix_u_getIntData(Matrix_u* pMatrix, uint8_t pos)
 {
-    if (pos > GE_WheelChessNum) return -1;
+    if (pos > GE_WheelChessMaxNum) return -1;
     uint8_t type = 0;
     type = pMatrix->dataArray[pos];
   
@@ -73,7 +73,7 @@ uint8_t Matrix_u_getIntData(Matrix_u* pMatrix, uint8_t pos)
 //-------------------------------------------------------------------------------------
 void Matrix_u_setIntData(Matrix_u* pMatrix, uint8_t* pData)
 {
-    for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
+    for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
     {
         pMatrix->dataArray[i] = pData[i];
     }
@@ -253,7 +253,7 @@ void Matrix_u_setIntData(Matrix_u* pMatrix, uint8_t* pData)
 //    //�ж�����н�
 //    int32_t scatterCount = 0;
 //    int32_t freeOdds = 0;
-//    for (int32_t i = 0; i < GE_WheelChessNum; ++i)
+//    for (int32_t i = 0; i < GE_WheelChessMaxNum; ++i)
 //    {
 //        if (pMatrix->dataArray[i] == CT_Scater)
 //        {
@@ -269,7 +269,7 @@ void Matrix_u_setIntData(Matrix_u* pMatrix, uint8_t* pData)
 //    //�жϴ��н�
 //    int32_t _bonusCount = 0;
 //    int32_t bounsOdds = 0;
-//    for (int32_t i = 0; i < GE_WheelChessNum; ++i)
+//    for (int32_t i = 0; i < GE_WheelChessMaxNum; ++i)
 //    {
 //        if (pMatrix->dataArray[i] == CT_Bonus)
 //        {
@@ -304,10 +304,10 @@ void Matrix_u_setIntData(Matrix_u* pMatrix, uint8_t* pData)
 //    uint8_t nWildIdx = 0;
 //    uint8_t BetValue = 0;
 //
-//    for (uint8_t idIndex = 0; idIndex < gameConfig->header.reelCount; ++idIndex)
+//    for (uint8_t idIndex = 0; idIndex < gameConfig->header.colCount; ++idIndex)
 //    {
 //        nIdPos = GET_LINE_VALUE(gameConfig->header.id, lineIdx, idIndex);
-//        //nIdPos = gameConfig->paytable.gLineCheckIDArray[lineIdx * gameConfig->header.reelCount + idIndex];
+//        //nIdPos = gameConfig->paytable.gLineCheckIDArray[lineIdx * gameConfig->header.colCount + idIndex];
 //        clr->posVec[idIndex] = nIdPos;
 //        clr->chessTypeVec[idIndex] = matrix->dataArray[nIdPos];
 //      
@@ -472,11 +472,9 @@ void Matrix_u_setIntData(Matrix_u* pMatrix, uint8_t* pData)
 
 int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId)
 {
-    uint32_t nLocalWinBet = Matrix_u_computeLineWinsById(pMatrix, idVec, gameConfig);
-    Matrix_u_applyTriggersByGameId(pMatrix, gameConfig, gameId, &nLocalWinBet);
+    uint32_t nLocalWinBet = computerMatrixById(pMatrix, idVec, gameConfig, gameId);
     return (int32_t)nLocalWinBet;
 }
-
 //-------------------------------------------------------------------------------------
 void OutResult_Init(OutResult_t* pResult)
 {
@@ -510,8 +508,13 @@ void OutResult_Init(OutResult_t* pResult)
         pResult->FreeBetArray[i] = 0;
     }
 
+    for (int8_t i = 0; i < GE_WheelChessMaxNum; i++)
+    {
+        pResult->WildPosArray[i] = 0;
+    }
+
     // 初始化 Bonus 数据数组
-    for (int8_t i = 0; i < GE_WheelChessNum; i++)
+    for (int8_t i = 0; i < GE_WheelChessMaxNum; i++)
     {
         pResult->BonusData[i] = 0;
     }
@@ -550,8 +553,13 @@ void OutResult_reset(OutResult_t* pResult)
         pResult->FreeBetArray[i] = 0;
     }
 
+    for (int8_t i = 0; i < GE_WheelChessMaxNum; i++)
+    {
+        pResult->WildPosArray[i] = 0;
+    }
+
     // 重置 Bonus 数据
-    for (int8_t i = 0; i < GE_WheelChessNum; i++) {
+    for (int8_t i = 0; i < GE_WheelChessMaxNum; i++) {
         pResult->BonusData[i] = 0;
     }
 }

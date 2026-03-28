@@ -109,7 +109,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 				uint8_t randNum = 0;
 				uint8_t randPos = 0;
 				//先填满bonus位置
-				for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
+				for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
 				{
 					if (bonusMxu->dataArray[i] == inst->gameConfig.header.Bonus)
 					{
@@ -139,7 +139,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 					PosSize--;
 				}
 
-				for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
+				for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
 				{
 					if (info->BonusData[i] == 1)
 					{
@@ -150,11 +150,11 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 #ifdef _IMHERE
 				Matrix_u_copy(&mxu, bonusMxu);
 				BlindSymbol = 0;
-				uint8_t temp[GE_WheelChessNum] =
+				uint8_t temp[GE_WheelChessMaxNum] =
 				{
 				   0,0,1,0,0,1,0,1,1,0,0,1,0,0,0
 				};
-				for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
+				for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
 				{
 					info->BonusData[i] = temp[i];
 					if (temp[i] > 0)
@@ -272,7 +272,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 			uint8_t randPos = 0;
 
 			//先填满bonus位置
-			for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
+			for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
 			{
 				if (bonusMxu->dataArray[i] == inst->gameConfig.header.Bonus)
 				{
@@ -356,7 +356,7 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 	info->nFreeBet = 0;
 
 	// 收集 wild 位置（来自触发矩阵 freeMxu 上的 Bonus 位）
-	for (uint8_t i = 0; i < GE_WheelChessNum; i++)
+	for (uint8_t i = 0; i < GE_WheelChessMaxNum; i++)
 	{
 		if (Matrix_u_getIntData(freeMxu, i) == inst->gameConfig.header.Bonus)
 		{
@@ -373,7 +373,7 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 		Matrix_u_copy(&tempmxu, &mxu);
 
 		// 填入 wild 位置
-		for (int32_t i = 0; i < GE_WheelChessNum; i++)
+		for (int32_t i = 0; i < GE_WheelChessMaxNum; i++)
 		{
 			if (info->WildPosArray[index][i] == 1)
 			{
@@ -398,7 +398,7 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 		// 收集 wild 位置（最后一把不收集）
 		if (index < info->nFreeNum - 1)
 		{
-			for (uint8_t i = 0; i < GE_WheelChessNum; i++)
+			for (uint8_t i = 0; i < GE_WheelChessMaxNum; i++)
 			{
 				if (Matrix_u_getIntData(&tempmxu, i) == inst->gameConfig.header.Wild)
 				{

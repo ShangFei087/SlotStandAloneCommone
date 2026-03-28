@@ -3,6 +3,7 @@
 #define _GAME_CONFIG_H_
 
 #include "qs.h"
+#include "DllInterface.h"
 
 #define PAY_WAY_LINE 0  //9 10 15 30 50   payway line
 #define PAY_WAY_WAY 1 //243 1024 2048	  payway way
@@ -18,8 +19,9 @@ typedef struct {
 	uint8_t		ChessTypeNum;       // 总图标种类数
 	uint8_t		ChessNorTypeNum;    // 普通图标种类数
 	uint16_t	lineCount;          // 线数（如 15/20）或 ways（如 243）
-	uint8_t		reelCount;          // 轴数（通常为 5）
+	uint8_t		colCount;          // 轴数（通常为 5）
 	uint8_t		rowCount;           // 行数（通常为 3）
+	uint8_t     wheelChessNum;		// 阵列格子数量
 	uint16_t	MaxIDNyn;           // 中奖 ID 最大数量
 	uint8_t		freeGameMax;        // 免费游戏最大次数
 	uint8_t		Scatter;            // Scatter 图标
@@ -57,6 +59,9 @@ typedef struct {
 // 配置结构初始化/拷贝
 void GameConfig_Init(SlotGameConfig_t* slotConfig);  // 初始化
 void GameConfig_Copy(SlotGameConfig_t* pDest, SlotGameConfig_t* pSrc);
+int8_t RegisterGameWithConfig(const int8_t* gameName, GameId_t gameId, const SlotGameConfig_t* config);
+// 初始化内置游戏
+void GameConfigRegistry_InitDefaults();
 
 
 #endif // _GAME_CONFIG_H_

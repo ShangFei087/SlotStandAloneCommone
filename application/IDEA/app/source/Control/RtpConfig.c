@@ -1,5 +1,5 @@
 #include <stddef.h>  
-#include "RtpConfig.h" // 引入 RTP 配置头文件
+#include "RtpConfig.h"
 
 // 获取区域配置数组与默认 RTP 档位；返回 1 表示成功，0 表示失败。
 int32_t RtpConfig_GetProfiles(uint8_t region,const RtpProfileConfig** outProfiles,int32_t* outCount,int32_t* outDefaultRtpPermyriad) // 导出区域档位表
@@ -28,7 +28,7 @@ int32_t RtpConfig_GetProfiles(uint8_t region,const RtpProfileConfig** outProfile
     return 0; // 未知区域返回失败
 } // RtpConfig_GetProfiles 结束
 // 按 RTP 档位精确查找配置，找不到返回 NULL。
-const RtpProfileConfig* RtpConfig_FindProfile(uint8_t region, int32_t rtpPermyriad) // 查找指定 RTP 对应的档位
+const RtpProfileConfig* RtpConfig_FindProfile(uint8_t region, int32_t rtpPermyriad) 
 {
     const RtpProfileConfig* profiles = NULL; // 区域档位数组指针
     int32_t count = 0; // 档位数量
@@ -48,15 +48,15 @@ const RtpProfileConfig* RtpConfig_FindProfile(uint8_t region, int32_t rtpPermyri
     }
 
     return NULL; // 遍历结束仍未命中则返回空
-} // RtpConfig_FindProfile 结束
+} 
 // 获取区域默认档位配置，找不到返回 NULL。
-const RtpProfileConfig* RtpConfig_GetDefaultProfile(uint8_t region) // 获取指定区域的默认 RTP 档位
+const RtpProfileConfig* RtpConfig_GetDefaultProfile(uint8_t region) 
 {
     int32_t defaultRtpPermyriad = 0; // 用于接收默认 RTP 值
     const RtpProfileConfig* profiles = NULL; // 用于接收区域档位数组指针
     int32_t count = 0; // 用于接收区域档位数量
 
-    if (!RtpConfig_GetProfiles(region, &profiles, &count, &defaultRtpPermyriad)) // 获取区域基础信息
+    if (!RtpConfig_GetProfiles(region, &profiles, &count, &defaultRtpPermyriad)) 
     {
         return NULL; // 区域非法或参数异常时返回空
     }

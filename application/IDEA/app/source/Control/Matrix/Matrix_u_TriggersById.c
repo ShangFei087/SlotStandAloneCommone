@@ -2,7 +2,22 @@
 
 #include "Control/ComputerData.h"
 
-uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResult_t* clr, SlotGameConfig_t* gameConfig) {
+//--------------------------------------------外部调用--------------------------------------------//
+int32_t computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId)
+{
+    uint32_t nLocalWinBet = 0;
+    MatrixTriggerOps_t* ops = MatrixTriggerOps_t_Get(gameId);
+    if (ops == NULL || ops->applyTriggers == NULL|| ops->computeLineWin == NULL)
+    {
+        return;
+    }
+
+    nLocalWinBet= ops->computeLineWin(pMatrix, idVec, gameConfig, gameId);
+    ops->applyTriggers(pMatrix, gameConfig, gameId, &nLocalWinBet);
+    return nLocalWinBet;
+}
+//--------------------------------------------公共--------------------------------------------//
+uint8_t checkOnLine_Defaults(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResult_t* clr, SlotGameConfig_t* gameConfig) {
     uint8_t nCheckIndex = 0;            // 当前检查下标（保留字段）
     int8_t nFirstAvailChessIndex = -1;  // 第一枚有效普通图标的位置（非 Wild/Bonus/Scatter）
     uint8_t nFirstChessType = 0;        // 第一枚图标类型（保留字段）
@@ -16,10 +31,10 @@ uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
     uint8_t nWildIdx = 0;
     uint8_t BetValue = 0;
 
-    for (uint8_t idIndex = 0; idIndex < gameConfig->header.reelCount; ++idIndex)
+    for (uint8_t idIndex = 0; idIndex < gameConfig->header.colCount; ++idIndex)
     {
         nIdPos = GET_LINE_VALUE(gameConfig->header.id, lineIdx, idIndex);
-        //nIdPos = gameConfig->paytable.gLineCheckIDArray[lineIdx * gameConfig->header.reelCount + idIndex];
+        //nIdPos = gameConfig->paytable.gLineCheckIDArray[lineIdx * gameConfig->header.colCount + idIndex];
         clr->posVec[idIndex] = nIdPos;
         clr->chessTypeVec[idIndex] = matrix->dataArray[nIdPos];
 
@@ -181,12 +196,15 @@ uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
 
     return clr->bIsEliminate;
 }
-
-uint32_t Matrix_u_computeLineWinsById(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig)
+uint32_t computeLineWins_Defaults(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId)
 {
     if (pMatrix == NULL || idVec == NULL || gameConfig == NULL) return 0;
+    MatrixTriggerOps_t* ops = MatrixTriggerOps_t_Get(gameId);
+    if (ops == NULL || ops->checkOnLine== NULL)
+    {
+        return;
+    }
 
-    // 清空外部传入的 idVec（保持与原实现一致：只清理 lineCount 范围）
     for (uint8_t i = 0; i < gameConfig->header.lineCount; ++i)
     {
         idVec[i] = 0;
@@ -200,7 +218,7 @@ uint32_t Matrix_u_computeLineWinsById(Matrix_u* pMatrix, int32_t* idVec, SlotGam
     for (uint8_t i = 0; i < gameConfig->header.lineCount; ++i)
     {
         CheckOnLineResult_Init(&clr);
-        Matrix_u_checkOnLine(pMatrix, i, &clr, gameConfig);
+        ops->checkOnLine(pMatrix, i, &clr, gameConfig);
 
         if (clr.bIsEliminate)
         {
@@ -217,33 +235,12 @@ uint32_t Matrix_u_computeLineWinsById(Matrix_u* pMatrix, int32_t* idVec, SlotGam
     pMatrix->idVecSize = idVecCount;
     return nLocalWinBet;
 }
-
-typedef void (*MatrixApplyTriggersFn)(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig,uint32_t gameId, uint32_t* pLocalWinBet);
-
-typedef struct
-{
-    MatrixApplyTriggersFn applyTriggers;
-} MatrixTriggerOps_t;
-
-// Per-game apply triggers implementations (one file per game).
-void MatrixApplyTriggers_1700(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
-void MatrixApplyTriggers_3999(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
-void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
-
-static MatrixTriggerOps_t gOps_1700;
-static MatrixTriggerOps_t gOps_3999;
-static MatrixTriggerOps_t gOps_3998;
-static MatrixTriggerOps_t gOps_Default;
-static uint8_t gTriggerRegistryInited = 0;
-
-static void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet)
+void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet)
 {
     uint8_t scatterCount = 0;
     uint8_t _bonusCount = 0;
-    uint8_t bounsOdds = 0; // 原始实现中恒为 0，这里保持一致
 
-    // Scatter -> Free
-    for (uint8_t i = 0; i < gameConfig->header.lineCount * gameConfig->header.rowCount; ++i)
+    for (uint8_t i = 0; i < gameConfig->header.lineCount; ++i)
     {
         if (pMatrix->dataArray[i] == gameConfig->header.Scatter)
         {
@@ -255,8 +252,7 @@ static void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gam
         pMatrix->resultType = RT_FreeWin;
     }
 
-    // Bonus -> BonusWin
-    for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
+    for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
     {
         if (pMatrix->dataArray[i] == gameConfig->header.Bonus)
         {
@@ -266,38 +262,90 @@ static void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gam
     if (_bonusCount >= 3)
     {
         pMatrix->resultType = RT_BonusWin;
-        *pLocalWinBet += bounsOdds;
     }
 }
+//--------------------------------------------解耦--------------------------------------------//
+void MatrixApplyTriggers_1700(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
 
-static void MatrixTriggerRegistry_InitDefaults(void)
+void MatrixApplyTriggers_3999(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
+
+void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
+
+void MatrixApplyTriggers_3993(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
+
+typedef struct
 {
-    gOps_1700.applyTriggers = MatrixApplyTriggers_Default;
-    gOps_3999.applyTriggers = MatrixApplyTriggers_Default;
-    gOps_3998.applyTriggers = MatrixApplyTriggers_3998;
-    gOps_Default.applyTriggers = MatrixApplyTriggers_Default;
-    gTriggerRegistryInited = 1;
-}
+    GameInstanceId_t gameId;
+    MatrixTriggerOps_t ops;
+} MatrixTriggerOps_tEntry_t;
 
-static const MatrixTriggerOps_t* MatrixTriggerRegistry_Get(uint32_t gameId)
+static MatrixTriggerOps_tEntry_t gReg[GAME_INSTANCE_ID_MAX];
+static int32_t gRegCount = 0;
+
+int8_t MatrixTrigger_Register(GameInstanceId_t gameId, const MatrixTriggerOps_t* ops)
 {
-    if (gameId == 1700) return &gOps_1700;
-    if (gameId == 3999) return &gOps_3999;
-    if (gameId == 3998) return &gOps_3998;
-    return &gOps_Default;
-}
+    if (ops == NULL) return 0;
+    if (gameId == GAME_INSTANCE_ID_INVALID) return 0;
 
-void Matrix_u_applyTriggersByGameId(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet)
-{
-    if (pMatrix == NULL || gameConfig == NULL || pLocalWinBet == NULL) return;
-
-    if (!gTriggerRegistryInited)
+    // 已存在则覆盖
+    for (int32_t i = 0; i < gRegCount; ++i)
     {
-        MatrixTriggerRegistry_InitDefaults();
+        if (gReg[i].gameId == gameId)
+        {
+            gReg[i].ops = *ops;
+            return 1;
+        }
     }
 
-    const MatrixTriggerOps_t* ops = MatrixTriggerRegistry_Get(gameId);
-    if (ops == NULL || ops->applyTriggers == NULL) return;
-    ops->applyTriggers(pMatrix, gameConfig, gameId, pLocalWinBet);
+    if (gRegCount > GAME_INSTANCE_ID_MAX) return 0;
+
+    gReg[gRegCount].gameId = gameId;
+    gReg[gRegCount].ops = *ops;
+    gRegCount++;
+    return 1;
 }
+
+const MatrixTriggerOps_t* MatrixTriggerOps_t_Get(GameInstanceId_t gameId)
+{
+    if (gameId == GAME_INSTANCE_ID_INVALID) return NULL;
+    for (int32_t i = 0; i < gRegCount; ++i)
+    {
+        if (gReg[i].gameId == gameId)
+        {
+            return &gReg[i].ops;
+        }
+    }
+    return NULL;
+}
+
+void MatrixTriggerOps_t_InitDefaults(void)
+{
+    memset(gReg, 0, sizeof(gReg));
+    gRegCount = 0;
+
+    MatrixTriggerOps_t ops1700 = { 0 };
+    ops1700.applyTriggers = MatrixApplyTriggers_Default;
+    ops1700.checkOnLine = checkOnLine_Defaults;
+    ops1700.computeLineWin = MatrixApplyTriggers_Default;
+    (void)MatrixTrigger_Register(1700, &ops1700);
+
+    MatrixTriggerOps_t ops3999 = { 0 };
+    ops3999.applyTriggers = MatrixApplyTriggers_Default;
+    ops3999.checkOnLine = checkOnLine_Defaults;
+    ops3999.computeLineWin = MatrixApplyTriggers_Default;
+    (void)MatrixTrigger_Register(3999, &ops3999);
+
+    MatrixTriggerOps_t ops3998 = { 0 };
+    ops3998.applyTriggers = MatrixApplyTriggers_3998;
+    ops3998.checkOnLine = checkOnLine_Defaults;
+    ops3998.computeLineWin = MatrixApplyTriggers_Default;
+    (void)MatrixTrigger_Register(3998, &ops3998);
+
+    MatrixTriggerOps_t ops3993 = { 0 };
+    ops3993.applyTriggers = MatrixApplyTriggers_3993;
+    ops3993.checkOnLine = checkOnLine_Defaults;
+    ops3993.computeLineWin = computeLineWins_Defaults;
+    (void)MatrixTrigger_Register(3993, &ops3993);
+}
+
 

@@ -107,10 +107,9 @@ int32_t main(int32_t argc, char *argv[])
    
     //初始化配置
     GameId_t gameId = GAME_ID_INVALID;
-    if (!GameRegistry_InitAndRegisterDefaults(&gameId))
+    if (!GameRegistry_InitAndRegisterDefaults())
     {
-        QS_LOG("init game registry failed\n");
-        return -1;
+        return 0;
     }
     
     //初始化输出
@@ -118,9 +117,9 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(3999))
+    if (DLL_GameSwitch(3995))
     {
-        gameId = 3999;
+        gameId = 3995;
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -148,7 +147,7 @@ int32_t main(int32_t argc, char *argv[])
     int32_t jpvaule = 0;
     uint8_t jpType = 0;
     uint32_t TotalWin = 0;
-#define _TestTime 500000
+#define _TestTime 300000
 
     while (totalTime < _TestTime)
     {

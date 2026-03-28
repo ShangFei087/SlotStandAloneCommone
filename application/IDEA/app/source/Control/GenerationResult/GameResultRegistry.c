@@ -2,7 +2,6 @@
 
 #include <string.h>
 
-#define GAME_RESULT_REG_MAX 16
 //--------------------------------------------公共--------------------------------------------//
 // 生成阵列
 void GameResult_Generic_Normal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
@@ -38,7 +37,7 @@ void GameResult_Generic_Lose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* i
 		}
 	}
 }
-//生成一局
+//根据矩阵的结果类型，生成不同结果
 void GenerationResult_GenerateNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
 {
 	GameResultOps_t* ops = GameResultRegistry_Get(gameId);
@@ -85,14 +84,14 @@ void GenerationResult_GenerateNormal(RoundInfo_t* info, GameInstance_t* inst, Ma
 	break;
 	}
 }
-//免费游戏
+//调试模式生成免费结果
 void GenerationResult_GenerateFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId)
 {
 	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
 	if (ops == NULL || ops->genFree == NULL) return;
 	ops->genFree(info, betVal, inst, freeMxu, gameId);
 }
-//大奖
+//调试模式生成大奖结果
 void GenerationResult_GenerateBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId)
 {
 	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
@@ -123,14 +122,22 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* bonusMxu,GameInstanceId_t gameId);
 void GameResult_3998_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,int32_t* idVec,GameInstanceId_t gameId);
 
+void GameResult_3993_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
+void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId);
+void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId);
+void GameResult_3993_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId);
 
+void GameResult_3995_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
+void GameResult_3995_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId);
+void GameResult_3995_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId);
+void GameResult_3995_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId);
 typedef struct
 {
 	GameInstanceId_t gameId;
 	GameResultOps_t ops;
 } GameResultRegEntry_t;
 
-static GameResultRegEntry_t gReg[GAME_RESULT_REG_MAX];
+static GameResultRegEntry_t gReg[GAME_INSTANCE_ID_MAX];
 static int32_t gRegCount = 0;
 
 int8_t GameResultRegistry_Register(GameInstanceId_t gameId, const GameResultOps_t* ops)
@@ -148,7 +155,7 @@ int8_t GameResultRegistry_Register(GameInstanceId_t gameId, const GameResultOps_
 		}
 	}
 
-	if (gRegCount >= GAME_RESULT_REG_MAX) return 0;
+	if (gRegCount > GAME_INSTANCE_ID_MAX) return 0;
 
 	gReg[gRegCount].gameId = gameId;
 	gReg[gRegCount].ops = *ops;
@@ -200,5 +207,23 @@ void GameResultRegistry_InitDefaults(void)
 	ops3998.genBonus = GameResult_3998_GenBonus;
 	ops3998.genLose = GameResult_3998_GenLose;
 	(void)GameResultRegistry_Register(3998, &ops3998);
+
+	GameResultOps_t ops3993 = { 0 };
+	ops3993.genNormal = GameResult_3993_GenNormal;
+	ops3993.genNormalWin = GameResult_Generic_NormalWin;
+	ops3993.genNormalLose = GameResult_Generic_NormalLose;
+	ops3993.genFree = GameResult_3993_GenFree;
+	ops3993.genBonus = GameResult_3993_GenBonus;
+	ops3993.genLose = GameResult_3993_GenLose;
+	(void)GameResultRegistry_Register(3993, &ops3993);
+
+	GameResultOps_t ops3995 = { 0 };
+	ops3995.genNormal = GameResult_3995_GenNormal;
+	ops3995.genNormalWin = GameResult_Generic_NormalWin;
+	ops3995.genNormalLose = GameResult_Generic_NormalLose;
+	ops3995.genFree = GameResult_3995_GenFree;
+	ops3995.genBonus = GameResult_3995_GenBonus;
+	ops3995.genLose = GameResult_3995_GenLose;
+	(void)GameResultRegistry_Register(3993, &ops3993);
 }
 

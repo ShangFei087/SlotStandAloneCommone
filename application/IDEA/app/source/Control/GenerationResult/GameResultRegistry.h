@@ -4,12 +4,10 @@
 #include <Control/CommonStruct.h>
 #include <Control/GameManager.h>
 
-// Generic implementations (shared across all games).
 void GameResult_Generic_Normal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
 void GameResult_Generic_Lose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId);
 void GameResult_Generic_NormalWin(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
 void GameResult_Generic_NormalLose(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
-
 
 void GenerationResult_GenerateNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
 void GenerationResult_GenerateFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId);
@@ -36,7 +34,7 @@ typedef struct
 int8_t GameResultRegistry_Register(GameInstanceId_t gameId, const GameResultOps_t* ops);
 const GameResultOps_t* GameResultRegistry_Get(GameInstanceId_t gameId);
 
-// 初始化内置游戏 ops（1700/3999/3998）
+// 初始化内置游戏
 void GameResultRegistry_InitDefaults(void);
 
 #endif // _GameResultRegistry_H_

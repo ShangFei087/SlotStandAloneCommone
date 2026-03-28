@@ -30,13 +30,13 @@ typedef struct {
 	int8_t nFreeNum;
 	int32_t nFreeBet;
 	Matrix_u LooseMxus[GE_MaxFreeNum];
-	int8_t WildPosArray[GE_MaxFreeNum][GE_WheelChessNum];
+	int8_t WildPosArray[GE_MaxFreeNum][GE_WheelChessMaxNum];
 
 	// 大奖数据
 	int32_t nBonusBet;
 	int8_t nBonusType;
 	int8_t BlindSymbol; //神秘图标或者乘数游戏的倍数
-	int32_t BonusData[GE_WheelChessNum];
+	int32_t BonusData[GE_WheelChessMaxNum];
 } RoundInfo_t;
 // RoundInfo_t 初始化函数
 void RoundInfo_t_Init(RoundInfo_t* obj);

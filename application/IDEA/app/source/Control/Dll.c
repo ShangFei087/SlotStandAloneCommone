@@ -230,7 +230,7 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 			Matrix_u_reset(mxu);
 			NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, mxu);
 #ifdef _IMHERE
-			uint8_t temp[GE_WheelChessNum] =
+			uint8_t temp[GE_WheelChessMaxNum] =
 			{
 			   3,2,9,5,1,9,3,3,9,3,4,6,5,5,4
 			};
@@ -304,7 +304,7 @@ void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* 
 		pRes->nBonusBet = info->nBonusBet;
 		pRes->nBonusType = info->nBonusType;
 		pRes->BlindSymbol = info->BlindSymbol;
-		for (uint8_t i = 0; i < GE_WheelChessNum; ++i)
+		for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
 		{
 			pRes->BonusData[i] = info->BonusData[i];
 		}
@@ -333,7 +333,7 @@ void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* 
 		//失败结果
 	}
 }
-//生成一个免费局
+//应用赠送局到输出结果
 void ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx)
 {
 	OutResult_reset(pRes);
@@ -352,6 +352,7 @@ void ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t fre
 	Matrix_u_copy(&pRes->matrix, &info->pFreeMxu[freeIdx]);
 	pRes->nMatrixBet = info->FreeBetArray[freeIdx];
 	memcpy(pRes->IDVec, info->FreeIDVec[freeIdx], sizeof(pRes->IDVec));
+	memcpy(pRes->WildPosArray, info->WildPosArray[freeIdx], sizeof(pRes->WildPosArray));
 	pRes->resType = resType;
 }
 //请求结果
@@ -715,7 +716,7 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameId_t gameId)
 	idVecStr = ArrayToString((int32_t*)outRes->IDVec, GE_MaxIDNum, 0);
 	append_format(strRes, 2048, &used, "\"IDVec\":%s,", idVecStr ? (const char*)idVecStr : "[]");
 
-	matrixStr = ByteArrayToString(outRes->matrix.dataArray, GE_WheelChessNum);
+	matrixStr = ByteArrayToString(outRes->matrix.dataArray, GE_WheelChessMaxNum);
 	append_format(strRes, 2048, &used, "\"Matrix\":%s,", matrixStr ? (const char*)matrixStr : "[]");
 
 	if (outRes->resType == RT_FreeWin)
@@ -727,12 +728,24 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameId_t gameId)
 		append_format(strRes, 2048, &used, "\"FreeBetArray\":%s,", freeBetStr ? (const char*)freeBetStr : "[]");
 		free(freeBetStr);
 	}
-
+	int8_t* wildStr;
 	if (outRes->openType == OT_Give)
 	{
-		// 注释掉的代码保留原样
-		//sprintf(temp, "\"ScatterData\":%s,", ArrayToString((int32_t*)outRes->ScatterData, 3, 1));
-		//strcat(strRes, temp);
+		switch (gameId)
+		{
+		case 3993:
+		{
+			wildStr = ByteArrayToString(outRes->WildPosArray, GE_WheelChessMaxNum);
+			append_format(strRes, 2048, &used, "\"WildData\":%s,", wildStr ? (const char*)wildStr : "[]");
+			free(wildStr);
+		}
+		break;
+		default:
+		{
+
+		}
+		break;
+		}
 	}
 
 	GameInstance_t* inst = get_instance(gameId);
@@ -768,7 +781,7 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameId_t gameId)
 			//神秘
 			case 1:
 			{
-				bonusStr = ArrayToString((int32_t*)outRes->BonusData, GE_WheelChessNum, 1);
+				bonusStr = ArrayToString((int32_t*)outRes->BonusData, GE_WheelChessMaxNum, 1);
 				append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
 				append_format(strRes, 2048, &used, "\"BlindSymbol\":%d,", outRes->BlindSymbol);
 				free(bonusStr);
@@ -793,6 +806,9 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameId_t gameId)
 		{
 			append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
 			append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
+			bonusStr = ArrayToString((int32_t*)outRes->BonusData,GE_WheelChessMaxNum, 1);
+			append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
+			free(bonusStr);
 		}
 		break;
 		}

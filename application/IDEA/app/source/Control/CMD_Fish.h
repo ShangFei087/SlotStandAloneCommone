@@ -11,11 +11,15 @@
 #define DCM_PointResData 1
 
 // 全局参数常量
-#define GE_WheelChessNum 15
-#define GE_MaxIDNum 20
-#define GE_Line20Num  20  // 20 线
+#define GE_WheelChessMaxNum 20 //最大滚轮数量
+#define GE_WheelChess3x5Num 15 //滚轮数量
+#define GE_WheelChess4X5Num 20  //滚轮数量
+#define GE_MaxIDNum 25
 #define GE_Line15Num  15  // 15 线
-#define GE_MaxFreeNum  20
+#define GE_Line20Num  20  // 20 线
+#define GE_Line25Num  25  // 25 线
+#define GE_Line50Num  50  // 50 线
+#define GE_MaxFreeNum  20 //最大免费游戏
 
 
 // 结果类型定义
@@ -58,13 +62,12 @@ void CheckOnLineResult_Init(CheckOnLineResult_t* pResult);
 typedef struct {
 	uint8_t resultType;
 	uint8_t idVecSize;
-	uint8_t dataArray[GE_WheelChessNum];
+	uint8_t dataArray[GE_WheelChessMaxNum];
 } Matrix_u;
 
 // Matrix_u 相关接口
 uint8_t Matrix_u_getIntData(Matrix_u* pMatrix, uint8_t pos);
 void Matrix_u_setIntData(Matrix_u* pMatrix, uint8_t* pData);
-void Matrix_u_print(Matrix_u* pMatrix);
 uint8_t Matrix_u_getTypeNum(Matrix_u* pMatrix, uint8_t type);
 void Matrix_u_reset(Matrix_u* pMatrix);
 void Matrix_u_copy(Matrix_u* pDest, Matrix_u* pSrc);
@@ -91,12 +94,12 @@ typedef struct {
 	int32_t nTotalFreeBet;                  // 预计免费游戏总倍数
 	uint8_t nTotalFreeTime;                 // 免费游戏总次数
 	int32_t FreeBetArray[GE_MaxFreeNum];
-
-	//uint8_t uint16_t
+	int8_t WildPosArray[GE_WheelChessMaxNum];
+	
 	/* 当结果类型为 RT_BonusWin 时，以下字段有效 */
 	int32_t nBonusBet;
 	uint8_t BlindSymbol;                   // 神秘图标或乘数值（按玩法解释）
-	int32_t BonusData[GE_WheelChessNum];   // Bonus 结果数据
+	int32_t BonusData[GE_WheelChessMaxNum];   // Bonus 结果数据
 	uint8_t nBonusType;
 	
 	int32_t nJPBet;
