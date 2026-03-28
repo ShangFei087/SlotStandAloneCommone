@@ -1,7 +1,4 @@
 #include "GameResultRegistry.h"
-#include <Control/CommonStruct.h>
-#include <Control/GameManager.h>
-
 
 void GameResult_1700_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,int32_t* idVec,GameInstanceId_t gameId)
 {

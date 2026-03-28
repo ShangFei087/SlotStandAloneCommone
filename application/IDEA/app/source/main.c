@@ -106,7 +106,7 @@ int32_t main(int32_t argc, char *argv[])
     //DLL_SetRtpPassOverride(9980, 9980);//99.8
    
     //初始化配置
-    GameId_t gameId = GAME_ID_INVALID;
+    GameInstanceId_t gameId = GAME_ID_INVALID;
     if (!GameRegistry_InitAndRegisterDefaults())
     {
         return 0;

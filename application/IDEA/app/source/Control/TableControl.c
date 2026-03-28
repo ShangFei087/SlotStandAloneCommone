@@ -1,8 +1,9 @@
 #include "TableControl.h" 
+
 #include "../GameAlgo/common/JRand.h" 
 #include <string.h> 
 #include "Test.h"
-#include "DllInterface.h"
+#include "ComputerData.h"
 
 static TableControlStats gTableControlStats = { 0 }; // 闸门统计全局实例
 static uint8_t gRtpRegion = RTP_REGION_DOMESTIC;     // 当前区域（默认国内）

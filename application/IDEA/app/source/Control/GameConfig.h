@@ -2,12 +2,7 @@
 #ifndef _GAME_CONFIG_H_
 #define _GAME_CONFIG_H_
 
-#include "qs.h"
-#include "DllInterface.h"
-
-#define PAY_WAY_LINE 0  //9 10 15 30 50   payway line
-#define PAY_WAY_WAY 1 //243 1024 2048	  payway way
-
+#include "ComputerData.h"
 // 配置头结构，固定大小 64 字节
 typedef struct {
 	uint8_t		id;                 // 内部游戏 ID（当前仅 0~2）
@@ -59,7 +54,7 @@ typedef struct {
 // 配置结构初始化/拷贝
 void GameConfig_Init(SlotGameConfig_t* slotConfig);  // 初始化
 void GameConfig_Copy(SlotGameConfig_t* pDest, SlotGameConfig_t* pSrc);
-int8_t RegisterGameWithConfig(const int8_t* gameName, GameId_t gameId, const SlotGameConfig_t* config);
+int8_t RegisterGameWithConfig(const int8_t* gameName, GameInstanceId_t gameId, const SlotGameConfig_t* config);
 // 初始化内置游戏
 void GameConfigRegistry_InitDefaults();
 

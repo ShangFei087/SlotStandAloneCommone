@@ -2,8 +2,7 @@
 #include "ComputerData.h"
 #include "Test.h"
 
-// 静态函数声明
-//static void LotteryManager_SaveData(LotteryManager* manager);
+
 static int32_t LotteryManager_GetTierPermil(const LotteryManager* manager, int32_t score);
 
 /**

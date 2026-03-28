@@ -634,7 +634,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		uint32_t ret =0;
 		uint32_t jpType = 0;
 		uint32_t jpvaule = 0;
-		GameId_t gameId = g_CurrentGameInstance->id;
+		GameInstanceId_t gameId = g_CurrentGameInstance->id;
 		OutResult_t outres;
 		uint32_t TotalWin = 0;
 		uint32_t  lineNum = g_CurrentGameInstance->gameConfig.header.lineCount;

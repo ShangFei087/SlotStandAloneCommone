@@ -1,8 +1,9 @@
 #include "GameRegistry.h"
 
-#include "GameConfig.h"
+
+#include "GameManager.h"
 #include "LotteryManager.h"
-#include "ComputerData.h"
+#include "GameConfig.h"
 #include "GenerationResult/GameResultRegistry.h"
 #include "Matrix/Matrix_u_TriggersById.h"
 

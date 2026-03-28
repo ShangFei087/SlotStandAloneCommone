@@ -285,7 +285,7 @@ static int32_t gRegCount = 0;
 int8_t MatrixTrigger_Register(GameInstanceId_t gameId, const MatrixTriggerOps_t* ops)
 {
     if (ops == NULL) return 0;
-    if (gameId == GAME_INSTANCE_ID_INVALID) return 0;
+    if (gameId == GAME_ID_INVALID) return 0;
 
     // 已存在则覆盖
     for (int32_t i = 0; i < gRegCount; ++i)
@@ -307,7 +307,7 @@ int8_t MatrixTrigger_Register(GameInstanceId_t gameId, const MatrixTriggerOps_t*
 
 const MatrixTriggerOps_t* MatrixTriggerOps_t_Get(GameInstanceId_t gameId)
 {
-    if (gameId == GAME_INSTANCE_ID_INVALID) return NULL;
+    if (gameId == GAME_ID_INVALID) return NULL;
     for (int32_t i = 0; i < gRegCount; ++i)
     {
         if (gReg[i].gameId == gameId)

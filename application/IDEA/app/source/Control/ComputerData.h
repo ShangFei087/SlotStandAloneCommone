@@ -2,10 +2,11 @@
 #define _ComputerData_H_
 
 #include "qs.h"
-#include "CMD_Fish.h"
-
 
 typedef uint32_t GameInstanceId_t;			//游戏实例ID类型
+#define GAME_ID_INVALID 0					//游戏ID无效
+#define PAY_WAY_LINE 0						//9 10 15 30 50   payway line
+#define PAY_WAY_WAY 1						//243 1024 2048	  payway way
 #define GAME_INSTANCE_ID_MAX 5				// 最大支持的游戏实例数量
 #define GAME_Local_JP_MAX 3					// 本地彩金数量
 #define RollTabel_MAX  7					//滚轮表数量
@@ -13,6 +14,40 @@ typedef uint32_t GameInstanceId_t;			//游戏实例ID类型
 #define COL_MAX 5							//最大列
 #define ROLLTABEL_COL_MAX  100				//每轮滚轮表的数量
 #define Score_Scale  1000					//缩放
+
+// 调试模式枚举
+#define DCM_Normal 0
+#define DCM_PointResData 1
+
+// 全局参数常量
+#define GE_WheelChessMaxNum 20 //最大滚轮数量
+#define GE_WheelChess3x5Num 15 //滚轮数量
+#define GE_WheelChess4X5Num 20  //滚轮数量
+#define GE_MaxIDNum 25
+#define GE_Line15Num  15  // 15 线
+#define GE_Line20Num  20  // 20 线
+#define GE_Line25Num  25  // 25 线
+#define GE_Line50Num  50  // 50 线
+#define GE_MaxFreeNum  20 //最大免费游戏
+
+
+// 结果类型定义
+#define RT_Lose 0
+#define RT_Win 1
+#define RT_FreeWin 2
+#define RT_BonusWin 3
+#define RT_Jackpot  4 
+#define RT_JackpotOnline  5
+
+// 开奖方式定义
+#define OT_Normal 0
+#define OT_Give   1
+
+// 彩金类型定义
+#define JT_None 0
+#define JT_Major 1
+#define JT_Minor 2
+#define JT_Mini 3
 
 //彩金
 extern int32_t JPWeight[4];//单份抽水中  d0:总的JP比例，d1为Major的比例， d1为minor的比例， d2为mini的比例，单位为万分之X

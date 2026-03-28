@@ -1,6 +1,6 @@
 #include "GameConfig.h"
-#include "ComputerData.h"
 
+#include "GameManager.h"
 void GameConfig_Init(SlotGameConfig_t* slotConfig)
 {
     if (slotConfig == NULL) return;
@@ -17,9 +17,9 @@ void GameConfig_Copy(SlotGameConfig_t* pDest, SlotGameConfig_t* pSrc)
 
 
 // 注册单个游戏并拷贝配置
-int8_t RegisterGameWithConfig(const int8_t* gameName, GameId_t gameId, const SlotGameConfig_t* config)
+int8_t RegisterGameWithConfig(const int8_t* gameName, GameInstanceId_t gameId, const SlotGameConfig_t* config)
 {
-    GameId_t registeredGameId = GAME_ID_INVALID;
+    GameInstanceId_t registeredGameId = GAME_ID_INVALID;
     GameInstance_t* instance = NULL;
 
     if (gameName == NULL || config == NULL)

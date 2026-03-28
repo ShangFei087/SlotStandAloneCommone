@@ -1,7 +1,6 @@
 #ifndef _TABLE_CONTROL_H_ 
 #define _TABLE_CONTROL_H_ 
 
-#include "CMD_Fish.h" 
 #include "RtpConfig.h" 
 #include <idea_player.h> 
 #include "CommonStruct.h" 

@@ -2,8 +2,8 @@
 #define _Matrix_u_TriggersById_H_
 
 #include "Control/CMD_Fish.h"
-#include <Control/CommonStruct.h>
-#include <Control/GameManager.h>
+#include "Control/CommonStruct.h"
+#include "Control/GameManager.h"
 
 // 按线方式计算
 int32_t computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId);

@@ -17,7 +17,7 @@ GameInstance_t* find_slot(void)
 int8_t GameManager_Init(void)
 {
     memset(&g_GameManager, 0, sizeof(g_GameManager));
-    g_GameManager.currentGameId = GAME_INSTANCE_ID_INVALID;
+    g_GameManager.currentGameId = GAME_ID_INVALID;
    
     return 1;
 }
@@ -53,19 +53,19 @@ void GameManager_CleanupInstance(GameInstance_t* instance)
     memset(instance->name, 0, sizeof(instance->name));
     instance->isInitialized = 0;
     instance->isActive = 0;
-    instance->id = GAME_INSTANCE_ID_INVALID;
+    instance->id = GAME_ID_INVALID;
 }
 
 GameInstanceId_t GameManager_RegisterGame(const int8_t* gameName, GameInstanceId_t gameId)
 {
     
-    if (!gameName) return GAME_INSTANCE_ID_INVALID;
+    if (!gameName) return GAME_ID_INVALID;
 
     GameInstanceId_t existing = GameManager_FindGameByName(gameName);
-    if (existing != GAME_INSTANCE_ID_INVALID) return existing;
+    if (existing != GAME_ID_INVALID) return existing;
 
     GameInstance_t* slot = find_slot();
-    if (!slot) return GAME_INSTANCE_ID_INVALID;
+    if (!slot) return GAME_ID_INVALID;
 
     GameInstanceId_t newId = gameId;
 
@@ -76,12 +76,12 @@ GameInstanceId_t GameManager_RegisterGame(const int8_t* gameName, GameInstanceId
     if (!GameManager_InitInstance(slot))
     {
         memset(slot, 0, sizeof(GameInstance_t));
-        return GAME_INSTANCE_ID_INVALID;
+        return GAME_ID_INVALID;
     }
 
     g_GameManager.instanceCount++;
 
-    if (g_GameManager.currentGameId == GAME_INSTANCE_ID_INVALID) {
+    if (g_GameManager.currentGameId == GAME_ID_INVALID) {
         GameManager_SwitchGame(newId);
     }
 
@@ -94,7 +94,7 @@ int8_t GameManager_UnregisterGame(GameInstanceId_t gameId)
     if (!instance) return 0;
 
     if (g_GameManager.currentGameId == gameId) {
-        g_GameManager.currentGameId = GAME_INSTANCE_ID_INVALID;
+        g_GameManager.currentGameId = GAME_ID_INVALID;
     }
 
     GameManager_CleanupInstance(instance);
@@ -107,7 +107,7 @@ int8_t GameManager_SwitchGame(GameInstanceId_t gameId)
     GameInstance_t* instance = GameManager_GetInstance(gameId);
     if (!instance) return 0;
 
-    if (g_GameManager.currentGameId != GAME_INSTANCE_ID_INVALID) {
+    if (g_GameManager.currentGameId != GAME_ID_INVALID) {
         GameInstance_t* current = GameManager_GetInstance(g_GameManager.currentGameId);
         if (current) current->isActive = 0;
     }
@@ -124,7 +124,7 @@ GameInstanceId_t GameManager_GetCurrentGameId(void)
 
 GameInstance_t* GameManager_GetInstance(GameInstanceId_t gameId)
 {
-    if (gameId == GAME_INSTANCE_ID_INVALID) return NULL;
+    if (gameId == GAME_ID_INVALID) return NULL;
     for (uint32_t i = 0; i < GAME_INSTANCE_ID_MAX; i++) {
         if (g_GameManager.instances[i].isInitialized ==1) 
         {
@@ -149,12 +149,12 @@ int8_t GameManager_GetInstanceCount(void)
 
 GameInstanceId_t GameManager_FindGameByName(const int8_t* gameName)
 {
-    if (!gameName) return GAME_INSTANCE_ID_INVALID;
+    if (!gameName) return GAME_ID_INVALID;
     for (uint32_t i = 0; i < GAME_INSTANCE_ID_MAX; i++) {
         if (g_GameManager.instances[i].isInitialized &&
             strcmp((const char*)g_GameManager.instances[i].name, (const char*)gameName) == 0) {
             return g_GameManager.instances[i].id;
         }
     }
-    return GAME_INSTANCE_ID_INVALID;
+    return GAME_ID_INVALID;
 }

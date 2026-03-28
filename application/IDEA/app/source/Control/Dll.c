@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ComputerData.h"
-#include "CMD_Fish.h"
 #include "GenerationResult/GameResultRegistry.h"
 #include "TableControl.h"
 #include "LotteryManager.h"
@@ -14,7 +13,7 @@
 
 
 // 前置声明：避免先调用后定义触发隐式声明告警/错误。
-GameInstance_t* get_instance(GameId_t gameId);
+GameInstance_t* get_instance(GameInstanceId_t gameId);
 
 GameInstance_t* g_CurrentGameInstance = NULL;  // 定义并初始化
 
@@ -56,7 +55,7 @@ void DLL_GetRtpDifficulty(RtpProfileConfig* outProfile)
 	TableControl_GetRtpDifficulty(outProfile);
 }
 // 根据 gameId 获取实例，传无效ID时返回当前实例。
-GameInstance_t* get_instance(GameId_t gameId)
+GameInstance_t* get_instance(GameInstanceId_t gameId)
 {
 	if (gameId == GAME_ID_INVALID)
 	{
@@ -207,19 +206,19 @@ static void append_format(char* buffer, size_t buffer_size, size_t* used, const 
 	va_end(args);
 }
 // 切换游戏实例并刷新当前实例指针。
-int8_t DLL_GameSwitch(GameId_t gameId)
+int8_t DLL_GameSwitch(GameInstanceId_t gameId)
 {
 	int8_t ok = GameManager_SwitchGame(gameId);
 	if (ok) g_CurrentGameInstance = GameManager_GetCurrentInstance();
 	return ok;
 }
 // 生成一局结果
-void GenerateARound(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameId_t gameId)
+void GenerateARound(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
 {
 	GenerationResult_GenerateNormal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
 }
 //应用调试模式
-void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameId_t gameId)
+void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
 {
 	//调试模式
 #ifdef _DebugControlMode
@@ -356,7 +355,7 @@ void ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t fre
 	pRes->resType = resType;
 }
 //请求结果
-void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* outRes, int32_t* ret, GameId_t gameId)
+void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* outRes, int32_t* ret, GameInstanceId_t gameId)
 {
 	*ret = 4;
 	int8_t opType = outRes->openType;
@@ -501,7 +500,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 	}
 }
 //生成指定Id结果
-void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutResult_t* outRes, int32_t* ret, GameId_t gameId)
+void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutResult_t* outRes, int32_t* ret, GameInstanceId_t gameId)
 {
 	GetNormalResult(pUserInfo, betValue, outRes, ret, gameId);
 	GameInstance_t* inst = get_instance(gameId);
@@ -697,7 +696,7 @@ int8_t* ByteArrayToString(int8_t* pArray, int8_t length)
 	return (int8_t*)str;
 }
 
-int8_t* OutResToJsonnById(OutResult_t* outRes, GameId_t gameId)
+int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 {
 	char* strRes = (char*)malloc(2048);
 	size_t used = 0;
@@ -833,13 +832,13 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameId_t gameId)
 }
 
 // 获取指定游戏实例的调试统计信息。
-void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo, GameId_t gameId)
+void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo, GameInstanceId_t gameId)
 {
 	GameInstance_t* inst = get_instance(gameId);
 	if (inst) DebugInfo_accum(pDebugInfo, &g_GameManager.debugInfo);
 }
 // 关闭指定游戏实例并释放资源。
-void DLL_GameClose(GameId_t gameId)
+void DLL_GameClose(GameInstanceId_t gameId)
 {
 	GameManager_UnregisterGame(gameId);
 }

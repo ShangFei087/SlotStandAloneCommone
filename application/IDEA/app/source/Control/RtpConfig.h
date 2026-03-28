@@ -1,7 +1,7 @@
-#ifndef _RTP_CONFIG_H_ // 头文件防重复包含：RTP 配置模块
-#define _RTP_CONFIG_H_ // 定义防重复包含宏
+#ifndef _RTP_CONFIG_H_ 
+#define _RTP_CONFIG_H_ 
 
-#include <stdint.h> // 标准整型定义
+#include <stdint.h> 
 
 // RTP 区域定义
 #define RTP_REGION_DOMESTIC 0 // 国内区域

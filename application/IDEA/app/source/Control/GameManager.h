@@ -1,18 +1,8 @@
 #ifndef _GAME_MANAGER_H_
 #define _GAME_MANAGER_H_
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include "qs.h"
-#include "NatureAlg.h"
-#include "CommonStruct.h"
-#include "GameConfig.h"
 #include "ComputerData.h"
-
-
-#define GAME_INSTANCE_ID_INVALID 0
-
+#include "CommonStruct.h"
 /* 游戏实例结构 */
 typedef struct {
     GameInstanceId_t id;
