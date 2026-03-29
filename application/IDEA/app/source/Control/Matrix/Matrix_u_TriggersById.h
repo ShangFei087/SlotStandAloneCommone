@@ -19,6 +19,8 @@ typedef uint32_t(*MatrixcomputeLineWinsFn)(Matrix_u* pMatrix, int32_t* idVec, Sl
 uint32_t computeLineFreeWins_3993(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId, int8_t* wildData);
 //3995普通游戏wild玩法
 uint32_t computeLineWildWins_3995(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId, int8_t* wildData);
+//3996免费奖特殊玩法
+uint32_t computeLineFreeWins_3996(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId, int8_t* wildData);
 typedef struct
 {
     MatrixApplyTriggersFn applyTriggers;

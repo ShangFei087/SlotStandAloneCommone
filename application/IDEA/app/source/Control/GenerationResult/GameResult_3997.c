@@ -1,6 +1,5 @@
 #include "GameResultRegistry.h"
 
-
 void GameResult_3997_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
 {
 	GameResult_Generic_Normal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
@@ -151,20 +150,13 @@ int8_t* GameResult_3997_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 		append_format(strRes, 2048, &used, "\"FreeBetArray\":%s,", freeBetStr ? (const char*)freeBetStr : "[]");
 		free(freeBetStr);
 	}
-	int8_t* wildStr;
 	if (outRes->openType == OT_Give)
 	{
 
 	}
 
-	uint8_t bonusCount = 0;
-	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3个转盘图标可以得到1列wild图标，4个转盘可以的2列......
 	int8_t* bonusStr;
 	// gameId 失配时给默认值，避免空实例导致访问非法内存。
-	if (inst != NULL)
-	{
-		bonusCount = Matrix_u_getTypeNum(&outRes->matrix, inst->gameConfig, inst->gameConfig.header.Bonus);
-	}
 	if (outRes->resType == RT_BonusWin)
 	{
 		append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);

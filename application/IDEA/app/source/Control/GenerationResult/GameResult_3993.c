@@ -27,7 +27,6 @@ void BPReplaceSymbol(Matrix_u* pMatrix, GameInstance_t* inst, uint8_t type)
 //生成一局免费奖
 void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId)
 {
-
 	if (info == NULL || inst == NULL || freeMxu == NULL) return;
 
 	Matrix_u mxu;
@@ -97,9 +96,9 @@ void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 {
 	if (info == NULL) return;
 
-	int dataArray[GE_WheelChessMaxNum] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
-	uint8_t PosVec[GE_WheelChessMaxNum];
-	uint8_t PosSize = inst->gameConfig.header.wheelChessNum;
+	int dataArray[GE_WheelChess3x5Num] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+	uint8_t PosVec[GE_WheelChess3x5Num];
+	uint8_t PosSize = GE_WheelChess3x5Num;
 
 	// 复制原始数组
 	for (uint8_t i = 0; i < PosSize; i++)

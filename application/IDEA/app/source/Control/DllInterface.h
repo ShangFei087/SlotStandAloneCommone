@@ -32,6 +32,8 @@ extern GameInstance_t* g_CurrentGameInstance;
  void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* outRes, int32_t* ret, GameInstanceId_t gameId);
 //获取游戏结果（指定游戏ID）
  void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutResult_t* outRes, int32_t* ret, GameInstanceId_t gameId);
+ //输出游戏结果到Senv
+ void DLL_OutResToSenvById(OutResult_t* outRes,int32_t *res ,GameInstanceId_t gameId);
  // 设置难度配置：region=RTP_REGION_DOMESTIC / RTP_REGION_OVERSEAS，rtpPermyriad 例如 9920
  int32_t DLL_SetRtpDifficulty(uint8_t region, int32_t rtpPermyriad);
 // 按等级设置当前区域 RTP 档位（1~5，对应低到高 RTP 档）。

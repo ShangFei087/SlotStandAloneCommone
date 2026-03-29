@@ -21,7 +21,6 @@ void GameResult_1700_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 	Matrix_u_reset(&mxu);
 	int32_t idVec[GE_MaxIDNum] = { 0 };
 
-	// 1700 免费局：scatterCount 根据触发矩阵 freeMxu 计算
 	uint8_t scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig, inst->gameConfig.header.Scatter);
 	info->nFreeNum = GET_FREE_TIME(inst->gameConfig.header.id, scatterCount - 3);
 	info->nFreeBet = 0;

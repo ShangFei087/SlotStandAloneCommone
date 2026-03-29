@@ -201,5 +201,31 @@ void GameConfigRegistry_InitDefaults()
     {
         return 0;
     }
+
+    // gameId=3996: CaiFuHuoChe_3996
+    GameConfig_Init(&tempConfig);
+    tempConfig.header.id = 6;
+    tempConfig.header.enabled = 0;
+    tempConfig.header.gameMode = 0;
+    tempConfig.header.difficulty = 0;
+    tempConfig.header.minBet = 0;
+    tempConfig.header.maxBet = 0;
+    tempConfig.header.ChessTypeNum = 12;
+    tempConfig.header.ChessNorTypeNum = 9;
+    tempConfig.header.lineCount = 30;
+    tempConfig.header.colCount = 5;
+    tempConfig.header.rowCount = 3;
+    tempConfig.header.wheelChessNum = 15;
+    tempConfig.header.MaxIDNyn = 30;
+    tempConfig.header.freeGameMax = 12;
+    tempConfig.header.Wild = 9;
+    tempConfig.header.Scatter = 10;
+    tempConfig.header.Bonus = 11;
+    tempConfig.header.normalRollTableId = 8;
+    tempConfig.header.freeRollTableId = 9;
+    if (!RegisterGameWithConfig("CaiFuHuoChe_3996", 3996, &tempConfig))
+    {
+        return 0;
+    }
 }
 

@@ -444,6 +444,11 @@ int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 	GenerationResult_OutResToJson(outRes, inst, gameId);
 }
 
+void DLL_OutResToSenvById(OutResult_t* outRes, int32_t* res, GameInstanceId_t gameId)
+{
+
+}
+
 // 获取指定游戏实例的调试统计信息。
 void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo, GameInstanceId_t gameId)
 {

@@ -165,9 +165,9 @@ void GameResult_3995_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 {
 	if (info == NULL) return;
 
-	int dataArray[GE_WheelChessMaxNum] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ,17, 18, 19 };
-	uint8_t PosVec[GE_WheelChessMaxNum];
-	uint8_t PosSize = GE_WheelChessMaxNum;
+	int dataArray[GE_WheelChess4X5Num] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ,17, 18, 19 };
+	uint8_t PosVec[GE_WheelChess4X5Num];
+	uint8_t PosSize = GE_WheelChess4X5Num;
 
 	// 复制原始数组
 	for (uint8_t i = 0; i < PosSize; i++)
