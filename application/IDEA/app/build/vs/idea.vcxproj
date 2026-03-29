@@ -147,7 +147,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\board\win32\qs_board.h" />
     <ClInclude Include="..\..\source\app.h" />
-    <ClInclude Include="..\..\source\Control\CMD_Fish.h" />
     <ClInclude Include="..\..\source\Control\CommonStruct.h" />
     <ClInclude Include="..\..\source\Control\ComputerData.h" />
     <ClInclude Include="..\..\source\Control\DllInterface.h" />
@@ -182,7 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\app.c" />
-    <ClCompile Include="..\..\source\Control\CMD_Fish.c" />
     <ClCompile Include="..\..\source\Control\CommonStruct.c" />
     <ClCompile Include="..\..\source\Control\ComputerData.c" />
     <ClCompile Include="..\..\source\Control\Dll.c" />

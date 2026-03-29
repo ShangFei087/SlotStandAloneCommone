@@ -25,9 +25,9 @@ extern GameInstance_t* g_CurrentGameInstance;
  //生成一个输局
  void GenerateARoundWithLoseById(GameInstance_t* inst, Matrix_u* LoseMxu, int32_t* idVec, GameInstanceId_t gameId);
  //应用RoundInfo到输出结果
- void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, int32_t* idVec);
+ void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, int32_t* idVec, GameInstanceId_t gameId);
  //为免费游戏应用矩阵
- void ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx);
+ void ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx, GameInstanceId_t gameId);
  //请求结果
  void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* outRes, int32_t* ret, GameInstanceId_t gameId);
 //获取游戏结果（指定游戏ID）

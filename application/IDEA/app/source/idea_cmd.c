@@ -20,7 +20,6 @@
  * This file is ...
  */
 #include "app.h"
-#include "Control/CMD_Fish.h"
 #include "Control/NatureAlg.h"
 #include "Control/ComputerData.h"
 #include "Control/DllInterface.h"
@@ -639,6 +638,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		uint32_t TotalWin = 0;
 		uint32_t  lineNum = g_CurrentGameInstance->gameConfig.header.lineCount;
 		uint32_t giveTime = g_CurrentGameInstance->freeGameInfo.nTotalFreeTime - g_CurrentGameInstance->freeGameInfo.nCurFreeIdx;
+		uint8_t wheelChessNum = g_CurrentGameInstance->gameConfig.header.wheelChessNum;
 		OutResult_Init(&outres);
 		
 		uint32_t player_id = qs_json_GetArrayItem(pJsonArray, 0)->valueint;
@@ -680,7 +680,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 			//QS_LOG("\r\n Win:%d", TotalWin);
 			player_bets_info_update(player_id, 0, TotalWin);
 		}
-	
+		
 		ret = gameId;
 		/*
 			* 1:OpenType:0:普通开奖 1:赠送
@@ -695,7 +695,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		res[pos++] = (int32_t)outres.resType;				// ResultType
 		res[pos++] = outres.matrix.idVecSize;				// lineNum
 		res[pos++] = outres.nMatrixBet;						// TotalBet
-		res[pos++] = GE_WheelChessMaxNum;						// MatrixLength
+		res[pos++] = wheelChessNum;							// MatrixLength
 		res[pos++] = outres.nTotalFreeTime;					// nTotalFreeTime
 		res[pos++] = outres.nTotalFreeBet;					// nTotalFreeBet
 		res[pos++] = outres.nBonusBet;						// nBonusBet
@@ -710,7 +710,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 			res[pos++] = outres.IDVec[i];
 		}
 		//Matrix
-		for (int32_t i = 0; i < GE_WheelChessMaxNum; i++)
+		for (int32_t i = 0; i < wheelChessNum; i++)
 		{
 			res[pos++] = outres.matrix.dataArray[i];
 		}
@@ -722,7 +722,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		}
 
 		//BonusData
-		for (int32_t i = 0; i < GE_WheelChessMaxNum; i++)
+		for (int32_t i = 0; i < wheelChessNum; i++)
 		{
 			res[pos++] = outres.BonusData[i];
 		}

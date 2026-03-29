@@ -14,8 +14,8 @@ void NatureAlg_GenRndMxu(int8_t id, Matrix_u* mxu, uint8_t rowCount)
 	Matrix_u_reset(mxu);
 
 	maxRows = (uint8_t)(GE_WheelChessMaxNum / COL_MAX);
-	if (rowCount < 1u)
-		rowCount = 1u;
+	if (rowCount < 1)
+		rowCount = 1;
 	else if (rowCount > maxRows)
 		rowCount = maxRows;
 

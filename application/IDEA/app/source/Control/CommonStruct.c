@@ -18,26 +18,32 @@ void CheckOnLineResult_Init(CheckOnLineResult_t* pResult)
 //-------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------
-void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
-{
-    uint8_t index = 0;
-    uint8_t i = 0;
-    for (; i < 3; ++i)
-    {
-        index = 5 * i + col;
-        pMatrix->dataArray[index] = type;
-    }
-}
-uint8_t Matrix_u_getTypeNum(Matrix_u* pMatrix, uint8_t type)
+uint8_t Matrix_u_getTypeNum(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig,uint8_t type)
 {
     uint8_t nNum = 0;
     uint8_t i = 0;
-    for (; i < GE_WheelChessMaxNum; ++i)
+    for (; i < slotgameconfig.header.wheelChessNum; ++i)
     {
         if (pMatrix->dataArray[i] == type) nNum++;
     }
 
     return nNum;
+}
+uint8_t Matrix_u_getIntData(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t pos)
+{
+    if (pos > slotgameconfig.header.wheelChessNum) return -1;
+    uint8_t type = 0;
+    type = pMatrix->dataArray[pos];
+
+    return type;
+}
+void Matrix_u_setIntData(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t* pData)
+{
+    for (uint8_t i = 0; i < slotgameconfig.header.wheelChessNum; ++i)
+    {
+        pMatrix->dataArray[i] = pData[i];
+    }
+
 }
 void Matrix_u_reset(Matrix_u* pMatrix)
 {
@@ -55,24 +61,20 @@ void Matrix_u_copy(Matrix_u* pDest, Matrix_u* pSrc)
     pDest->idVecSize = pSrc->idVecSize;
     memcpy(pDest->dataArray, pSrc->dataArray, sizeof(pSrc->dataArray));
 }
-uint8_t Matrix_u_getIntData(Matrix_u* pMatrix, uint8_t pos)
+void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
 {
-    if (pos > GE_WheelChessMaxNum) return -1;
-    uint8_t type = 0;
-    type = pMatrix->dataArray[pos];
-
-    return type;
-}
-void Matrix_u_setIntData(Matrix_u* pMatrix, uint8_t* pData)
-{
-    for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+    uint8_t index = 0;
+    uint8_t i = 0;
+    for (; i < 3; ++i)
     {
-        pMatrix->dataArray[i] = pData[i];
+        index = 5 * i + col;
+        pMatrix->dataArray[index] = type;
     }
-
 }
+
 //243
-//-------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------
 //// ChessLine_t �ṹ������� std::map
 //typedef struct {
 //    uint8_t chessID;
@@ -280,187 +282,6 @@ void Matrix_u_setIntData(Matrix_u* pMatrix, uint8_t* pData)
 //    return nLocalWinBet;
 //}
 //-------------------------------------------------------------------------------------
-
-//Matrix_u_checkOnLine
-//uint8_t Matrix_u_checkOnLine(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResult_t* clr, SlotGameConfig_t* gameConfig) {
-//    uint8_t nCheckIndex = 0;            // 当前检查下标（保留字段）
-//    int8_t nFirstAvailChessIndex = -1;  // 第一枚有效普通图标的位置（非 Wild/Bonus/Scatter）
-//    uint8_t nFirstChessType = 0;        // 第一枚图标类型（保留字段）
-//    uint8_t nFirstAvailChessType = 0;   // 第一枚有效普通图标类型
-//    uint8_t nIdPos = 0;
-//
-//    clr->bIsEliminate = 0;
-//    clr->bHasWild = 0;
-//
-//    uint8_t nConWildNum = 0;  // 从左开始连续 Wild 数量
-//    uint8_t nWildIdx = 0;
-//    uint8_t BetValue = 0;
-//
-//    for (uint8_t idIndex = 0; idIndex < gameConfig->header.colCount; ++idIndex)
-//    {
-//        nIdPos = GET_LINE_VALUE(gameConfig->header.id, lineIdx, idIndex);
-//        //nIdPos = gameConfig->paytable.gLineCheckIDArray[lineIdx * gameConfig->header.colCount + idIndex];
-//        clr->posVec[idIndex] = nIdPos;
-//        clr->chessTypeVec[idIndex] = matrix->dataArray[nIdPos];
-//      
-//        if (matrix->dataArray[nIdPos]== gameConfig->header.Wild)
-//        {
-//            if (idIndex == nWildIdx) 
-//            {
-//                nConWildNum++;
-//                nWildIdx++;
-//            }
-//        }
-//        else {
-//            // 找到第一枚普通图标
-//            if (nFirstAvailChessIndex == -1)
-//            {
-//                nFirstAvailChessIndex = nIdPos;
-//                nFirstAvailChessType = matrix->dataArray[nFirstAvailChessIndex];
-//            }
-//        }
-//    }
-//
-//    
-//    // 5 连 Wild 的特殊处理
-//    if (nConWildNum == 5)
-//    {
-//        clr->nAvailChessType = gameConfig->header.Wild;
-//        clr->nEliminateLineId = lineIdx;
-//        BetValue = GET_BET_VALUE(gameConfig->header.id, gameConfig->header.Wild, 3 - 2);
-//        if (BetValue > 0)
-//        {
-//            clr->nEliminateNum = 5;
-//            clr->bHasWild = 1;
-//            clr->bIsEliminate = 1;
-//            return 1;
-//        }
-//        else {
-//            return 0;
-//        }
-//    }
-//
-//    // 未找到普通图标，说明该线仅由 Wild/Bonus/Scatter 组成
-//    if (nFirstAvailChessIndex == -1)
-//    {
-//        return 0;
-//    }
-//
-//    // 第一枚有效图标是 Bonus/Scatter，不参与线奖判定
-//    if (nFirstAvailChessType== gameConfig->header.Scatter|| nFirstAvailChessType == gameConfig->header.Bonus) 
-//    {
-//        // 仅处理前缀 Wild 的情况
-//        if (nConWildNum >= 3)
-//        {
-//            clr->nAvailChessType = gameConfig->header.Wild;
-//            clr->nEliminateLineId = lineIdx;
-//            clr->nEliminateNum = nConWildNum;
-//            BetValue = GET_BET_VALUE(gameConfig->header.id, gameConfig->header.Wild, nConWildNum - 2);
-//            if (BetValue > 0)
-//            {
-//                clr->bHasWild = 1;
-//                clr->bIsEliminate = 1;
-//                return 1;
-//            }
-//            else 
-//            {
-//                return 0;
-//            }
-//        }
-//        return 0;
-//    }
-//
-//    // 统计从左开始与首个有效图标（或 Wild）连续匹配的数量
-//    int8_t j = 1;
-//    for (j = 1; j < 5; j++) 
-//    {
-//        if (clr->chessTypeVec[j] == gameConfig->header.Scatter || clr->chessTypeVec[j] == gameConfig->header.Bonus)  break;
-//        if (clr->chessTypeVec[j] == nFirstAvailChessType || clr->chessTypeVec[j]==gameConfig->header.Wild)
-//        {
-//            continue;
-//        }
-//        else
-//        {
-//            break;
-//        }
-//    }
-//
-//    // 至少连中 2 个才有机会构成线奖
-//    if (j >= 3)
-//    {
-//        BetValue = GET_BET_VALUE(gameConfig->header.id, clr->nAvailChessType, j - 2);
-//        if (BetValue >0)
-//        {
-//            clr->bIsEliminate = 1;
-//        }
-//    }
-//    else if (j == 2)
-//    {
-//        BetValue = GET_BET_VALUE(gameConfig->header.id, nFirstAvailChessType, 0);
-//        if (BetValue != 0)
-//        {
-//            clr->bIsEliminate = 1;
-//        }
-//        else
-//        {
-//            clr->bIsEliminate = 0;
-//            return 0;
-//        }
-//    }
-//    else
-//    {
-//        clr->bIsEliminate = 0;
-//        return 0;
-//    }
-//
-//    clr->nAvailChessType = nFirstAvailChessType;
-//    clr->nEliminateLineId = lineIdx;
-//    clr->nEliminateNum = j;
-//
-//    // Wild 及其右侧特殊图标不单独作为普通线奖
-//    if (nFirstAvailChessType >= gameConfig->header.Wild && nConWildNum < 3)
-//    {
-//        clr->bIsEliminate = 0;
-//    }
-//
-//    clr->nWildNum = 0;
-//    if (clr->bIsEliminate)
-//    {
-//        if (nConWildNum < 3)
-//        {
-//            for (j = 0; j < clr->nEliminateNum; ++j)
-//            {
-//                if (clr->chessTypeVec[j]==gameConfig->header.Wild) 
-//                {
-//                    clr->bHasWild = 1;
-//                    clr->nWildNum++;
-//                }
-//            }
-//        }
-//        else
-//        {
-//            // 3 连及以上 Wild 时，比较“按普通图标赔付”和“按 Wild 赔付”，取更优
-//            int8_t nNormalBet = GET_BET_VALUE(gameConfig->header.id, clr->nAvailChessType, clr->nEliminateNum - 2);
-//            int8_t nWildBet = GET_BET_VALUE(gameConfig->header.id, gameConfig->header.Wild, nConWildNum - 2);
-//              
-//            if (nNormalBet >= nWildBet)
-//            {
-//                clr->bHasWild = 1;
-//            }
-//            else
-//            {
-//                clr->nAvailChessType = gameConfig->header.Wild;
-//                clr->nEliminateLineId = lineIdx;
-//                clr->nEliminateNum = nConWildNum;
-//                clr->bHasWild = 1;
-//                clr->bIsEliminate = 1;
-//                return 1;
-//            }
-//        }
-//    }
-//
-//    return clr->bIsEliminate;
-//}
 
 int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId)
 {

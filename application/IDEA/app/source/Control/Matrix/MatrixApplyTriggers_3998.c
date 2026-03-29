@@ -8,7 +8,7 @@ void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, u
     uint8_t bounsOdds = 0; // 原始实现中恒为 0，这里保持一致
 
     // 判定 Bonus
-    for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+    for (uint8_t i = 0; i < gameConfig->header.wheelChessNum; ++i)
     {
         if (pMatrix->dataArray[i] == gameConfig->header.Bonus)
         {

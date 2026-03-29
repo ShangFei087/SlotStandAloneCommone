@@ -26,21 +26,22 @@ typedef struct {
 } Matrix_u;
 
 // Matrix_u 相关接口
-uint8_t Matrix_u_getIntData(Matrix_u* pMatrix, uint8_t pos);
-void Matrix_u_setIntData(Matrix_u* pMatrix, uint8_t* pData);
-uint8_t Matrix_u_getTypeNum(Matrix_u* pMatrix, uint8_t type);
+uint8_t Matrix_u_getIntData(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t pos);
+void Matrix_u_setIntData(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t* pData);
+uint8_t Matrix_u_getTypeNum(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t type);
 void Matrix_u_reset(Matrix_u* pMatrix);
 void Matrix_u_copy(Matrix_u* pDest, Matrix_u* pSrc);
 
-void Matrix_u_insertScatter(Matrix_u* pMatrix, uint8_t num);
 void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col);// 在指定列插入同一种图标
+//调试模式强行插入图标
+void Matrix_u_insertScatter(Matrix_u* pMatrix, uint8_t num);
 void Matrix_u_insertBonus(Matrix_u* pMatrix, uint8_t num);
 void Matrix_u_GenerateAnyResult(Matrix_u* pMatrix, uint8_t hasWild, uint8_t hasScatter, uint8_t hasBonus);
 void Matrix_u_GenerateLooseResult(Matrix_u* pMatrix, uint8_t hasWild, uint8_t hasScatter, uint8_t hasBonus, uint8_t hasBoost);
 
 uint8_t Matrix_u_computerMatrix_243(Matrix_u* pMatri, int32_t* idVec); // 243 方式计算
 int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId);// 按线方式计算
-uint8_t Matrix_u_checkOnLine(Matrix_u* pMatrix, uint8_t lineIdx, CheckOnLineResult_t* pClr, SlotGameConfig_t* gameConfig);
+
 //-------------------------------------------------------------------------------------
 // ComboResultInfo_t 结构体
 typedef struct {

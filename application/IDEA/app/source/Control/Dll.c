@@ -68,144 +68,7 @@ GameInstance_t* get_instance(GameInstanceId_t gameId)
 	}
 	return GameManager_GetInstance(gameId);
 }
-// 嵌入式友好的轻量字符串拼接：避免依赖 vsnprintf 的库实现差异和较大体积。
-static void append_raw(char* buffer, size_t buffer_size, size_t* used, const char* src)
-{
-	size_t i = 0;
-	if (buffer == NULL || used == NULL || src == NULL || buffer_size == 0 || *used >= buffer_size) return;
-	while (src[i] != '\0' && *used < (buffer_size - 1))
-	{
-		buffer[*used] = src[i];
-		(*used)++;
-		i++;
-	}
-	buffer[*used] = '\0';
-}
 
-static void append_char(char* buffer, size_t buffer_size, size_t* used, char c)
-{
-	if (buffer == NULL || used == NULL || buffer_size == 0 || *used >= (buffer_size - 1)) return;
-	buffer[*used] = c;
-	(*used)++;
-	buffer[*used] = '\0';
-}
-
-static void append_uint64_dec(char* buffer, size_t buffer_size, size_t* used, uint64_t value)
-{
-	char tmp[21];
-	int32_t idx = 0;
-	if (value == 0)
-	{
-		append_char(buffer, buffer_size, used, '0');
-		return;
-	}
-	while (value > 0 && idx < (int32_t)sizeof(tmp))
-	{
-		tmp[idx++] = (char)('0' + (value % 10));
-		value /= 10;
-	}
-	while (idx > 0)
-	{
-		append_char(buffer, buffer_size, used, tmp[--idx]);
-	}
-}
-
-static void append_int64_dec(char* buffer, size_t buffer_size, size_t* used, int64_t value)
-{
-	uint64_t abs_value = 0;
-	if (value < 0)
-	{
-		append_char(buffer, buffer_size, used, '-');
-		abs_value = (uint64_t)(-(value + 1)) + 1U;
-	}
-	else
-	{
-		abs_value = (uint64_t)value;
-	}
-	append_uint64_dec(buffer, buffer_size, used, abs_value);
-}
-
-static void append_format(char* buffer, size_t buffer_size, size_t* used, const char* format, ...)
-{
-	va_list args;
-	size_t i = 0;
-
-	if (buffer == NULL || used == NULL || format == NULL || buffer_size == 0) return;
-	if (*used >= buffer_size)
-	{
-		*used = buffer_size - 1;
-		buffer[*used] = '\0';
-		return;
-	}
-	buffer[*used] = '\0';
-
-	va_start(args, format);
-	while (format[i] != '\0' && *used < (buffer_size - 1))
-	{
-		if (format[i] != '%')
-		{
-			append_char(buffer, buffer_size, used, format[i]);
-			i++;
-			continue;
-		}
-
-		i++;
-		if (format[i] == '\0') break;
-
-		if (format[i] == '%')
-		{
-			append_char(buffer, buffer_size, used, '%');
-			i++;
-			continue;
-		}
-
-		if (format[i] == 's')
-		{
-			const char* s = va_arg(args, const char*);
-			append_raw(buffer, buffer_size, used, (s != NULL) ? s : "(null)");
-			i++;
-			continue;
-		}
-
-		if (format[i] == 'c')
-		{
-			int32_t c = va_arg(args, int32_t);
-			append_char(buffer, buffer_size, used, (char)c);
-			i++;
-			continue;
-		}
-
-		if (format[i] == 'd' || format[i] == 'i')
-		{
-			int32_t v = va_arg(args, int32_t);
-			append_int64_dec(buffer, buffer_size, used, (int64_t)v);
-			i++;
-			continue;
-		}
-
-		if (format[i] == 'u')
-		{
-			uint32_t v = va_arg(args, uint32_t);
-			append_uint64_dec(buffer, buffer_size, used, (uint64_t)v);
-			i++;
-			continue;
-		}
-
-		if (format[i] == 'l' && format[i + 1] == 'l' && (format[i + 2] == 'd' || format[i + 2] == 'i'))
-		{
-			long long v = va_arg(args, long long);
-			append_int64_dec(buffer, buffer_size, used, (int64_t)v);
-			i += 3;
-			continue;
-		}
-
-		// 未支持的格式占位符，按字面输出，避免静默丢信息。
-		append_char(buffer, buffer_size, used, '%');
-		append_char(buffer, buffer_size, used, format[i]);
-		i++;
-	}
-	va_end(args);
-}
 // 切换游戏实例并刷新当前实例指针。
 int8_t DLL_GameSwitch(GameInstanceId_t gameId)
 {
@@ -234,7 +97,7 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 			{
 			   3,2,9,5,1,9,3,3,9,3,4,6,5,5,4
 			};
-			Matrix_u_setIntData(&mxu, temp);
+			Matrix_u_setIntData(&mxu, inst->gameConfig, temp);
 #endif // _IMHERE
 			//全线计算
 			//matrixBet=Matrix_u_computerMatrix_243(mxu, idVec);
@@ -280,80 +143,14 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 #endif
 }
 //应用RoundInfo到输出结果
-void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, int32_t* idVec)
+void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, int32_t* idVec, GameInstanceId_t gameId)
 {
-	pRes->resType = resType;
-	Matrix_u_copy(&pRes->matrix, Mxu);
-	for (uint8_t i = 0; i < Mxu->idVecSize; ++i)
-	{
-		pRes->IDVec[i] = idVec[i];
-	}
-
-	if (resType == RT_FreeWin)
-	{
-		pRes->nTotalFreeBet = info->nFreeBet;
-		pRes->nTotalFreeTime = info->nFreeNum;
-		pRes->matrix.idVecSize = Mxu->idVecSize;
-		for (uint8_t i = 0; i < GE_MaxFreeNum; ++i)
-		{
-			pRes->FreeBetArray[i] = info->FreeBetArray[i];
-		}
-	}
-	else if (resType == RT_BonusWin)
-	{
-		pRes->nBonusBet = info->nBonusBet;
-		pRes->nBonusType = info->nBonusType;
-		pRes->BlindSymbol = info->BlindSymbol;
-		for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
-		{
-			pRes->BonusData[i] = info->BonusData[i];
-		}
-
-		pRes->matrix.idVecSize = Mxu->idVecSize;
-		for (uint8_t i = 0; i < Mxu->idVecSize; ++i)
-		{
-			pRes->IDVec[i] = info->FreeIDVec[0][i];
-		}
-
-	}
-	else if (resType == RT_Win)
-	{
-
-	}
-	else if (resType == RT_Lose)
-	{
-
-	}
-	else if (resType == RT_Jackpot)
-	{
-
-	}
-	else
-	{
-		//失败结果
-	}
+	GenerationResult_ApplyMatrixToOutResByRound(pRes, resType, info, Mxu, idVec, gameId);
 }
 //应用赠送局到输出结果
-void ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx)
+void ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx, GameInstanceId_t gameId)
 {
-	OutResult_reset(pRes);
-	int8_t resType = 0;
-	//设定结果类型
-	if (info->FreeBetArray[freeIdx] > 0)
-	{
-		resType = RT_Win;
-	}
-	else
-	{
-		resType = RT_Lose;
-	}
-
-	//设定矩阵数据
-	Matrix_u_copy(&pRes->matrix, &info->pFreeMxu[freeIdx]);
-	pRes->nMatrixBet = info->FreeBetArray[freeIdx];
-	memcpy(pRes->IDVec, info->FreeIDVec[freeIdx], sizeof(pRes->IDVec));
-	memcpy(pRes->WildPosArray, info->WildPosArray[freeIdx], sizeof(pRes->WildPosArray));
-	pRes->resType = resType;
+	GenerationResult_ApplyMatrixToOutResForFree(pRes, info, freeIdx, gameId);
 }
 //请求结果
 void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* outRes, int32_t* ret, GameInstanceId_t gameId)
@@ -377,7 +174,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 
 	if (opType == OT_Give)
 	{
-		ApplyMatrixToOutResForFree(outRes, &inst->freeGameInfo.roundInfo, inst->freeGameInfo.nCurFreeIdx);
+		ApplyMatrixToOutResForFree(outRes, &inst->freeGameInfo.roundInfo, inst->freeGameInfo.nCurFreeIdx, gameId);
 		inst->freeGameInfo.nCurFreeIdx++;
 		inst->freeGameInfo.nRemainFreeBet -= outRes->nMatrixBet;
 		//如果全部免费局获取完，将剩余免费次数设为0
@@ -425,7 +222,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 			outRes->resType = RT_Lose;     // 标记输局
 			outRes->nMatrixBet = 0;        // 线奖清零
 			outRes->openType = OT_Normal;  // 仍属于普通付费开局
-			ApplyMatrixToOutResByRound(outRes, RT_Lose, &ri, &mxu, idVec);
+			ApplyMatrixToOutResByRound(outRes, RT_Lose, &ri, &mxu, idVec, gameId);
 			*ret = 0;                      // 返回输局编码
 			// 直接结束
 		}
@@ -439,7 +236,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 				outRes->resType = RT_Lose;   // 落地输局类型
 				outRes->nMatrixBet = 0;      // 线奖为0
 				//应用RoundInfo到outRes
-				ApplyMatrixToOutResByRound(outRes, RT_Lose, &ri, &mxu, idVec); // 回填矩阵与id信息
+				ApplyMatrixToOutResByRound(outRes, RT_Lose, &ri, &mxu, idVec, gameId); // 回填矩阵与id信息
 				*ret = 0;                                                      // 返回输局编码
 			}
 			break;
@@ -448,7 +245,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 				outRes->resType = RT_Win;           // 落地普通中奖
 				outRes->nMatrixBet = ri.nMatrixBet; // 回填线奖倍数
 				//应用RoundInfo到outRes
-				ApplyMatrixToOutResByRound(outRes, RT_Win, &ri, &mxu, idVec); // 写入中奖细节
+				ApplyMatrixToOutResByRound(outRes, RT_Win, &ri, &mxu, idVec, gameId); // 写入中奖细节
 				*ret = 1;                                                     // 返回普通中奖编码
 			}
 			break;
@@ -464,7 +261,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 				inst->freeGameInfo.nTotalFreeTime = ri.nFreeNum;              // 记录免费总次数
 				inst->freeGameInfo.nRemainFreeBet = ri.nFreeBet;              // 记录剩余免费总倍数
 				//应用RoundInfo到outRes
-				ApplyMatrixToOutResByRound(outRes, RT_FreeWin, &ri, &mxu, idVec); // 写入免费触发输出
+				ApplyMatrixToOutResByRound(outRes, RT_FreeWin, &ri, &mxu, idVec, gameId); // 写入免费触发输出
 				*ret = 2;                                                          // 返回免费触发编码
 			}
 			break;
@@ -474,7 +271,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 				outRes->nMatrixBet = ri.nMatrixBet; // 回填触发局线奖倍数
 
 				//应用RoundInfo到outRes
-				ApplyMatrixToOutResByRound(outRes, RT_BonusWin, &ri, &mxu, idVec); // 写入Bonus输出数据
+				ApplyMatrixToOutResByRound(outRes, RT_BonusWin, &ri, &mxu, idVec, gameId); // 写入Bonus输出数据
 				*ret = 3;                                                           // 返回Bonus触发编码
 			}
 			break;
@@ -641,199 +438,10 @@ int32_t GetIDBetValue(int32_t ID)
 	return (int32_t)GET_BET_VALUE(betTableIdx, chessType, nEliminateNum - 2);
 }
 
-int8_t* ArrayToString(int32_t* pArray, int32_t length, int32_t keepZero)
-{
-	char* str = (char*)malloc(1024);
-	size_t used = 0;
-
-	if (str == NULL) return NULL;
-
-	str[0] = '\0';
-	append_format(str, 1024, &used, "[");
-
-	for (int8_t i = 0; i < length; ++i)
-	{
-		if (keepZero || pArray[i] != 0)
-		{
-			append_format(str, 1024, &used, "%d,", pArray[i]);
-		}
-	}
-
-	if (used > 1 && str[used - 1] == ',')
-	{
-		str[used - 1] = ']';
-	}
-	else
-	{
-		append_format(str, 1024, &used, "]");
-	}
-
-	return (int8_t*)str;
-}
-
-int8_t* ByteArrayToString(int8_t* pArray, int8_t length)
-{
-	char* str = (char*)malloc(1024);
-	size_t used = 0;
-
-	if (str == NULL) return NULL;
-
-	str[0] = '\0';
-	append_format(str, 1024, &used, "[");
-
-	for (int8_t i = 0; i < length; ++i)
-	{
-		if (pArray[i] != 15)
-		{
-			append_format(str, 1024, &used, "%d,", pArray[i]);
-		}
-	}
-
-	if (used > 1 && str[used - 1] == ',')
-	{
-		str[used - 1] = ']';
-	}
-	else
-	{
-		append_format(str, 1024, &used, "]");
-	}
-
-	return (int8_t*)str;
-}
-
 int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 {
-	char* strRes = (char*)malloc(2048);
-	size_t used = 0;
-	int8_t* idVecStr = NULL;
-	int8_t* matrixStr = NULL;
 	GameInstance_t* inst = get_instance(gameId);
-	int8_t curwheelChessNum = inst->gameConfig.header.wheelChessNum;
-	// 返回堆内存，调用方负责 free；失败返回 NULL。
-	if (strRes == NULL || outRes == NULL) return NULL;
-
-	strRes[0] = '\0';
-	append_format(strRes, 2048, &used, "{");
-
-	append_format(strRes, 2048, &used, "\"OpenType\":%d,", outRes->openType);
-	append_format(strRes, 2048, &used, "\"ResultType\":%d,", outRes->resType);
-
-	idVecStr = ArrayToString((int32_t*)outRes->IDVec, GE_MaxIDNum, 0);
-	append_format(strRes, 2048, &used, "\"IDVec\":%s,", idVecStr ? (const char*)idVecStr : "[]");
-
-	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
-	append_format(strRes, 2048, &used, "\"Matrix\":%s,", matrixStr ? (const char*)matrixStr : "[]");
-
-	if (outRes->resType == RT_FreeWin)
-	{
-		append_format(strRes, 2048, &used, "\"TotalFreeBet\":%d,", outRes->nTotalFreeBet);
-		append_format(strRes, 2048, &used, "\"TotalFreeTime\":%d,", outRes->nTotalFreeTime);
-
-		int8_t* freeBetStr = ArrayToString((int32_t*)outRes->FreeBetArray, outRes->nTotalFreeTime, 1);
-		append_format(strRes, 2048, &used, "\"FreeBetArray\":%s,", freeBetStr ? (const char*)freeBetStr : "[]");
-		free(freeBetStr);
-	}
-	int8_t* wildStr;
-	if (outRes->openType == OT_Give)
-	{
-		switch (gameId)
-		{
-		case 3993:
-		{
-			wildStr = ByteArrayToString(outRes->WildPosArray, curwheelChessNum);
-			append_format(strRes, 2048, &used, "\"WildData\":%s,", wildStr ? (const char*)wildStr : "[]");
-			free(wildStr);
-		}
-		break;
-		default:
-		{
-
-		}
-		break;
-		}
-	}
-
-	uint8_t bonusCount = 0;
-	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3个转盘图标可以得到1列wild图标，4个转盘可以的2列......
-	int8_t* bonusStr;
-	// gameId 失配时给默认值，避免空实例导致访问非法内存。
-	if (inst != NULL)
-	{
-		bonusCount = Matrix_u_getTypeNum(&outRes->matrix, inst->gameConfig.header.Bonus);
-	}
-	if (outRes->resType == RT_BonusWin)
-	{
-		switch (gameId)
-		{
-		case 3998:
-		{
-			append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
-			append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
-			switch (outRes->nBonusType)
-			{
-				//wild
-			case 0:
-			{
-				// wild 模式依赖 3~6 个 bonus 触发，先夹断避免数组越界。
-				if (bonusCount < 3) bonusCount = 3;
-				if (bonusCount > 6) bonusCount = 6;
-				bonusStr = ArrayToString((int32_t*)outRes->BonusData, wildColCountArray[bonusCount - 3], 1);
-				append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
-				free(bonusStr);
-			}
-			break;
-			//神秘
-			case 1:
-			{
-				bonusStr = ArrayToString((int32_t*)outRes->BonusData, curwheelChessNum, 1);
-				append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
-				append_format(strRes, 2048, &used, "\"BlindSymbol\":%d,", outRes->BlindSymbol);
-				free(bonusStr);
-			}
-			break;
-			//乘数
-			case 2:
-			{
-				append_format(strRes, 2048, &used, "\"BonusMultiply\":%d,", outRes->BlindSymbol);
-			}
-			break;
-			//大奖
-			case 3:
-			{
-				append_format(strRes, 2048, &used, "\"BonusMultiply\":%d,", outRes->BlindSymbol);
-			}
-			break;
-			}
-		}
-		break;
-		default:
-		{
-			append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
-			append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
-			bonusStr = ArrayToString((int32_t*)outRes->BonusData, curwheelChessNum, 1);
-			append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
-			free(bonusStr);
-		}
-		break;
-		}
-
-	}
-
-	//中了彩金
-	if (outRes->nJPBet > 0)
-	{
-		append_format(strRes, 2048, &used, "\"JPType\":%d", outRes->nJPType);
-
-		append_format(strRes, 2048, &used, "\"JPBet\":%d", outRes->nJPBet);
-	}
-
-	append_format(strRes, 2048, &used, "\"TotalBet\":%d", outRes->nMatrixBet);
-
-	append_format(strRes, 2048, &used, "}");
-
-	free(idVecStr);
-	free(matrixStr);
-	return (int8_t*)strRes;
+	GenerationResult_OutResToJson(outRes, inst, gameId);
 }
 
 // 获取指定游戏实例的调试统计信息。

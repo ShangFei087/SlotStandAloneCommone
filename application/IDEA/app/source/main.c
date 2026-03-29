@@ -26,7 +26,6 @@
 #include "app.h"
 #include "Control/NatureAlg.h"
 #include "Control/DllInterface.h"
-#include "Control/CMD_Fish.h"
 #include "Control/Test.h"
 #include "Control/LotteryManager.h"
 #include "Control/ComputerData.h"

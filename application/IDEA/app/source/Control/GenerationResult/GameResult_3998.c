@@ -21,7 +21,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 	Matrix_u_reset(&mxu);
 
 	int32_t idVec[GE_MaxIDNum] = { 0 };
-	uint8_t bonusCount = Matrix_u_getTypeNum(bonusMxu, inst->gameConfig.header.Bonus);
+	uint8_t bonusCount = Matrix_u_getTypeNum(bonusMxu, inst->gameConfig, inst->gameConfig.header.Bonus);
 	Matrix_u_copy(&mxu, bonusMxu);
 
 	info->nBonusBet = 0;
@@ -108,7 +108,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 				uint8_t randNum = 0;
 				uint8_t randPos = 0;
 				//先填满bonus位置
-				for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+				for (uint8_t i = 0; i < inst->gameConfig.header.wheelChessNum; ++i)
 				{
 					if (bonusMxu->dataArray[i] == inst->gameConfig.header.Bonus)
 					{
@@ -138,7 +138,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 					PosSize--;
 				}
 
-				for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+				for (uint8_t i = 0; i < inst->gameConfig.header.wheelChessNum; ++i)
 				{
 					if (info->BonusData[i] == 1)
 					{
@@ -153,7 +153,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 				{
 				   0,0,1,0,0,1,0,1,1,0,0,1,0,0,0
 				};
-				for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+				for (uint8_t i = 0; i < inst->gameConfig.header.wheelChessNum; ++i)
 				{
 					info->BonusData[i] = temp[i];
 					if (temp[i] > 0)
@@ -271,7 +271,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 			uint8_t randPos = 0;
 
 			//先填满bonus位置
-			for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+			for (uint8_t i = 0; i < inst->gameConfig.header.wheelChessNum; ++i)
 			{
 				if (bonusMxu->dataArray[i] == inst->gameConfig.header.Bonus)
 				{
@@ -350,14 +350,14 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 	int32_t idVec[GE_MaxIDNum] = { 0 };
 
 	// 3998 免费：根据 Bonus 触发位置计算免费次数
-	uint8_t scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig.header.Bonus);
+	uint8_t scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig, inst->gameConfig.header.Bonus);
 	info->nFreeNum = GET_FREE_TIME(inst->gameConfig.header.id, scatterCount - 3);
 	info->nFreeBet = 0;
 
 	// 收集 wild 位置（来自触发矩阵 freeMxu 上的 Bonus 位）
-	for (uint8_t i = 0; i < GE_WheelChessMaxNum; i++)
+	for (uint8_t i = 0; i < inst->gameConfig.header.wheelChessNum; i++)
 	{
-		if (Matrix_u_getIntData(freeMxu, i) == inst->gameConfig.header.Bonus)
+		if (Matrix_u_getIntData(freeMxu, inst->gameConfig, i) == inst->gameConfig.header.Bonus)
 		{
 			info->WildPosArray[0][i] = 1;
 		}
@@ -372,7 +372,7 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 		Matrix_u_copy(&tempmxu, &mxu);
 
 		// 填入 wild 位置
-		for (int32_t i = 0; i < GE_WheelChessMaxNum; i++)
+		for (int32_t i = 0; i < inst->gameConfig.header.wheelChessNum; i++)
 		{
 			if (info->WildPosArray[index][i] == 1)
 			{
@@ -397,9 +397,9 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 		// 收集 wild 位置（最后一把不收集）
 		if (index < info->nFreeNum - 1)
 		{
-			for (uint8_t i = 0; i < GE_WheelChessMaxNum; i++)
+			for (uint8_t i = 0; i < inst->gameConfig.header.wheelChessNum; i++)
 			{
-				if (Matrix_u_getIntData(&tempmxu, i) == inst->gameConfig.header.Wild)
+				if (Matrix_u_getIntData(&tempmxu, inst->gameConfig, i) == inst->gameConfig.header.Wild)
 				{
 					info->WildPosArray[index + 1][i] = 1;
 				}
@@ -409,4 +409,107 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 		info->pFreeMxu[index].idVecSize = tempmxu.idVecSize;
 		info->pFreeMxu[index].resultType = tempmxu.resultType;
 	}
+}
+
+int8_t* OutResToJsonn_3998(OutResult_t* outRes, GameInstance_t* inst)
+{
+	char* strRes = (char*)malloc(2048);
+	size_t used = 0;
+	int8_t* idVecStr = NULL;
+	int8_t* matrixStr = NULL;
+
+	int8_t curwheelChessNum = inst->gameConfig.header.wheelChessNum;
+	// 返回堆内存，调用方负责 free；失败返回 NULL。
+	if (strRes == NULL || outRes == NULL) return NULL;
+
+	strRes[0] = '\0';
+	append_format(strRes, 2048, &used, "{");
+
+	append_format(strRes, 2048, &used, "\"OpenType\":%d,", outRes->openType);
+	append_format(strRes, 2048, &used, "\"ResultType\":%d,", outRes->resType);
+
+	idVecStr = ArrayToString((int32_t*)outRes->IDVec, GE_MaxIDNum, 0);
+	append_format(strRes, 2048, &used, "\"IDVec\":%s,", idVecStr ? (const char*)idVecStr : "[]");
+
+	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
+	append_format(strRes, 2048, &used, "\"Matrix\":%s,", matrixStr ? (const char*)matrixStr : "[]");
+
+	if (outRes->resType == RT_FreeWin)
+	{
+		append_format(strRes, 2048, &used, "\"TotalFreeBet\":%d,", outRes->nTotalFreeBet);
+		append_format(strRes, 2048, &used, "\"TotalFreeTime\":%d,", outRes->nTotalFreeTime);
+
+		int8_t* freeBetStr = ArrayToString((int32_t*)outRes->FreeBetArray, outRes->nTotalFreeTime, 1);
+		append_format(strRes, 2048, &used, "\"FreeBetArray\":%s,", freeBetStr ? (const char*)freeBetStr : "[]");
+		free(freeBetStr);
+	}
+
+	if (outRes->openType == OT_Give)
+	{
+	}
+
+	uint8_t bonusCount = 0;
+	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3个转盘图标可以得到1列wild图标，4个转盘可以的2列......
+	int8_t* bonusStr;
+	// gameId 失配时给默认值，避免空实例导致访问非法内存。
+	if (inst != NULL)
+	{
+		bonusCount = Matrix_u_getTypeNum(&outRes->matrix, inst->gameConfig, inst->gameConfig.header.Bonus);
+	}
+	if (outRes->resType == RT_BonusWin)
+	{
+		append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
+		append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
+		switch (outRes->nBonusType)
+		{
+			//wild
+		case 0:
+		{
+			// wild 模式依赖 3~6 个 bonus 触发，先夹断避免数组越界。
+			if (bonusCount < 3) bonusCount = 3;
+			if (bonusCount > 6) bonusCount = 6;
+			bonusStr = ArrayToString((int32_t*)outRes->BonusData, wildColCountArray[bonusCount - 3], 1);
+			append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
+			free(bonusStr);
+		}
+		break;
+		//神秘
+		case 1:
+		{
+			bonusStr = ArrayToString((int32_t*)outRes->BonusData, curwheelChessNum, 1);
+			append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
+			append_format(strRes, 2048, &used, "\"BlindSymbol\":%d,", outRes->BlindSymbol);
+			free(bonusStr);
+		}
+		break;
+		//乘数
+		case 2:
+		{
+			append_format(strRes, 2048, &used, "\"BonusMultiply\":%d,", outRes->BlindSymbol);
+		}
+		break;
+		//大奖
+		case 3:
+		{
+			append_format(strRes, 2048, &used, "\"BonusMultiply\":%d,", outRes->BlindSymbol);
+		}
+		break;
+		}
+	}
+
+	//中了彩金
+	if (outRes->nJPBet > 0)
+	{
+		append_format(strRes, 2048, &used, "\"JPType\":%d", outRes->nJPType);
+
+		append_format(strRes, 2048, &used, "\"JPBet\":%d", outRes->nJPBet);
+	}
+
+	append_format(strRes, 2048, &used, "\"TotalBet\":%d", outRes->nMatrixBet);
+
+	append_format(strRes, 2048, &used, "}");
+
+	free(idVecStr);
+	free(matrixStr);
+	return (int8_t*)strRes;
 }

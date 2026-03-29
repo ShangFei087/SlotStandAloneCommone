@@ -252,7 +252,7 @@ void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig
         pMatrix->resultType = RT_FreeWin;
     }
 
-    for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+    for (uint8_t i = 0; i < gameConfig->header.wheelChessNum; ++i)
     {
         if (pMatrix->dataArray[i] == gameConfig->header.Bonus)
         {
@@ -347,7 +347,7 @@ void MatrixTriggerOps_t_InitDefaults(void)
     (void)MatrixTrigger_Register(3993, &ops3993);
 
     MatrixTriggerOps_t ops3995 = { 0 };
-    ops3995.applyTriggers = MatrixApplyTriggers_3995;
+    ops3995.applyTriggers = MatrixApplyTriggers_Default;
     ops3995.checkOnLine = checkOnLine_Defaults;
     ops3995.computeLineWin = computeLineWins_Defaults;
     (void)MatrixTrigger_Register(3995, &ops3995);

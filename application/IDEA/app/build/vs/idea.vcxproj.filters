@@ -105,9 +105,6 @@
     <ClInclude Include="..\..\source\GameAlgo\algo\ga.h">
       <Filter>源文件\source\GameAlgo\algo</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\Control\CMD_Fish.h">
-      <Filter>源文件\source\Control</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\source\Control\CommonStruct.h">
       <Filter>源文件\source\Control</Filter>
     </ClInclude>
@@ -181,9 +178,6 @@
     </ClCompile>
     <ClCompile Include="..\..\source\GameAlgo\algo\ga.c">
       <Filter>源文件\source\GameAlgo\algo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\CMD_Fish.c">
-      <Filter>源文件\source\Control</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Control\CommonStruct.c">
       <Filter>源文件\source\Control</Filter>

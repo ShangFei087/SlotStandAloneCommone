@@ -14,9 +14,9 @@ void GameResult_3993_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* i
 	GameResult_Generic_Lose(inst, loseMxu, idVec, gameId);
 }
 // 替换黑豹图标
-void BPReplaceSymbol(Matrix_u* pMatrix, uint8_t type)
+void BPReplaceSymbol(Matrix_u* pMatrix, GameInstance_t* inst, uint8_t type)
 {
-	for (int8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+	for (int8_t i = 0; i < inst->gameConfig.header.wheelChessNum; ++i)
 	{
 		if (pMatrix->dataArray[i] == type)
 		{
@@ -34,7 +34,7 @@ void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 	Matrix_u_reset(&mxu);
 	int32_t idVec[GE_MaxIDNum] = { 0 };
 
-	uint8_t scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig.header.Scatter);
+	uint8_t scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig, inst->gameConfig.header.Scatter);
 	info->nFreeNum = GET_FREE_TIME(inst->gameConfig.header.id, scatterCount - 3);
 	info->nFreeBet = 0;
 
@@ -51,7 +51,7 @@ void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu, inst->gameConfig.header.rowCount);
 
 		//统计黑豹图标数量
-		blackPantherCount += Matrix_u_getTypeNum(&mxu, 9);
+		blackPantherCount += Matrix_u_getTypeNum(&mxu, inst->gameConfig, 9);
 		//需要黑豹替换图标的区间
 		for (int8_t i = 3; i >=0; --i)
 		{
@@ -60,13 +60,13 @@ void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 				//黑豹替换图标
 				for (int8_t j = 0; j <= i; ++j)
 				{
-					BPReplaceSymbol(&mxu, symbolChangeArray[j]);
+					BPReplaceSymbol(&mxu, inst, symbolChangeArray[j]);
 				}
 			}
 		}
 
-		blackPantherCount += Matrix_u_getTypeNum(&mxu, inst->gameConfig.header.Wild);
-		for (uint32_t i = 0; i < GE_WheelChessMaxNum; i++)
+		blackPantherCount += Matrix_u_getTypeNum(&mxu, inst->gameConfig, inst->gameConfig.header.Wild);
+		for (uint32_t i = 0; i < inst->gameConfig.header.wheelChessNum; i++)
 		{
 			if (mxu.dataArray[i] == inst->gameConfig.header.Wild)
 			{
@@ -99,7 +99,7 @@ void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 
 	int dataArray[GE_WheelChessMaxNum] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 	uint8_t PosVec[GE_WheelChessMaxNum];
-	uint8_t PosSize = GE_WheelChessMaxNum;
+	uint8_t PosSize = inst->gameConfig.header.wheelChessNum;
 
 	// 复制原始数组
 	for (uint8_t i = 0; i < PosSize; i++)
@@ -111,7 +111,7 @@ void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 	uint8_t randPos = 0;
 
 	// 先填满bonus位置
-	for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+	for (uint8_t i = 0; i < inst->gameConfig.header.wheelChessNum; ++i)
 	{
 		if (bonusMxu->dataArray[i] == inst->gameConfig.header.Bonus)
 		{
@@ -159,4 +159,78 @@ void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 		}
 		PosSize--;
 	}
+}
+
+int8_t* OutResToJsonn_3993(OutResult_t* outRes, GameInstance_t* inst)
+{
+	char* strRes = (char*)malloc(2048);
+	size_t used = 0;
+	int8_t* idVecStr = NULL;
+	int8_t* matrixStr = NULL;
+
+	int8_t curwheelChessNum = inst->gameConfig.header.wheelChessNum;
+	// 返回堆内存，调用方负责 free；失败返回 NULL。
+	if (strRes == NULL || outRes == NULL) return NULL;
+
+	strRes[0] = '\0';
+	append_format(strRes, 2048, &used, "{");
+
+	append_format(strRes, 2048, &used, "\"OpenType\":%d,", outRes->openType);
+	append_format(strRes, 2048, &used, "\"ResultType\":%d,", outRes->resType);
+
+	idVecStr = ArrayToString((int32_t*)outRes->IDVec, GE_MaxIDNum, 0);
+	append_format(strRes, 2048, &used, "\"IDVec\":%s,", idVecStr ? (const char*)idVecStr : "[]");
+
+	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
+	append_format(strRes, 2048, &used, "\"Matrix\":%s,", matrixStr ? (const char*)matrixStr : "[]");
+
+	if (outRes->resType == RT_FreeWin)
+	{
+		append_format(strRes, 2048, &used, "\"TotalFreeBet\":%d,", outRes->nTotalFreeBet);
+		append_format(strRes, 2048, &used, "\"TotalFreeTime\":%d,", outRes->nTotalFreeTime);
+
+		int8_t* freeBetStr = ArrayToString((int32_t*)outRes->FreeBetArray, outRes->nTotalFreeTime, 1);
+		append_format(strRes, 2048, &used, "\"FreeBetArray\":%s,", freeBetStr ? (const char*)freeBetStr : "[]");
+		free(freeBetStr);
+	}
+	int8_t* wildStr;
+	if (outRes->openType == OT_Give)
+	{
+		wildStr = ByteArrayToString(outRes->WildPosArray, curwheelChessNum);
+		append_format(strRes, 2048, &used, "\"WildData\":%s,", wildStr ? (const char*)wildStr : "[]");
+		free(wildStr);
+	}
+
+	uint8_t bonusCount = 0;
+	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3个转盘图标可以得到1列wild图标，4个转盘可以的2列......
+	int8_t* bonusStr;
+	// gameId 失配时给默认值，避免空实例导致访问非法内存。
+	if (inst != NULL)
+	{
+		bonusCount = Matrix_u_getTypeNum(&outRes->matrix, inst->gameConfig, inst->gameConfig.header.Bonus);
+	}
+	if (outRes->resType == RT_BonusWin)
+	{
+		append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
+		append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
+		bonusStr = ArrayToString((int32_t*)outRes->BonusData, curwheelChessNum, 1);
+		append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
+		free(bonusStr);
+	}
+
+	//中了彩金
+	if (outRes->nJPBet > 0)
+	{
+		append_format(strRes, 2048, &used, "\"JPType\":%d", outRes->nJPType);
+
+		append_format(strRes, 2048, &used, "\"JPBet\":%d", outRes->nJPBet);
+	}
+
+	append_format(strRes, 2048, &used, "\"TotalBet\":%d", outRes->nMatrixBet);
+
+	append_format(strRes, 2048, &used, "}");
+
+	free(idVecStr);
+	free(matrixStr);
+	return (int8_t*)strRes;
 }

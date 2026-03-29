@@ -25,7 +25,6 @@ typedef struct {
 
 extern GameManager_t g_GameManager;
 
-
 int8_t GameManager_Init(void);//初始化管理器
 void GameManager_Cleanup(void);//重置管理器
 

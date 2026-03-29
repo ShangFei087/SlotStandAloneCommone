@@ -17,7 +17,7 @@ void MatrixApplyTriggers_3993(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, u
         pMatrix->resultType = RT_FreeWin;
     }
 
-    for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+    for (uint8_t i = 0; i < gameConfig->header.wheelChessNum; ++i)
     {
         if (pMatrix->dataArray[i] == gameConfig->header.Bonus)
         {
