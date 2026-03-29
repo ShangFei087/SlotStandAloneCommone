@@ -1,0 +1,48 @@
+【调试】
+	//debugStr内容如下{"Mode":0,"ResultType":1}
+	//Mode：0:DCM_Normal    1：DCM_PointResData
+	//ResultType:  0:RT_Lose  1:RT_ComboWin  2:RT_FreeWin 3:RT_BonusWin
+
+【普通中奖】
+{"OpenType":0,"ResultType":1,"IDVec":[4305,11204,15407],"Matrix":[2,5,7,3,8,9,4,6,1,0,5,8,3,7,2],"TotalBet":48}
+-IDVec：万千位=线号，百位=连中个数，十位/个位=图标类型。
+-OpenType：0:普通开奖 1:赠送
+-ResultType：0:输 1:盈 2:免费游戏 3:大奖游戏
+-TotalBet：总赔率
+
+【免费游戏】
+{"OpenType":0,"ResultType":2,"IDVec":[],"Matrix":[10,4,8,3,1,5,10,7,6,9,2,0,10,8,4],"TotalFreeBet":3200,"TotalFreeTime":10,"FreeBetArray":[0,120,0,240,180,0,300,0,400,560],"TotalBet":0}
+-FreeBetArray：每回合免费结算得分（JSON 输出长度=TotalFreeTime）
+-TotalFreeBet：免费游戏总得分
+-TotalFreeTime：免费总次数
+-免费内逻辑：每局先将 WildMultiple 基底 2 加上本局盘面 Wild的个数，再计算本局线奖并乘以 WildMultiple；
+
+【赠送局】
+{"OpenType":1,"ResultType":1,"IDVec":[805,12406],"Matrix":[4,6,8,10,3,5,7,1,9,2,0,8,5,6,4],"TotalBet":36}
+-OpenType：1 表示赠送局
+-TotalBet：本次赠送局结算赔率
+
+【Bonus游戏】
+{"OpenType":0,"ResultType":3,"IDVec":[],"Matrix":[11,5,8,3,11,4,7,11,6,9,11,0,8,11,4],"BonusType":0,"BonusData":[400,0,0,600,0,0,800,0,0,0,0,0,0,500,0],"BonusBet":2300,"TotalBet":0}
+-BonusData：每个格子对应的 Bonus 得分，未命中格为0
+-BonusBet：BonusData 求和
+
+//赔率
+int gBetArray[GE_12][4] = {
+	{0, 2, 5, 15},//0
+	{0, 2, 5, 15},//1
+	{0, 2, 5, 15},//2
+	{0, 3, 10, 25},//3
+	{0, 3, 10, 25},//4
+	{2, 5, 20, 100},//5
+	{2, 5, 20, 100},//6
+	{3, 10, 100, 500},//7
+	{2, 50, 500, 2500},//8
+	{0, 0, 0, 0},//9 Wild
+	{0, 0, 0, 0},//10 Scatter
+	{0, 0, 0, 0},//11 Bonus
+};
+
+	CT_Wild = 9,				//万能牌
+	CT_Scater = 10,				//Scatter，达到阈值触发免费
+	CT_Bonus = 11,				//Bonus，达到阈值触发 Bonus 游戏

@@ -1,26 +1,62 @@
-﻿  GameResult_3995.c
+﻿  GameResult_3993.c
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResultRegistry.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3995.c”)
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3993.c”)
   
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(140,16): warning C4305: “初始化”: 从“int”到“uint8_t”截断
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3995.c”)
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(120,15): warning C4305: “初始化”: 从“int”到“uint8_t”截断
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3993.c”)
   
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(141,16): warning C4305: “初始化”: 从“int”到“uint8_t”截断
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3995.c”)
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(121,10): warning C4305: “初始化”: 从“int”到“uint8_t”截断
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3993.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(121,15): warning C4305: “初始化”: 从“int”到“uint8_t”截断
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3993.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(155,16): warning C4305: “初始化”: 从“int”到“uint8_t”截断
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3993.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(156,16): warning C4305: “初始化”: 从“int”到“uint8_t”截断
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3993.c”)
   
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3995.c”)
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3993.c”)
   
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3995.c”)
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3993.c”)
   
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\GameAlgo\common\JRand.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3995.c”)
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3993.c”)
   
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Matrix\Matrix_u_TriggersById.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3995.c”)
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3993.c”)
   
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResult_3995.c(15,53): warning C4047: “函数”:“uint32_t *”与“int32_t **”的间接级别不同
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResult_3995.c(15,53): warning C4024: “通过指针的函数”: 形参和实参 4 的类型不同
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResult_3995.c(7,22): warning C4090: “初始化”: 不同的“const”限定符
+  GameResult_3997.c
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResultRegistry.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3997.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(120,15): warning C4305: “初始化”: 从“int”到“uint8_t”截断
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3997.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(121,10): warning C4305: “初始化”: 从“int”到“uint8_t”截断
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3997.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(121,15): warning C4305: “初始化”: 从“int”到“uint8_t”截断
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3997.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(155,16): warning C4305: “初始化”: 从“int”到“uint8_t”截断
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3997.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(156,16): warning C4305: “初始化”: 从“int”到“uint8_t”截断
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3997.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3997.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3997.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\GameAlgo\common\JRand.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/GenerationResult/GameResult_3997.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResult_3997.c(154,10): warning C4101: “wildStr”: 未引用的局部变量
+  正在生成代码...
   idea.vcxproj -> F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\idea.exe

@@ -347,6 +347,12 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 void GameResult_3998_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,int32_t* idVec,GameInstanceId_t gameId);
 int8_t* OutResToJsonn_3998(OutResult_t* outRes, GameInstance_t* inst);
 
+void GameResult_3997_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
+void GameResult_3997_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId);
+void GameResult_3997_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId);
+void GameResult_3997_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId);
+int8_t* GameResult_3997_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst);
+
 void GameResult_3993_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
 void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId);
 void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId);
@@ -468,5 +474,17 @@ void GameResultRegistry_InitDefaults(void)
 	ops3995.applyFree = GameResult_Generic_ApplyMatrixToOutResForFree;
 	ops3995.outRes = GameResult_3995_OutResToJsonn;
 	(void)GameResultRegistry_Register(3995, &ops3995);
+
+	GameResultOps_t ops3997 = { 0 };
+	ops3997.genNormal = GameResult_3997_GenNormal;
+	ops3997.genNormalWin = GameResult_Generic_NormalWin;
+	ops3997.genNormalLose = GameResult_Generic_NormalLose;
+	ops3997.genFree = GameResult_3997_GenFree;
+	ops3997.genBonus = GameResult_3997_GenBonus;
+	ops3997.genLose = GameResult_3997_GenLose;
+	ops3997.applyRound = GameResult_Generic_ApplyMatrixToOutResByRound;
+	ops3997.applyFree = GameResult_Generic_ApplyMatrixToOutResForFree;
+	ops3997.outRes = GameResult_3997_OutResToJsonn;
+	(void)GameResultRegistry_Register(3997, &ops3997);
 }
 

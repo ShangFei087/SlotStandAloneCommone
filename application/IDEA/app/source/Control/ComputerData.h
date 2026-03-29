@@ -7,10 +7,10 @@ typedef uint32_t GameInstanceId_t;			//游戏实例ID类型
 #define GAME_ID_INVALID 0					//游戏ID无效
 #define PAY_WAY_LINE 0						//9 10 15 30 50   payway line
 #define PAY_WAY_WAY 1						//243 1024 2048	  payway way
-#define GAME_INSTANCE_ID_MAX 5				// 最大支持的游戏实例数量
+#define GAME_INSTANCE_ID_MAX 7				// 最大支持的游戏实例数量
 #define GAME_Local_JP_MAX 3					// 本地彩金数量
-#define RollTabel_MAX  7					//滚轮表数量
-#define ROW_MAX 3							//最大行
+#define RollTabel_MAX  9					//滚轮表数量
+#define ROW_MAX 4							//最大行(最大行应当使用每个游戏自己的配置)
 #define COL_MAX 5							//最大列
 #define ROLLTABEL_COL_MAX  100				//每轮滚轮表的数量
 #define Score_Scale  1000					//缩放
@@ -75,7 +75,6 @@ static uint8_t gZhuZaiJinBi_1700_BetArray[12][4] ={
  {0, 0, 0, 0},//10 Scatter
  {0, 0, 0, 0},// 11 (新增)
 };
-
 //---------------------财富类---------------------//
 //财富之门_3999赔率表
 static uint8_t gCaiFuZhiMen_3999_BetArray[12][4] ={
@@ -107,6 +106,21 @@ static uint8_t gXingYunZhiLun_3998_BetArray[12][4] ={
 
 	{0, 0, 0, 0},    // 10 (新增)
 	{0, 0, 0, 0},    // 11 (新增)
+};
+//财富之家_3997赔率表
+static uint8_t gCaiFuZhiJia_3997_BetArray[12][4] = {
+	{0, 2, 5, 15},//0
+	{0, 2, 5, 15},//1
+	{0, 2, 5, 15},//2
+	{0, 3, 10, 25},//3
+	{0, 3, 10, 25},//4
+	{2, 5, 20, 100},//5
+	{2, 5, 20, 100},//6
+	{3, 10, 100, 500},//7
+	{2, 50, 500, 2500},//8
+	{0, 0, 0, 0},//9 Wild
+	{0, 0, 0, 0}, // 10 Scatter
+	{0, 0, 0, 0}, // 11 Bonus
 };
 //---------------------动物类---------------------//
 //美洲黑豹_3993赔率表
@@ -150,7 +164,8 @@ static uint8_t(*gBetArray[GAME_INSTANCE_ID_MAX])[4] ={
 	gCaiFuZhiMen_3999_BetArray,
 	gXingYunZhiLun_3998_BetArray,
 	gMeiZhouHeiBao_3993_BetArray,
-	gHuoYanGongNiu_3995_BetArray
+	gHuoYanGongNiu_3995_BetArray,
+	gCaiFuZhiJia_3997_BetArray
 };
 #define GET_BET_VALUE(game_id, row, col) (gBetArray[game_id][row][col])  //获取赔率
 //---------------------------------------线------------------------------------------------//
@@ -228,6 +243,32 @@ static uint8_t gXingYunZhiLun_3998_LineCheckIDArray[GE_Line20Num * COL_MAX] ={
 				1,1,2,1,1,//17
 				0,2,0,2,0,//18
 				2,0,2,0,2,//19
+				1,0,2,0,1,//20
+};
+//财富之家_3997赔付线
+static uint8_t gCaiFuZhiJia_3997_LineCheckIDArray[GE_Line20Num * COL_MAX] = {
+				1,1,1,1,1,//1
+				0,0,0,0,0,//2
+				2,2,2,2,2,//3
+				0,1,2,1,0,//4
+				2,1,0,1,2,//5
+
+				1,0,0,0,1,//6
+				1,2,2,2,1,//7
+				0,0,1,2,2,//8
+				2,2,1,0,0,//9
+				1,0,1,0,1,//10
+
+				1,0,1,2,1,//11
+				0,1,1,1,2,//12
+				2,1,1,1,0,//13
+				1,1,0,1,2,//14
+				1,1,2,1,0,//15
+
+				0,1,0,1,0,//16
+				2,1,2,1,2,//17
+				0,0,2,0,0,//18
+				2,2,0,2,2,//19
 				1,0,2,0,1,//20
 };
 //---------------------动物类---------------------//
@@ -331,7 +372,8 @@ static uint8_t* gLineCheckArray[GAME_INSTANCE_ID_MAX] ={
 	gCaiFuZhiMen_3999_LineCheckIDArray,
 	gXingYunZhiLun_3998_LineCheckIDArray,
 	gMeiZhouHeiBao_3993_LineCheckIDArray,
-	gHuoYanGongNiu_3995_LineCheckIDArray
+	gHuoYanGongNiu_3995_LineCheckIDArray,
+	gCaiFuZhiJia_3997_LineCheckIDArray
 };
 #define GET_LINE_VALUE(game, line, col) (gLineCheckArray[game][(line) * COL_MAX + (col)]* COL_MAX + col)   //直接转换成在阵列里的位置 阵列从左到右在从上到下
 //---------------------------------------免费次数------------------------------------------------//;;
@@ -339,6 +381,7 @@ static uint8_t gZhuZaiJinBi_1700_FreeTime[6] = { 3, 0, 0, 0, 0, 0 };
 //---------------------财富类---------------------//
 static uint8_t gCaiFuZhiMen_3999_FreeTime[6] = { 8, 10, 12, 0, 0, 0 };
 static uint8_t gXingYunZhiLun_3998_FreeTime[6] = { 4, 5, 6, 0, 0, 0 };
+static uint8_t gCaiFuZhiJia_3997_FreeTime[6] = { 10, 10, 10, 0, 0, 0 };
 //---------------------动物类---------------------//
 static uint8_t gMeiZhouHeiBao_3993_FreeTime[6] = { 8, 15, 20, 0, 0, 0 };
 static uint8_t gHuoYanGongNiu_3995_FreeTime[6] = { 8, 15, 20, 0, 0, 0 };
@@ -348,7 +391,8 @@ static uint8_t* gFreeTime[GAME_INSTANCE_ID_MAX] = {
 	gCaiFuZhiMen_3999_FreeTime,
 	gXingYunZhiLun_3998_FreeTime,
 	gMeiZhouHeiBao_3993_FreeTime,
-	gHuoYanGongNiu_3995_FreeTime
+	gHuoYanGongNiu_3995_FreeTime,
+	gCaiFuZhiJia_3997_FreeTime
 };
 #define GET_FREE_TIME(game_id, level)   (gFreeTime[game_id][level])  
 
@@ -361,6 +405,7 @@ static uint8_t gZhuZaiJinBi_1700_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
 	{6,6,6,8,10,2,5,0,2,2,2,0,3,4,8,8,4,3,6,5,0,4,8,8,2,2,10,1,5,3,7,8,0,7,3,1,7,0,2,1,2,3,2,2,4,1,7,1,0,0,0,0,5,8,10,7,7,0,0,5,3,6,10,6,4,3,1,5,0,6,7}
 };
 //---------------------财富类---------------------//
+//财富之门_3999普通滚轮表
 static uint8_t gCaiFuZhiMen_3999_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
 	{ 1,5,2,11,2,0,5,0,7,0,1,3,3,9,11,0,0,4,3,0,0,0,6,3,1,4,8,3,4,0,0,4,0,6,8,0,1,2,6,2,11,0,6,4,1,1,1,4,0,2,0,8,1,5,4,7,7,8,0,0},
 	{ 0,1,3,8,9,10,2,4,1,0,11,5,1,5,0,3,1,5,2,0,0,3,8,7,6,3,9,9,9,3,4,6,1,2,7,5,8,9,7,11,10,0,2,7,0,4,0,10,1,4,1,5,7,5,1,3,11,7},
@@ -383,6 +428,14 @@ static uint8_t gXingYunZhiLun_3998_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
 	{9,3,1,6,4,8,0,6,2,1,3,8,8,1,8,7,9,0,0,3,2,5,4,3,2,4,7,4,4,7,1,0,9,1,1,8,0,2,8,7,9,6,5,3,6,0,2,7,0,6,5,3,9,0,0,1,4,0},
 	{ 4,5,1,1,7,9,1,2,3,2,0,1,2,3,7,2,1,9,1,5,8,2,6,0,7,0,2,2,4,2,2,3,0,3,5,9,5,1,3,7,5,3,6,1,0,3,8,4,0,2,4,1,4,3,0,1,6,1,3,9,6,8,4,4,2,6},
 	{6,6,6,8,9,2,5,0,2,2,2,0,3,4,8,8,4,3,6,5,0,4,8,8,2,9,1,1,5,3,7,8,0,7,3,1,7,0,2,1,9,3,2,2,4,1,7,1,0,0,0,0,5,1,9,7,7,0,0,5,3,6,9,6,4,3,1,5,0,6,7}
+};
+//财富之家_3997普通滚轮表
+static uint8_t gCaiFuZhiJia_3997_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
+	{ 10,5,2,11,2,0,5,0,7,0,1,3,3,4,11,11,0,4,3,0,10,0,6,3,1,4,8,3,4,0,10,4,0,6,8,0,1,2,6,11,11,0,6,4,1,10,1,4,0,2,0,8,1,5,4,7,7,8,10,0},
+	{ 0,1,3,8,9,1,2,4,1,0,11,5,1,9,0,3,1,5,2,0,0,3,8,7,6,3,9,8,9,3,4,6,1,2,7,5,8,9,7,11,2,0,2,7,0,4,0,3,1,4,1,5,7,5,1,3,11,7},
+	{10,3,11,6,4,8,1,6,2,1,3,8,8,1,8,7,9,0,0,10,2,5,4,3,2,4,7,10,4,7,11,0,9,7,9,8,0,2,8,7,10,6,5,11,6,0,9,7,0,6,5,3,3,0,0,10,4,9},
+	{ 4,5,1,11,7,3,9,4,3,2,0,1,2,3,7,2,1,9,4,5,8,7,6,1,7,0,2,2,9,1,2,8,0,3,5,4,5,1,3,7,5,3,6,9,0,3,8,4,0,2,4,11,4,3,0,1,6,1,3,8,6,8,4,4,9,6},
+	{11,6,6,8,10,2,5,1,2,9,2,0,3,4,8,8,4,3,6,5,9,11,8,8,2,2,10,1,5,3,7,8,0,7,3,1,7,0,2,1,10,3,2,2,4,11,7,1,0,9,0,0,5,8,10,9,7,0,0,5,3,6,10,6,4,3,1,5,0,6,7}
 };
 //---------------------动物类---------------------//
 static uint8_t gMeiZhouHeiBao_3993_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
@@ -416,7 +469,8 @@ static uint8_t(*RollTable[RollTabel_MAX])[ROLLTABEL_COL_MAX] = {
 	gXingYunZhiLun_3998_Free_RollTable,//3
 	gMeiZhouHeiBao_3993_RollTable,//4
 	gHuoYanGongNiu_3995_RollTable,//5
-	gHuoYanGongNiu_3995_Free_RollTable//6
+	gHuoYanGongNiu_3995_Free_RollTable,//6
+	gCaiFuZhiJia_3997_RollTable,//7
 };
 #define GET_ROLL_VALUE(table_idx, col, row) (RollTable[table_idx][col][row])
 
@@ -428,6 +482,7 @@ static uint8_t gXingYunZhiLun_3998_Free_RT_sizes[COL_MAX] = { 60, 58, 58, 66, 71
 static uint8_t gMeiZhouHeiBao_3993_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
 static uint8_t gHuoYanGongNiu_3995_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
 static uint8_t gHuoYanGongNiu_3995_Free_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
+static uint8_t gCaiFuZhiJia_3997_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
 static uint8_t* gRTSizes[RollTabel_MAX] = {
 	gZhuZaiJinBi_1700_RT_sizes,
 	gCaiFuZhiMen_3999_RT_sizes,
@@ -435,7 +490,8 @@ static uint8_t* gRTSizes[RollTabel_MAX] = {
 	gXingYunZhiLun_3998_Free_RT_sizes,
 	gMeiZhouHeiBao_3993_sizes,
 	gHuoYanGongNiu_3995_sizes,
-	gHuoYanGongNiu_3995_Free_sizes
+	gHuoYanGongNiu_3995_Free_sizes,
+	gCaiFuZhiJia_3997_sizes
 };
 #define GET_ROLLTABLE_SIZE(game_id, level) (gRTSizes[game_id][level])  
 

@@ -269,6 +269,7 @@ void MatrixApplyTriggers_1700(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, u
 //财富类
 void MatrixApplyTriggers_3999(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
 void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
+void MatrixApplyTriggers_3997(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
 //动物类
 void MatrixApplyTriggers_3993(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
 void MatrixApplyTriggers_3995(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
@@ -351,6 +352,12 @@ void MatrixTriggerOps_t_InitDefaults(void)
     ops3995.checkOnLine = checkOnLine_Defaults;
     ops3995.computeLineWin = computeLineWins_Defaults;
     (void)MatrixTrigger_Register(3995, &ops3995);
+
+    MatrixTriggerOps_t ops3997 = { 0 };
+    ops3997.applyTriggers = MatrixApplyTriggers_3997;
+    ops3997.checkOnLine = checkOnLine_Defaults;
+    ops3997.computeLineWin = computeLineWins_Defaults;
+    (void)MatrixTrigger_Register(3997, &ops3997);
 }
 
 
