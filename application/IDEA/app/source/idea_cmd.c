@@ -680,56 +680,8 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 			//QS_LOG("\r\n Win:%d", TotalWin);
 			player_bets_info_update(player_id, 0, TotalWin);
 		}
-		
-		ret = gameId;
-		/*
-			* 1:OpenType:0:普通开奖 1:赠送
-			* 2.ResultType:0:输 1:盈 2:免费游戏 3:彩金游戏
-			* 3:lineNum:中几条线
-			* 4:TotalBet
-			* 5:IDVec万千位标识线， 百位标识消除多少个， 十个位标识ID
-			* 6:Matrix:
-		*/
-		res[pos++] = (int32_t)ret;							// ret
-		res[pos++] = (int32_t)outres.openType;				// OpenType
-		res[pos++] = (int32_t)outres.resType;				// ResultType
-		res[pos++] = outres.matrix.idVecSize;				// lineNum
-		res[pos++] = outres.nMatrixBet;						// TotalBet
-		res[pos++] = wheelChessNum;							// MatrixLength
-		res[pos++] = outres.nTotalFreeTime;					// nTotalFreeTime
-		res[pos++] = outres.nTotalFreeBet;					// nTotalFreeBet
-		res[pos++] = outres.nBonusBet;						// nBonusBet
-		res[pos++] = outres.nBonusType;						// nBonusType
-		res[pos++] = outres.nJPBet;							// nJPBet
-		res[pos++] = outres.nJPType;						// nJPType
-		
-
-		// IDVec
-		for (int32_t i = 0; i < outres.matrix.idVecSize; i++)
-		{
-			res[pos++] = outres.IDVec[i];
-		}
-		//Matrix
-		for (int32_t i = 0; i < wheelChessNum; i++)
-		{
-			res[pos++] = outres.matrix.dataArray[i];
-		}
-
-		//FreeBetArray
-		for (int32_t i = 0; i < outres.nTotalFreeTime; i++)
-		{
-			res[pos++] = outres.FreeBetArray[i];
-		}
-
-		//BonusData
-		for (int32_t i = 0; i < wheelChessNum; i++)
-		{
-			res[pos++] = outres.BonusData[i];
-		}
-
-		//BonusMultiply或者BlindSymbol
-		res[pos++] = outres.BlindSymbol;			//当大奖为神秘游戏就是BlindSymbol ,乘数游戏或者彩金游戏时就是BonusMultiply
-	
+		//输出游戏结果到Senv
+		DLL_OutResToSenvById(&outres, res, gameId);
 	
 		qs_json_DeleteItemFromObject(json, "data");
 		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));

@@ -13,6 +13,7 @@ void GenerationResult_GenerateLose(GameInstance_t* inst, Matrix_u* loseMxu, int3
 void GenerationResult_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, int32_t* idVec, GameInstanceId_t gameId);
 void GenerationResult_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx, GameInstanceId_t gameId);
 int8_t* GenerationResult_OutResToJson(OutResult_t* outRes, GameInstance_t* inst, GameInstanceId_t gameId);
+void GenerationResult_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 //--------------------------------------------公共--------------------------------------------//
 void GameResult_Generic_Normal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
 void GameResult_Generic_Lose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId);
@@ -32,8 +33,8 @@ typedef void (*GenBonusFn)(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst
 typedef void (*GenLoseFn)(GameInstance_t* inst,Matrix_u* loseMxu,int32_t* idVec,GameInstanceId_t gameId);
 typedef void (*ApplyOutResForFreeFn)(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx);
 typedef void (*ApplyOutResByRoundFn)(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, int32_t* idVec);
-typedef int8_t* (*OutResToJsonnFn)(OutResult_t* outRes, GameInstance_t* inst);
-
+typedef int8_t* (*OutResToJsonFn)(OutResult_t* outRes, GameInstance_t* inst);
+typedef void (*OutResToSenvFn) (OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 typedef struct
 {
 	GenNormalFn genNormal;
@@ -44,7 +45,8 @@ typedef struct
 	GenLoseFn genLose;
 	ApplyOutResForFreeFn applyFree;
 	ApplyOutResByRoundFn applyRound;
-	OutResToJsonnFn outRes;
+	OutResToJsonFn outResJson;
+	OutResToSenvFn  outResSenv;
 } GameResultOps_t;
 
 int8_t GameResultRegistry_Register(GameInstanceId_t gameId, const GameResultOps_t* ops);

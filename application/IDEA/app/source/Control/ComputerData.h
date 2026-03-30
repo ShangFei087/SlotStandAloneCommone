@@ -57,12 +57,12 @@ void append_int64_dec(char* buffer, size_t buffer_size, size_t* used, int64_t va
 void append_format(char* buffer, size_t buffer_size, size_t* used, const char* format, ...);
 
 //彩金
-extern int32_t JPWeight[4];//单份抽水中  d0:总的JP比例，d1为Major的比例， d1为minor的比例， d2为mini的比例，单位为万分之X
-extern int32_t JPDrawRateUnit[8];//	本地彩金对应0， 1， 2, 4, 5, 6, 7, 8参数的抽水比例
-extern int32_t CenterJPDrawRate[8];//	中央彩金对应0， 1， 2, 3, 4, 5, 6, 7, 8参数的抽水比例， 单位万分之
+extern  int32_t JPWeight[4];//单份抽水中  d0:总的JP比例，d1为Major的比例， d1为minor的比例， d2为mini的比例，单位为万分之X
+extern  int32_t JPDrawRateUnit[8];//	本地彩金对应0， 1， 2, 4, 5, 6, 7, 8参数的抽水比例
+extern  int32_t CenterJPDrawRate[8];//	中央彩金对应0， 1， 2, 3, 4, 5, 6, 7, 8参数的抽水比例， 单位万分之
 
 //---------------------------------------赔率------------------------------------------------//
-static uint8_t gZhuZaiJinBi_1700_BetArray[12][4] ={
+static const uint8_t gZhuZaiJinBi_1700_BetArray[12][4] ={
  {0, 40, 50, 250},//0
  {0, 30, 40, 150},//1
  {0, 25, 35, 100},//2
@@ -78,7 +78,7 @@ static uint8_t gZhuZaiJinBi_1700_BetArray[12][4] ={
 };
 //---------------------财富类---------------------//
 //财富之门_3999赔率表
-static uint8_t gCaiFuZhiMen_3999_BetArray[12][4] ={
+static const uint8_t gCaiFuZhiMen_3999_BetArray[12][4] ={
  {0, 40, 50, 250},//0
  {0, 30, 40, 150},//1
  {0, 25, 35, 100},//2
@@ -93,7 +93,7 @@ static uint8_t gCaiFuZhiMen_3999_BetArray[12][4] ={
  {0, 0, 0, 0},//11 BONUS
 };
 //幸运之轮2_3998赔率表
-static uint8_t gXingYunZhiLun_3998_BetArray[12][4] ={
+static const uint8_t gXingYunZhiLun_3998_BetArray[12][4] ={
 	{0, 0, 15, 45},//0
 	{0, 0, 15, 50},//1
 	{0, 0, 50, 55},//2
@@ -109,7 +109,7 @@ static uint8_t gXingYunZhiLun_3998_BetArray[12][4] ={
 	{0, 0, 0, 0},    // 11 (新增)
 };
 //财富之家_3997赔率表
-static uint8_t gCaiFuZhiJia_3997_BetArray[12][4] = {
+static const uint8_t gCaiFuZhiJia_3997_BetArray[12][4] = {
 	{0, 2, 5, 15},//0
 	{0, 2, 5, 15},//1
 	{0, 2, 5, 15},//2
@@ -124,7 +124,7 @@ static uint8_t gCaiFuZhiJia_3997_BetArray[12][4] = {
 	{0, 0, 0, 0}, // 11 Bonus
 };
 //财富火车_3996赔率表
-static uint8_t gCaiFuHuoChe_3996_BetArray[12][4] = {
+static const uint8_t gCaiFuHuoChe_3996_BetArray[12][4] = {
 	{0, 5, 10, 20},//0
 	{0, 5, 10, 20},//1
 	{0, 5, 10, 20},//2
@@ -140,7 +140,7 @@ static uint8_t gCaiFuHuoChe_3996_BetArray[12][4] = {
 };
 //---------------------动物类---------------------//
 //美洲黑豹_3993赔率表
-static uint8_t gMeiZhouHeiBao_3993_BetArray[13][4] ={
+static const uint8_t gMeiZhouHeiBao_3993_BetArray[13][4] ={
 	{0, 3, 10, 25},//0
 	{0, 4, 15, 30},//1
 	{0, 5, 15, 40},//2
@@ -157,7 +157,7 @@ static uint8_t gMeiZhouHeiBao_3993_BetArray[13][4] ={
 	{0, 0, 0, 0},    //12 bonus
 };
 //火焰公牛_3995赔率表
-static uint8_t gHuoYanGongNiu_3995_BetArray[14][4] = {
+static const uint8_t gHuoYanGongNiu_3995_BetArray[14][4] = {
 	{2, 5, 20, 100},//0
 	{0, 5, 20, 100},//1
 	{0, 5, 40, 120},//2
@@ -175,7 +175,7 @@ static uint8_t gHuoYanGongNiu_3995_BetArray[14][4] = {
 	
 };
 //获取赔率
-static uint8_t(*gBetArray[GAME_INSTANCE_ID_MAX])[4] ={
+static const uint8_t(*gBetArray[GAME_INSTANCE_ID_MAX])[4] ={
 	gZhuZaiJinBi_1700_BetArray,
 	gCaiFuZhiMen_3999_BetArray,
 	gXingYunZhiLun_3998_BetArray,
@@ -186,7 +186,7 @@ static uint8_t(*gBetArray[GAME_INSTANCE_ID_MAX])[4] ={
 };
 #define GET_BET_VALUE(game_id, row, col) (gBetArray[game_id][row][col])  //获取赔率
 //---------------------------------------线------------------------------------------------//
-static uint8_t  gZhuZaiJinBi_1700_LineCheckIDArray[GE_Line20Num * COL_MAX] = {
+static const uint8_t  gZhuZaiJinBi_1700_LineCheckIDArray[GE_Line20Num * COL_MAX] = {
 	1,1,1,1,1,//0
 	0,0,0,0,0,//1
 	2,2,2,2,2,//2
@@ -211,7 +211,7 @@ static uint8_t  gZhuZaiJinBi_1700_LineCheckIDArray[GE_Line20Num * COL_MAX] = {
 };
 //---------------------财富类---------------------//
 //财富之门_3999赔付线
-static uint8_t  gCaiFuZhiMen_3999_LineCheckIDArray[GE_Line20Num * COL_MAX] = {
+static const uint8_t  gCaiFuZhiMen_3999_LineCheckIDArray[GE_Line20Num * COL_MAX] = {
 		   1,1,1,1,1,//1
 		   0,0,0,0,0,//2
 		   2,2,2,2,2,//3
@@ -237,7 +237,7 @@ static uint8_t  gCaiFuZhiMen_3999_LineCheckIDArray[GE_Line20Num * COL_MAX] = {
 		   0,2,2,2,0,//20
 };
 //幸运之轮2_3998赔付线
-static uint8_t gXingYunZhiLun_3998_LineCheckIDArray[GE_Line20Num * COL_MAX] ={
+static const uint8_t gXingYunZhiLun_3998_LineCheckIDArray[GE_Line20Num * COL_MAX] ={
 				1,1,1,1,1,//1
 				0,0,0,0,0,//2
 				2,2,2,2,2,//3
@@ -263,7 +263,7 @@ static uint8_t gXingYunZhiLun_3998_LineCheckIDArray[GE_Line20Num * COL_MAX] ={
 				1,0,2,0,1,//20
 };
 //财富之家_3997赔付线
-static uint8_t gCaiFuZhiJia_3997_LineCheckIDArray[GE_Line20Num * COL_MAX] = {
+static const uint8_t gCaiFuZhiJia_3997_LineCheckIDArray[GE_Line20Num * COL_MAX] = {
 				1,1,1,1,1,//1
 				0,0,0,0,0,//2
 				2,2,2,2,2,//3
@@ -289,7 +289,7 @@ static uint8_t gCaiFuZhiJia_3997_LineCheckIDArray[GE_Line20Num * COL_MAX] = {
 				1,0,2,0,1,//20
 };
 //财富火车_3996赔付线
-static uint8_t gCaiFuHuoChe_3996_LineCheckIDArray[GE_Line30Num * COL_MAX] = {
+static const uint8_t gCaiFuHuoChe_3996_LineCheckIDArray[GE_Line30Num * COL_MAX] = {
 				1,1,1,1,1,//1
 				0,0,0,0,0,//2
 				2,2,2,2,2,//3
@@ -328,7 +328,7 @@ static uint8_t gCaiFuHuoChe_3996_LineCheckIDArray[GE_Line30Num * COL_MAX] = {
 };
 //---------------------动物类---------------------//
 //美洲黑豹_3993赔付线
-static uint8_t gMeiZhouHeiBao_3993_LineCheckIDArray[GE_Line25Num * COL_MAX] = {
+static const uint8_t gMeiZhouHeiBao_3993_LineCheckIDArray[GE_Line25Num * COL_MAX] = {
 				1,1,1,1,1,//1
 				0,0,0,0,0,//2
 				2,2,2,2,2,//3
@@ -360,7 +360,7 @@ static uint8_t gMeiZhouHeiBao_3993_LineCheckIDArray[GE_Line25Num * COL_MAX] = {
 				2,0,2,0,2,//25
 };
 //火焰公牛_3995赔付线
-static uint8_t gHuoYanGongNiu_3995_LineCheckIDArray[GE_Line50Num * COL_MAX] = {
+static const uint8_t gHuoYanGongNiu_3995_LineCheckIDArray[GE_Line50Num * COL_MAX] = {
 				0,0,0,0,0,//1
 				0,0,1,0,0,//2
 				0,1,1,1,0,//3
@@ -422,7 +422,7 @@ static uint8_t gHuoYanGongNiu_3995_LineCheckIDArray[GE_Line50Num * COL_MAX] = {
 				3,2,1,3,3,//50
 };
 //获取线
-static uint8_t* gLineCheckArray[GAME_INSTANCE_ID_MAX] ={
+static const uint8_t* gLineCheckArray[GAME_INSTANCE_ID_MAX] ={
 	gZhuZaiJinBi_1700_LineCheckIDArray,
 	gCaiFuZhiMen_3999_LineCheckIDArray,
 	gXingYunZhiLun_3998_LineCheckIDArray,
@@ -433,17 +433,17 @@ static uint8_t* gLineCheckArray[GAME_INSTANCE_ID_MAX] ={
 };
 #define GET_LINE_VALUE(game, line, col) (gLineCheckArray[game][(line) * COL_MAX + (col)]* COL_MAX + col)   //直接转换成在阵列里的位置 阵列从左到右在从上到下
 //---------------------------------------免费次数------------------------------------------------//;;
-static uint8_t gZhuZaiJinBi_1700_FreeTime[6] = { 3, 0, 0, 0, 0, 0 };
+static const uint8_t gZhuZaiJinBi_1700_FreeTime[6] = { 3, 0, 0, 0, 0, 0 };
 //---------------------财富类---------------------//
-static uint8_t gCaiFuZhiMen_3999_FreeTime[6] = { 8, 10, 12, 0, 0, 0 };
-static uint8_t gXingYunZhiLun_3998_FreeTime[6] = { 4, 5, 6, 0, 0, 0 };
-static uint8_t gCaiFuZhiJia_3997_FreeTime[6] = { 10, 10, 10, 0, 0, 0 };
-static uint8_t gCaiFuHuoChe_3996_FreeTime[6] = { 8, 10, 12, 0, 0, 0 };
+static const uint8_t gCaiFuZhiMen_3999_FreeTime[6] = { 8, 10, 12, 0, 0, 0 };
+static const uint8_t gXingYunZhiLun_3998_FreeTime[6] = { 4, 5, 6, 0, 0, 0 };
+static const uint8_t gCaiFuZhiJia_3997_FreeTime[6] = { 10, 10, 10, 0, 0, 0 };
+static const uint8_t gCaiFuHuoChe_3996_FreeTime[6] = { 8, 10, 12, 0, 0, 0 };
 //---------------------动物类---------------------//
-static uint8_t gMeiZhouHeiBao_3993_FreeTime[6] = { 8, 15, 20, 0, 0, 0 };
-static uint8_t gHuoYanGongNiu_3995_FreeTime[6] = { 8, 15, 20, 0, 0, 0 };
+static const uint8_t gMeiZhouHeiBao_3993_FreeTime[6] = { 8, 15, 20, 0, 0, 0 };
+static const uint8_t gHuoYanGongNiu_3995_FreeTime[6] = { 8, 15, 20, 0, 0, 0 };
 //获取免费次数
-static uint8_t* gFreeTime[GAME_INSTANCE_ID_MAX] = {
+static const uint8_t* gFreeTime[GAME_INSTANCE_ID_MAX] = {
 	gZhuZaiJinBi_1700_FreeTime,
 	gCaiFuZhiMen_3999_FreeTime,
 	gXingYunZhiLun_3998_FreeTime,
@@ -455,7 +455,7 @@ static uint8_t* gFreeTime[GAME_INSTANCE_ID_MAX] = {
 #define GET_FREE_TIME(game_id, level)   (gFreeTime[game_id][level])  
 
 //---------------------------------------滚轮表------------------------------------------------//
-static uint8_t gZhuZaiJinBi_1700_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
+static const uint8_t gZhuZaiJinBi_1700_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
 	{ 2,5,2,2,2,7,5,0,7,0,1,3,3,10,1,5,0,4,3,0,0,0,6,3,5,4,10,3,4,0,0,4,6,6,8,0,1,2,6,2,1,0,6,4,0,0,1,4,0,2,8,8,1,5,4,7,10,8,0,0},
 	{ 1,1,3,8,9,10,2,4,1,0,1,5,1,5,0,3,1,5,2,0,0,3,8,7,6,3,9,9,9,3,4,6,1,2,7,5,8,9,7,1,10,0,2,7,0,4,0,10,1,4,1,5,7,5,1,3,1,7},
 	{10,3,1,6,4,8,0,6,2,1,3,8,8,1,8,7,9,0,0,3,2,5,4,3,2,4,7,4,4,7,1,0,9,9,9,8,0,2,8,7,10,6,5,3,6,0,2,7,0,6,5,3,3,0,0,10,4,9},
@@ -464,7 +464,7 @@ static uint8_t gZhuZaiJinBi_1700_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
 };
 //---------------------财富类---------------------//
 //财富之门_3999普通滚轮表
-static uint8_t gCaiFuZhiMen_3999_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
+static const uint8_t gCaiFuZhiMen_3999_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
 	{ 1,5,2,11,2,0,5,0,7,0,1,3,3,9,11,0,0,4,3,0,0,0,6,3,1,4,8,3,4,0,0,4,0,6,8,0,1,2,6,2,11,0,6,4,1,1,1,4,0,2,0,8,1,5,4,7,7,8,0,0},
 	{ 0,1,3,8,9,10,2,4,1,0,11,5,1,5,0,3,1,5,2,0,0,3,8,7,6,3,9,9,9,3,4,6,1,2,7,5,8,9,7,11,10,0,2,7,0,4,0,10,1,4,1,5,7,5,1,3,11,7},
 	{10,3,11,6,4,8,1,6,2,1,3,8,8,1,8,7,9,0,0,3,2,5,4,3,2,4,7,4,4,7,11,0,9,9,9,8,0,2,8,7,10,6,5,11,6,0,2,7,0,6,5,3,3,0,0,10,4,9},
@@ -472,7 +472,7 @@ static uint8_t gCaiFuZhiMen_3999_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
 	{11,6,6,8,10,2,5,1,2,2,2,0,3,4,8,8,4,3,6,5,0,11,8,8,2,2,10,1,5,3,7,8,0,7,3,1,7,0,2,1,2,3,2,2,4,11,7,1,0,0,0,0,5,8,10,7,7,0,0,5,3,6,10,6,4,3,1,5,0,6,7}
 };
 //幸运之轮2_3998免费滚轮表
-static uint8_t gXingYunZhiLun_3998_Free_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
+static const uint8_t gXingYunZhiLun_3998_Free_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
 	{ 2,5,2,2,2,7,5,0,7,0,1,3,3,1,1,5,0,4,3,0,0,0,6,3,5,4,2,3,4,0,0,4,6,6,8,0,1,2,6,2,1,0,6,4,0,0,1,4,0,2,8,8,1,5,4,7,3,8,0,0},
 	{ 1,1,3,8,1,2,2,4,1,0,1,5,1,5,0,3,1,5,2,0,0,3,8,7,6,3,3,4,5,3,4,6,1,2,7,5,8,1,7,1,2,0,2,7,0,4,0,3,1,4,1,5,7,5,1,3,1,7},
 	{1,3,1,6,4,8,0,6,2,1,3,8,8,1,8,7,2,0,0,3,2,5,4,3,2,4,7,4,4,7,1,0,3,3,4,8,0,2,8,7,5,6,5,3,6,0,2,7,0,6,5,3,3,0,0,1,4,2},
@@ -480,7 +480,7 @@ static uint8_t gXingYunZhiLun_3998_Free_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
 	{6,6,6,8,1,2,5,0,2,2,2,0,3,4,8,8,4,3,6,5,0,4,8,8,2,2,2,1,5,3,7,8,0,7,3,1,7,0,2,1,2,3,2,2,4,1,7,1,0,0,0,0,5,8,3,7,7,0,0,5,3,6,3,6,4,3,1,5,0,6,7}
 };
 //幸运之轮2_3998普通滚轮表
-static uint8_t gXingYunZhiLun_3998_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
+static const uint8_t gXingYunZhiLun_3998_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
 	{ 9,5,2,2,2,7,5,0,7,0,1,3,3,9,1,5,0,4,3,0,0,0,6,3,5,4,9,3,4,0,0,4,6,6,8,0,1,2,6,2,9,0,6,4,0,0,1,4,0,2,8,8,1,5,4,7,9,8,0,0},
 	{ 1,1,3,8,9,0,2,4,1,0,1,5,1,5,0,3,1,5,2,0,0,9,1,7,6,3,2,2,4,3,4,6,1,2,7,5,8,1,7,1,9,0,2,7,0,4,0,3,1,4,1,5,7,5,1,3,1,7},
 	{9,3,1,6,4,8,0,6,2,1,3,8,8,1,8,7,9,0,0,3,2,5,4,3,2,4,7,4,4,7,1,0,9,1,1,8,0,2,8,7,9,6,5,3,6,0,2,7,0,6,5,3,9,0,0,1,4,0},
@@ -488,7 +488,7 @@ static uint8_t gXingYunZhiLun_3998_RollTable[COL_MAX][ROLLTABEL_COL_MAX] ={
 	{6,6,6,8,9,2,5,0,2,2,2,0,3,4,8,8,4,3,6,5,0,4,8,8,2,9,1,1,5,3,7,8,0,7,3,1,7,0,2,1,9,3,2,2,4,1,7,1,0,0,0,0,5,1,9,7,7,0,0,5,3,6,9,6,4,3,1,5,0,6,7}
 };
 //财富之家_3997普通滚轮表
-static uint8_t gCaiFuZhiJia_3997_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
+static const uint8_t gCaiFuZhiJia_3997_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
 	{ 10,5,2,11,2,0,5,0,7,0,1,3,3,4,11,11,0,4,3,0,10,0,6,3,1,4,8,3,4,0,10,4,0,6,8,0,1,2,6,11,11,0,6,4,1,10,1,4,0,2,0,8,1,5,4,7,7,8,10,0},
 	{ 0,1,3,8,9,1,2,4,1,0,11,5,1,9,0,3,1,5,2,0,0,3,8,7,6,3,9,8,9,3,4,6,1,2,7,5,8,9,7,11,2,0,2,7,0,4,0,3,1,4,1,5,7,5,1,3,11,7},
 	{10,3,11,6,4,8,1,6,2,1,3,8,8,1,8,7,9,0,0,10,2,5,4,3,2,4,7,10,4,7,11,0,9,7,9,8,0,2,8,7,10,6,5,11,6,0,9,7,0,6,5,3,3,0,0,10,4,9},
@@ -496,7 +496,7 @@ static uint8_t gCaiFuZhiJia_3997_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
 	{11,6,6,8,10,2,5,1,2,9,2,0,3,4,8,8,4,3,6,5,9,11,8,8,2,2,10,1,5,3,7,8,0,7,3,1,7,0,2,1,10,3,2,2,4,11,7,1,0,9,0,0,5,8,10,9,7,0,0,5,3,6,10,6,4,3,1,5,0,6,7}
 };
 //财富火车_3996普通滚轮表
-static uint8_t gCaiFuHuoChe_3996_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
+static const uint8_t gCaiFuHuoChe_3996_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
 	{ 10,5,2,11,2,0,5,0,7,0,1,3,3,4,11,11,0,4,3,0,10,0,6,3,1,4,8,3,4,0,10,4,0,6,8,0,1,2,6,11,11,0,6,4,1,10,1,4,0,2,0,8,1,5,4,7,7,8,10,0},
 	{ 0,10,3,8,9,1,2,4,1,0,11,5,1,9,10,3,1,5,2,0,0,3,10,7,6,3,9,8,9,3,4,6,1,2,7,5,8,9,7,11,2,0,2,7,0,4,0,3,1,4,1,5,7,5,1,3,11,7},
 	{10,3,11,6,4,11,1,6,2,1,3,8,8,1,8,7,9,0,0,10,2,5,4,3,2,4,7,10,4,7,11,0,9,7,9,8,0,2,8,7,10,6,5,11,6,0,9,7,0,6,5,3,3,0,0,10,4,9},
@@ -504,7 +504,7 @@ static uint8_t gCaiFuHuoChe_3996_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
 	{11,6,6,8,10,2,5,1,2,9,2,0,3,4,8,8,4,3,6,5,9,11,8,11,2,2,10,1,5,3,7,8,0,7,3,1,7,0,2,1,10,3,2,2,4,11,7,1,0,9,0,0,5,8,10,9,7,0,0,5,3,6,10,6,4,3,1,5,0,6,7}
 };
 //财富火车_3996免费滚轮表
-static uint8_t gCaiFuHuoChe_3996_Free_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
+static const uint8_t gCaiFuHuoChe_3996_Free_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
 	{ 10,5,2,1,2,0,5,0,7,0,1,3,3,4,2,1,0,4,3,0,10,0,6,3,1,4,8,3,4,0,10,4,0,6,8,0,1,2,6,2,3,0,6,4,1,10,1,4,0,2,0,8,1,5,4,7,7,8,10,0},
 	{ 0,1,3,8,9,1,2,4,1,0,5,5,1,9,0,3,1,5,2,0,0,3,8,7,6,3,9,8,9,3,4,6,1,2,7,5,8,9,7,4,2,0,2,7,0,4,0,3,1,4,1,5,7,5,1,3,6,7},
 	{10,3,7,6,4,8,1,6,2,1,3,8,8,1,8,7,9,0,0,10,2,5,4,3,2,4,7,10,4,7,8,0,9,7,9,8,0,2,8,7,10,6,5,9,6,0,9,7,0,6,5,3,3,0,0,10,4,9},
@@ -512,7 +512,7 @@ static uint8_t gCaiFuHuoChe_3996_Free_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
 	{4,6,6,8,4,2,5,1,2,9,2,0,3,10,8,8,4,3,6,5,9,5,8,8,2,2,6,1,5,10,7,8,0,7,3,1,7,0,2,1,5,3,2,2,4,10,7,1,0,9,0,0,5,8,8,9,7,0,0,5,3,6,9,6,4,3,1,5,0,6,7}
 };
 //---------------------动物类---------------------//
-static uint8_t gMeiZhouHeiBao_3993_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
+static const uint8_t gMeiZhouHeiBao_3993_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
 	{ 1,5,2,11,2,12,5,0,7,0,1,3,3,10,11,0,0,4,3,1,0,12,6,12,1,4,10,3,4,0,0,4,0,6,8,0,1,12,6,2,11,0,6,4,1,1,1,4,0,2,0,8,1,5,4,7,10,8,0,0},
 	{ 12,1,12,8,9,10,2,4,1,0,11,5,1,5,0,3,1,5,2,0,0,3,8,7,6,3,9,12,9,3,4,6,1,2,7,5,8,9,7,11,10,0,2,7,0,4,0,10,1,4,1,12,7,5,1,3,11,7},
 	{10,3,11,6,4,8,12,6,12,1,3,8,8,1,8,7,9,0,0,3,2,5,4,3,2,4,7,4,4,7,11,0,9,12,9,8,0,2,8,7,10,6,5,11,6,0,2,7,0,6,5,3,3,0,0,10,4,12},
@@ -520,7 +520,7 @@ static uint8_t gMeiZhouHeiBao_3993_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
 	{11,12,6,12,10,2,5,1,2,12,2,0,3,4,8,8,4,3,6,5,0,11,8,8,2,2,10,1,5,3,7,12,0,7,3,1,7,0,2,1,2,3,2,2,4,11,7,1,0,0,0,0,5,8,10,7,7,0,0,5,3,6,10,6,4,3,1,5,0,6,7}
 };
 
-static uint8_t gHuoYanGongNiu_3995_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
+static const uint8_t gHuoYanGongNiu_3995_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
 	{ 1,13,2,5,2,12,5,0,7,0,13,3,3,1,4,0,0,4,3,1,0,7,6,8,1,4,13,3,4,0,0,4,0,6,8,0,1,12,6,13,7,0,6,4,1,13,1,4,0,2,0,8,1,5,4,7,13,8,12,0},
 	{ 4,1,12,8,9,1,2,4,1,0,11,5,1,5,0,3,1,5,12,0,0,3,8,7,6,3,9,6,9,3,4,6,1,2,7,5,8,9,7,11,2,0,2,7,0,4,0,3,1,4,1,12,7,5,1,3,11,7},
 	{1,3,11,6,4,8,3,13,12,1,3,8,8,1,8,7,9,0,13,3,2,5,4,3,2,4,7,4,4,13,11,0,9,12,9,8,0,2,8,7,2,13,5,11,6,0,2,13,0,6,5,3,3,0,13,3,4,12},
@@ -528,7 +528,7 @@ static uint8_t gHuoYanGongNiu_3995_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
 	{11,12,6,13,4,2,5,1,2,12,2,0,3,4,8,8,4,3,6,5,0,11,13,8,2,2,5,1,5,3,7,12,0,7,3,1,7,0,2,1,2,3,2,13,4,11,7,1,0,0,0,0,5,8,5,7,13,0,0,5,3,6,7,6,4,3,1,5,0,6,7}
 };
 
-static uint8_t gHuoYanGongNiu_3995_Free_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
+static const uint8_t gHuoYanGongNiu_3995_Free_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = {
 	{ 1,13,2,5,2,1,5,0,7,0,13,3,3,1,4,10,0,4,3,1,0,7,6,8,1,4,13,3,4,0,0,4,0,10,8,0,1,2,6,13,7,0,6,4,1,13,1,4,0,2,0,8,1,5,4,7,13,10,3,0},
 	{ 4,1,4,8,9,10,2,4,1,0,11,5,1,5,0,3,1,5,5,0,0,10,8,7,6,3,9,6,9,3,4,6,1,2,7,5,8,9,7,11,2,0,2,7,0,4,0,3,1,4,1,6,7,10,1,3,11,7},
 	{1,3,11,6,4,8,3,13,7,1,3,8,10,1,8,10,9,0,13,3,2,5,4,3,2,4,7,4,4,13,11,10,9,8,9,8,0,2,8,7,2,13,5,11,6,0,2,13,0,6,5,10,3,0,13,3,4,9},
@@ -536,7 +536,7 @@ static uint8_t gHuoYanGongNiu_3995_Free_RollTable[COL_MAX][ROLLTABEL_COL_MAX] = 
 	{2,7,6,1,4,2,5,1,2,8,2,0,3,10,8,8,4,3,6,5,0,2,1,8,2,2,5,1,5,3,10,9,0,7,3,1,7,0,2,1,2,3,2,1,4,2,7,1,0,10,0,10,5,8,5,7,1,0,0,5,3,6,7,6,4,3,1,5,0,6,7}
 };
 
-static uint8_t(*RollTable[RollTabel_MAX])[ROLLTABEL_COL_MAX] = {
+static const uint8_t(*RollTable[RollTabel_MAX])[ROLLTABEL_COL_MAX] = {
 	gZhuZaiJinBi_1700_RollTable,//0
 	gCaiFuZhiMen_3999_RollTable,//1
 	gXingYunZhiLun_3998_RollTable,//2
@@ -551,17 +551,17 @@ static uint8_t(*RollTable[RollTabel_MAX])[ROLLTABEL_COL_MAX] = {
 #define GET_ROLL_VALUE(table_idx, col, row) (RollTable[table_idx][col][row])
 
 //---------------------------------------滚轮表长度------------------------------------------------//
-static uint8_t gZhuZaiJinBi_1700_RT_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
-static uint8_t gCaiFuZhiMen_3999_RT_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
-static uint8_t gXingYunZhiLun_3998_RT_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
-static uint8_t gXingYunZhiLun_3998_Free_RT_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
-static uint8_t gMeiZhouHeiBao_3993_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
-static uint8_t gHuoYanGongNiu_3995_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
-static uint8_t gHuoYanGongNiu_3995_Free_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
-static uint8_t gCaiFuZhiJia_3997_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
-static uint8_t gCaiFuHuoChe_3996_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
-static uint8_t gCaiFuHuoChe_3996_Free_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
-static uint8_t* gRTSizes[RollTabel_MAX] = {
+static const uint8_t gZhuZaiJinBi_1700_RT_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
+static const uint8_t gCaiFuZhiMen_3999_RT_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
+static const uint8_t gXingYunZhiLun_3998_RT_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
+static const uint8_t gXingYunZhiLun_3998_Free_RT_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
+static const uint8_t gMeiZhouHeiBao_3993_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
+static const uint8_t gHuoYanGongNiu_3995_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
+static const uint8_t gHuoYanGongNiu_3995_Free_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
+static const uint8_t gCaiFuZhiJia_3997_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
+static const uint8_t gCaiFuHuoChe_3996_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
+static const uint8_t gCaiFuHuoChe_3996_Free_sizes[COL_MAX] = { 60, 58, 58, 66, 71 };
+static const uint8_t* gRTSizes[RollTabel_MAX] = {
 	gZhuZaiJinBi_1700_RT_sizes,
 	gCaiFuZhiMen_3999_RT_sizes,
 	gXingYunZhiLun_3998_RT_sizes,

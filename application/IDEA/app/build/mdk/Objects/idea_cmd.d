@@ -57,14 +57,13 @@
 .\objects\idea_cmd.o: ..\..\source\idea_player.h
 .\objects\idea_cmd.o: ..\..\source\idea_cmd.h
 .\objects\idea_cmd.o: ..\..\source\./GameAlgo/algo/ga.h
-.\objects\idea_cmd.o: ..\..\source\Control/CMD_Fish.h
-.\objects\idea_cmd.o: ..\..\source\Control/GameConfig.h
 .\objects\idea_cmd.o: ..\..\source\Control/NatureAlg.h
 .\objects\idea_cmd.o: ..\..\source\Control/../GameAlgo/common/JRand.h
+.\objects\idea_cmd.o: ..\..\source\Control/CommonStruct.h
 .\objects\idea_cmd.o: ..\..\source\Control/ComputerData.h
+.\objects\idea_cmd.o: ..\..\source\Control/GameConfig.h
 .\objects\idea_cmd.o: ..\..\source\Control/DllInterface.h
 .\objects\idea_cmd.o: ..\..\source\Control/GameManager.h
-.\objects\idea_cmd.o: ..\..\source\Control/CommonStruct.h
 .\objects\idea_cmd.o: ..\..\source\Control/RtpConfig.h
 .\objects\idea_cmd.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\idea_cmd.o: ..\..\source\Control/LotteryManager.h

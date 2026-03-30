@@ -1,10 +1,11 @@
 .\objects\matrix_u_triggersbyid.o: ..\..\source\Control\Matrix\Matrix_u_TriggersById.c
 .\objects\matrix_u_triggersbyid.o: ..\..\source\Control\Matrix\Matrix_u_TriggersById.h
-.\objects\matrix_u_triggersbyid.o: ..\..\source\Control/CMD_Fish.h
-.\objects\matrix_u_triggersbyid.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\matrix_u_triggersbyid.o: ..\..\source\Control/CommonStruct.h
+.\objects\matrix_u_triggersbyid.o: ..\..\source\Control/ComputerData.h
 .\objects\matrix_u_triggersbyid.o: ..\..\..\..\..\qs\qs.h
 .\objects\matrix_u_triggersbyid.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\matrix_u_triggersbyid.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\matrix_u_triggersbyid.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\matrix_u_triggersbyid.o: ..\..\source\qs_cfg.h
 .\objects\matrix_u_triggersbyid.o: ..\..\..\..\..\qs\qs_driver.h
 .\objects\matrix_u_triggersbyid.o: ..\..\..\..\..\platform\max32555\qs_platform.h
@@ -50,4 +51,4 @@
 .\objects\matrix_u_triggersbyid.o: ..\..\..\..\..\qs\system/senv/qs_senv_manager.h
 .\objects\matrix_u_triggersbyid.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
 .\objects\matrix_u_triggersbyid.o: ..\..\source\Control/GameConfig.h
-.\objects\matrix_u_triggersbyid.o: ..\..\source\Control/ComputerData.h
+.\objects\matrix_u_triggersbyid.o: ..\..\source\Control/GameManager.h

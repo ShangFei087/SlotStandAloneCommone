@@ -81,7 +81,7 @@ void GameResult_3999_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 	info->nBonusType = (int8_t)randNum;
 }
 
-int8_t* OutResToJsonn_3999(OutResult_t* outRes, GameInstance_t* inst)
+int8_t* GameResult_3999_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 {
 	char* strRes = (char*)malloc(2048);
 	size_t used = 0;
@@ -151,4 +151,57 @@ int8_t* OutResToJsonn_3999(OutResult_t* outRes, GameInstance_t* inst)
 	free(idVecStr);
 	free(matrixStr);
 	return (int8_t*)strRes;
+}
+
+void GameResult_3999_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId)
+{
+	int32_t pos = 0;
+	uint8_t wheelChessNum = inst->gameConfig.header.wheelChessNum;
+
+	res[pos++] = (int32_t)gameId;						// ret
+	res[pos++] = (int32_t)outRes->openType;				// OpenType
+	res[pos++] = (int32_t)outRes->resType;				// ResultType
+	res[pos++] = outRes->matrix.idVecSize;				// lineNum
+	res[pos++] = outRes->nMatrixBet;					// TotalBet
+	res[pos++] = wheelChessNum;							// MatrixLength
+	// IDVec
+	for (int32_t i = 0; i < outRes->matrix.idVecSize; i++)
+	{
+		res[pos++] = outRes->IDVec[i];
+	}
+	//Matrix
+	for (int32_t i = 0; i < wheelChessNum; i++)
+	{
+		res[pos++] = outRes->matrix.dataArray[i];
+	}
+
+	if (outRes->resType == RT_FreeWin)
+	{
+		res[pos++] = outRes->nTotalFreeTime;					// nTotalFreeTime
+		res[pos++] = outRes->nTotalFreeBet;					// nTotalFreeBet
+		//FreeBetArray
+		for (int32_t i = 0; i < outRes->nTotalFreeTime; i++)
+		{
+			res[pos++] = outRes->FreeBetArray[i];
+		}
+	}
+
+	if (outRes->openType == OT_Give)
+	{
+
+	}
+
+	if (outRes->resType == RT_BonusWin)
+	{
+		res[pos++] = outRes->nBonusBet;						// nBonusBet
+		res[pos++] = outRes->nBonusType;						// nBonusType
+		for (int32_t i = 0; i < wheelChessNum; i++)
+		{
+			res[pos++] = outRes->BonusData[i];
+		}
+	}
+
+	//res[pos++] = outRes->nJPBet;				// nJPBet
+	//res[pos++] = outRes->nJPType;				// nJPType
+
 }

@@ -1,10 +1,10 @@
 .\objects\naturealg.o: ..\..\source\Control\NatureAlg.c
 .\objects\naturealg.o: ..\..\source\Control\NatureAlg.h
-.\objects\naturealg.o: ..\..\source\Control\CMD_Fish.h
-.\objects\naturealg.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\naturealg.o: ..\..\source\Control\../GameAlgo/common/JRand.h
 .\objects\naturealg.o: ..\..\..\..\..\qs\qs.h
 .\objects\naturealg.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\naturealg.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\naturealg.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\naturealg.o: ..\..\source\qs_cfg.h
 .\objects\naturealg.o: ..\..\..\..\..\qs\qs_driver.h
 .\objects\naturealg.o: ..\..\..\..\..\platform\max32555\qs_platform.h
@@ -49,6 +49,6 @@
 .\objects\naturealg.o: ..\..\..\..\..\qs\system/qs_system_senv.h
 .\objects\naturealg.o: ..\..\..\..\..\qs\system/senv/qs_senv_manager.h
 .\objects\naturealg.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
-.\objects\naturealg.o: ..\..\source\Control\GameConfig.h
-.\objects\naturealg.o: ..\..\source\Control\../GameAlgo/common/JRand.h
+.\objects\naturealg.o: ..\..\source\Control\CommonStruct.h
 .\objects\naturealg.o: ..\..\source\Control\ComputerData.h
+.\objects\naturealg.o: ..\..\source\Control\GameConfig.h

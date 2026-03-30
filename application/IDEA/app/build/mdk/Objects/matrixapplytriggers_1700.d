@@ -1,9 +1,11 @@
 .\objects\matrixapplytriggers_1700.o: ..\..\source\Control\Matrix\MatrixApplyTriggers_1700.c
-.\objects\matrixapplytriggers_1700.o: ..\..\source\Control/CMD_Fish.h
-.\objects\matrixapplytriggers_1700.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\matrixapplytriggers_1700.o: ..\..\source\Control\Matrix\Matrix_u_TriggersById.h
+.\objects\matrixapplytriggers_1700.o: ..\..\source\Control/CommonStruct.h
+.\objects\matrixapplytriggers_1700.o: ..\..\source\Control/ComputerData.h
 .\objects\matrixapplytriggers_1700.o: ..\..\..\..\..\qs\qs.h
 .\objects\matrixapplytriggers_1700.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\matrixapplytriggers_1700.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\matrixapplytriggers_1700.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\matrixapplytriggers_1700.o: ..\..\source\qs_cfg.h
 .\objects\matrixapplytriggers_1700.o: ..\..\..\..\..\qs\qs_driver.h
 .\objects\matrixapplytriggers_1700.o: ..\..\..\..\..\platform\max32555\qs_platform.h
@@ -49,3 +51,4 @@
 .\objects\matrixapplytriggers_1700.o: ..\..\..\..\..\qs\system/senv/qs_senv_manager.h
 .\objects\matrixapplytriggers_1700.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
 .\objects\matrixapplytriggers_1700.o: ..\..\source\Control/GameConfig.h
+.\objects\matrixapplytriggers_1700.o: ..\..\source\Control/GameManager.h

@@ -1,9 +1,10 @@
 .\objects\gamemanager.o: ..\..\source\Control\GameManager.c
 .\objects\gamemanager.o: ..\..\source\Control\GameManager.h
+.\objects\gamemanager.o: ..\..\source\Control\ComputerData.h
+.\objects\gamemanager.o: ..\..\..\..\..\qs\qs.h
+.\objects\gamemanager.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\gamemanager.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\gamemanager.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\objects\gamemanager.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\gamemanager.o: ..\..\..\..\..\qs\qs.h
 .\objects\gamemanager.o: ..\..\source\qs_cfg.h
 .\objects\gamemanager.o: ..\..\..\..\..\qs\qs_driver.h
 .\objects\gamemanager.o: ..\..\..\..\..\platform\max32555\qs_platform.h
@@ -48,9 +49,5 @@
 .\objects\gamemanager.o: ..\..\..\..\..\qs\system/qs_system_senv.h
 .\objects\gamemanager.o: ..\..\..\..\..\qs\system/senv/qs_senv_manager.h
 .\objects\gamemanager.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
-.\objects\gamemanager.o: ..\..\source\Control\NatureAlg.h
-.\objects\gamemanager.o: ..\..\source\Control\CMD_Fish.h
-.\objects\gamemanager.o: ..\..\source\Control\GameConfig.h
-.\objects\gamemanager.o: ..\..\source\Control\../GameAlgo/common/JRand.h
 .\objects\gamemanager.o: ..\..\source\Control\CommonStruct.h
-.\objects\gamemanager.o: ..\..\source\Control\ComputerData.h
+.\objects\gamemanager.o: ..\..\source\Control\GameConfig.h

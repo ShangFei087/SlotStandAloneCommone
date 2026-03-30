@@ -1,5 +1,6 @@
 .\objects\gameconfig.o: ..\..\source\Control\GameConfig.c
 .\objects\gameconfig.o: ..\..\source\Control\GameConfig.h
+.\objects\gameconfig.o: ..\..\source\Control\ComputerData.h
 .\objects\gameconfig.o: ..\..\..\..\..\qs\qs.h
 .\objects\gameconfig.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\gameconfig.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
@@ -48,5 +49,5 @@
 .\objects\gameconfig.o: ..\..\..\..\..\qs\system/qs_system_senv.h
 .\objects\gameconfig.o: ..\..\..\..\..\qs\system/senv/qs_senv_manager.h
 .\objects\gameconfig.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
-.\objects\gameconfig.o: ..\..\source\Control\ComputerData.h
-.\objects\gameconfig.o: ..\..\source\Control\CMD_Fish.h
+.\objects\gameconfig.o: ..\..\source\Control\GameManager.h
+.\objects\gameconfig.o: ..\..\source\Control\CommonStruct.h

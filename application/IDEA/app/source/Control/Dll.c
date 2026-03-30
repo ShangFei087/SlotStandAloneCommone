@@ -437,16 +437,17 @@ int32_t GetIDBetValue(int32_t ID)
 
 	return (int32_t)GET_BET_VALUE(betTableIdx, chessType, nEliminateNum - 2);
 }
-
+//控制台结果输出
 int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 {
 	GameInstance_t* inst = get_instance(gameId);
 	GenerationResult_OutResToJson(outRes, inst, gameId);
 }
-
+//嵌入式结果输出
 void DLL_OutResToSenvById(OutResult_t* outRes, int32_t* res, GameInstanceId_t gameId)
 {
-
+	GameInstance_t* inst = get_instance(gameId);
+	GenerationResult_OutResToSenv(outRes, inst, res, gameId);
 }
 
 // 获取指定游戏实例的调试统计信息。

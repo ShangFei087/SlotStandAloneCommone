@@ -327,19 +327,19 @@ void MatrixTriggerOps_t_InitDefaults(void)
     MatrixTriggerOps_t ops1700 = { 0 };
     ops1700.applyTriggers = MatrixApplyTriggers_Default;
     ops1700.checkOnLine = checkOnLine_Defaults;
-    ops1700.computeLineWin = MatrixApplyTriggers_Default;
+    ops1700.computeLineWin = computeLineWins_Defaults;
     (void)MatrixTrigger_Register(1700, &ops1700);
 
     MatrixTriggerOps_t ops3999 = { 0 };
     ops3999.applyTriggers = MatrixApplyTriggers_Default;
     ops3999.checkOnLine = checkOnLine_Defaults;
-    ops3999.computeLineWin = MatrixApplyTriggers_Default;
+    ops3999.computeLineWin = computeLineWins_Defaults;
     (void)MatrixTrigger_Register(3999, &ops3999);
 
     MatrixTriggerOps_t ops3998 = { 0 };
     ops3998.applyTriggers = MatrixApplyTriggers_3998;
     ops3998.checkOnLine = checkOnLine_Defaults;
-    ops3998.computeLineWin = MatrixApplyTriggers_Default;
+    ops3998.computeLineWin = computeLineWins_Defaults;
     (void)MatrixTrigger_Register(3998, &ops3998);
 
     MatrixTriggerOps_t ops3993 = { 0 };

@@ -51,6 +51,4 @@
 .\objects\lotterymanager.o: ..\..\..\..\..\qs\system/qs_system_senv.h
 .\objects\lotterymanager.o: ..\..\..\..\..\qs\system/senv/qs_senv_manager.h
 .\objects\lotterymanager.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
-.\objects\lotterymanager.o: ..\..\source\Control\CMD_Fish.h
-.\objects\lotterymanager.o: ..\..\source\Control\GameConfig.h
 .\objects\lotterymanager.o: ..\..\source\Control\Test.h

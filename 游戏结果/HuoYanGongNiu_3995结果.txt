@@ -14,7 +14,9 @@
 
 【免费游戏】
 {"OpenType":0,"ResultType":2,"IDVec":[24304],"Matrix":[0,4,13,12,2,4,1,3,1,1,3,12,4,2,2,1,7,12,3,3],"TotalFreeBet":3286,"TotalFreeTime":8,"FreeBetArray":[220,0,0,0,8,100,18,340],"WheelData":[11,4,11,11,6],"WildData":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"TotalBet":10}
--WheelData：转盘每次顶下的下标 (算法改动转盘游戏中，每次升级每个金牛格子都应该加一个)
+-WheelData：转盘每次顶下的下标 (算法改动转盘游戏中，每次升级每个金牛格子都应该加一个) 
+//转盘游戏 万位代表种类 1:金牛,2:奖金 3:免费游戏。千百十个位是携带的个数或者金额
+int32_t WheelArray[12] = { 10001,20100,30001,20150,10001,20100,30001,20200,10001,20250,30001,20200 };
 -FreeBetArray：每回合免费结算得分（长度=TotalFreeTime）
 -TotalFreeBet：含「免费前置转盘」累计奖金 + 各免费局线奖之和
 -TotalFreeTime：免费总局数（由触发时 Scatter 个数等规则决定）
@@ -54,3 +56,60 @@ int gBetArray[14][4] = {
 	CT_Wild = 11,				//万能牌（免费局中 Wild 倍数取自 {2,3}）
 	CT_Scater = 12,				//Scatter，达到阈值触发免费
 	CT_Bonus = 13,				//Bonus，达到阈值触发 Bonus 游戏
+
+void GameResult_3995_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId)
+{
+	int32_t pos = 0;
+	uint8_t wheelChessNum = inst->gameConfig.header.wheelChessNum;
+
+	res[pos++] = (int32_t)gameId;						// ret
+	res[pos++] = (int32_t)outRes->openType;				// OpenType
+	res[pos++] = (int32_t)outRes->resType;				// ResultType
+	res[pos++] = outRes->matrix.idVecSize;				// lineNum
+	res[pos++] = outRes->nMatrixBet;					// TotalBet
+	res[pos++] = wheelChessNum;							// MatrixLength
+	// IDVec
+	for (int32_t i = 0; i < outRes->matrix.idVecSize; i++)
+	{
+		res[pos++] = outRes->IDVec[i];
+	}
+	//Matrix
+	for (int32_t i = 0; i < wheelChessNum; i++)
+	{
+		res[pos++] = outRes->matrix.dataArray[i];
+	}
+
+	if (outRes->resType == RT_FreeWin)
+	{
+		res[pos++] = outRes->nTotalFreeTime;					// nTotalFreeTime
+		res[pos++] = outRes->nTotalFreeBet;					// nTotalFreeBet
+		//FreeBetArray
+		for (int32_t i = 0; i < outRes->nTotalFreeTime; i++)
+		{
+			res[pos++] = outRes->FreeBetArray[i];
+		}
+		//WildData
+		for (int32_t i = 0; i < outRes->BlindSymbol; i++)
+		{
+			res[pos++] = outRes->BonusData[i];
+		}
+	}
+
+	if (outRes->openType == OT_Give)
+	{
+
+	}
+
+	if (outRes->resType == RT_BonusWin)
+	{
+		res[pos++] = outRes->nBonusBet;						// nBonusBet
+		res[pos++] = outRes->nBonusType;						// nBonusType
+		for (int32_t i = 0; i < wheelChessNum; i++)
+		{
+			res[pos++] = outRes->BonusData[i];
+		}
+	}
+
+	//res[pos++] = outRes->nJPBet;				// nJPBet
+	//res[pos++] = outRes->nJPType;				// nJPType
+}

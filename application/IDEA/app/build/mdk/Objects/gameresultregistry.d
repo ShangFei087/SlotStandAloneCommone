@@ -1,11 +1,11 @@
 .\objects\gameresultregistry.o: ..\..\source\Control\GenerationResult\GameResultRegistry.c
 .\objects\gameresultregistry.o: ..\..\source\Control\GenerationResult\GameResultRegistry.h
 .\objects\gameresultregistry.o: ..\..\source\Control/CommonStruct.h
-.\objects\gameresultregistry.o: ..\..\source\Control/CMD_Fish.h
-.\objects\gameresultregistry.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\gameresultregistry.o: ..\..\source\Control/ComputerData.h
 .\objects\gameresultregistry.o: ..\..\..\..\..\qs\qs.h
 .\objects\gameresultregistry.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\gameresultregistry.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\gameresultregistry.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\gameresultregistry.o: ..\..\source\qs_cfg.h
 .\objects\gameresultregistry.o: ..\..\..\..\..\qs\qs_driver.h
 .\objects\gameresultregistry.o: ..\..\..\..\..\platform\max32555\qs_platform.h
@@ -54,4 +54,3 @@
 .\objects\gameresultregistry.o: ..\..\source\Control/GameManager.h
 .\objects\gameresultregistry.o: ..\..\source\Control/NatureAlg.h
 .\objects\gameresultregistry.o: ..\..\source\Control/../GameAlgo/common/JRand.h
-.\objects\gameresultregistry.o: ..\..\source\Control/ComputerData.h

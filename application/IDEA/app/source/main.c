@@ -90,11 +90,11 @@ int32_t main(int32_t argc, char *argv[])
     DebugControlMode_Init(&debugMode);
 	//debugMode.resType = RT_Win;
 	//debugMode.resType = RT_Lose;
-	//debugMode.resType = RT_FreeWin;
+	debugMode.resType = RT_FreeWin;
 	//debugMode.resType = RT_BonusWin;
     //debugMode.bonusType =1;
-	//debugMode.mode = DCM_PointResData;
-	debugMode.mode = DCM_Normal;
+	debugMode.mode = DCM_PointResData;
+	//debugMode.mode = DCM_Normal;
     DLL_SetControlDebugMode(&debugMode);
 
     // 设置当前区域+RTP档位（这里使用国内 99.2 档）。
@@ -116,9 +116,9 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(3996))
+    if (DLL_GameSwitch(1700))
     {
-        gameId = 3996;
+        gameId = 1700;
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -202,6 +202,11 @@ int32_t main(int32_t argc, char *argv[])
                 TotalWin += outres.nJPBet;//彩金单独计算
                 pItem->Wins += TotalWin;
             }
+
+            int32_t res[150] = { 0 }; //250个以下的int32_t
+            //输出游戏结果到Senv
+            DLL_OutResToSenvById(&outres, res, gameId);
+            QS_LOG("\n", res);
         }
 
         // 每10000局输出一次10台机子的实时RTP

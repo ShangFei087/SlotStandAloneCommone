@@ -1,7 +1,7 @@
 ﻿#include "CommonStruct.h"
 #include <string.h>
 #include <stdlib.h>
-
+#include "Test.h"
 #include "Matrix/Matrix_u_TriggersById.h"
 DebugControlMode_t gDebugControlMode;
 //-------------------------------------------------------------------------------------
@@ -71,6 +71,8 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
         pMatrix->dataArray[index] = type;
     }
 }
+
+
 
 //243
 

@@ -59,13 +59,12 @@
 .\objects\main.o: ..\..\source\idea_cmd.h
 .\objects\main.o: ..\..\source\./GameAlgo/algo/ga.h
 .\objects\main.o: ..\..\source\Control/NatureAlg.h
-.\objects\main.o: ..\..\source\Control/CMD_Fish.h
-.\objects\main.o: ..\..\source\Control/GameConfig.h
 .\objects\main.o: ..\..\source\Control/../GameAlgo/common/JRand.h
-.\objects\main.o: ..\..\source\Control/DllInterface.h
-.\objects\main.o: ..\..\source\Control/GameManager.h
 .\objects\main.o: ..\..\source\Control/CommonStruct.h
 .\objects\main.o: ..\..\source\Control/ComputerData.h
+.\objects\main.o: ..\..\source\Control/GameConfig.h
+.\objects\main.o: ..\..\source\Control/DllInterface.h
+.\objects\main.o: ..\..\source\Control/GameManager.h
 .\objects\main.o: ..\..\source\Control/RtpConfig.h
 .\objects\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\main.o: ..\..\source\Control/Test.h

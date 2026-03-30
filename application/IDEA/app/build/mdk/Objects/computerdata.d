@@ -48,5 +48,4 @@
 .\objects\computerdata.o: ..\..\..\..\..\qs\system/qs_system_senv.h
 .\objects\computerdata.o: ..\..\..\..\..\qs\system/senv/qs_senv_manager.h
 .\objects\computerdata.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
-.\objects\computerdata.o: ..\..\source\Control\CMD_Fish.h
-.\objects\computerdata.o: ..\..\source\Control\GameConfig.h
+.\objects\computerdata.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
