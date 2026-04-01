@@ -47,7 +47,7 @@ void DLL_OnJackpotOnlineWin(int32_t jpOnlineBet);
  // 获取当前生效的难度配置快照
  void DLL_GetRtpDifficulty(RtpProfileConfig* outProfile);
 
- void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo, GameInstanceId_t gameId);
+ void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo);
 
  void DLL_GameClose(GameInstanceId_t gameId);
 

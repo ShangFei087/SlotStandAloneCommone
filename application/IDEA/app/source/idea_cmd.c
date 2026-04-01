@@ -801,6 +801,43 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		qs_senv_manager_write(gpCtx->pSenv, json);
 	}
 	break;
+	//获取调试信息
+	case 20203:
+	{
+		qs_json* pJsonArray = qs_json_GetObjectItem(json, "data");
+		size_t JsonArraySize = qs_json_GetArraySize(pJsonArray);
+		int32_t res[18] = { 0 };
+		int32_t pos = 0;
+		res[pos++] = 1;
+		DebugInfo userDebugInfo;
+		DebugInfo_reset(&userDebugInfo);
+		DLL_GetUserDebugInfo(&userDebugInfo);
+	
+		res[pos++] = userDebugInfo.dwPlayScore;
+		res[pos++] = userDebugInfo.dwWinScore;
+		res[pos++] = userDebugInfo.dwTotalPlayTime;
+		res[pos++] = userDebugInfo.dwNormalOpenTime;
+		res[pos++] = userDebugInfo.dwGiveOpenTime;
+		res[pos++] = userDebugInfo.dwNormalWinTime;
+		res[pos++] = userDebugInfo.dwBonusTime;
+		res[pos++] = userDebugInfo.dwFreeGameTime;
+		res[pos++] = userDebugInfo.dwLooseTime;
+		res[pos++] = userDebugInfo.dwJackpotTime;
+		res[pos++] = userDebugInfo.dwJackpotOnlineTime;
+		res[pos++] = userDebugInfo.dwBaseWinScore;
+		res[pos++] = userDebugInfo.dwFreeWinScore;
+		res[pos++] = userDebugInfo.dwBonusWinScore;
+		res[pos++] = userDebugInfo.dwJackpotWinScore;
+		res[pos++] = userDebugInfo.dwJackpotOnlineWinScore;
+		res[pos++] = userDebugInfo.dwFreeGameBetError;
+
+		//TODO
+		qs_json_DeleteItemFromObject(json, "data");
+		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
+		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
+		qs_senv_manager_write(gpCtx->pSenv, json);
+	}
+	break;
 	// 玩家赢得联网彩金的彩金信息
 	case 20030:
 	{

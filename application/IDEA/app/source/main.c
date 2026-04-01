@@ -262,7 +262,7 @@ int32_t main(int32_t argc, char *argv[])
         DebugInfo userDebugInfo;
         DebugInfo_reset(&userDebugInfo);
         int8_t finalString[1024] = { 0 };
-        DLL_GetUserDebugInfo(&userDebugInfo, gameId);
+        DLL_GetUserDebugInfo(&userDebugInfo);
 
         sprintf(finalString, "TotalPlayTime:%d LoseProb:%f NormalWinProb:%f FreeGameProb:%f BonusGamesProb:%f JackpotProb:%f JackpotOnlineProb:%f TotalProb:%f",
             userDebugInfo.dwTotalPlayTime,

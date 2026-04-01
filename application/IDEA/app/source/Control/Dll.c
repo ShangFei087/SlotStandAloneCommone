@@ -451,10 +451,9 @@ void DLL_OutResToSenvById(OutResult_t* outRes, int32_t* res, GameInstanceId_t ga
 }
 
 // 获取指定游戏实例的调试统计信息。
-void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo, GameInstanceId_t gameId)
+void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo)
 {
-	GameInstance_t* inst = get_instance(gameId);
-	if (inst) DebugInfo_accum(pDebugInfo, &g_GameManager.debugInfo);
+	DebugInfo_accum(pDebugInfo, &g_GameManager.debugInfo);
 }
 // 关闭指定游戏实例并释放资源。
 void DLL_GameClose(GameInstanceId_t gameId)

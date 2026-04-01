@@ -17,7 +17,7 @@
 #define _DebugControlMode			// 启用调试控制模式
 #define _ShowDebugInfo				// 显示算法调试信息
 #define _DebugInfoInterval  10000		// 每 10000 局显示RTP
-//#define  _LocalDebug                 // 本地调试
+#define  _LocalDebug                 // 本地调试
 //#define _IMHERE						// 临时调试标记位（调试完成后请移除）
 #endif
 
