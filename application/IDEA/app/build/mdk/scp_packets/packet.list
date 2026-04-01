@@ -245,5 +245,9 @@ scp_packets.output.0000244.host.write_mem.packet
 scp_packets.output.0000245.bl.ack.packet
 scp_packets.output.0000246.bl.write_mem_response.packet
 scp_packets.output.0000247.host.ack.packet
-scp_packets.output.0000248.host.disconnection_request.packet
-scp_packets.output.0000249.bl.disconnection_reply.packet
+scp_packets.output.0000248.host.write_mem.packet
+scp_packets.output.0000249.bl.ack.packet
+scp_packets.output.0000250.bl.write_mem_response.packet
+scp_packets.output.0000251.host.ack.packet
+scp_packets.output.0000252.host.disconnection_request.packet
+scp_packets.output.0000253.bl.disconnection_reply.packet
