@@ -1,8 +1,10 @@
 #include "GameManager.h"
+#include "idea_qs.h"
+#include <string.h>
 
 GameManager_t g_GameManager = {0};
 
-GameInstance_t* find_slot(void) 
+GameInstance_t* find_slot(void)
 {
     for (int8_t i = 0; i < GAME_INSTANCE_ID_MAX; i++) 
     {
@@ -18,8 +20,34 @@ int8_t GameManager_Init(void)
 {
     memset(&g_GameManager, 0, sizeof(g_GameManager));
     g_GameManager.currentGameId = GAME_ID_INVALID;
-   
+
+    //持久化DebugInfo数据
+    (void)idea_database_connect(&g_GameManager.debugInfo, sizeof(g_GameManager.debugInfo));
+    if (g_GameManager.debugInfo.dwFlag != GAMEMANAGER_DEBUGINFO_FLAG_MAGIC)
+    {
+        DebugInfo_reset(&g_GameManager.debugInfo);
+        g_GameManager.debugInfo.dwFlag = GAMEMANAGER_DEBUGINFO_FLAG_MAGIC;
+        QS_LOG("\r\n [GM] First set done: flag=%u", g_GameManager.debugInfo.dwFlag);
+    }
+    else
+    {
+        QS_LOG("\r\n [GM] Reboot compare pass: flag=%u (expect=%u), keep persisted debug data", g_GameManager.debugInfo.dwFlag,GAMEMANAGER_DEBUGINFO_FLAG_MAGIC);
+    }
+    //QS_LOG("\r\n [GM] Init done flag=%u play=%u win=%u total=%u",g_GameManager.debugInfo.dwFlag,g_GameManager.debugInfo.dwPlayScore,g_GameManager.debugInfo.dwWinScore,g_GameManager.debugInfo.dwTotalPlayTime);
+
+  
+
     return 1;
+}
+
+void GameManager_CleanupInstance(GameInstance_t* instance)
+{
+    if (!instance || !instance->isInitialized) return;
+
+    memset(instance->name, 0, sizeof(instance->name));
+    instance->isInitialized = 0;
+    instance->isActive = 0;
+    instance->id = GAME_ID_INVALID;
 }
 
 void GameManager_Cleanup(void)
@@ -44,16 +72,6 @@ int8_t GameManager_InitInstance(GameInstance_t* instance)
     GameConfig_Init(&instance->gameConfig);
     FreeGameInfo_t_Init(&instance->freeGameInfo);
     return 1;
-}
-
-void GameManager_CleanupInstance(GameInstance_t* instance)
-{
-    if (!instance || !instance->isInitialized) return;
-
-    memset(instance->name, 0, sizeof(instance->name));
-    instance->isInitialized = 0;
-    instance->isActive = 0;
-    instance->id = GAME_ID_INVALID;
 }
 
 GameInstanceId_t GameManager_RegisterGame(const int8_t* gameName, GameInstanceId_t gameId)
@@ -85,6 +103,9 @@ GameInstanceId_t GameManager_RegisterGame(const int8_t* gameName, GameInstanceId
         GameManager_SwitchGame(newId);
     }
 
+    /* InitInstance 已清空 freeGameInfo，此处用 Flash 里同 gameId 的进度覆盖（支持断电续免费） */
+    FreeGamePersist_TryRestore(slot);
+
     return newId;
 }
 
@@ -92,6 +113,9 @@ int8_t GameManager_UnregisterGame(GameInstanceId_t gameId)
 {
     GameInstance_t* instance = GameManager_GetInstance(gameId);
     if (!instance) return 0;
+
+    /* 游戏卸载时不再保留该路的免费断电恢复数据 */
+    FreeGamePersist_ClearByGameId(gameId);
 
     if (g_GameManager.currentGameId == gameId) {
         g_GameManager.currentGameId = GAME_ID_INVALID;

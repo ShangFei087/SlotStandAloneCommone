@@ -4,7 +4,7 @@
 
 //------------------------------------------外部调用------------------------------------------//
 //根据矩阵的结果类型，生成不同结果
-void GenerationResult_GenerateNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
+void GenerationResult_GenerateNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	GameResultOps_t* ops = GameResultRegistry_Get(gameId);
 	if (ops == NULL || ops->genNormal == NULL)
@@ -65,14 +65,14 @@ void GenerationResult_GenerateBonus(RoundInfo_t* info, int32_t betVal, GameInsta
 	ops->genBonus(info, betVal, inst, bonusMxu, gameId);
 }
 //输
-void GenerationResult_GenerateLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId)
+void GenerationResult_GenerateLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
 	if (ops == NULL || ops->genLose == NULL) return;
 	ops->genLose(inst, loseMxu, idVec, gameId);
 }
 //应用一局结果到OutRes
-void GenerationResult_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, int32_t* idVec, GameInstanceId_t gameId)
+void GenerationResult_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
 	if (ops == NULL || ops->applyRound == NULL) return;
@@ -101,7 +101,7 @@ void GenerationResult_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, in
 }
 //--------------------------------------------公共--------------------------------------------//
 // 生成阵列
-void GameResult_Generic_Normal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
+void GameResult_Generic_Normal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	if (inst == NULL || mxu == NULL || matrixBet == NULL || idVec == NULL) return;
 
@@ -109,17 +109,17 @@ void GameResult_Generic_Normal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u
 	*matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
 }
 //正常赢
-void GameResult_Generic_NormalWin(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
+void GameResult_Generic_NormalWin(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	(void)info; (void)inst; (void)mxu; (void)betVal; (void)matrixBet; (void)idVec; (void)gameId;
 }
 //正常输
-void GameResult_Generic_NormalLose(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
+void GameResult_Generic_NormalLose(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	(void)info; (void)inst; (void)mxu; (void)betVal; (void)matrixBet; (void)idVec; (void)gameId;
 }
 //强制输
-void GameResult_Generic_Lose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId)
+void GameResult_Generic_Lose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	if (inst == NULL || loseMxu == NULL || idVec == NULL) return;
 
@@ -135,7 +135,7 @@ void GameResult_Generic_Lose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* i
 	}
 }
 //应用输出结果
-void GameResult_Generic_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, int32_t* idVec)
+void GameResult_Generic_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec)
 {
 	pRes->resType = resType;
 	Matrix_u_copy(&pRes->matrix, Mxu);
@@ -206,7 +206,11 @@ void GameResult_Generic_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_
 	//设定矩阵数据
 	Matrix_u_copy(&pRes->matrix, &info->pFreeMxu[freeIdx]);
 	pRes->nMatrixBet = info->FreeBetArray[freeIdx];
-	memcpy(pRes->IDVec, info->FreeIDVec[freeIdx], sizeof(pRes->IDVec));
+	// FreeIDVec 的元素类型为 uint16_t，直接按类型拷贝到 outRes->IDVec。
+	for (uint8_t i = 0; i < GE_MaxIDNum; ++i)
+	{
+		pRes->IDVec[i] = info->FreeIDVec[freeIdx][i];
+	}
 	memcpy(pRes->WildPosArray, info->WildPosArray[freeIdx], sizeof(pRes->WildPosArray));
 	pRes->resType = resType;
 }
@@ -226,6 +230,37 @@ int8_t* ArrayToString(int32_t* pArray, int32_t length, int32_t keepZero)
 		if (keepZero || pArray[i] != 0)
 		{
 			append_format(str, 1024, &used, "%d,", pArray[i]);
+		}
+	}
+
+	if (used > 1 && str[used - 1] == ',')
+	{
+		str[used - 1] = ']';
+	}
+	else
+	{
+		append_format(str, 1024, &used, "]");
+	}
+
+	return (int8_t*)str;
+}
+
+int8_t* ArrayU16ToString(uint16_t* pArray, int32_t length, uint16_t keepZero)
+{
+	char* str = (char*)malloc(1024);
+	size_t used = 0;
+
+	if (str == NULL) return NULL;
+
+	str[0] = '\0';
+	append_format(str, 1024, &used, "[");
+
+	for (int32_t i = 0; i < length; ++i)
+	{
+		if (keepZero || pArray[i] != 0)
+		{
+			// 统一以 int32_t 打印，避免不同平台对 uint16 的格式不一致
+			append_format(str, 1024, &used, "%d,", (int32_t)pArray[i]);
 		}
 	}
 
@@ -285,7 +320,7 @@ int8_t* OutResToJson_Common(OutResult_t* outRes,GameInstance_t* inst)
 	append_format(strRes, 2048, &used, "\"OpenType\":%d,", outRes->openType);
 	append_format(strRes, 2048, &used, "\"ResultType\":%d,", outRes->resType);
 
-	idVecStr = ArrayToString((int32_t*)outRes->IDVec, GE_MaxIDNum, 0);
+	idVecStr = ArrayU16ToString(outRes->IDVec, GE_MaxIDNum, 0);
 	append_format(strRes, 2048, &used, "\"IDVec\":%s,", idVecStr ? (const char*)idVecStr : "[]");
 
 	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
@@ -314,7 +349,7 @@ int8_t* OutResToJson_Common(OutResult_t* outRes,GameInstance_t* inst)
 	{
 		append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
 		append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
-		bonusStr = ArrayToString((int32_t*)outRes->BonusData, curwheelChessNum, 1);
+		bonusStr = ArrayU16ToString(outRes->BonusData, curwheelChessNum, 1);
 		append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
 		free(bonusStr);
 	}
@@ -388,52 +423,52 @@ void OutResToSenv_Common(OutResult_t* outRes, GameInstance_t* inst, int32_t* res
 	//res[pos++] = outRes->nJPType;				// nJPType
 }
 //--------------------------------------------解耦--------------------------------------------//
-void GameResult_1700_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,int32_t* idVec,GameInstanceId_t gameId);
+void GameResult_1700_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,uint16_t* idVec,GameInstanceId_t gameId);
 void GameResult_1700_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* freeMxu,GameInstanceId_t gameId);
 void GameResult_1700_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* bonusMxu,GameInstanceId_t gameId);
-void GameResult_1700_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,int32_t* idVec,GameInstanceId_t gameId);
+void GameResult_1700_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,uint16_t* idVec,GameInstanceId_t gameId);
 void GameResult_1700_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 //--------------------------------------------财富类--------------------------------------------//
-void GameResult_3999_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,int32_t* idVec,GameInstanceId_t gameId);
+void GameResult_3999_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,uint16_t* idVec,GameInstanceId_t gameId);
 void GameResult_3999_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* freeMxu,GameInstanceId_t gameId);
 void GameResult_3999_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* bonusMxu,GameInstanceId_t gameId);
-void GameResult_3999_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,int32_t* idVec,GameInstanceId_t gameId);
+void GameResult_3999_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,uint16_t* idVec,GameInstanceId_t gameId);
 int8_t* GameResult_3999_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst);
 void GameResult_3999_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 
-void GameResult_3998_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,int32_t* idVec,GameInstanceId_t gameId);
+void GameResult_3998_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,uint16_t* idVec,GameInstanceId_t gameId);
 void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* freeMxu,GameInstanceId_t gameId);
 void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* bonusMxu,GameInstanceId_t gameId);
-void GameResult_3998_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,int32_t* idVec,GameInstanceId_t gameId);
+void GameResult_3998_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,uint16_t* idVec,GameInstanceId_t gameId);
 int8_t* GameResult_3998_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst);
 void GameResult_3998_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 
-void GameResult_3997_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
+void GameResult_3997_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId);
 void GameResult_3997_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId);
 void GameResult_3997_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId);
-void GameResult_3997_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId);
+void GameResult_3997_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId);
 int8_t* GameResult_3997_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst);
 void GameResult_3997_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 
-void GameResult_3996_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
+void GameResult_3996_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId);
 void GameResult_3996_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId);
 void GameResult_3996_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId);
-void GameResult_3996_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId);
+void GameResult_3996_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId);
 int8_t* GameResult_3996_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst);
 void GameResult_3996_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 //--------------------------------------------动物类--------------------------------------------//
-void GameResult_3995_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
+void GameResult_3995_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId);
 void GameResult_3995_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId);
 void GameResult_3995_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId);
-void GameResult_3995_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId);
-void GameResult_3995_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, int32_t* idVec);
+void GameResult_3995_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId);
+void GameResult_3995_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec);
 int8_t* GameResult_3995_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst);
 void GameResult_3995_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 
-void GameResult_3993_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
+void GameResult_3993_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId);
 void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId);
 void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId);
-void GameResult_3993_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId);
+void GameResult_3993_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId);
 int8_t* GameResult_3993_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst);
 void GameResult_3993_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 
@@ -579,8 +614,5 @@ void GameResultRegistry_InitDefaults(void)
 	ops3993.outResJson = GameResult_3993_OutResToJsonn;
 	ops3993.outResSenv = GameResult_3993_OutResToSenv;
 	(void)GameResultRegistry_Register(3993, &ops3993);
-
-
-
 }
 

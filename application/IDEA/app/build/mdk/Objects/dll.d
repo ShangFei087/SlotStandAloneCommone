@@ -52,6 +52,8 @@
 .\objects\dll.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
 .\objects\dll.o: ..\..\source\Control\CommonStruct.h
 .\objects\dll.o: ..\..\source\Control\GameConfig.h
+.\objects\dll.o: ..\..\source\Control\FreeGamePersistManager.h
+.\objects\dll.o: ..\..\source\Control\GameManager.h
 .\objects\dll.o: ..\..\source\Control\RtpConfig.h
 .\objects\dll.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\dll.o: ..\..\source\idea_player.h

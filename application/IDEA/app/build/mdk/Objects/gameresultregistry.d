@@ -52,5 +52,7 @@
 .\objects\gameresultregistry.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
 .\objects\gameresultregistry.o: ..\..\source\Control/GameConfig.h
 .\objects\gameresultregistry.o: ..\..\source\Control/GameManager.h
+.\objects\gameresultregistry.o: ..\..\source\Control/FreeGamePersistManager.h
+.\objects\gameresultregistry.o: ..\..\source\Control/GameManager.h
 .\objects\gameresultregistry.o: ..\..\source\Control/NatureAlg.h
 .\objects\gameresultregistry.o: ..\..\source\Control/../GameAlgo/common/JRand.h

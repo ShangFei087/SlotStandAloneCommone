@@ -52,6 +52,8 @@
 .\objects\gameregistry.o: ..\..\source\Control\GameManager.h
 .\objects\gameregistry.o: ..\..\source\Control\CommonStruct.h
 .\objects\gameregistry.o: ..\..\source\Control\GameConfig.h
+.\objects\gameregistry.o: ..\..\source\Control\FreeGamePersistManager.h
+.\objects\gameregistry.o: ..\..\source\Control\GameManager.h
 .\objects\gameregistry.o: ..\..\source\Control\LotteryManager.h
 .\objects\gameregistry.o: ..\..\source\Control\Lottery.h
 .\objects\gameregistry.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h

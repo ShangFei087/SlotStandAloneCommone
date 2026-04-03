@@ -3,7 +3,7 @@
 #include "Control/ComputerData.h"
 
 //--------------------------------------------外部调用--------------------------------------------//
-int32_t computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId)
+int32_t computerMatrixById(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId)
 {
     uint32_t nLocalWinBet = 0;
     MatrixTriggerOps_t* ops = MatrixTriggerOps_t_Get(gameId);
@@ -196,7 +196,7 @@ uint8_t checkOnLine_Defaults(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
 
     return clr->bIsEliminate;
 }
-uint32_t computeLineWins_Defaults(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId)
+uint32_t computeLineWins_Defaults(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId)
 {
     if (pMatrix == NULL || idVec == NULL || gameConfig == NULL) return 0;
     MatrixTriggerOps_t* ops = MatrixTriggerOps_t_Get(gameId);
@@ -225,10 +225,10 @@ uint32_t computeLineWins_Defaults(Matrix_u* pMatrix, int32_t* idVec, SlotGameCon
             nLocalWinBet += GET_BET_VALUE(gameConfig->header.id, clr.nAvailChessType, clr.nEliminateNum - 2);
 
             // ID 编码：千位=线号，百位=连中数量，十位/个位=图标类型
-            int32_t nID = (int32_t)i * 1000 + (int32_t)clr.nEliminateNum * 100 + (int32_t)clr.nAvailChessType;
+            uint32_t nID = ((uint32_t)i * 1000u) + ((uint32_t)clr.nEliminateNum * 100u) + (uint32_t)clr.nAvailChessType;
 
             pMatrix->resultType = RT_Win; // RT_Win
-            idVec[idVecCount++] = nID;
+            idVec[idVecCount++] = (uint16_t)nID;
         }
     }
 

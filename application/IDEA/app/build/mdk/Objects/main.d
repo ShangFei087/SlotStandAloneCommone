@@ -65,6 +65,8 @@
 .\objects\main.o: ..\..\source\Control/GameConfig.h
 .\objects\main.o: ..\..\source\Control/DllInterface.h
 .\objects\main.o: ..\..\source\Control/GameManager.h
+.\objects\main.o: ..\..\source\Control/FreeGamePersistManager.h
+.\objects\main.o: ..\..\source\Control/GameManager.h
 .\objects\main.o: ..\..\source\Control/RtpConfig.h
 .\objects\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\main.o: ..\..\source\Control/Test.h

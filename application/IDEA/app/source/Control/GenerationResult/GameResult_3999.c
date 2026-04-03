@@ -1,12 +1,12 @@
 #include "GameResultRegistry.h"
 
 
-void GameResult_3999_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,int32_t* idVec,GameInstanceId_t gameId)
+void GameResult_3999_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,uint16_t* idVec,GameInstanceId_t gameId)
 {
 	GameResult_Generic_Normal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
 }
 
-void GameResult_3999_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,int32_t* idVec,GameInstanceId_t gameId)
+void GameResult_3999_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,uint16_t* idVec,GameInstanceId_t gameId)
 {
 	GameResult_Generic_Lose(inst, loseMxu, idVec, gameId);
 }
@@ -20,7 +20,7 @@ void GameResult_3999_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 
 	Matrix_u mxu;
 	Matrix_u_reset(&mxu);
-	int32_t idVec[GE_MaxIDNum] = { 0 };
+	uint16_t idVec[GE_MaxIDNum] = { 0 };
 
 	uint8_t scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig, inst->gameConfig.header.Scatter);
 	info->nFreeNum = GET_FREE_TIME(inst->gameConfig.header.id, scatterCount - 3);
@@ -98,7 +98,7 @@ int8_t* GameResult_3999_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	append_format(strRes, 2048, &used, "\"OpenType\":%d,", outRes->openType);
 	append_format(strRes, 2048, &used, "\"ResultType\":%d,", outRes->resType);
 
-	idVecStr = ArrayToString((int32_t*)outRes->IDVec, GE_MaxIDNum, 0);
+	idVecStr = ArrayU16ToString(outRes->IDVec, GE_MaxIDNum, 0);
 	append_format(strRes, 2048, &used, "\"IDVec\":%s,", idVecStr ? (const char*)idVecStr : "[]");
 
 	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
@@ -131,7 +131,7 @@ int8_t* GameResult_3999_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	{
 		append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
 		append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
-		bonusStr = ArrayToString((int32_t*)outRes->BonusData, curwheelChessNum, 1);
+		bonusStr = ArrayU16ToString(outRes->BonusData, curwheelChessNum, 1);
 		append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
 		free(bonusStr);
 	}

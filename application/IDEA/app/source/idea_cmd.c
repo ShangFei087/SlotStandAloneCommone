@@ -65,7 +65,8 @@ static context* gpCtx;
 
 static void idea_decode_proc(idea_coder_decode_data* pData)
 {
-	if (comm_data_set_coder(pData)) {
+	if (comm_data_set_coder(pData))
+	{
 		player_reset();
 		ga_reset(TRUE);
 	}

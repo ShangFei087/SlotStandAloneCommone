@@ -15,7 +15,7 @@ int8_t GameRegistry_InitAndRegisterDefaults()
     int32_t maxValueArray[3] = { JPWeight[1], JPWeight[2], JPWeight[3] };
 
     // 每次初始化都从干净状态开始，避免热重载后残留旧实例。
-    GameManager_Init();
+    //GameManager_Init();
 
     // 奖池基础参数集中在此处，统一主程序与协议初始化行为。
     LotteryManager_Init();

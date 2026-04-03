@@ -3,13 +3,16 @@
 
 #include "ComputerData.h"
 #include "CommonStruct.h"
-/* 游戏实例结构 */
-typedef struct {
+
+// DebugInfo 持久化校验常量
+#define GAMEMANAGER_DEBUGINFO_FLAG_MAGIC ((uint32_t)0xD1A65B2FU)
+
+/* 游戏实例结构（具名 GameInstance，与 FreeGamePersistManager.h 中 struct GameInstance 前置声明一致） */
+typedef struct GameInstance {
     GameInstanceId_t id;
     int8_t name[64];
     int8_t isActive;
     int8_t isInitialized;
-
     FreeGameInfo_t freeGameInfo;
     SlotGameConfig_t gameConfig;
 } GameInstance_t;
@@ -25,6 +28,8 @@ typedef struct {
 
 extern GameManager_t g_GameManager;
 
+#include "FreeGamePersistManager.h"
+
 int8_t GameManager_Init(void);//初始化管理器
 void GameManager_Cleanup(void);//重置管理器
 
@@ -39,7 +44,8 @@ GameInstance_t* GameManager_GetCurrentInstance(void);//当前游戏实例
 int8_t GameManager_GetInstanceCount(void); //已经初始化游戏的数量
 GameInstanceId_t GameManager_FindGameByName(const int8_t* gameName); //根据名称查找实例 ID
 
-int8_t GameManager_InitInstance(GameInstance_t* instance);//初始化游戏实例
 void GameManager_CleanupInstance(GameInstance_t* instance); //重置游戏实例
+int8_t GameManager_InitInstance(GameInstance_t* instance);//初始化游戏实例
+
 
 #endif /* _GAME_MANAGER_H_ */

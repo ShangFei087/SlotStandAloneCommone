@@ -144,6 +144,9 @@
     <ClInclude Include="..\..\source\Control\GameManager.h">
       <Filter>源文件\source\Control\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\Control\FreeGamePersistManager.h">
+      <Filter>源文件\source\Control\Manager</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\source\Control\LotteryManager.h">
       <Filter>源文件\source\Control\Manager</Filter>
     </ClInclude>
@@ -231,6 +234,9 @@
       <Filter>源文件\source\Control\Config</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Control\GameManager.c">
+      <Filter>源文件\source\Control\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\FreeGamePersistManager.c">
       <Filter>源文件\source\Control\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Control\LotteryManager.c">

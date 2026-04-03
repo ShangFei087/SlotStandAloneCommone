@@ -1,12 +1,12 @@
 #include "GameResultRegistry.h"
 
-void GameResult_1700_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,int32_t* idVec,GameInstanceId_t gameId)
+void GameResult_1700_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,uint16_t* idVec,GameInstanceId_t gameId)
 {
 	// 当前与通用逻辑一致
 	GameResult_Generic_Normal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
 }
 
-void GameResult_1700_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,int32_t* idVec,GameInstanceId_t gameId)
+void GameResult_1700_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,uint16_t* idVec,GameInstanceId_t gameId)
 {
 	// 当前与通用逻辑一致，预留每游戏独立扩展点
 	GameResult_Generic_Lose(inst, loseMxu, idVec, gameId);
@@ -19,7 +19,7 @@ void GameResult_1700_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 
 	Matrix_u mxu;
 	Matrix_u_reset(&mxu);
-	int32_t idVec[GE_MaxIDNum] = { 0 };
+	uint16_t idVec[GE_MaxIDNum] = { 0 };
 
 	uint8_t scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig, inst->gameConfig.header.Scatter);
 	info->nFreeNum = GET_FREE_TIME(inst->gameConfig.header.id, scatterCount - 3);

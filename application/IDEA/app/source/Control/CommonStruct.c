@@ -1,4 +1,4 @@
-﻿#include "CommonStruct.h"
+#include "CommonStruct.h"
 #include <string.h>
 #include <stdlib.h>
 #include "Test.h"
@@ -72,12 +72,10 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
     }
 }
 
-
-
 //243
 
 //------------------------------------------------------------------------------------
-//// ChessLine_t �ṹ������� std::map
+//// ChessLine_t 结构映射（示例：std::map）
 //typedef struct {
 //    uint8_t chessID;
 //    uint8_t chessNum;
@@ -99,7 +97,7 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
 //    memset(pChessLine->chessOnline, 0, sizeof(pChessLine->chessOnline));
 //    pChessLine->chessOnline[0] = line;
 //}
-//// �򵥵�ӳ���ʵ��
+//// 简单映射结构实现
 //typedef struct {
 //    ChessLine_t entries;
 //    uint8_t count;
@@ -138,17 +136,17 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
 //
 //int32_t Matrix_u_computerMatrix_243(Matrix_u* pMatrix, int32_t* idVec)
 //{
-//    // ����������
+//    // 初始化 idVec（清零并重置计数）
 //    for (int32_t i = 0; i < GE_MaxIDNum; ++i) idVec[i] = 0;
 //    int32_t idVecCount = 0;
 //    int32_t nLocalWinBet = 0;
 //
-//    // ����ӳ���
+//    // 初始化映射结构
 //    ChessLineMap* chessLineMap = (ChessLineMap*)malloc(sizeof(ChessLineMap));
 //
-//    ChessLineMap_init(&chessLineMap, GE_ChessTypeNum); // �������12�ֲ�ͬ������
+//    ChessLineMap_init(&chessLineMap, GE_ChessTypeNum); // 初始化最多 12 种不同棋子
 //
-//    //�ж���ͨ�н�
+//    // 统计前 3 个位置的棋子出现情况（含 Wild 逻辑）
 //    int32_t id = 0;
 //    BOOL iswild = FALSE;
 //    for (int32_t i = 0; i < 3; ++i)
@@ -169,13 +167,13 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
 //        }
 //    }
 //
-//    //�����һ����Wild,�����н�ͼ��
+//    // 若出现 Wild，则补齐后续列中可能出现的棋子映射
 //    if (iswild)
 //    {
-//        //�ӵڶ��б���
+//        // 遍历第二列及之后的列
 //        for (int32_t c = 1; c < GE_ColNum; ++c)
 //        {
-//            //����ÿ�е�ͼ��
+//            // 遍历每一行的棋子并加入映射
 //            for (int32_t r = 0; r < GE_RowNum; ++r)
 //            {
 //                id = pMatrix->dataArray[r * GE_ColNum + c];
@@ -187,7 +185,7 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
 //        }
 //    }
 //
-//    // ������ÿһ���Ƿ��ж�Ӧid
+//    // 遍历每条线，统计对应 id 的出现次数
 //    for (int32_t lineIdx = 1; lineIdx < 5; ++lineIdx)
 //    {
 //        for (int32_t i = 0; i < 3; ++i)
@@ -202,7 +200,7 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
 //            }
 //            if (id == CT_Wild)
 //            {
-//                // ��ӳ����е�ÿ����ͨͼ�����Ӽ���
+//                // 若为 Wild，则映射表中每个普通棋子的计数也要加一
 //                for (int32_t j = 0; j < chessLineMap->count; ++j)
 //                {
 //
@@ -213,7 +211,7 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
 //        }
 //    }
 //
-//    // ��������
+//    // 计算组合并累计本局可中下注数
 //    int32_t totalLine = 1;
 //    for (int32_t i = 0; i < GE_ChessTypeNum; ++i)
 //    {
@@ -246,7 +244,7 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
 //
 //    pMatrix->idVecSize = idVecCount;
 //
-//    //�ж�����н�
+//    // 判断是否命中 Scatter（免费）
 //    int32_t scatterCount = 0;
 //    int32_t freeOdds = 0;
 //    for (int32_t i = 0; i < GE_WheelChessMaxNum; ++i)
@@ -262,7 +260,7 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
 //        pMatrix->resultType = RT_FreeWin;
 //    }
 //
-//    //�жϴ��н�
+//    // 判断是否命中 Bonus（彩金）
 //    int32_t _bonusCount = 0;
 //    int32_t bounsOdds = 0;
 //    for (int32_t i = 0; i < GE_WheelChessMaxNum; ++i)
@@ -285,7 +283,7 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
 //}
 //-------------------------------------------------------------------------------------
 
-int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId)
+int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId)
 {
     uint32_t nLocalWinBet = computerMatrixById(pMatrix, idVec, gameConfig, gameId);
     return (int32_t)nLocalWinBet;
@@ -337,8 +335,7 @@ void RoundInfo_t_Init(RoundInfo_t* obj) {
         for (int8_t j = 0; j < GE_WheelChessMaxNum; j++) {
             obj->WildPosArray[i][j] = 0;
         }
-        // 初始化LooseMxus数组
-        Matrix_u_reset(&obj->LooseMxus[i]);
+        // NOTE: LooseMxus 在 RoundInfo_t 中已移除/不再使用
     }
 
     // 初始化彩金数据
@@ -381,8 +378,7 @@ void RoundInfo_t_Reset(RoundInfo_t* obj) {
         for (int32_t j = 0; j < GE_WheelChessMaxNum; j++) {
             obj->WildPosArray[i][j] = 0;
         }
-        // 重置LooseMxus数组
-        Matrix_u_reset(&obj->LooseMxus[i]);
+        // NOTE: LooseMxus 在 RoundInfo_t 中已移除/不再使用
     }
 
     // 重置彩金数据
@@ -425,8 +421,7 @@ void RoundInfo_t_Copy(RoundInfo_t* dest, const RoundInfo_t* src) {
         for (int32_t j = 0; j < GE_WheelChessMaxNum; j++) {
             dest->WildPosArray[i][j] = src->WildPosArray[i][j];
         }
-        // 拷贝LooseMxus数组
-        Matrix_u_copy(&dest->LooseMxus[i], (Matrix_u*)&src->LooseMxus[i]);
+        // NOTE: LooseMxus 在 RoundInfo_t 中已移除/不再使用
     }
   
     // 拷贝彩金数据
@@ -454,7 +449,6 @@ void FreeGameInfo_t_Reset(FreeGameInfo_t* obj)
 	obj->nRemainFreeBet = 0;
 	obj->nBetVal = 0;
 	obj->nTotalFreeTime = 0;
-	// 注意：原C++代码中不重置roundInfo，保持相同行为
 }
 //-------------------------------------------------------------------------------------
 
@@ -625,67 +619,67 @@ int8_t* DebugInfo_toJason(DebugInfo* pInfo)
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwPlayScore\":%lld,", pInfo->dwPlayScore);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwPlayScore\":%u,", pInfo->dwPlayScore);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwWinScore\":%lld,", pInfo->dwWinScore);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwWinScore\":%u,", pInfo->dwWinScore);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwTotalPlayTime\":%d,", pInfo->dwTotalPlayTime);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwTotalPlayTime\":%u,", pInfo->dwTotalPlayTime);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwNormalOpenTime\":%d,", pInfo->dwNormalOpenTime);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwNormalOpenTime\":%u,", pInfo->dwNormalOpenTime);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwGiveOpenTime\":%d,", pInfo->dwGiveOpenTime);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwGiveOpenTime\":%u,", pInfo->dwGiveOpenTime);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwBonusTime\":%d,", pInfo->dwBonusTime);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwBonusTime\":%u,", pInfo->dwBonusTime);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwFreeGameTime\":%d,", pInfo->dwFreeGameTime);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwFreeGameTime\":%u,", pInfo->dwFreeGameTime);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwLooseTime\":%d,", pInfo->dwLooseTime);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwLooseTime\":%u,", pInfo->dwLooseTime);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwBaseWinScore\":%lld,", pInfo->dwBaseWinScore);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwBaseWinScore\":%u,", pInfo->dwBaseWinScore);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwFreeWinScore\":%lld,", pInfo->dwFreeWinScore);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwFreeWinScore\":%u,", pInfo->dwFreeWinScore);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotTime\":%d,", pInfo->dwJackpotTime);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotTime\":%u,", pInfo->dwJackpotTime);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwBonusWinScore\":%lld,", pInfo->dwBonusWinScore);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwBonusWinScore\":%u,", pInfo->dwBonusWinScore);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotWinScore\":%lld,", pInfo->dwJackpotWinScore);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotWinScore\":%u,", pInfo->dwJackpotWinScore);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotOnlineTime\":%d,", pInfo->dwJackpotOnlineTime);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotOnlineTime\":%u,", pInfo->dwJackpotOnlineTime);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotOnlineWinScore\":%lld,", pInfo->dwJackpotOnlineWinScore);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwJackpotOnlineWinScore\":%u,", pInfo->dwJackpotOnlineWinScore);
     if (written < 0) return NULL;
     used += (size_t)written;
 
-    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwFreeGameBetError\":%d", pInfo->dwFreeGameBetError);
+    written = snprintf(buffer + used, sizeof(buffer) - used, "\"dwFreeGameBetError\":%u", pInfo->dwFreeGameBetError);
     if (written < 0) return NULL;
     used += (size_t)written;
 

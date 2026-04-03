@@ -52,3 +52,5 @@
 .\objects\matrixapplytriggers_3998.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
 .\objects\matrixapplytriggers_3998.o: ..\..\source\Control/GameConfig.h
 .\objects\matrixapplytriggers_3998.o: ..\..\source\Control/GameManager.h
+.\objects\matrixapplytriggers_3998.o: ..\..\source\Control/FreeGamePersistManager.h
+.\objects\matrixapplytriggers_3998.o: ..\..\source\Control/GameManager.h

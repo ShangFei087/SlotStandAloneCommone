@@ -15,17 +15,17 @@ extern GameInstance_t* g_CurrentGameInstance;
  // 返回堆内存字符串，调用方必须 free
  int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId);
  //随机产生一局
- void GenerateARound(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId);
+ void GenerateARound(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId);
  //应用调试模式
- void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal,int32_t *matrixBet, int32_t *idVec, GameInstanceId_t gameId);
+ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal,int32_t *matrixBet, uint16_t *idVec, GameInstanceId_t gameId);
  //生成一个免费局
  void GenerateARoundWithFreeWinById(RoundInfo_t* info, int32_t betVal, GameInstanceId_t gameId, Matrix_u* freeMxu);
  //生成一个大奖局
  void GenerateARoundWithBonusWinById(RoundInfo_t* info, int32_t betVal, GameInstanceId_t gameId, Matrix_u* bonusMxu);
  //生成一个输局
- void GenerateARoundWithLoseById(GameInstance_t* inst, Matrix_u* LoseMxu, int32_t* idVec, GameInstanceId_t gameId);
+ void GenerateARoundWithLoseById(GameInstance_t* inst, Matrix_u* LoseMxu, uint16_t* idVec, GameInstanceId_t gameId);
  //应用RoundInfo到输出结果
- void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, int32_t* idVec, GameInstanceId_t gameId);
+ void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec, GameInstanceId_t gameId);
  //为免费游戏应用矩阵
  void ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx, GameInstanceId_t gameId);
  //请求结果

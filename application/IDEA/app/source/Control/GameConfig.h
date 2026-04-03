@@ -9,21 +9,21 @@ typedef struct {
 	uint8_t		enabled;            // 是否启用
 	uint8_t		gameMode;           // 游戏模式：0=普通，1=技巧，2=专家
 	uint8_t		difficulty;         // 难度：0-8
-	uint32_t	minBet;             // 最小押注
-	uint32_t	maxBet;             // 最大押注
+	uint16_t	minBet;             // 最小押注
+	uint16_t	maxBet;             // 最大押注
 	uint8_t		ChessTypeNum;       // 总图标种类数
 	uint8_t		ChessNorTypeNum;    // 普通图标种类数
-	uint16_t	lineCount;          // 线数（如 15/20）或 ways（如 243）
+	uint8_t		lineCount;          // 线数（如 15/20）或 ways（如 243）
 	uint8_t		colCount;          // 轴数（通常为 5）
 	uint8_t		rowCount;           // 行数（通常为 3）
 	uint8_t     wheelChessNum;		// 阵列格子数量
-	uint16_t	MaxIDNyn;           // 中奖 ID 最大数量
+	uint8_t		MaxIDNyn;           // 中奖 ID 最大数量
 	uint8_t		freeGameMax;        // 免费游戏最大次数
 	uint8_t		Scatter;            // Scatter 图标
 	uint8_t		Wild;               // Wild 图标
 	uint8_t		Bonus;				// Bonus 图标
-	int8_t		normalRollTableId;	// 普通卷轴表 ID
-	int8_t		freeRollTableId;	// 免费卷轴表 ID
+	uint8_t		normalRollTableId;	// 普通卷轴表 ID
+	uint8_t		freeRollTableId;	// 免费卷轴表 ID
 	uint8_t reserved[2];			// 预留字段（对齐）
 } GameConfigHeader_t;
 

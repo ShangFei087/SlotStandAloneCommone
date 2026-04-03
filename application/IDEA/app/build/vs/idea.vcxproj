@@ -153,6 +153,7 @@
     <ClInclude Include="..\..\source\Control\GameConfig.h" />
     <ClInclude Include="..\..\source\Control\GameRegistry.h" />
     <ClInclude Include="..\..\source\Control\GameManager.h" />
+    <ClInclude Include="..\..\source\Control\FreeGamePersistManager.h" />
     <ClInclude Include="..\..\source\Control\GenerationResult\GameResultRegistry.h" />
     <ClInclude Include="..\..\source\Control\Lottery.h" />
     <ClInclude Include="..\..\source\Control\LotteryManager.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="..\..\source\Control\GameConfig.c" />
     <ClCompile Include="..\..\source\Control\GameRegistry.c" />
     <ClCompile Include="..\..\source\Control\GameManager.c" />
+    <ClCompile Include="..\..\source\Control\FreeGamePersistManager.c" />
     <ClCompile Include="..\..\source\Control\GenerationResult\GameResultRegistry.c" />
     <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_1700.c" />
     <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3993.c" />

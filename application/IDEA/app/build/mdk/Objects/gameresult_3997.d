@@ -52,5 +52,7 @@
 .\objects\gameresult_3997.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
 .\objects\gameresult_3997.o: ..\..\source\Control/GameConfig.h
 .\objects\gameresult_3997.o: ..\..\source\Control/GameManager.h
+.\objects\gameresult_3997.o: ..\..\source\Control/FreeGamePersistManager.h
+.\objects\gameresult_3997.o: ..\..\source\Control/GameManager.h
 .\objects\gameresult_3997.o: ..\..\source\Control/NatureAlg.h
 .\objects\gameresult_3997.o: ..\..\source\Control/../GameAlgo/common/JRand.h

@@ -53,3 +53,5 @@
 .\objects\commonstruct.o: ..\..\source\Control\Test.h
 .\objects\commonstruct.o: ..\..\source\Control\Matrix/Matrix_u_TriggersById.h
 .\objects\commonstruct.o: ..\..\source\Control/GameManager.h
+.\objects\commonstruct.o: ..\..\source\Control/FreeGamePersistManager.h
+.\objects\commonstruct.o: ..\..\source\Control/GameManager.h

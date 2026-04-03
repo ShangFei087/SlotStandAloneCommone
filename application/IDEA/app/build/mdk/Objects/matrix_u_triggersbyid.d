@@ -52,3 +52,5 @@
 .\objects\matrix_u_triggersbyid.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
 .\objects\matrix_u_triggersbyid.o: ..\..\source\Control/GameConfig.h
 .\objects\matrix_u_triggersbyid.o: ..\..\source\Control/GameManager.h
+.\objects\matrix_u_triggersbyid.o: ..\..\source\Control/FreeGamePersistManager.h
+.\objects\matrix_u_triggersbyid.o: ..\..\source\Control/GameManager.h

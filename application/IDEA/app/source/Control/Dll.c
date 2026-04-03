@@ -9,6 +9,7 @@
 #include "TableControl.h"
 #include "LotteryManager.h"
 #include "Test.h"
+#include "GameManager.h"
 #include "../GameAlgo/common/JRand.h"
 
 
@@ -77,12 +78,12 @@ int8_t DLL_GameSwitch(GameInstanceId_t gameId)
 	return ok;
 }
 // 生成一局结果
-void GenerateARound(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
+void GenerateARound(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	GenerationResult_GenerateNormal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
 }
 //应用调试模式
-void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
+void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	//调试模式
 #ifdef _DebugControlMode
@@ -143,7 +144,7 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 #endif
 }
 //应用RoundInfo到输出结果
-void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, int32_t* idVec, GameInstanceId_t gameId)
+void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	GenerationResult_ApplyMatrixToOutResByRound(pRes, resType, info, Mxu, idVec, gameId);
 }
@@ -185,22 +186,25 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 		outRes->openType = OT_Give;
 		*ret = 5;
 
+		/* 每局赠送结束后更新游标/剩余倍数并落盘，断电后可从下一局 nCurFreeIdx 继续 */
+		FreeGamePersist_Save(inst);
+
 		return;
 	}
 	else
 	{
 		Matrix_u mxu;
 		Matrix_u_reset(&mxu);
-		int32_t idVec[GE_MaxIDNum] = { 0 };
+		uint16_t idVec[GE_MaxIDNum] = { 0 };
 		int32_t matrixBet = 0;
 		int32_t bRes = 0;
 		int64_t fishValue = 0;                                       // 候选理论支付分
 		const RtpProfileConfig* profile = TableControl_GetActiveProfile(); // 当前生效难度配置
 
 		//生成结果
-		GenerateARound(&ri, inst, &mxu, betVal, &matrixBet, &idVec, gameId);
+		GenerateARound(&ri, inst, &mxu, betVal, &matrixBet, idVec, gameId);
 		//应用调试模式。
-		ApplyDebugMode(&ri, inst, &mxu, betVal, &matrixBet, &idVec, gameId);
+		ApplyDebugMode(&ri, inst, &mxu, betVal, &matrixBet, idVec, gameId);
 		ri.resType = mxu.resultType;
 		ri.nMatrixBet = matrixBet;
 
@@ -218,7 +222,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 			outRes->nJPType = JT_None;
 			outRes->nJPBet = 0;
 			//强制输局
-			GenerationResult_GenerateLose(inst, &mxu, &idVec, gameId);
+			GenerationResult_GenerateLose(inst, &mxu, idVec, gameId);
 			outRes->resType = RT_Lose;     // 标记输局
 			outRes->nMatrixBet = 0;        // 线奖清零
 			outRes->openType = OT_Normal;  // 仍属于普通付费开局
@@ -263,6 +267,8 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 				//应用RoundInfo到outRes
 				ApplyMatrixToOutResByRound(outRes, RT_FreeWin, &ri, &mxu, idVec, gameId); // 写入免费触发输出
 				*ret = 2;                                                          // 返回免费触发编码
+				/* 刚生成整套免费序列，立即持久化，避免触发后掉电丢进度 */
+				FreeGamePersist_Save(inst);
 			}
 			break;
 			case RT_BonusWin:
@@ -322,9 +328,9 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 
 	// RTP 分项统一按“金额口径”累计，仅统计真实付费局（普通开局）。
 	if (outRes->openType == OT_Normal) {
-		g_GameManager.debugInfo.dwBaseWinScore += (int64_t)betValue * outRes->nMatrixBet;
-		g_GameManager.debugInfo.dwFreeWinScore += (int64_t)betValue * outRes->nTotalFreeBet;
-		g_GameManager.debugInfo.dwBonusWinScore += (int64_t)betValue * outRes->nBonusBet;
+		g_GameManager.debugInfo.dwBaseWinScore += (uint32_t)(betValue * outRes->nMatrixBet);
+		g_GameManager.debugInfo.dwFreeWinScore += (uint32_t)(betValue * outRes->nTotalFreeBet);
+		g_GameManager.debugInfo.dwBonusWinScore += (uint32_t)(betValue * outRes->nBonusBet);
 		g_GameManager.debugInfo.dwJackpotWinScore += outRes->nJPBet;
 	}
 

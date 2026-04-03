@@ -2,18 +2,18 @@
 
 #include "../Matrix/Matrix_u_TriggersById.h"
 
-void GameResult_3993_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, int32_t* idVec, GameInstanceId_t gameId)
+void GameResult_3993_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
-	// µ±Ç°ÓëÍ¨ÓÃÂß¼­Ò»ÖÂ
+	// æ­£å¸¸ç»“æœç”Ÿæˆ
 	GameResult_Generic_Normal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
 }
 
-void GameResult_3993_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, int32_t* idVec, GameInstanceId_t gameId)
+void GameResult_3993_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId)
 {
-	// µ±Ç°ÓëÍ¨ÓÃÂß¼­Ò»ÖÂ£¬Ô¤ÁôÃ¿ÓÎÏ·¶ÀÁ¢À©Õ¹µã
+	// è¾“å±€ç»“æœç”Ÿæˆ
 	GameResult_Generic_Lose(inst, loseMxu, idVec, gameId);
 }
-// Ìæ»»ºÚ±ªÍ¼±ê
+// é»‘è±¹è§¦å‘åçš„ç¬¦å·æ›¿æ¢ï¼šæŠŠæŒ‡å®šç¬¦å·æ›¿æ¢ä¸º Wild(9)
 void BPReplaceSymbol(Matrix_u* pMatrix, GameInstance_t* inst, uint8_t type)
 {
 	for (int8_t i = 0; i < inst->gameConfig.header.wheelChessNum; ++i)
@@ -24,39 +24,39 @@ void BPReplaceSymbol(Matrix_u* pMatrix, GameInstance_t* inst, uint8_t type)
 		}
 	}
 }
-//Éú³ÉÒ»¾ÖÃâ·Ñ½±
+// å…è´¹æ¸¸æˆç»“æœç”Ÿæˆ
 void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId)
 {
 	if (info == NULL || inst == NULL || freeMxu == NULL) return;
 
 	Matrix_u mxu;
 	Matrix_u_reset(&mxu);
-	int32_t idVec[GE_MaxIDNum] = { 0 };
+	uint16_t idVec[GE_MaxIDNum] = { 0 };
 
 	uint8_t scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig, inst->gameConfig.header.Scatter);
 	info->nFreeNum = GET_FREE_TIME(inst->gameConfig.header.id, scatterCount - 3);
 	info->nFreeBet = 0;
 
-	int8_t wildMultipliedArray[3] = { 2,3,5 }; //wild±¶ÊıÊı×é
-	int8_t wildMultiplied = 0;//wild±¶Êı
-	int8_t wildCount = 0; //wildÍ¼±êÊıÁ¿
-	int8_t wildindex = 0; //wildÏÂ±ê
-	int8_t blackPantherCount = 0; //ºÚ±ªÍ¼±êÊıÁ¿
-	int8_t BPCollectArray[4] = { 4,10,18,28 }; //ºÚ±ªÍ¼±êÊÕ¼¯Çø¼äÊı×é
-	int8_t symbolChangeArray[4] = { 5,6,7,8 }; //ºÚ±ªÌæ»»Í¼±êµÄÊı×é
+	int8_t wildMultipliedArray[3] = { 2,3,5 }; // Wild å€æ•°è¡¨
+	int8_t wildMultiplied = 0; // å½“å‰è½® Wild å€æ•°
+	int8_t wildCount = 0; // Wild è®¡æ•°ï¼ˆä¿ç•™å­—æ®µï¼‰
+	int8_t wildindex = 0; // Wild ä½ç½®ç´¢å¼•ï¼ˆä¿ç•™å­—æ®µï¼‰
+	int8_t blackPantherCount = 0; // é»‘è±¹ç¬¦å·ç´¯è®¡æ•°é‡
+	int8_t BPCollectArray[4] = { 4,10,18,28 }; // é»‘è±¹æ”¶é›†é˜ˆå€¼æ•°ç»„ï¼šè¾¾åˆ°åæ‰§è¡Œé€çº§æ›¿æ¢
+	int8_t symbolChangeArray[4] = { 5,6,7,8 }; // æ›¿æ¢ç­‰çº§å¯¹åº”çš„ç¬¦å·ç±»å‹
 	for (uint8_t index = 0; index < info->nFreeNum; index++)
 	{
 		Matrix_u_reset(&mxu);
 		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu, inst->gameConfig.header.rowCount);
 
-		//Í³¼ÆºÚ±ªÍ¼±êÊıÁ¿
+		// ç»Ÿè®¡ç›˜é¢é»‘è±¹æ•°é‡ï¼Œå¹¶æ ¹æ®é˜ˆå€¼è§¦å‘é€çº§æ›¿æ¢
 		blackPantherCount += Matrix_u_getTypeNum(&mxu, inst->gameConfig, 9);
-		//ĞèÒªºÚ±ªÌæ»»Í¼±êµÄÇø¼ä
+		// ä»é«˜åˆ°ä½é€çº§åˆ¤æ–­é˜ˆå€¼
 		for (int8_t i = 3; i >=0; --i)
 		{
 			if (blackPantherCount >= BPCollectArray[i])
 			{
-				//ºÚ±ªÌæ»»Í¼±ê
+				// è¾¾åˆ°é˜ˆå€¼åï¼Œé€çº§æ‰§è¡Œç¬¦å·æ›¿æ¢ï¼ˆæœ€ç»ˆæ›¿æ¢åˆ° Wild(9)ï¼‰
 				for (int8_t j = 0; j <= i; ++j)
 				{
 					BPReplaceSymbol(&mxu, inst, symbolChangeArray[j]);
@@ -91,7 +91,7 @@ void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 		info->pFreeMxu[index].resultType = mxu.resultType;
 	}
 }
-//Éú³ÉÒ»¾Ö´ó½±
+// å¥–åŠ±/å½©é‡‘ç»“æœç”Ÿæˆ
 void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId)
 {
 	if (info == NULL) return;
@@ -100,7 +100,7 @@ void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 	uint8_t PosVec[GE_WheelChess3x5Num];
 	uint8_t PosSize = GE_WheelChess3x5Num;
 
-	// ¸´ÖÆÔ­Ê¼Êı×é
+	// åˆå§‹åŒ–å¯æ’å…¥çš„ä½ç½®é›†åˆ
 	for (uint8_t i = 0; i < PosSize; i++)
 	{
 		PosVec[i] = dataArray[i];
@@ -109,7 +109,7 @@ void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 	uint8_t randNum = 0;
 	uint8_t randPos = 0;
 
-	// ÏÈÌîÂúbonusÎ»ÖÃ
+	// éå† Bonus ç¬¦å·å¹¶è®¡ç®—æ¯ä¸ªä½ç½®çš„å½©é‡‘
 	for (uint8_t i = 0; i < inst->gameConfig.header.wheelChessNum; ++i)
 	{
 		if (bonusMxu->dataArray[i] == inst->gameConfig.header.Bonus)
@@ -117,7 +117,7 @@ void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 			info->BonusData[i] = JRandFrom(10, 40) * inst->gameConfig.header.lineCount;
 			info->nBonusBet += info->BonusData[i];
 
-			// ´Ó PosVec ÖĞÉ¾³ıÒÑÊ¹ÓÃµÄÎ»ÖÃ
+			// å¦‚æœä½ç½®å·²è¢«å ç”¨ï¼Œåˆ™ä» PosVec ä¸­åˆ é™¤è¯¥ä½ç½®
 			for (int j = 0; j < PosSize; j++)
 			{
 				if (PosVec[j] == i)
@@ -133,25 +133,25 @@ void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 		}
 	}
 
-	// Ëæ»úbonus
+	// è¿½åŠ éšæœºæ’å…¥ Bonusï¼ˆç¡®ä¿æ•°é‡è¾¾åˆ°é¢„æœŸï¼‰
 	uint8_t insertCount = 0;
 	if (PosSize > 1)
 	{
 		insertCount = JRandFrom(1, PosSize-1);
 	}
-	// insertCount = 8;  // ²âÊÔÓÃ£¬Êµ¼ÊÓ¦×¢ÊÍ
+	// insertCount = 8;  // å›ºå®šæ’å…¥æ•°é‡ç¤ºä¾‹ï¼ˆè°ƒè¯•ç”¨ï¼‰
 
-	// ÔÙÌîÆäËûÎ»ÖÃ
+	// éšæœºæ’å…¥ Bonus åˆ°æœªå ç”¨çš„ä½ç½®
 	for (uint8_t i = 0; i < insertCount; ++i)
 	{
-		// Ëæ»úÑ¡ÔñÒ»¸öÎ»ÖÃË÷Òı
+		// éšæœºé€‰æ‹©ä¸€ä¸ªå¯ç”¨ä½ç½®ç´¢å¼•
 		randNum = JRandFrom(0, PosSize - 1);
-		// »ñÈ¡Êµ¼ÊµÄÁĞÎ»ÖÃ
+		// è·å–è¯¥ç´¢å¼•å¯¹åº”çš„å®é™…è½ç‚¹ä½ç½®
 		randPos = PosVec[randNum];
 		info->BonusData[randPos] = JRandFrom(10, 40) * inst->gameConfig.header.lineCount;
 		info->nBonusBet += info->BonusData[randPos];
 
-		// ´ÓÊı×éÖĞÉ¾³ıÒÑÊ¹ÓÃµÄÎ»ÖÃ
+		// åˆ é™¤å·²ä½¿ç”¨çš„ä½ç½®å¹¶å‘åç§»ä½
 		for (int j = randNum; j < PosSize - 1; j++)
 		{
 			PosVec[j] = PosVec[j + 1];
@@ -168,7 +168,7 @@ int8_t* GameResult_3993_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	int8_t* matrixStr = NULL;
 
 	int8_t curwheelChessNum = inst->gameConfig.header.wheelChessNum;
-	// ·µ»Ø¶ÑÄÚ´æ£¬µ÷ÓÃ·½¸ºÔğ free£»Ê§°Ü·µ»Ø NULL¡£
+	// JSON ç¼“å†²åˆ†é…å¤±è´¥æ—¶ç›´æ¥è¿”å› NULL
 	if (strRes == NULL || outRes == NULL) return NULL;
 
 	strRes[0] = '\0';
@@ -177,7 +177,7 @@ int8_t* GameResult_3993_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	append_format(strRes, 2048, &used, "\"OpenType\":%d,", outRes->openType);
 	append_format(strRes, 2048, &used, "\"ResultType\":%d,", outRes->resType);
 
-	idVecStr = ArrayToString((int32_t*)outRes->IDVec, GE_MaxIDNum, 0);
+	idVecStr = ArrayU16ToString(outRes->IDVec, GE_MaxIDNum, 0);
 	append_format(strRes, 2048, &used, "\"IDVec\":%s,", idVecStr ? (const char*)idVecStr : "[]");
 
 	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
@@ -201,9 +201,9 @@ int8_t* GameResult_3993_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	}
 
 	uint8_t bonusCount = 0;
-	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3¸ö×ªÅÌÍ¼±ê¿ÉÒÔµÃµ½1ÁĞwildÍ¼±ê£¬4¸ö×ªÅÌ¿ÉÒÔµÄ2ÁĞ......
+	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3 ä¸ªè½¬ç›˜å›¾æ ‡å¾—åˆ° 1 åˆ— Wildï¼Œ4 ä¸ªå¾—åˆ° 2 åˆ—...
 	int8_t* bonusStr;
-	// gameId Ê§ÅäÊ±¸øÄ¬ÈÏÖµ£¬±ÜÃâ¿ÕÊµÀıµ¼ÖÂ·ÃÎÊ·Ç·¨ÄÚ´æ¡£
+	// å¦‚æœ inst ä¸ä¸ºç©ºï¼Œåˆ™è®¡ç®— Bonus ç¬¦å·æ•°é‡
 	if (inst != NULL)
 	{
 		bonusCount = Matrix_u_getTypeNum(&outRes->matrix, inst->gameConfig, inst->gameConfig.header.Bonus);
@@ -212,12 +212,12 @@ int8_t* GameResult_3993_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	{
 		append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
 		append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
-		bonusStr = ArrayToString((int32_t*)outRes->BonusData, curwheelChessNum, 1);
+		bonusStr = ArrayU16ToString(outRes->BonusData, curwheelChessNum, 1);
 		append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
 		free(bonusStr);
 	}
 
-	//ÖĞÁË²Ê½ğ
+	// JP å¥–é‡‘/ç§¯åˆ†ï¼ˆä»…å½“æœ‰ JP æŠ•æ³¨æ—¶è¾“å‡ºï¼‰
 	if (outRes->nJPBet > 0)
 	{
 		append_format(strRes, 2048, &used, "\"JPType\":%d", outRes->nJPType);

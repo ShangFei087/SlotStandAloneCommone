@@ -1,12 +1,12 @@
 #include "GameResultRegistry.h"
 
 
-void GameResult_3998_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,int32_t* idVec,GameInstanceId_t gameId)
+void GameResult_3998_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,uint16_t* idVec,GameInstanceId_t gameId)
 {
 	GameResult_Generic_Normal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
 }
 
-void GameResult_3998_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,int32_t* idVec,GameInstanceId_t gameId)
+void GameResult_3998_GenLose(GameInstance_t* inst,Matrix_u* loseMxu,uint16_t* idVec,GameInstanceId_t gameId)
 {
 	GameResult_Generic_Lose(inst, loseMxu, idVec, gameId);
 }
@@ -20,7 +20,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 	Matrix_u mxu;
 	Matrix_u_reset(&mxu);
 
-	int32_t idVec[GE_MaxIDNum] = { 0 };
+	uint16_t idVec[GE_MaxIDNum] = { 0 };
 	uint8_t bonusCount = Matrix_u_getTypeNum(bonusMxu, inst->gameConfig, inst->gameConfig.header.Bonus);
 	Matrix_u_copy(&mxu, bonusMxu);
 
@@ -163,7 +163,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 				}
 #endif // _IMHERE
 
-				info->nBonusBet = Matrix_u_computerMatrixById(&mxu, &idVec, &inst->gameConfig, (uint32_t)gameId);
+				info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
 				bonusMxu->idVecSize = mxu.idVecSize;
 				for (uint8_t i = 0; i < mxu.idVecSize; ++i)
 				{
@@ -347,7 +347,7 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 	Matrix_u tempmxu;
 	Matrix_u_reset(&tempmxu);
 
-	int32_t idVec[GE_MaxIDNum] = { 0 };
+	uint16_t idVec[GE_MaxIDNum] = { 0 };
 
 	// 3998 免费：根据 Bonus 触发位置计算免费次数
 	uint8_t scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig, inst->gameConfig.header.Bonus);
@@ -428,7 +428,7 @@ int8_t* GameResult_3998_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	append_format(strRes, 2048, &used, "\"OpenType\":%d,", outRes->openType);
 	append_format(strRes, 2048, &used, "\"ResultType\":%d,", outRes->resType);
 
-	idVecStr = ArrayToString((int32_t*)outRes->IDVec, GE_MaxIDNum, 0);
+	idVecStr = ArrayU16ToString(outRes->IDVec, GE_MaxIDNum, 0);
 	append_format(strRes, 2048, &used, "\"IDVec\":%s,", idVecStr ? (const char*)idVecStr : "[]");
 
 	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
@@ -468,7 +468,7 @@ int8_t* GameResult_3998_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 			// wild 模式依赖 3~6 个 bonus 触发，先夹断避免数组越界。
 			if (bonusCount < 3) bonusCount = 3;
 			if (bonusCount > 6) bonusCount = 6;
-			bonusStr = ArrayToString((int32_t*)outRes->BonusData, wildColCountArray[bonusCount - 3], 1);
+			bonusStr = ArrayU16ToString(outRes->BonusData, wildColCountArray[bonusCount - 3], 1);
 			append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
 			free(bonusStr);
 		}
@@ -476,7 +476,7 @@ int8_t* GameResult_3998_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 		//神秘
 		case 1:
 		{
-			bonusStr = ArrayToString((int32_t*)outRes->BonusData, curwheelChessNum, 1);
+			bonusStr = ArrayU16ToString(outRes->BonusData, curwheelChessNum, 1);
 			append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
 			append_format(strRes, 2048, &used, "\"BlindSymbol\":%d,", outRes->BlindSymbol);
 			free(bonusStr);

@@ -30,7 +30,7 @@ void MatrixApplyTriggers_3996(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, u
     }
 }
 
-uint32_t computeLineFreeWins_3996(Matrix_u* pMatrix, int32_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId, int8_t* wildData)
+uint32_t computeLineFreeWins_3996(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId, int8_t* wildData)
 {
     if (pMatrix == NULL || idVec == NULL || gameConfig == NULL) return 0;
     const MatrixTriggerOps_t* ops = MatrixTriggerOps_t_Get(gameId);
@@ -47,8 +47,8 @@ uint32_t computeLineFreeWins_3996(Matrix_u* pMatrix, int32_t* idVec, SlotGameCon
     uint32_t nLocalWinBet = 0;
     CheckOnLineResult_t clr;
     uint8_t idVecCount = 0;
-    int8_t wildMultiplied = 0;//wild±¶Êı
-    // °´ÏßÖğÌõ¼ÆËãÖĞ½±
+    int8_t wildMultiplied = 0; // Wild å€æ•°
+    // ç»Ÿè®¡è¿çº¿å¹¶è®¡ç®—æœ¬åœ°èµ¢æ³¨
     for (uint8_t i = 0; i < gameConfig->header.lineCount; ++i)
     {
         wildMultiplied = 0;
@@ -75,11 +75,11 @@ uint32_t computeLineFreeWins_3996(Matrix_u* pMatrix, int32_t* idVec, SlotGameCon
             }
 
 
-            // ID ±àÂë£ºÇ§Î»=ÏßºÅ£¬°ÙÎ»=Á¬ÖĞÊıÁ¿£¬Ê®Î»/¸öÎ»=Í¼±êÀàĞÍ
-            int32_t nID = (int32_t)i * 1000 + (int32_t)clr.nEliminateNum * 100 + (int32_t)clr.nAvailChessType;
+            // ID ç¼–ç ï¼šåƒä½=çº¿ç¼–å·(i)ï¼Œç™¾ä½=æ¶ˆé™¤æ•°é‡(clr.nEliminateNum)ï¼Œä¸ªä½=å¯ç”¨æ£‹å­ç±»å‹(clr.nAvailChessType)
+            uint32_t nID = ((uint32_t)i * 1000u) + ((uint32_t)clr.nEliminateNum * 100u) + (uint32_t)clr.nAvailChessType;
 
             pMatrix->resultType = RT_Win; // RT_Win
-            idVec[idVecCount++] = nID;
+            idVec[idVecCount++] = (uint16_t)nID;
         }
     }
 

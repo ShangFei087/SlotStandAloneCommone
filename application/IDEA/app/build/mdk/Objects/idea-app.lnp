@@ -11,6 +11,7 @@
 ".\objects\naturealg.o"
 ".\objects\gameconfig.o"
 ".\objects\gamemanager.o"
+".\objects\freegamepersistmanager.o"
 ".\objects\lottery.o"
 ".\objects\lotterymanager.o"
 ".\objects\gameresult_1700.o"

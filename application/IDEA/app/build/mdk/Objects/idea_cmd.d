@@ -64,6 +64,8 @@
 .\objects\idea_cmd.o: ..\..\source\Control/GameConfig.h
 .\objects\idea_cmd.o: ..\..\source\Control/DllInterface.h
 .\objects\idea_cmd.o: ..\..\source\Control/GameManager.h
+.\objects\idea_cmd.o: ..\..\source\Control/FreeGamePersistManager.h
+.\objects\idea_cmd.o: ..\..\source\Control/GameManager.h
 .\objects\idea_cmd.o: ..\..\source\Control/RtpConfig.h
 .\objects\idea_cmd.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\idea_cmd.o: ..\..\source\Control/LotteryManager.h

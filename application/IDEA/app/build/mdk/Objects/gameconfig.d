@@ -51,3 +51,5 @@
 .\objects\gameconfig.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
 .\objects\gameconfig.o: ..\..\source\Control\GameManager.h
 .\objects\gameconfig.o: ..\..\source\Control\CommonStruct.h
+.\objects\gameconfig.o: ..\..\source\Control\FreeGamePersistManager.h
+.\objects\gameconfig.o: ..\..\source\Control\GameManager.h

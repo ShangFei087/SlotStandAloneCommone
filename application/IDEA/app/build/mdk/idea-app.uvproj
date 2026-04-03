@@ -534,6 +534,11 @@
               <FilePath>..\..\source\Control\GameManager.c</FilePath>
             </File>
             <File>
+              <FileName>FreeGamePersistManager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\FreeGamePersistManager.c</FilePath>
+            </File>
+            <File>
               <FileName>Lottery.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\source\Control\Lottery.c</FilePath>

@@ -57,3 +57,9 @@
 .\objects\idea_app.o: ..\..\source\idea_player.h
 .\objects\idea_app.o: ..\..\source\idea_cmd.h
 .\objects\idea_app.o: ..\..\source\./GameAlgo/algo/ga.h
+.\objects\idea_app.o: ..\..\source\Control/GameManager.h
+.\objects\idea_app.o: ..\..\source\Control/ComputerData.h
+.\objects\idea_app.o: ..\..\source\Control/CommonStruct.h
+.\objects\idea_app.o: ..\..\source\Control/GameConfig.h
+.\objects\idea_app.o: ..\..\source\Control/FreeGamePersistManager.h
+.\objects\idea_app.o: ..\..\source\Control/GameManager.h
