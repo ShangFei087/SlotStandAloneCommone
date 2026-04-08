@@ -449,6 +449,7 @@ void FreeGameInfo_t_Reset(FreeGameInfo_t* obj)
 	obj->nRemainFreeBet = 0;
 	obj->nBetVal = 0;
 	obj->nTotalFreeTime = 0;
+	obj->nFreeTotalWin = 0;
 }
 //-------------------------------------------------------------------------------------
 

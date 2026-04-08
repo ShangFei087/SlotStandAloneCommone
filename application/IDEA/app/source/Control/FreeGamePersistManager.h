@@ -8,11 +8,10 @@
 /* 多实例免费局持久化：每槽绑定一个 gameId，最多 GAME_INSTANCE_ID_MAX 路同时进行中的免费 */
 #define FREE_GAME_PERSIST_BLOB_MAGIC   ((uint32_t)0x46525042u) /* 'FRPB' */
 #define FREE_GAME_PERSIST_SLOT_MAGIC   ((uint32_t)0x4652534Cu) /* 'FRSL' */
-#define FREE_GAME_PERSIST_VERSION      ((uint32_t)3u) /* 槽位字段类型调整（RoundInfo_t: FreeIDVec 等）后递增 */
+#define FREE_GAME_PERSIST_VERSION      ((uint32_t)4u) /* 新增 FreeGameInfo_t.nFreeTotalWin 持久化字段 */
 
 /* 单路游戏的免费快照：与 RAM 中 GameInstance_t.freeGameInfo 对应，按 gameId 查找 */
 typedef struct {
-    uint8_t nFreeNum;
     int8_t nCurFreeIdx;
     int8_t nTotalFreeTime;
     int8_t WildPosArray[GE_MaxFreeNum][GE_WheelChessMaxNum];
@@ -22,6 +21,7 @@ typedef struct {
     uint32_t slotMagic;       /* FREE_GAME_PERSIST_SLOT_MAGIC 表示本槽有效 */
     int32_t nRemainFreeBet;
     int32_t nBetVal;
+    uint16_t nFreeTotalWin;
     uint32_t FreeBetArray[GE_MaxFreeNum];
     uint32_t nFreeBet;
 } FreeGamePersistSlot_t;

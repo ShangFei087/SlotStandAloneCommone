@@ -181,7 +181,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 		//如果全部免费局获取完，将剩余免费次数设为0
 		if (inst->freeGameInfo.nCurFreeIdx == inst->freeGameInfo.nTotalFreeTime)
 		{
-
+			QS_LOG("\r\ninst->freeGameInfo.nRemainFreeBet :%d", inst->freeGameInfo.nRemainFreeBet);
 		}
 		outRes->openType = OT_Give;
 		*ret = 5;
@@ -264,6 +264,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 				inst->freeGameInfo.nCurFreeIdx = 0;                           // 免费局游标归零
 				inst->freeGameInfo.nTotalFreeTime = ri.nFreeNum;              // 记录免费总次数
 				inst->freeGameInfo.nRemainFreeBet = ri.nFreeBet;              // 记录剩余免费总倍数
+				inst->freeGameInfo.nFreeTotalWin = (uint16_t)ri.nFreeBet;     // 记录免费总赢分（16位存储）
 				//应用RoundInfo到outRes
 				ApplyMatrixToOutResByRound(outRes, RT_FreeWin, &ri, &mxu, idVec, gameId); // 写入免费触发输出
 				*ret = 2;                                                          // 返回免费触发编码
@@ -399,14 +400,14 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 	}
 
 	// 拼接最终字符串
-	append_format(finalString, sizeof(finalString), &finalUsed, " optTypeStr:%s resTypeStr:%s betValue:%d nMatrixBet:%d ",
+	append_format(finalString, sizeof(finalString), &finalUsed, "\r\noptTypeStr:%s resTypeStr:%s betValue:%d nMatrixBet:%d ",
 		optTypeStr, resTypeStr, betValue, outRes->nMatrixBet);
 	int64_t expScore = (int64_t)pUserInfo->Wins + ((int64_t)betValue * (int64_t)outRes->nMatrixBet);
 	append_format(finalString, sizeof(finalString), &finalUsed, "totalscore:%lld expectation:%lld %s",
 		(long long)pUserInfo->Wins, (long long)expScore, resString);
 
 
-	QS_LOG("%s\n", finalString);
+	QS_LOG("\r\n%s", finalString);
 #ifdef _WritePlayerData
 	int8_t* jsonStr = OutResToJsonnById(outRes, gameId);
 	if (jsonStr != NULL)

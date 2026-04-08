@@ -673,13 +673,21 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		//调用游戏算法生成结果
 		DLL_GetGameResultById(pItem, betmultiple, &outres, &ret, gameId);
 		
-		//先把所有的分数加完
+		//加分
 		if (outres.openType == OT_Normal)
 		{
-			TotalWin = betmultiple *(outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
-
-			//QS_LOG("\r\n Win:%d", TotalWin);
+			//TotalWin = betmultiple *(outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
+			TotalWin = betmultiple *(outres.nMatrixBet + outres.nBonusBet);
 			player_bets_info_update(player_id, 0, TotalWin);
+		}
+		else
+		{
+			//免费最后一局才加免费总得分
+			if (g_CurrentGameInstance->freeGameInfo.nTotalFreeTime == g_CurrentGameInstance->freeGameInfo.nCurFreeIdx)
+			{
+				TotalWin = betmultiple * g_CurrentGameInstance->freeGameInfo.nFreeTotalWin;
+				player_bets_info_update(player_id, 0, TotalWin);
+			}
 		}
 		//输出游戏结果到Senv
 		DLL_OutResToSenvById(&outres, res, gameId);

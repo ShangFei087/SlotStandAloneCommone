@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\idea-app.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\idea-app.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Fri Apr 03 17:35:48 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Apr 08 19:12:03 2026
 <BR><P>
 <H3>Maximum Stack Usage =       5400 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1789,11 +1789,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameManager_InitInstance
 </UL>
 
-<P><STRONG><a name="[172]"></a>FreeGameInfo_t_Reset</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, commonstruct.o(i.FreeGameInfo_t_Reset))
+<P><STRONG><a name="[172]"></a>FreeGameInfo_t_Reset</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, commonstruct.o(i.FreeGameInfo_t_Reset))
 <BR><BR>[Called By]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetNormalResult
 </UL>
 
-<P><STRONG><a name="[13d]"></a>FreeGamePersist_ClearByGameId</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, freegamepersistmanager.o(i.FreeGamePersist_ClearByGameId))
+<P><STRONG><a name="[13d]"></a>FreeGamePersist_ClearByGameId</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, freegamepersistmanager.o(i.FreeGamePersist_ClearByGameId))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = FreeGamePersist_ClearByGameId &rArr; freegame_persist_find_slot_for_game
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;freegame_persist_find_slot_for_game
@@ -1802,7 +1802,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FreeGamePersist_Save
 </UL>
 
-<P><STRONG><a name="[13f]"></a>FreeGamePersist_Init</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, freegamepersistmanager.o(i.FreeGamePersist_Init))
+<P><STRONG><a name="[13f]"></a>FreeGamePersist_Init</STRONG> (Thumb, 106 bytes, Stack size 8 bytes, freegamepersistmanager.o(i.FreeGamePersist_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 980<LI>Call Chain = FreeGamePersist_Init &rArr; idea_database_connect &rArr; qs_database_connect &rArr; database_data_init &rArr; mm_read &rArr; qs_mm_read &rArr; mm_block_write &rArr; qs_des_ecb_encrypt &rArr; des_key_set &rArr; des_3key &rArr; des_main_ks
 </UL>
 <BR>[Calls]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;idea_database_connect
@@ -1812,7 +1812,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;idea_app_init
 </UL>
 
-<P><STRONG><a name="[142]"></a>FreeGamePersist_Save</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, freegamepersistmanager.o(i.FreeGamePersist_Save))
+<P><STRONG><a name="[142]"></a>FreeGamePersist_Save</STRONG> (Thumb, 102 bytes, Stack size 16 bytes, freegamepersistmanager.o(i.FreeGamePersist_Save))
 <BR><BR>[Stack]<UL><LI>Max Depth = 472<LI>Call Chain = FreeGamePersist_Save &rArr; qs_log &rArr; qs_pprintf &rArr; __ltoa__ &rArr; __aeabi_uldivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;qs_log
@@ -1826,7 +1826,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetNormalResult
 </UL>
 
-<P><STRONG><a name="[146]"></a>FreeGamePersist_TryRestore</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, freegamepersistmanager.o(i.FreeGamePersist_TryRestore))
+<P><STRONG><a name="[146]"></a>FreeGamePersist_TryRestore</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, freegamepersistmanager.o(i.FreeGamePersist_TryRestore))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = FreeGamePersist_TryRestore &rArr; freegame_persist_slot_unpack &rArr; RoundInfo_t_Init &rArr; Matrix_u_reset
 </UL>
 <BR>[Calls]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;freegame_persist_slot_unpack
@@ -1861,7 +1861,7 @@ Global Symbols
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameConfigRegistry_InitDefaults
 </UL>
 
-<P><STRONG><a name="[14d]"></a>GameManager_FindGameByName</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, gamemanager.o(i.GameManager_FindGameByName))
+<P><STRONG><a name="[14d]"></a>GameManager_FindGameByName</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, gamemanager.o(i.GameManager_FindGameByName))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = GameManager_FindGameByName
 </UL>
 <BR>[Calls]<UL><LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
@@ -1878,7 +1878,7 @@ Global Symbols
 <LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_instance
 </UL>
 
-<P><STRONG><a name="[14f]"></a>GameManager_GetInstance</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, gamemanager.o(i.GameManager_GetInstance))
+<P><STRONG><a name="[14f]"></a>GameManager_GetInstance</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, gamemanager.o(i.GameManager_GetInstance))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = GameManager_GetInstance
 </UL>
 <BR>[Called By]<UL><LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RegisterGameWithConfig
@@ -2478,13 +2478,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DLL_GetGameResultById
 </UL>
 
-<P><STRONG><a name="[12d]"></a>GetNormalResult</STRONG> (Thumb, 674 bytes, Stack size 3224 bytes, dll.o(i.GetNormalResult))
+<P><STRONG><a name="[12d]"></a>GetNormalResult</STRONG> (Thumb, 698 bytes, Stack size 3224 bytes, dll.o(i.GetNormalResult))
 <BR><BR>[Stack]<UL><LI>Max Depth = 3696<LI>Call Chain = GetNormalResult &rArr; FreeGamePersist_Save &rArr; qs_log &rArr; qs_pprintf &rArr; __ltoa__ &rArr; __aeabi_uldivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoundInfo_t_Init
 <LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoundInfo_t_Copy
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Matrix_u_reset
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FreeGameInfo_t_Reset
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;qs_log
 <LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OutResult_Init
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TableControl_OnFireWeapon
 <LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TableControl_OnEndShot
@@ -3426,15 +3427,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;qs_platform_init
 </UL>
 
-<P><STRONG><a name="[153]"></a>find_slot</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, gamemanager.o(i.find_slot))
+<P><STRONG><a name="[153]"></a>find_slot</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, gamemanager.o(i.find_slot))
 <BR><BR>[Called By]<UL><LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameManager_RegisterGame
 </UL>
 
-<P><STRONG><a name="[144]"></a>freegame_persist_find_empty_slot</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, freegamepersistmanager.o(i.freegame_persist_find_empty_slot))
+<P><STRONG><a name="[144]"></a>freegame_persist_find_empty_slot</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, freegamepersistmanager.o(i.freegame_persist_find_empty_slot))
 <BR><BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FreeGamePersist_Save
 </UL>
 
-<P><STRONG><a name="[13e]"></a>freegame_persist_find_slot_for_game</STRONG> (Thumb, 50 bytes, Stack size 12 bytes, freegamepersistmanager.o(i.freegame_persist_find_slot_for_game))
+<P><STRONG><a name="[13e]"></a>freegame_persist_find_slot_for_game</STRONG> (Thumb, 48 bytes, Stack size 12 bytes, freegamepersistmanager.o(i.freegame_persist_find_slot_for_game))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = freegame_persist_find_slot_for_game
 </UL>
 <BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FreeGamePersist_TryRestore
@@ -3458,7 +3459,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FreeGamePersist_TryRestore
 </UL>
 
-<P><STRONG><a name="[145]"></a>freegame_persist_slot_pack</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, freegamepersistmanager.o(i.freegame_persist_slot_pack))
+<P><STRONG><a name="[145]"></a>freegame_persist_slot_pack</STRONG> (Thumb, 128 bytes, Stack size 16 bytes, freegamepersistmanager.o(i.freegame_persist_slot_pack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = freegame_persist_slot_pack &rArr; __aeabi_memcpy4
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
@@ -4462,6 +4463,7 @@ Global Symbols
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameManager_Init
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FreeGamePersist_Init
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FreeGamePersist_Save
+<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetNormalResult
 <LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;qs_mem_free
 <LI><a href="#[16]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;qs_mem_alloc
 </UL>
@@ -5272,7 +5274,7 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> app.o(i.app_init)
 </UL>
-<P><STRONG><a name="[73]"></a>SenvReadCallback</STRONG> (Thumb, 5070 bytes, Stack size 960 bytes, idea_cmd.o(i.SenvReadCallback))
+<P><STRONG><a name="[73]"></a>SenvReadCallback</STRONG> (Thumb, 5110 bytes, Stack size 960 bytes, idea_cmd.o(i.SenvReadCallback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 5400 + Unknown Stack Size
 <LI>Call Chain = SenvReadCallback &rArr; DLL_GetGameResultById &rArr; GetNormalResult &rArr; FreeGamePersist_Save &rArr; qs_log &rArr; qs_pprintf &rArr; __ltoa__ &rArr; __aeabi_uldivmod
 </UL>

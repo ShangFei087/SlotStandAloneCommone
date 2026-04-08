@@ -34,10 +34,10 @@ void freegame_persist_slot_pack(FreeGamePersistSlot_t* s, const GameInstance_t* 
     s->nCurFreeIdx = inst->freeGameInfo.nCurFreeIdx;
     s->nTotalFreeTime = inst->freeGameInfo.nTotalFreeTime;
     s->nRemainFreeBet = inst->freeGameInfo.nRemainFreeBet;
+    s->nFreeTotalWin = inst->freeGameInfo.nFreeTotalWin;
     memcpy(s->pFreeMxu, ri->pFreeMxu, sizeof(s->pFreeMxu));
     memcpy(s->FreeBetArray, ri->FreeBetArray, sizeof(s->FreeBetArray));
     memcpy(s->FreeIDVec, ri->FreeIDVec, sizeof(s->FreeIDVec));
-    s->nFreeNum = ri->nFreeNum;
     s->nFreeBet = ri->nFreeBet;
     memcpy(s->WildPosArray, ri->WildPosArray, sizeof(s->WildPosArray));
 }
@@ -51,10 +51,10 @@ void freegame_persist_slot_unpack(GameInstance_t* inst, const FreeGamePersistSlo
     inst->freeGameInfo.nCurFreeIdx = s->nCurFreeIdx;
     inst->freeGameInfo.nTotalFreeTime = s->nTotalFreeTime;
     inst->freeGameInfo.nRemainFreeBet = s->nRemainFreeBet;
+    inst->freeGameInfo.nFreeTotalWin = s->nFreeTotalWin;
     memcpy(ri->pFreeMxu, s->pFreeMxu, sizeof(s->pFreeMxu));
     memcpy(ri->FreeBetArray, s->FreeBetArray, sizeof(s->FreeBetArray));
     memcpy(ri->FreeIDVec, s->FreeIDVec, sizeof(s->FreeIDVec));
-    ri->nFreeNum = s->nFreeNum;
     ri->nFreeBet = s->nFreeBet;
     memcpy(ri->WildPosArray, s->WildPosArray, sizeof(s->WildPosArray));
     ri->pCurCri = NULL;
@@ -74,7 +74,8 @@ int32_t freegame_persist_find_slot_for_game(GameInstanceId_t gameId)
 int32_t freegame_persist_find_empty_slot(void)
 {
     for (int32_t i = 0; i < GAME_INSTANCE_ID_MAX; i++) {
-        if (g_FreeGamePersistManager.slots[i].slotMagic != FREE_GAME_PERSIST_SLOT_MAGIC) {
+        if (g_FreeGamePersistManager.slots[i].slotMagic != FREE_GAME_PERSIST_SLOT_MAGIC) 
+        {
             return i;
         }
     }
@@ -92,6 +93,11 @@ void FreeGamePersist_Init(void)
     else
     {
         QS_LOG("\r\n [GM]FreeGame persist blob init: flag=%u (expect=%u), keep persisted debug data", g_FreeGamePersistManager.blobMagic, FREE_GAME_PERSIST_VERSION);
+        QS_LOG("\r\n gameId : %d", g_FreeGamePersistManager.slots[0].gameId);
+        QS_LOG("\r\n nBetVal : %d", g_FreeGamePersistManager.slots[0].nBetVal);
+        QS_LOG("\r\n nCurFreeIdx : %d", g_FreeGamePersistManager.slots[0].nCurFreeIdx);
+        QS_LOG("\r\n nRemainFreeBet : %d", g_FreeGamePersistManager.slots[0].nTotalFreeTime);
+        QS_LOG("\r\n nFreeBet : %d", g_FreeGamePersistManager.slots[0].nFreeBet);
     }
 }
 

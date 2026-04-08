@@ -433,7 +433,7 @@ static const uint8_t* gLineCheckArray[GAME_INSTANCE_ID_MAX] ={
 };
 #define GET_LINE_VALUE(game, line, col) (gLineCheckArray[game][(line) * COL_MAX + (col)]* COL_MAX + col)   // 直线编码映射（用于线判断/取值）
 //---------------------------------------免费时长------------------------------------------------//;;
-static const uint8_t gZhuZaiJinBi_1700_FreeTime[6] = { 3, 0, 0, 0, 0, 0 };
+static const uint8_t gZhuZaiJinBi_1700_FreeTime[6] = { 5, 5, 5, 0, 0, 0 };
 //---------------------财富之门免费局配置---------------------//
 static const uint8_t gCaiFuZhiMen_3999_FreeTime[6] = { 8, 10, 12, 0, 0, 0 };
 static const uint8_t gXingYunZhiLun_3998_FreeTime[6] = { 4, 5, 6, 0, 0, 0 };

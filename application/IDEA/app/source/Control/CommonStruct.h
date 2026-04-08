@@ -86,6 +86,7 @@ typedef struct {
 	uint8_t nCurFreeIdx;
 	uint8_t nTotalFreeTime;
 	int32_t nRemainFreeBet;
+	uint16_t nFreeTotalWin;
 } FreeGameInfo_t;
 
 // FreeGameInfo_t 初始化/重置
