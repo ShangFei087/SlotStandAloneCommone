@@ -26,6 +26,7 @@
 #include "app.h"
 #include "Control/NatureAlg.h"
 #include "Control/DllInterface.h"
+#include "Control/CommonStruct.h"
 #include "Control/Test.h"
 #include "Control/LotteryManager.h"
 #include "Control/ComputerData.h"
@@ -90,11 +91,12 @@ int32_t main(int32_t argc, char *argv[])
     DebugControlMode_Init(&debugMode);
 	//debugMode.resType = RT_Win;
 	//debugMode.resType = RT_Lose;
-	debugMode.resType = RT_FreeWin;
+	//debugMode.resType = RT_FreeWin;
 	//debugMode.resType = RT_BonusWin;
+    //debugMode.resType = RT_Jackpot;
     //debugMode.bonusType =1;
-	debugMode.mode = DCM_PointResData;
-	//debugMode.mode = DCM_Normal;
+	//debugMode.mode = DCM_PointResData;
+    debugMode.mode = DCM_Normal;
     DLL_SetControlDebugMode(&debugMode);
 
     // 设置当前区域+RTP档位（这里使用国内 99.2 档）。
@@ -116,9 +118,9 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(1700))
+    if (DLL_GameSwitch(3998))
     {
-        gameId = 1700;
+        gameId = 3998;
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -143,8 +145,6 @@ int32_t main(int32_t argc, char *argv[])
     }
 
     int32_t ret = 0;
-    int32_t jpvaule = 0;
-    uint8_t jpType = 0;
     uint32_t TotalWin = 0;
 #define _TestTime 300000
 
@@ -154,10 +154,9 @@ int32_t main(int32_t argc, char *argv[])
         //10台机子并行跑
         for (uint32_t machineIdx = 0; machineIdx < _TestMachineCount; ++machineIdx)
         {
+            TotalWin = 0;
             player_data_item* pItem = &testPlayers[machineIdx];
             OutResult_Init(&outres);
-            jpvaule = 0;
-            jpType = 0;
 
             outres.openType = OT_Normal;
             if (giveTime[machineIdx] > 0)
@@ -176,14 +175,7 @@ int32_t main(int32_t argc, char *argv[])
             else
             {
                 pItem->Bets += totalbet;
-                // 仅普通付费局参与彩金检测。
-                LotteryManager_OnPlay(&gLotteryManager, totalbet);
-                LotteryManager_TryGetLottery(&gLotteryManager, totalbet, &jpType, &jpvaule);
-                if (jpvaule > 0)
-                {
-                    outres.nJPType = jpType;
-                    outres.nJPBet = jpvaule;
-                }
+                // 彩金检测统一放在 GetNormalResult 内部处理。
             }
             //获取一局数据
             DLL_GetGameResultById(pItem, betmultiple, &outres, &ret, gameId);
@@ -198,9 +190,17 @@ int32_t main(int32_t argc, char *argv[])
             if (outres.openType == OT_Normal)
             {
                 // 本地账户统计只在普通付费局更新；免费局收益已在触发局的 nTotalFreeBet 中结算。
-                TotalWin = betmultiple * (outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
-                TotalWin += outres.nJPBet;//彩金单独计算
+                TotalWin = betmultiple * (outres.nMatrixBet  + outres.nBonusBet)+ outres.nTotalJackpotBet;
                 pItem->Wins += TotalWin;
+            }
+            else
+            {
+                //免费最后一局才加免费总得分
+                if (g_CurrentGameInstance->freeGameInfo.nTotalFreeTime == g_CurrentGameInstance->freeGameInfo.nCurFreeIdx)
+                {
+                    TotalWin = betmultiple * g_CurrentGameInstance->freeGameInfo.nFreeTotalWin;
+                    pItem->Wins += TotalWin;
+                }
             }
 
             int32_t res[150] = { 0 }; //250个以下的int32_t

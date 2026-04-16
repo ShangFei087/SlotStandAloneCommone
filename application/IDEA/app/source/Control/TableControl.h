@@ -11,6 +11,7 @@ typedef struct TableControlStats {
 	int64_t paidBase;                // Base 实际派彩累计（金额口径）
 	int64_t paidFree;                // Free 实际派彩累计（金额口径）
 	int64_t paidBonus;               // Bonus 实际派彩累计（金额口径）
+	int64_t paidJackpotBonus;        // Jackpot 局内 Bonus 实际派彩累计（金额口径）
 	int64_t paidJackpot;             // Jackpot 实际派彩累计（金额口径）
 	int64_t paidNetJackpot;          // 联网 Jackpot 实际派彩累计（金额口径）
 	int64_t netJackpotHitCount;      // 联网 Jackpot 命中次数

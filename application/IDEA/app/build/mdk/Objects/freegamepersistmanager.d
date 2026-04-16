@@ -53,4 +53,5 @@
 .\objects\freegamepersistmanager.o: ..\..\source\Control\GameConfig.h
 .\objects\freegamepersistmanager.o: ..\..\source\Control\GameManager.h
 .\objects\freegamepersistmanager.o: ..\..\source\Control\FreeGamePersistManager.h
+.\objects\freegamepersistmanager.o: ..\..\source\Control\Test.h
 .\objects\freegamepersistmanager.o: ..\..\source\idea_qs.h

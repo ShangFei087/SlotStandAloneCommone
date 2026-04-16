@@ -31,6 +31,7 @@ typedef void (*GenNormalWinFn)(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* 
 typedef void (*GenNormalLoseFn)(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,uint16_t* idVec,GameInstanceId_t gameId);
 typedef void (*GenFreeFn)(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* freeMxu,GameInstanceId_t gameId);
 typedef void (*GenBonusFn)(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* bonusMxu,GameInstanceId_t gameId);
+typedef void (*GenJackpotFn)(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* jackpotMxu,GameInstanceId_t gameId);
 typedef void (*GenLoseFn)(GameInstance_t* inst,Matrix_u* loseMxu,uint16_t* idVec,GameInstanceId_t gameId);
 typedef void (*ApplyOutResForFreeFn)(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx);
 typedef void (*ApplyOutResByRoundFn)(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec);
@@ -43,6 +44,7 @@ typedef struct
 	GenNormalLoseFn genNormalLose;
 	GenFreeFn genFree;
 	GenBonusFn genBonus;
+	GenJackpotFn genJackpot;
 	GenLoseFn genLose;
 	ApplyOutResForFreeFn applyFree;
 	ApplyOutResByRoundFn applyRound;

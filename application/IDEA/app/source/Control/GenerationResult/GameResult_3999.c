@@ -37,7 +37,7 @@ void GameResult_3999_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 			uint8_t rndCol = JRandFrom(0, 4);
 			Matrix_u_insertCol(&mxu, inst->gameConfig.header.Wild, rndCol);
 
-			int32_t matrixBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
+			int32_t matrixBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 			info->nFreeBet += matrixBet;
 
 			Matrix_u_copy(&info->pFreeMxu[index], &mxu);
@@ -73,12 +73,13 @@ void GameResult_3999_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 
 	if (info == NULL || inst == NULL) return;
 
-	uint8_t bonusMulpitlyArray[4] = { 50,100,150,200 };
-	uint32_t randNum = JRandFrom(0, 3);
-	uint8_t bonusMulpitly = bonusMulpitlyArray[randNum];
+	info->nBonusBet = info->JPBetArray[0];
+	info->nBonusType = info->JPTypeArray[0];
+}
 
-	info->nBonusBet = inst->gameConfig.header.lineCount * bonusMulpitly;
-	info->nBonusType = (int8_t)randNum;
+void GameResult_3999_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* jackpotMxu, GameInstanceId_t gameId)
+{
+	GameResult_3999_GenBonus(info, betVal, inst, jackpotMxu, gameId);
 }
 
 int8_t* GameResult_3999_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
@@ -137,11 +138,16 @@ int8_t* GameResult_3999_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	}
 
 	//中了彩金
-	if (outRes->nJPBet > 0)
+	if (outRes->nJPCount > 0)
 	{
-		append_format(strRes, 2048, &used, "\"JPType\":%d", outRes->nJPType);
-
-		append_format(strRes, 2048, &used, "\"JPBet\":%d", outRes->nJPBet);
+		int8_t* jpTypeStr = ByteArrayToString((int8_t*)outRes->JPTypeArray, (int8_t)outRes->nJPCount);
+		int8_t* jpBetStr = ArrayToString((int32_t*)outRes->JPBetArray, outRes->nJPCount, 1);
+		append_format(strRes, 2048, &used, "\"JPCount\":%d,", outRes->nJPCount);
+		append_format(strRes, 2048, &used, "\"JPTypeArray\":%s,", jpTypeStr ? (const char*)jpTypeStr : "[]");
+		append_format(strRes, 2048, &used, "\"JPBetArray\":%s,", jpBetStr ? (const char*)jpBetStr : "[]");
+		append_format(strRes, 2048, &used, "\"TotalJackpotBet\":%d,", outRes->nTotalJackpotBet);
+		free(jpTypeStr);
+		free(jpBetStr);
 	}
 
 	append_format(strRes, 2048, &used, "\"TotalBet\":%d", outRes->nMatrixBet);
@@ -201,7 +207,7 @@ void GameResult_3999_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 		}
 	}
 
-	//res[pos++] = outRes->nJPBet;				// nJPBet
-	//res[pos++] = outRes->nJPType;				// nJPType
+	//res[pos++] = OutResult_GetLocalJPBetTotal(outRes);
+	//res[pos++] = (int32_t)outRes->JPTypeArray[0];
 
 }

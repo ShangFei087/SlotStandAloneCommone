@@ -1,8 +1,13 @@
 #include "Matrix_u_TriggersById.h"
 
 // 当前默认逻辑：占位实现（按协议按需扩展）
-void MatrixApplyTriggers_3995(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet)
+void MatrixApplyTriggers_3995(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info)
 {
+    (void)pMatrix;
+    (void)gameConfig;
+    (void)gameId;
+    (void)pLocalWinBet;
+    (void)info;
 }
 
 uint32_t computeLineWildWins_3995(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId, int8_t* wildData)

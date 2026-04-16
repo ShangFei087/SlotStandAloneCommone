@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "idea_qs.h"
+#include "Test.h"
 #include <string.h>
 
 GameManager_t g_GameManager = {0};
@@ -21,7 +22,8 @@ int8_t GameManager_Init(void)
     memset(&g_GameManager, 0, sizeof(g_GameManager));
     g_GameManager.currentGameId = GAME_ID_INVALID;
 
-    //持久化DebugInfo数据
+    // 持久化 DebugInfo 数据；本地调试模式下关闭。
+#ifndef _LocalDebug
     (void)idea_database_connect(&g_GameManager.debugInfo, sizeof(g_GameManager.debugInfo));
     if (g_GameManager.debugInfo.dwFlag != GAMEMANAGER_DEBUGINFO_FLAG_MAGIC)
     {
@@ -33,9 +35,12 @@ int8_t GameManager_Init(void)
     {
         QS_LOG("\r\n [GM] Reboot compare pass: flag=%u (expect=%u), keep persisted debug data", g_GameManager.debugInfo.dwFlag,GAMEMANAGER_DEBUGINFO_FLAG_MAGIC);
     }
+#else
+    DebugInfo_reset(&g_GameManager.debugInfo);
+    g_GameManager.debugInfo.dwFlag = GAMEMANAGER_DEBUGINFO_FLAG_MAGIC;
+    QS_LOG("\r\n [GM] _LocalDebug enabled: skip debugInfo persist");
+#endif
     //QS_LOG("\r\n [GM] Init done flag=%u play=%u win=%u total=%u",g_GameManager.debugInfo.dwFlag,g_GameManager.debugInfo.dwPlayScore,g_GameManager.debugInfo.dwWinScore,g_GameManager.debugInfo.dwTotalPlayTime);
-
-  
 
     return 1;
 }

@@ -1,8 +1,8 @@
 【调试】
 	//debugStr内容如下{"Mode":0,"ResultType":1}
 	//Mode：0:DCM_Normal    1：DCM_PointResData
-	//ResultType:  0:RT_Lose  1:RT_ComboWin  2:RT_FreeWin 3:RT_BonusWin
-
+	//ResultType:  0:RT_Lose  1:RT_ComboWin  2:RT_FreeWin 3:RT_BonusWin 4:RT_Jackpot
+ 
 【普通中奖】
 {"OpenType":0,"ResultType":1,"IDVec":[4305,11204,15407],"Matrix":[2,5,7,3,8,9,4,6,1,0,5,8,3,7,2],"TotalBet":48}
 -IDVec：万千位=线号，百位=连中个数，十位/个位=图标类型。
@@ -27,6 +27,14 @@
 -BonusData：每个格子对应的 Bonus 得分，未命中格为0
 -BonusBet：BonusData 求和
 
+【Jackpot游戏】
+{"OpenType":0,"ResultType":4,"IDVec":[],"Matrix":[6,1,6,3,11,11,3,11,9,3,11,11,11,4,1],"JPCount":1,"JPTypeArray":[2],"JPBetArray":[750],"TotalJackpotBet":750,"BonusBet":4480,"BonusData":[1280,1280,4002,1300,1320,1400,1380,1360,1260,1380,1380,1380,1380,1380,0],"TotalBet":0}
+
+-JPCount：中本地彩金数量
+-JPTypeArray：彩金类型数组
+-JPBetArray：彩金得分数组
+-BonusData：千位代表种类 1:标识为分数  4:标识为彩金 4002 标识这个格子得到了mini奖金 
+
 //赔率
 int gBetArray[GE_12][4] = {
 	{0, 2, 5, 15},//0
@@ -46,3 +54,72 @@ int gBetArray[GE_12][4] = {
 	CT_Wild = 9,				//万能牌
 	CT_Scater = 10,				//Scatter，达到阈值触发免费
 	CT_Bonus = 11,				//Bonus，达到阈值触发 Bonus 游戏
+
+//嵌入式结果输出
+void GameResult_3997_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId)
+{
+	int32_t pos = 0;
+	uint8_t wheelChessNum = inst->gameConfig.header.wheelChessNum;
+
+	res[pos++] = (int32_t)gameId;						// ret
+	res[pos++] = (int32_t)outRes->openType;				// OpenType
+	res[pos++] = (int32_t)outRes->resType;				// ResultType
+	res[pos++] = outRes->matrix.idVecSize;				// lineNum
+	res[pos++] = outRes->nMatrixBet;					// TotalBet
+	res[pos++] = wheelChessNum;							// MatrixLength
+	// IDVec
+	for (int32_t i = 0; i < outRes->matrix.idVecSize; i++)
+	{
+		res[pos++] = outRes->IDVec[i];
+	}
+	//Matrix
+	for (int32_t i = 0; i < wheelChessNum; i++)
+	{
+		res[pos++] = outRes->matrix.dataArray[i];
+	}
+
+	if (outRes->resType == RT_FreeWin)
+	{
+		res[pos++] = outRes->nTotalFreeTime;					// nTotalFreeTime
+		res[pos++] = outRes->nTotalFreeBet;					// nTotalFreeBet
+		//FreeBetArray
+		for (int32_t i = 0; i < outRes->nTotalFreeTime; i++)
+		{
+			res[pos++] = outRes->FreeBetArray[i];
+		}
+	}
+
+	if (outRes->openType == OT_Give)
+	{
+
+	}
+
+	if (outRes->resType == RT_BonusWin)
+	{
+		res[pos++] = outRes->nBonusBet;						// nBonusBet
+		res[pos++] = outRes->nBonusType;						// nBonusType
+		for (int32_t i = 0; i < wheelChessNum; i++)
+		{
+			res[pos++] = outRes->BonusData[i];
+		}
+	}
+
+	if (outRes->resType == RT_Jackpot)
+	{
+		res[pos++] = outRes->nBonusBet;
+		for (int32_t i = 0; i < wheelChessNum; i++)
+		{
+			res[pos++] = outRes->BonusData[i];
+		}
+		res[pos++] = outRes->nJPCount;
+		for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+		{
+			res[pos++] = outRes->JPTypeArray[i];
+		}
+		for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+		{
+			res[pos++] = outRes->JPBetArray[i];
+		}
+		res[pos++] = outRes->nTotalJackpotBet;
+	}
+}

@@ -1,4 +1,5 @@
 #include "FreeGamePersistManager.h"
+#include "Test.h"
 
 #include "idea_qs.h"
 #include <string.h>
@@ -135,6 +136,10 @@ void FreeGamePersist_Save(GameInstance_t* inst)
 
 void FreeGamePersist_TryRestore(GameInstance_t* inst)
 {
+#ifdef _LocalDebug
+    (void)inst;
+    return;
+#else
     if (!inst || inst->id == GAME_ID_INVALID) return;
 
     int32_t idx = freegame_persist_find_slot_for_game(inst->id);
@@ -148,4 +153,5 @@ void FreeGamePersist_TryRestore(GameInstance_t* inst)
     }
 
     freegame_persist_slot_unpack(inst, s);
+#endif
 }

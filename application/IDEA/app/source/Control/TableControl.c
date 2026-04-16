@@ -28,6 +28,7 @@ static int64_t gWindowBet = 0;                       // 调参窗口累计下注
 static int64_t gWindowPaidBase = 0;                  // 调参窗口 Base 派彩
 static int64_t gWindowPaidFree = 0;                  // 调参窗口 Free 派彩
 static int64_t gWindowPaidBonus = 0;                 // 调参窗口 Bonus 派彩
+static int64_t gWindowPaidJackpotBonus = 0;          // 调参窗口 Jackpot 局内 Bonus 派彩
 static int64_t gWindowPaidJackpot = 0;               // 调参窗口 Jackpot 派彩
 static int32_t gWindowRounds = 0;                    // 调参窗口累计局数
 
@@ -87,6 +88,10 @@ static void TableControl_AccumulatePaid(int32_t betVal, const RoundInfo_t* ri, i
 	{
 		gTableControlStats.paidBonus += (int64_t)betVal * ri->nBonusBet;
 	}
+	else if (ri->resType == RT_Jackpot)
+	{
+		gTableControlStats.paidJackpotBonus += (int64_t)betVal * ri->nBonusBet;
+	}
 
 	if (jpBet > 0)
 	{
@@ -102,6 +107,10 @@ static void TableControl_AccumulatePaid(int32_t betVal, const RoundInfo_t* ri, i
 	else if (ri->resType == RT_BonusWin)
 	{
 		gWindowPaidBonus += (int64_t)betVal * ri->nBonusBet;
+	}
+	else if (ri->resType == RT_Jackpot)
+	{
+		gWindowPaidJackpotBonus += (int64_t)betVal * ri->nBonusBet;
 	}
 	if (jpBet > 0)
 	{
@@ -243,6 +252,7 @@ static void TableControl_TryAdaptiveAdjust(const RtpProfileConfig* activeProfile
 	int32_t curFreeRtp = 0; // Free 分项当前 RTP
 	int32_t curBonusRtp = 0; // Bonus 分项当前 RTP
 	int32_t curJackpotRtp = 0; // Jackpot 分项当前 RTP
+	int64_t windowBonusPaid = 0; // Bonus 口径实际派彩（含 Jackpot 局内 Bonus）
 
 	if (activeProfile == NULL) return; // 无配置时不调参
 	if (gWindowRounds < kAdjustWindowRounds) return; // 未到大小时不调参
@@ -256,7 +266,8 @@ static void TableControl_TryAdaptiveAdjust(const RtpProfileConfig* activeProfile
 	targetBonusRtp = TableControl_GetShareTargetPermyriad(activeProfile->rtpPermyriad, activeProfile->bonusSharePermyriad);
 	targetJackpotRtp = TableControl_GetShareTargetPermyriad(activeProfile->rtpPermyriad, activeProfile->jackpotSharePermyriad);
 	curFreeRtp = (int32_t)(gWindowPaidFree * 10000 / gWindowBet);
-	curBonusRtp = (int32_t)(gWindowPaidBonus * 10000 / gWindowBet);
+	windowBonusPaid = gWindowPaidBonus + gWindowPaidJackpotBonus;
+	curBonusRtp = (int32_t)(windowBonusPaid * 10000 / gWindowBet);
 	curJackpotRtp = (int32_t)(gWindowPaidJackpot * 10000 / gWindowBet);
 
 	//目前没有进行自适应偏移调整
@@ -387,8 +398,6 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 {
 	int32_t TotalBet = betVal * lineNum; // 本局总下注
 	int64_t paidAmount = 0; // 当前候选类型对应应付金额
-	int64_t jackpotPaidAmount = 0; // 本地彩金金额
-	BOOL IsHandleJackpot = FALSE;
 	const RtpProfileConfig* activeProfile = profile; // 当前使用的 RTP 配置
 
 	if (activeProfile == NULL) // 若调用方未显式传配置，内部取当前生效配置
@@ -414,7 +423,9 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 	}
 	if (ri != NULL && ri->resType == RT_Lose)
 	{
-		IsHandleJackpot = TRUE;
+	}
+	else if (ri != NULL && ri->resType == RT_Jackpot)
+	{
 	}
 
 	// 对 RT_Win 使用 BasePool 判定放行：池子够付才放。
@@ -424,7 +435,6 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 
 		if (TableControl_SoftPoolAllowAndConsume(&gBasePool, paidAmount, TotalBet, kBaseDebtBetFactor, kSoftPoolScaleBase))
 		{
-			IsHandleJackpot = TRUE;
 		}
 		else
 		{
@@ -434,7 +444,7 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 		}
 	}
 
-	// 免费和大奖区间校验
+	// 免费,大奖,彩金区间校验
 	if (activeProfile != NULL) 
 	{
 		// 免费倍数区间校验
@@ -511,42 +521,59 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 				return 0;
 			}
 		}
-	}
-
-	//主结果放行后，再对本地彩金候选执行独立闸门判定。
-	if (IsHandleJackpot)
-	{
-		if (activeProfile != NULL && jpBet != NULL && *jpBet > 0)
+		else if (ri->resType == RT_Jackpot)
 		{
 			int32_t jackpotPassPermyriad = 10000;
-			jackpotPaidAmount = *jpBet;
+			int64_t jackpotBonusPaidAmount = 0;
+			int64_t jackpotPaidAmount = 0;
 
-			if (jackpotPaidAmount < (int64_t)activeProfile->jackpotMinBet * TotalBet || jackpotPaidAmount >(int64_t)activeProfile->jackpotMaxBet * TotalBet)
+			//对本地彩金中生成的bonusbet做四池判断
+			jackpotBonusPaidAmount = (int64_t)betVal * ri->nBonusBet;
+			if (jackpotBonusPaidAmount > 0)
 			{
-				gTableControlStats.jackpotRejectByRange++;
-				TableControl_RejectJackpotAndRefund(jpType, jpBet);
-			}
-			
-			if (jpBet != NULL && *jpBet > 0 &&!TableControl_SoftPoolAllowAndConsume(&gJackpotPool, jackpotPaidAmount, TotalBet, kJackpotDebtBetFactor, kSoftPoolScaleJackpot))
-			{
-				gTableControlStats.jackpotRejectByTargetPool++;
-				TableControl_RejectJackpotAndRefund(jpType, jpBet);
+				//应该不用bonus最大最小倍数判断，暂时保留接口
+				/*if (jackpotBonusPaidAmount < (int64_t)activeProfile->bonusMinBet * TotalBet || jackpotBonusPaidAmount > (int64_t)activeProfile->bonusMaxBet * TotalBet)
+				{
+					gTableControlStats.bonusRejectByRange++;
+					TableControl_RejectJackpotAndRefund(jpType, jpBet);
+					return 0;
+				}*/
+				if (!TableControl_SoftPoolAllowAndConsume(&gBonusPool, jackpotBonusPaidAmount, TotalBet, kBonusDebtBetFactor, kSoftPoolScaleBonus))
+				{
+					gTableControlStats.bonusRejectByTargetPool++;
+					TableControl_RejectJackpotAndRefund(jpType, jpBet);
+					return 0;
+				}
 			}
 
-			// Jackpot 概率门(全部放行)。
 			if (jpBet != NULL && *jpBet > 0)
 			{
+				jackpotPaidAmount = *jpBet;
+				if (jackpotPaidAmount < (int64_t)activeProfile->jackpotMinBet * TotalBet || jackpotPaidAmount > (int64_t)activeProfile->jackpotMaxBet * TotalBet)
+				{
+					gTableControlStats.jackpotRejectByRange++;
+					TableControl_RejectJackpotAndRefund(jpType, jpBet);
+					return 0;
+				}
+
+				if (!TableControl_SoftPoolAllowAndConsume(&gJackpotPool, jackpotPaidAmount, TotalBet, kJackpotDebtBetFactor, kSoftPoolScaleJackpot))
+				{
+					gTableControlStats.jackpotRejectByTargetPool++;
+					TableControl_RejectJackpotAndRefund(jpType, jpBet);
+					return 0;
+				}
+
 				jackpotPassPermyriad = (gOverrideJackpotPass >= 0) ? gOverrideJackpotPass : activeProfile->jackpotPassPermyriad;
 				jackpotPassPermyriad = TableControl_ClampPass(jackpotPassPermyriad + gAdaptiveJackpotPassDelta);
 				if (!TableControl_HitPassRate(jackpotPassPermyriad))
 				{
 					gTableControlStats.jackpotRejectByPassRate++;
 					TableControl_RejectJackpotAndRefund(jpType, jpBet);
+					return 0;
 				}
 			}
 		}
 	}
-
 
 	TableControl_AccumulatePaid(betVal, ri, (jpBet != NULL && *jpBet > 0) ? *jpBet : 0);
 	return  1;
@@ -612,6 +639,7 @@ int32_t TableControl_SetRtpDifficulty(uint8_t region, int32_t rtpPermyriad)
 		gWindowPaidBase = 0;
 		gWindowPaidFree = 0;
 		gWindowPaidBonus = 0;
+		gWindowPaidJackpotBonus = 0;
 		gWindowPaidJackpot = 0;
 		gWindowRounds = 0;
 		return 1;             // 设置成功
@@ -642,6 +670,7 @@ int32_t TableControl_SetRtpDifficulty(uint8_t region, int32_t rtpPermyriad)
 	gWindowPaidBase = 0;
 	gWindowPaidFree = 0;
 	gWindowPaidBonus = 0;
+	gWindowPaidJackpotBonus = 0;
 	gWindowPaidJackpot = 0;
 	gWindowRounds = 0;
 	return 1;                      // 设置成功

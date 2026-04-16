@@ -78,7 +78,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 			}
 
 			info->BlindSymbol = bonusCount;
-			info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
+			info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 
 			bonusMxu->idVecSize = mxu.idVecSize;
 			for (uint8_t i = 0; i < mxu.idVecSize; ++i)
@@ -163,7 +163,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 				}
 #endif // _IMHERE
 
-				info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
+				info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 				bonusMxu->idVecSize = mxu.idVecSize;
 				for (uint8_t i = 0; i < mxu.idVecSize; ++i)
 				{
@@ -199,9 +199,10 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 	}
 #endif // _DebugControlMode
 
+	// Wild 游戏功能
 	if (randNum < 2500)
 	{
-		// Wild 游戏功能
+	
 		info->nBonusType = 0;
 		uint8_t wildColCountArray[4] = { 1, 2, 3,3 };
 		uint8_t wildArray[COL_MAX] = { 0, 1, 2, 3 , 4 };
@@ -239,7 +240,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 		}
 
 		info->BlindSymbol = bonusCount;
-		info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
+		info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 
 		bonusMxu->idVecSize = mxu.idVecSize;
 		for (uint8_t i = 0; i < mxu.idVecSize; ++i)
@@ -249,9 +250,9 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 	}
 	else
 	{
+		// 神秘游戏
 		if (randNum < 5000)
 		{
-			// 神秘游戏
 			info->nBonusType = 1;
 			uint8_t  BlindSymbol = JRandFrom(0, 7);
 			uint8_t BlindBoxCountArray[3] = { 6, 8, 11 };
@@ -303,7 +304,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 				PosSize--;
 			}
 
-			info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
+			info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 			bonusMxu->idVecSize = mxu.idVecSize;
 			for (uint8_t i = 0; i < mxu.idVecSize; ++i)
 			{
@@ -312,9 +313,10 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 		}
 		else
 		{
+			// 乘数游戏
 			if (randNum < 7500)
 			{
-				// 乘数游戏
+				
 				info->nBonusType = 2;
 				uint8_t WheelArray[3][4] = { { 3, 4, 5, 7 } ,{6,7,8,10},{9,10,11,15} };
 				uint8_t WheelMulptiy = WheelArray[bonusCount - 3][JRandFrom(0, 3)];
@@ -323,8 +325,8 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 			}
 			else
 			{
-				// 大奖游戏
 				info->nBonusType = 3;
+				// 大奖游戏
 				randNum = JRandFrom(0, 4);
 				bonusMulpitly = bonusMulpitlyArray[randNum];
 				info->BlindSymbol = bonusMulpitly; //代替一下
@@ -332,6 +334,11 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 			}
 		}
 	}
+}
+
+void GameResult_3998_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* jackpotMxu, GameInstanceId_t gameId)
+{
+
 }
 
 void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* inst,Matrix_u* freeMxu,GameInstanceId_t gameId)
@@ -380,7 +387,7 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 			}
 		}
 
-		int32_t matrixBet = Matrix_u_computerMatrixById(&tempmxu, idVec, &inst->gameConfig, gameId);
+		int32_t matrixBet = Matrix_u_computerMatrixById(&tempmxu, idVec, &inst->gameConfig, gameId, info);
 		info->nFreeBet += matrixBet;
 
 		Matrix_u_copy(&info->pFreeMxu[index], &mxu);
@@ -408,6 +415,76 @@ void GameResult_3998_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 
 		info->pFreeMxu[index].idVecSize = tempmxu.idVecSize;
 		info->pFreeMxu[index].resultType = tempmxu.resultType;
+	}
+}
+
+void GameResult_3998_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec)
+{
+	{
+		int32_t jpTotal = 0;
+
+		pRes->resType = resType;
+		Matrix_u_copy(&pRes->matrix, Mxu);
+		for (uint8_t i = 0; i < Mxu->idVecSize; ++i)
+		{
+			pRes->IDVec[i] = idVec[i];
+		}
+
+		if (resType == RT_FreeWin)
+		{
+			pRes->nTotalFreeBet = info->nFreeBet;
+			pRes->nTotalFreeTime = info->nFreeNum;
+			pRes->matrix.idVecSize = Mxu->idVecSize;
+			for (uint8_t i = 0; i < GE_MaxFreeNum; ++i)
+			{
+				pRes->FreeBetArray[i] = info->FreeBetArray[i];
+			}
+		}
+		else if (resType == RT_BonusWin)
+		{
+			pRes->nBonusBet = info->nBonusBet;
+			pRes->nBonusType = info->nBonusType;
+			pRes->BlindSymbol = info->BlindSymbol;
+			for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+			{
+				pRes->BonusData[i] = info->BonusData[i];
+			}
+
+			pRes->matrix.idVecSize = Mxu->idVecSize;
+			for (uint8_t i = 0; i < Mxu->idVecSize; ++i)
+			{
+				pRes->IDVec[i] = info->FreeIDVec[0][i];
+			}
+
+		}
+		else if (resType == RT_Win)
+		{
+
+		}
+		else if (resType == RT_Lose)
+		{
+
+		}
+		else if (resType == RT_Jackpot)
+		{
+			pRes->nJPCount = info->nJPCount;
+			for (int i = 0; i < GAME_Local_JP_MAX; ++i)
+			{
+				pRes->JPBetArray[i] = info->JPBetArray[i];
+				pRes->JPTypeArray[i] = info->JPTypeArray[i];
+			}
+			pRes->nTotalJackpotBet = info->nTotalJackpotBet;
+
+			pRes->matrix.idVecSize = Mxu->idVecSize;
+			for (uint8_t i = 0; i < Mxu->idVecSize; ++i)
+			{
+				pRes->IDVec[i] = info->FreeIDVec[0][i];
+			}
+		}
+		else
+		{
+			//失败结果
+		}
 	}
 }
 
@@ -446,6 +523,7 @@ int8_t* GameResult_3998_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 
 	if (outRes->openType == OT_Give)
 	{
+
 	}
 
 	uint8_t bonusCount = 0;
@@ -495,14 +573,19 @@ int8_t* GameResult_3998_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 		}
 		break;
 		}
+
 	}
 
-	//中了彩金
-	if (outRes->nJPBet > 0)
+	if (outRes->resType == RT_Jackpot)
 	{
-		append_format(strRes, 2048, &used, "\"JPType\":%d", outRes->nJPType);
-
-		append_format(strRes, 2048, &used, "\"JPBet\":%d", outRes->nJPBet);
+		int8_t* jpTypeStr = ByteArrayToString((int8_t*)outRes->JPTypeArray, (int8_t)outRes->nJPCount);
+		int8_t* jpBetStr = ArrayToString((int32_t*)outRes->JPBetArray, outRes->nJPCount, 1);
+		append_format(strRes, 2048, &used, "\"JPCount\":%d,", outRes->nJPCount);
+		append_format(strRes, 2048, &used, "\"JPTypeArray\":%s,", jpTypeStr ? (const char*)jpTypeStr : "[]");
+		append_format(strRes, 2048, &used, "\"JPBetArray\":%s,", jpBetStr ? (const char*)jpBetStr : "[]");
+		append_format(strRes, 2048, &used, "\"TotalJackpotBet\":%d,", outRes->nTotalJackpotBet);
+		free(jpTypeStr);
+		free(jpBetStr);
 	}
 
 	append_format(strRes, 2048, &used, "\"TotalBet\":%d", outRes->nMatrixBet);
@@ -563,7 +646,17 @@ void GameResult_3998_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 		}
 	}
 
-	//res[pos++] = outRes->nJPBet;				// nJPBet
-	//res[pos++] = outRes->nJPType;				// nJPType
-
+	if (outRes->resType == RT_Jackpot)
+	{
+		res[pos++] = outRes->nJPCount;
+		for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+		{
+			res[pos++] = outRes->JPTypeArray[i];
+		}
+		for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+		{
+			res[pos++] = outRes->JPBetArray[i];
+		}
+		res[pos++] = outRes->nTotalJackpotBet;
+	}
 }

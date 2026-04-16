@@ -3,17 +3,17 @@
 #include "Control/ComputerData.h"
 
 //--------------------------------------------外部调用--------------------------------------------//
-int32_t computerMatrixById(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId)
+int32_t computerMatrixById(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId, RoundInfo_t* info)
 {
     uint32_t nLocalWinBet = 0;
     MatrixTriggerOps_t* ops = MatrixTriggerOps_t_Get(gameId);
     if (ops == NULL || ops->applyTriggers == NULL|| ops->computeLineWin == NULL)
     {
-        return;
+        return 0;
     }
 
     nLocalWinBet= ops->computeLineWin(pMatrix, idVec, gameConfig, gameId);
-    ops->applyTriggers(pMatrix, gameConfig, gameId, &nLocalWinBet);
+    ops->applyTriggers(pMatrix, gameConfig, gameId, &nLocalWinBet, info);
     return nLocalWinBet;
 }
 //--------------------------------------------公共--------------------------------------------//
@@ -235,8 +235,9 @@ uint32_t computeLineWins_Defaults(Matrix_u* pMatrix, uint16_t* idVec, SlotGameCo
     pMatrix->idVecSize = idVecCount;
     return nLocalWinBet;
 }
-void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet)
+void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info)
 {
+    (void)info;
     uint8_t scatterCount = 0;
     uint8_t _bonusCount = 0;
 
@@ -265,15 +266,15 @@ void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig
     }
 }
 //--------------------------------------------解耦--------------------------------------------//
-void MatrixApplyTriggers_1700(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
+void MatrixApplyTriggers_1700(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
 //--------------------------------------------财富类--------------------------------------------//
-void MatrixApplyTriggers_3999(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
-void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
-void MatrixApplyTriggers_3997(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
-void MatrixApplyTriggers_3996(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
+void MatrixApplyTriggers_3999(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
+void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
+void MatrixApplyTriggers_3997(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
+void MatrixApplyTriggers_3996(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
 //--------------------------------------------动物类--------------------------------------------//
-void MatrixApplyTriggers_3993(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
-void MatrixApplyTriggers_3995(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
+void MatrixApplyTriggers_3993(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
+void MatrixApplyTriggers_3995(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
 typedef struct
 {
     GameInstanceId_t gameId;

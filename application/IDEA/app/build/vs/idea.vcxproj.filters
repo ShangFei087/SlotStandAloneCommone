@@ -150,6 +150,9 @@
     <ClInclude Include="..\..\source\Control\LotteryManager.h">
       <Filter>源文件\source\Control\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\Control\LotteryPersistManager.h">
+      <Filter>源文件\source\Control\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\app.c">
@@ -265,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3996.c">
       <Filter>源文件\source\Control\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\LotteryPersistManager.c">
+      <Filter>源文件\source\Control\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

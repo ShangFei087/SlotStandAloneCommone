@@ -160,6 +160,11 @@ void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 	}
 }
 
+void GameResult_3993_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* jackpotMxu, GameInstanceId_t gameId)
+{
+	GameResult_3993_GenBonus(info, betVal, inst, jackpotMxu, gameId);
+}
+
 int8_t* GameResult_3993_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 {
 	char* strRes = (char*)malloc(2048);
@@ -218,11 +223,16 @@ int8_t* GameResult_3993_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	}
 
 	// JP 奖金/积分（仅当有 JP 投注时输出）
-	if (outRes->nJPBet > 0)
+	if (outRes->nJPCount > 0)
 	{
-		append_format(strRes, 2048, &used, "\"JPType\":%d", outRes->nJPType);
-
-		append_format(strRes, 2048, &used, "\"JPBet\":%d", outRes->nJPBet);
+		int8_t* jpTypeStr = ByteArrayToString((int8_t*)outRes->JPTypeArray, (int8_t)outRes->nJPCount);
+		int8_t* jpBetStr = ArrayToString((int32_t*)outRes->JPBetArray, outRes->nJPCount, 1);
+		append_format(strRes, 2048, &used, "\"JPCount\":%d,", outRes->nJPCount);
+		append_format(strRes, 2048, &used, "\"JPTypeArray\":%s,", jpTypeStr ? (const char*)jpTypeStr : "[]");
+		append_format(strRes, 2048, &used, "\"JPBetArray\":%s,", jpBetStr ? (const char*)jpBetStr : "[]");
+		append_format(strRes, 2048, &used, "\"TotalJackpotBet\":%d,", outRes->nTotalJackpotBet);
+		free(jpTypeStr);
+		free(jpBetStr);
 	}
 
 	append_format(strRes, 2048, &used, "\"TotalBet\":%d", outRes->nMatrixBet);
@@ -286,6 +296,6 @@ void GameResult_3993_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 		}
 	}
 
-	//res[pos++] = outRes->nJPBet;				// nJPBet
-	//res[pos++] = outRes->nJPType;				// nJPType
+	//res[pos++] = OutResult_GetLocalJPBetTotal(outRes);
+	//res[pos++] = (int32_t)outRes->JPTypeArray[0];
 }

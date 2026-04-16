@@ -1,29 +1,29 @@
 #include "LotteryManager.h"
+#include "LotteryPersistManager.h"
 #include "ComputerData.h"
 #include "Test.h"
-
-
-static int32_t LotteryManager_GetTierPermil(const LotteryManager* manager, int32_t score);
+#include "idea_qs.h"
+#include <string.h>
 
 /**
- * @brief 初始化 LotteryManager 实例。
+ * @brief 初始化彩金管理器全局实例。
  */
-LotteryManager gLotteryManager;  // 全局单例
+LotteryManager gLotteryManager;  // 全局实例
 void LotteryManager_Init(void)
 {
-    // 初始化运行时字段
+    // 初始化运行时统计与参数
     gLotteryManager.mTotalPlayTime = 0;
     gLotteryManager.mTotalPlay = 0;
     gLotteryManager.mTotalDraw =0;
     gLotteryManager.mScale = 1;  // 彩金缩放系数
     gLotteryManager.mFrozenTime = 0;
     gLotteryManager.mFrozenTime = 0;
-    gLotteryManager.mInjectRatePermil = 1000;     // 基础注入倍率：1.0x
+    gLotteryManager.mInjectRatePermil = 1000;     // 基础注入倍率（1.0x）
     gLotteryManager.mTierMidBet = 1000;           // 中档下注阈值
     gLotteryManager.mTierHighBet = 5000;          // 高档下注阈值
     gLotteryManager.mTierMidInjectPermil = 1200;  // 中档注入：1.2x
     gLotteryManager.mTierHighInjectPermil = 1500; // 高档注入：1.5x
-    gLotteryManager.mWinFreezeTime = 0;         // 命中彩金后的冷却
+    gLotteryManager.mWinFreezeTime = 0;         // 命中彩金后的冷却局数
     gLotteryManager.mMinPlayScoreToTrigger = 20;  // 触发开奖的最小下注
     gLotteryManager.mMinPlayGapAfterWin = 10;     // 两次开奖最小间隔局数
     gLotteryManager.mPlaySinceLastWin = gLotteryManager.mMinPlayGapAfterWin;
@@ -40,21 +40,27 @@ void LotteryManager_Init(void)
             &gLotteryManager.mLotterys[i],
             2 * gLotteryManager.mScale, // 开奖阈值上限
             minThresh, // 开奖阈值下限
-            JPWeight[i+1] * nLocalJpUnit * gLotteryManager.mScale,  // 抽取率
+            JPWeight[i+1] * nLocalJpUnit * gLotteryManager.mScale,  // 抽取权重
             gLotteryManager.mScale // 彩金上限
         );
     }
 
+    LotteryPersist_TryRestore(&gLotteryManager);
+    if (lottery_persist_is_blob_valid())
+    {
+        QS_LOG("\r\n [JP] persist restore ok: totalPlay=%d totalDraw=%d",
+            gLotteryManager.mTotalPlay, gLotteryManager.mTotalDraw);
+    }
 }
 
 /**
- * @brief 重置 LotteryManager 实例。
+ * @brief 重置彩金管理器实例。
  */
 void LotteryManager_Destroy(LotteryManager* manager)
 {
     if (manager == NULL) return;
 
-    // 重置运行时字段
+    // 重置运行时统计
     manager->mTotalPlayTime =0;
     manager->mTotalPlay = 0;
     manager->mTotalDraw = 0;
@@ -63,7 +69,7 @@ void LotteryManager_Destroy(LotteryManager* manager)
 }
 
 /**
- * @brief 设置基础值和上限值。
+ * @brief 设置彩金池基础值和上限值。
  */
 void LotteryManager_SetBaseValue(LotteryManager* manager, int32_t baseValue[3], int32_t maxValue[3])
 {
@@ -73,10 +79,17 @@ void LotteryManager_SetBaseValue(LotteryManager* manager, int32_t baseValue[3], 
     {
        Lottery_SetBaseValue(&manager->mLotterys[i], baseValue[i]* manager->mScale, maxValue[i] * manager->mScale);
     }
+
+    /* base/max 变更后再次恢复一次：
+     * 目的是让历史运行态按新边界收敛，避免 show/thresh 越界 */
+    if (manager == &gLotteryManager && lottery_persist_is_blob_valid())
+    {
+        LotteryPersist_TryRestore(manager);
+    }
 }
 
 /**
- * @brief 处理一次游玩事件。
+ * @brief 处理一次下注事件并进行奖池注入。
  */
 void LotteryManager_OnPlay(LotteryManager* manager, int32_t value)
 {
@@ -104,61 +117,84 @@ void LotteryManager_OnPlay(LotteryManager* manager, int32_t value)
         Lottery_OnPlay(&manager->mLotterys[i], injectValue);
     }
 
-    manager->mTotalPlay += value / 100;
+    manager->mTotalPlay += value;
+
+	LotteryPersist_Save(manager);
 }
 
 /**
- * @brief 尝试触发一次开奖。
+ * @brief 尝试触发一次彩金开奖。
  */
 int32_t LotteryManager_TryGetLottery(LotteryManager* manager, int32_t playScore, int32_t* id, int32_t* val)
 {
-    if (manager == NULL || id == NULL || val == NULL) return 0;
-    if (manager->mFrozenTime > 0) return 0;//处于开奖冻结期，不允许开奖。
-    if (playScore < manager->mMinPlayScoreToTrigger) return 0;//下注太小，不触发开奖。
-    if (manager->mPlaySinceLastWin < manager->mMinPlayGapAfterWin) return 0;//离上次中奖间隔局数不足，不开奖。
+    int32_t outIds[1] = { 0 };
+    int32_t outVals[1] = { 0 };
+    int32_t count = 0;
 
-    int32_t res = 0;//本次是否开奖成功
-    int32_t fRate = 0.0f;
-    int32_t ShowLottery[3] = { 0 };
-    int32_t LotteryPool[3] = { 0 };
-    int32_t LotteryThresh[3] = { 0 };
-
-    // 读取所有彩金池的当前状态
-    for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+    if (manager == NULL || id == NULL || val == NULL)
     {
-        ShowLottery[i] = Lottery_GetShowValue(&manager->mLotterys[i]);
-        LotteryPool[i] = Lottery_GetLotteryPool(&manager->mLotterys[i]);
-        LotteryThresh[i] = Lottery_GetThresh(&manager->mLotterys[i]);
+        return 0;
     }
 
-    // 先尝试指定 ID 的彩金池
-    if (*id > 0)
+    outIds[0] = *id;
+    count = LotteryManager_TryGetLotterys(manager, playScore, outIds, outVals, 1);
+    if (count > 0)
     {
-        (*id)--; // 转为数组下标
-        if (*id >= 0 && *id < GAME_Local_JP_MAX)
-        {
-            res = Lottery_TryGet(&manager->mLotterys[*id], playScore, val, &fRate);
-        }
-    }
-    else
-    {
-        // 否则遍历所有彩金池
-        for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
-        {
-
-            res = Lottery_TryGet(&manager->mLotterys[i], playScore, val, &fRate);
-            if (res)
-            {
-                *id = i;
-                break;
-            }
-        }
+        *id = outIds[0];
+        *val = outVals[0];
+        return 1;
     }
 
-    return res;
+    *val = 0;
+    return 0;
 }
 
-// 候选彩金放行后，提交到本地奖池并更新冷却/间隔。
+int32_t LotteryManager_TryGetLotterys(LotteryManager* manager, int32_t playScore, int32_t* ids, int32_t* vals, int32_t maxCount)
+{
+    int32_t hitCount = 0;
+    int32_t fRate = 0;
+
+    if (manager == NULL || ids == NULL || vals == NULL || maxCount <= 0)
+    {
+        return 0;
+    }
+    if (manager->mFrozenTime > 0) return 0; // 处于开奖冻结期，不允许开奖。
+    if (playScore < manager->mMinPlayScoreToTrigger) return 0; // 下注太小，不触发开奖。
+    if (manager->mPlaySinceLastWin < manager->mMinPlayGapAfterWin) return 0; // 距离上次中奖间隔局数不足，不开奖。
+
+    // 若传入指定 ID（1~N 类型值），只尝试该池。
+    if (ids[0] > 0)
+    {
+        int32_t idx = ids[0] - 1;
+        if (idx >= 0 && idx < GAME_Local_JP_MAX)
+        {
+            if (Lottery_TryGet(&manager->mLotterys[idx], playScore, &vals[0], &fRate))
+            {
+                ids[0] = idx;
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    // 自动模式：遍历所有池，收集全部命中（受 maxCount 上限约束）。
+    for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+    {
+        if (hitCount >= maxCount)
+        {
+            break;
+        }
+        if (Lottery_TryGet(&manager->mLotterys[i], playScore, &vals[hitCount], &fRate))
+        {
+            ids[hitCount] = i;
+            hitCount++;
+        }
+    }
+
+    return hitCount;
+}
+
+// 候选彩金放行后，提交到本地奖池并更新冷却与间隔。
 void LotteryManager_CommitLottery(LotteryManager* manager, int32_t id, int32_t val)
 {
     int32_t idx = id;
@@ -176,9 +212,14 @@ void LotteryManager_CommitLottery(LotteryManager* manager, int32_t id, int32_t v
     manager->mTotalDraw += val;
     manager->mFrozenTime += manager->mWinFreezeTime;
     manager->mPlaySinceLastWin = 0;
+    if (manager == &gLotteryManager)
+    {
+        /* 命中彩金属于关键资金变化，立即落盘 */
+        LotteryPersist_Save(manager);
+    }
 }
 
-// 回补已扣出的本地彩金到指定奖池。
+// 回补已扣除的本地彩金到指定奖池。
 void LotteryManager_RefundLottery(LotteryManager* manager, int32_t id, int32_t val)
 {
     int32_t idx = id;
@@ -202,10 +243,19 @@ void LotteryManager_RefundLottery(LotteryManager* manager, int32_t id, int32_t v
     {
         manager->mTotalDraw -= val;
     }
+    if (manager == &gLotteryManager)
+    {
+        /* 回补会改变池子金额，也需要立即落盘 */
+        LotteryPersist_Save(manager);
+    }
 }
 
 
 
+/**
+ * @brief 根据下注分值选择注入倍率档位（千分比）。
+ * @details 高于高档阈值返回高档倍率；高于中档阈值返回中档倍率；否则返回 1000（1.0x）。
+ */
 static int32_t LotteryManager_GetTierPermil(const LotteryManager* manager, int32_t score)
 {
     if (score >= manager->mTierHighBet)
@@ -220,4 +270,6 @@ static int32_t LotteryManager_GetTierPermil(const LotteryManager* manager, int32
 
     return 1000;
 }
+
+
 

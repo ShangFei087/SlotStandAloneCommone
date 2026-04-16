@@ -33,6 +33,7 @@
 ".\objects\matrixapplytriggers_3995.o"
 ".\objects\matrixapplytriggers_3996.o"
 ".\objects\matrixapplytriggers_3997.o"
+".\objects\lotterypersistmanager.o"
 ".\objects\startup_max3255x.o"
 "..\..\lib\ideabase.lib"
 "..\..\..\..\..\platform\max32555\sdk\lib\libucl-2.4.7_max32555.lib"

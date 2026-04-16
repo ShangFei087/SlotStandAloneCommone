@@ -63,3 +63,8 @@
 .\objects\idea_app.o: ..\..\source\Control/GameConfig.h
 .\objects\idea_app.o: ..\..\source\Control/FreeGamePersistManager.h
 .\objects\idea_app.o: ..\..\source\Control/GameManager.h
+.\objects\idea_app.o: ..\..\source\Control/LotteryManager.h
+.\objects\idea_app.o: ..\..\source\Control/Lottery.h
+.\objects\idea_app.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\idea_app.o: ..\..\source\Control/LotteryPersistManager.h
+.\objects\idea_app.o: ..\..\source\Control/Test.h

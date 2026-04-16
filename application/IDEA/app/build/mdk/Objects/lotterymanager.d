@@ -51,4 +51,6 @@
 .\objects\lotterymanager.o: ..\..\..\..\..\qs\system/qs_system_senv.h
 .\objects\lotterymanager.o: ..\..\..\..\..\qs\system/senv/qs_senv_manager.h
 .\objects\lotterymanager.o: ..\..\..\..\..\qs\system/senv/qs_senv.h
+.\objects\lotterymanager.o: ..\..\source\Control\LotteryPersistManager.h
 .\objects\lotterymanager.o: ..\..\source\Control\Test.h
+.\objects\lotterymanager.o: ..\..\source\idea_qs.h

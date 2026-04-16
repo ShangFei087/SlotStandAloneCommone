@@ -40,8 +40,6 @@ void Matrix_u_GenerateAnyResult(Matrix_u* pMatrix, uint8_t hasWild, uint8_t hasS
 void Matrix_u_GenerateLooseResult(Matrix_u* pMatrix, uint8_t hasWild, uint8_t hasScatter, uint8_t hasBonus, uint8_t hasBoost);
 
 uint8_t Matrix_u_computerMatrix_243(Matrix_u* pMatri, uint16_t* idVec); // 计算 243 条线组合结果
-int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId);// 根据组合 ID 生成矩阵
-
 //-------------------------------------------------------------------------------------
 // ComboResultInfo_t 连线/组合结果信息
 typedef struct {
@@ -59,6 +57,7 @@ typedef struct {
 	int32_t nMatrixBet;      // 本局下注金额
 	uint8_t nPlayBetValue;   // 当前下注/返还下注值（按协议使用）
 	Matrix_u extraMxu;      // 扩展信息（附加 mxu）
+
 	// 当前局的组合结果缓存
 	ComboResultInfo_t* pCurCri;
     Matrix_u pFreeMxu[GE_MaxFreeNum];
@@ -73,11 +72,17 @@ typedef struct {
 	int8_t nBonusType;
 	int8_t BlindSymbol; // 盲符号/转轮等级
 	uint16_t BonusData[GE_WheelChessMaxNum];
+
+	uint8_t nJPCount;                       // 本局命中的本地彩金数量（候选）
+	uint8_t JPTypeArray[GAME_Local_JP_MAX]; // 本局彩金类型（1~N）
+	int32_t JPBetArray[GAME_Local_JP_MAX];  // 本局彩金金额（候选）
+	int32_t nTotalJackpotBet;               // 本局本地彩金总金额（候选）
 } RoundInfo_t;
 // RoundInfo_t 初始化/重置/复制
 void RoundInfo_t_Init(RoundInfo_t* obj);
 void RoundInfo_t_Reset(RoundInfo_t* obj);
 void RoundInfo_t_Copy(RoundInfo_t* dest, const RoundInfo_t* src);
+int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId, RoundInfo_t* info);// 根据组合 ID 生成矩阵
 //-------------------------------------------------------------------------------------
 // FreeGameInfo_t 免费游戏状态
 typedef struct {
@@ -123,14 +128,18 @@ typedef struct {
 	uint8_t BlindSymbol;                   // 盲符号/转轮等级
 	uint16_t BonusData[GE_WheelChessMaxNum];   // Bonus 金额
 	uint8_t nBonusType;
-
-	int32_t nJPBet;
-	uint8_t nJPType;                        // Jackpot 类型
+	//Jp仅在bonus将中开出
+	uint8_t nJPCount;                       // 本局命中的本地彩金数量
+	uint8_t JPTypeArray[GAME_Local_JP_MAX]; // 本局彩金类型（1~N）
+	int32_t JPBetArray[GAME_Local_JP_MAX];  // 本局彩金金额
+	int32_t nTotalJackpotBet;               // 本局本地彩金总金额
 } OutResult_t;
 
 // OutResult_t 初始化/重置
 void OutResult_Init(OutResult_t* pResult);
 void OutResult_reset(OutResult_t* pResult);
+/** 本局本地彩金金额合计（依 nJPCount 与 JPBetArray）。 */
+int32_t OutResult_GetLocalJPBetTotal(const OutResult_t* pResult);
 //-------------------------------------------------------------------------------------
 // DebugControlMode_t 调试控制模式结构
 typedef struct {

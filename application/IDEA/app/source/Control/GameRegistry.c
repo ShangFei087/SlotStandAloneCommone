@@ -10,7 +10,6 @@
 
 int8_t GameRegistry_InitAndRegisterDefaults()
 {
-
     int32_t baseValueArray[3] = { 3000, 1500, 500 };
     int32_t maxValueArray[3] = { JPWeight[1], JPWeight[2], JPWeight[3] };
 
@@ -20,6 +19,7 @@ int8_t GameRegistry_InitAndRegisterDefaults()
     // 奖池基础参数集中在此处，统一主程序与协议初始化行为。
     LotteryManager_Init();
     LotteryManager_SetBaseValue(&gLotteryManager, baseValueArray, maxValueArray);
+
     //初始化内置游戏配置
     GameConfigRegistry_InitDefaults();
     GameResultRegistry_InitDefaults();

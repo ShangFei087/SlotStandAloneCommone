@@ -12,7 +12,7 @@ void GameResult_3995_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u
 
 	NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, mxu, inst->gameConfig.header.rowCount);
 	*matrixBet = computeLineWildWins_3995(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info->WildPosArray[0]);
-	ops->applyTriggers(mxu, &inst->gameConfig, gameId, &matrixBet);
+	ops->applyTriggers(mxu, &inst->gameConfig, gameId, &matrixBet, info);
 }
 
 void GameResult_3995_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId)
@@ -205,6 +205,11 @@ void GameResult_3995_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 	}
 }
 
+void GameResult_3995_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* jackpotMxu, GameInstanceId_t gameId)
+{
+	GameResult_3995_GenBonus(info, betVal, inst, jackpotMxu, gameId);
+}
+
 void GameResult_3995_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec)
 {
 	pRes->resType = resType;
@@ -322,11 +327,16 @@ int8_t* GameResult_3995_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	}
 
 	// JP 奖金/积分（仅当有 JP 投注时输出）
-	if (outRes->nJPBet > 0)
+	if (outRes->nJPCount > 0)
 	{
-		append_format(strRes, 2048, &used, "\"JPType\":%d", outRes->nJPType);
-
-		append_format(strRes, 2048, &used, "\"JPBet\":%d", outRes->nJPBet);
+		int8_t* jpTypeStr = ByteArrayToString((int8_t*)outRes->JPTypeArray, (int8_t)outRes->nJPCount);
+		int8_t* jpBetStr = ArrayToString((int32_t*)outRes->JPBetArray, outRes->nJPCount, 1);
+		append_format(strRes, 2048, &used, "\"JPCount\":%d,", outRes->nJPCount);
+		append_format(strRes, 2048, &used, "\"JPTypeArray\":%s,", jpTypeStr ? (const char*)jpTypeStr : "[]");
+		append_format(strRes, 2048, &used, "\"JPBetArray\":%s,", jpBetStr ? (const char*)jpBetStr : "[]");
+		append_format(strRes, 2048, &used, "\"TotalJackpotBet\":%d,", outRes->nTotalJackpotBet);
+		free(jpTypeStr);
+		free(jpBetStr);
 	}
 
 	append_format(strRes, 2048, &used, "\"TotalBet\":%d", outRes->nMatrixBet);
@@ -391,6 +401,6 @@ void GameResult_3995_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 		}
 	}
 
-	//res[pos++] = outRes->nJPBet;				// nJPBet
-	//res[pos++] = outRes->nJPType;				// nJPType
+	//res[pos++] = OutResult_GetLocalJPBetTotal(outRes);
+	//res[pos++] = (int32_t)outRes->JPTypeArray[0];
 }

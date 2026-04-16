@@ -157,6 +157,7 @@
     <ClInclude Include="..\..\source\Control\GenerationResult\GameResultRegistry.h" />
     <ClInclude Include="..\..\source\Control\Lottery.h" />
     <ClInclude Include="..\..\source\Control\LotteryManager.h" />
+    <ClInclude Include="..\..\source\Control\LotteryPersistManager.h" />
     <ClInclude Include="..\..\source\Control\Matrix\Matrix_u_TriggersById.h" />
     <ClInclude Include="..\..\source\Control\NatureAlg.h" />
     <ClInclude Include="..\..\source\Control\RtpConfig.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3999.c" />
     <ClCompile Include="..\..\source\Control\Lottery.c" />
     <ClCompile Include="..\..\source\Control\LotteryManager.c" />
+    <ClCompile Include="..\..\source\Control\LotteryPersistManager.c" />
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_1700.c" />
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3993.c" />
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3995.c" />

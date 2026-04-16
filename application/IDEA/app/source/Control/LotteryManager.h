@@ -4,7 +4,7 @@
 #include "Lottery.h"
 #include "ComputerData.h"
 
-//彩金管理器数据结构
+// 彩金管理器运行时数据
 typedef struct LotteryManager {
 	int32_t mTotalPlayTime;   // 总游玩局数
 	int32_t mTotalPlay;       // 总游玩分值
@@ -23,35 +23,52 @@ typedef struct LotteryManager {
 	int32_t mPlaySinceLastWin;              // 距离上次开奖的局数
 } LotteryManager;
 
-
 /**
- * @brief 初始化 LotteryManager。
+ * @brief 初始化彩金管理器全局实例。
  */
 void LotteryManager_Init(void);
 
 /**
- * @brief 重置 LotteryManager 运行时数据。
+ * @brief 重置彩金管理器运行时数据。
  */
 void LotteryManager_Destroy(LotteryManager* manager);
 
 /**
- * @brief 处理单次游玩输入并更新所有彩金池。
+ * @brief 处理一次下注并更新所有彩金池。
  */
 void LotteryManager_OnPlay(LotteryManager* manager, int32_t value);
 
 /**
- * @brief 尝试触发彩金开奖。
- * @return 成功返回 1，失败返回 0。
+ * @brief 尝试触发一次彩金开奖。
+ * @return 成功返回 1，未触发返回 0。
  */
 int32_t LotteryManager_TryGetLottery(LotteryManager* manager, int32_t playScore, int32_t* id, int32_t* val);
-// 候选彩金放行后提交落账（id 支持 0~2 下标或 1~3 类型值）
+
+/**
+ * @brief 尝试触发多个彩金开奖。
+ * @param ids 命中的彩金下标数组（0~GAME_Local_JP_MAX-1）。
+ * @param vals 命中的彩金金额数组。
+ * @param maxCount 输出数组容量。
+ * @return 命中的彩金个数。
+ */
+int32_t LotteryManager_TryGetLotterys(LotteryManager* manager, int32_t playScore, int32_t* ids, int32_t* vals, int32_t maxCount);
+
+/**
+ * @brief 候选彩金放行后提交到奖池账目（id 支持 0~2 下标或 1~3 类型值）。
+ */
 void LotteryManager_CommitLottery(LotteryManager* manager, int32_t id, int32_t val);
-// 回补指定彩金池（id 支持 0~2 下标或 1~3 类型值）
+
+/**
+ * @brief 将金额回补到指定彩金池（id 支持 0~2 下标或 1~3 类型值）。
+ */
 void LotteryManager_RefundLottery(LotteryManager* manager, int32_t id, int32_t val);
 
 /**
- * @brief 设置所有彩金池的基础值和上限值。
+ * @brief 设置所有彩金池的基础值和上限。
  */
 void LotteryManager_SetBaseValue(LotteryManager* manager, int32_t baseValue[3], int32_t maxValue[3]);
+
+static int32_t LotteryManager_GetTierPermil(const LotteryManager* manager, int32_t score);
+
 extern  LotteryManager gLotteryManager;
 #endif // _LotteryManager_H_

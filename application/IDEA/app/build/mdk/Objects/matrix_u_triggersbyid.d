@@ -54,3 +54,4 @@
 .\objects\matrix_u_triggersbyid.o: ..\..\source\Control/GameManager.h
 .\objects\matrix_u_triggersbyid.o: ..\..\source\Control/FreeGamePersistManager.h
 .\objects\matrix_u_triggersbyid.o: ..\..\source\Control/GameManager.h
+.\objects\matrix_u_triggersbyid.o: ..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h

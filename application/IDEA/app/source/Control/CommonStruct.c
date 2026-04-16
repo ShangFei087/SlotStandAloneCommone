@@ -283,9 +283,9 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
 //}
 //-------------------------------------------------------------------------------------
 
-int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId)
+int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId, RoundInfo_t* info)
 {
-    uint32_t nLocalWinBet = computerMatrixById(pMatrix, idVec, gameConfig, gameId);
+    uint32_t nLocalWinBet = computerMatrixById(pMatrix, idVec, gameConfig, gameId, info);
     return (int32_t)nLocalWinBet;
 }
 //-------------------------------------------------------------------------------------
@@ -315,6 +315,13 @@ void RoundInfo_t_Init(RoundInfo_t* obj) {
 
     // 初始化extraMxu
     Matrix_u_reset(&obj->extraMxu);
+    obj->nJPCount = 0;
+    for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
+    {
+        obj->JPTypeArray[i] = JT_None;
+        obj->JPBetArray[i] = 0;
+    }
+    obj->nTotalJackpotBet = 0;
 
     // 初始化免费数据相关
     obj->pCurCri = NULL;
@@ -358,6 +365,13 @@ void RoundInfo_t_Reset(RoundInfo_t* obj) {
 
     // 重置extraMxu
     Matrix_u_reset(&obj->extraMxu);
+    obj->nJPCount = 0;
+    for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
+    {
+        obj->JPTypeArray[i] = JT_None;
+        obj->JPBetArray[i] = 0;
+    }
+    obj->nTotalJackpotBet = 0;
 
     // 重置免费数据相关指针（不释放内存，只置NULL）
     obj->pCurCri = NULL;
@@ -400,6 +414,13 @@ void RoundInfo_t_Copy(RoundInfo_t* dest, const RoundInfo_t* src) {
 
     // 拷贝extraMxu
     Matrix_u_copy(&dest->extraMxu, &src->extraMxu); // 注意：需要类型转换
+    dest->nJPCount = src->nJPCount;
+    for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
+    {
+        dest->JPTypeArray[i] = src->JPTypeArray[i];
+        dest->JPBetArray[i] = src->JPBetArray[i];
+    }
+    dest->nTotalJackpotBet = src->nTotalJackpotBet;
 
     // 拷贝免费数据相关（指针只拷贝地址，不深拷贝指向的内容）
     dest->pCurCri = src->pCurCri;
@@ -511,8 +532,13 @@ void OutResult_Init(OutResult_t* pResult)
         pResult->BonusData[i] = 0;
     }
 
-    pResult->nJPType = JT_None;
-    pResult->nJPBet = 0;
+    pResult->nJPCount = 0;
+    for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
+    {
+        pResult->JPTypeArray[i] = JT_None;
+        pResult->JPBetArray[i] = 0;
+    }
+    pResult->nTotalJackpotBet = 0;
 }
 void OutResult_reset(OutResult_t* pResult)
 {
@@ -554,6 +580,40 @@ void OutResult_reset(OutResult_t* pResult)
     for (int8_t i = 0; i < GE_WheelChessMaxNum; i++) {
         pResult->BonusData[i] = 0;
     }
+
+    pResult->nJPCount = 0;
+    for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
+    {
+        pResult->JPTypeArray[i] = JT_None;
+        pResult->JPBetArray[i] = 0;
+    }
+    pResult->nTotalJackpotBet = 0;
+}
+
+int32_t OutResult_GetLocalJPBetTotal(const OutResult_t* pResult)
+{
+	if (pResult != NULL && pResult->nTotalJackpotBet > 0)
+	{
+		return pResult->nTotalJackpotBet;
+	}
+
+	int32_t sum = 0;
+	int32_t n;
+
+	if (pResult == NULL)
+	{
+		return 0;
+	}
+	n = (int32_t)pResult->nJPCount;
+	if (n > GAME_Local_JP_MAX)
+	{
+		n = GAME_Local_JP_MAX;
+	}
+	for (int32_t i = 0; i < n; ++i)
+	{
+		sum += pResult->JPBetArray[i];
+	}
+	return sum;
 }
 //-------------------------------------------------------------------------------------
 

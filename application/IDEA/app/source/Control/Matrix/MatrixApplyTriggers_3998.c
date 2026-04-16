@@ -1,7 +1,9 @@
 #include "Matrix_u_TriggersById.h"
 
-void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet)
+
+void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info)
 {
+    (void)gameId;
     if (pMatrix == NULL || gameConfig == NULL || pLocalWinBet == NULL) return;
 
     uint8_t _bonusCount = 0;
@@ -18,14 +20,22 @@ void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, u
 
     if (_bonusCount >= 3)
     {
-        if (JRandFrom(0, 10000) < 2000)
+        if (info != NULL && info->nJPCount > 0)
         {
-            pMatrix->resultType = RT_BonusWin;
+            pMatrix->resultType = RT_Jackpot;
         }
         else
         {
-            pMatrix->resultType = RT_FreeWin;
+            if (JRandFrom(0, 10000) < 2000)
+            {
+                pMatrix->resultType = RT_BonusWin;
+            }
+            else
+            {
+                pMatrix->resultType = RT_FreeWin;
+            }
         }
+      
 
         *pLocalWinBet += bounsOdds;
     }

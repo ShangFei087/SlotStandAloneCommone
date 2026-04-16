@@ -55,3 +55,4 @@
 .\objects\commonstruct.o: ..\..\source\Control/GameManager.h
 .\objects\commonstruct.o: ..\..\source\Control/FreeGamePersistManager.h
 .\objects\commonstruct.o: ..\..\source\Control/GameManager.h
+.\objects\commonstruct.o: ..\..\source\Control\Matrix/../../GameAlgo/common/JRand.h

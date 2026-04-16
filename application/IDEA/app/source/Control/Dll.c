@@ -19,6 +19,7 @@ int32_t GetIDBetValue(int32_t ID);
 
 GameInstance_t* g_CurrentGameInstance = NULL;  // 定义并初始化
 
+
 // 设置区域与 RTP 档位；rtpPermyriad<=0 表示使用区域默认档。
 int32_t DLL_SetRtpDifficulty(uint8_t region, int32_t rtpPermyriad)
 {
@@ -51,11 +52,13 @@ void DLL_OnJackpotOnlineWin(int32_t jpOnlineBet)
 		g_GameManager.debugInfo.dwWinScore += jpOnlineBet;
 	}
 }
+
 // 读取当前生效难度配置（覆盖值优先于档位默认值）。
 void DLL_GetRtpDifficulty(RtpProfileConfig* outProfile)
 {
 	TableControl_GetRtpDifficulty(outProfile);
 }
+
 // 根据 gameId 获取实例，传无效ID时返回当前实例。
 GameInstance_t* get_instance(GameInstanceId_t gameId)
 {
@@ -77,11 +80,13 @@ int8_t DLL_GameSwitch(GameInstanceId_t gameId)
 	if (ok) g_CurrentGameInstance = GameManager_GetCurrentInstance();
 	return ok;
 }
+
 // 生成一局结果
 void GenerateARound(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	GenerationResult_GenerateNormal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
 }
+
 //应用调试模式
 void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
@@ -103,7 +108,7 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 			//全线计算
 			//matrixBet=Matrix_u_computerMatrix_243(mxu, idVec);
 			//有线计算
-			* matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
+			* matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 			if (mxu->resultType == gDebugControlMode.resType)
 			{
 				break;
@@ -143,26 +148,25 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 	}
 #endif
 }
+
 //应用RoundInfo到输出结果
 void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	GenerationResult_ApplyMatrixToOutResByRound(pRes, resType, info, Mxu, idVec, gameId);
 }
+
 //应用赠送局到输出结果
 void ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx, GameInstanceId_t gameId)
 {
 	GenerationResult_ApplyMatrixToOutResForFree(pRes, info, freeIdx, gameId);
 }
+
 //请求结果
 void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* outRes, int32_t* ret, GameInstanceId_t gameId)
 {
 	*ret = 4;
 	int8_t opType = outRes->openType;
-	uint8_t jpType = outRes->nJPType;
-	int32_t jpBet = outRes->nJPBet;
 	OutResult_Init(outRes);
-	outRes->nJPType = jpType;
-	outRes->nJPBet = jpBet;
 
 	GameInstance_t* inst = get_instance(gameId);
 	if (!inst) {
@@ -196,10 +200,32 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 		Matrix_u mxu;
 		Matrix_u_reset(&mxu);
 		uint16_t idVec[GE_MaxIDNum] = { 0 };
+		int32_t jpTypeList[GAME_Local_JP_MAX] = { 0 };
+		int32_t jpValueList[GAME_Local_JP_MAX] = { 0 };
 		int32_t matrixBet = 0;
 		int32_t bRes = 0;
+		int32_t totalPlayScore = betVal * inst->gameConfig.header.lineCount;
 		int64_t fishValue = 0;                                       // 候选理论支付分
 		const RtpProfileConfig* profile = TableControl_GetActiveProfile(); // 当前生效难度配置
+		int32_t jpCount = 0;
+		uint8_t jpCandidateType = JT_None;
+		int32_t jpCandidateTotal = 0;
+
+		// 统一在主流程内进行奖池注入与多彩金检测，避免调用方重复或遗漏。
+		LotteryManager_OnPlay(&gLotteryManager, totalPlayScore);
+		jpCount = LotteryManager_TryGetLotterys(&gLotteryManager, totalPlayScore, jpTypeList, jpValueList, GAME_Local_JP_MAX);
+		if (jpCount > 0)
+		{
+			ri.nJPCount = (uint8_t)jpCount;
+			jpCandidateType = (uint8_t)jpTypeList[0];
+			for (int32_t i = 0; i < jpCount; ++i)
+			{
+				ri.JPTypeArray[i] = (uint8_t)jpTypeList[i];
+				ri.JPBetArray[i] = jpValueList[i];
+				jpCandidateTotal += jpValueList[i];
+			}
+			ri.nTotalJackpotBet = jpCandidateTotal;
+		}
 
 		//生成结果
 		GenerateARound(&ri, inst, &mxu, betVal, &matrixBet, idVec, gameId);
@@ -212,17 +238,21 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 		g_GameManager.debugInfo.dwPlayScore += betVal * g_CurrentGameInstance->gameConfig.header.lineCount;
 
 		TableControl_OnFireWeapon(pUserInfo, betVal, inst->gameConfig.header.lineCount); // 记录下注统计
-		fishValue = (int64_t)betVal * (ri.nMatrixBet + ri.nFreeBet + ri.nBonusBet) + outRes->nJPBet;      // 计算候选总支付（含JP）
-		bRes = TableControl_GetShotResult(pUserInfo, betVal, fishValue, inst->gameConfig.header.lineCount, &ri, profile, &outRes->nJPType, &outRes->nJPBet); //判定（含JP候选）
+		fishValue = (int64_t)betVal * (ri.nMatrixBet + ri.nFreeBet + ri.nBonusBet) + jpCandidateTotal;      // 计算候选总支付（含JP）
+		bRes = TableControl_GetShotResult(pUserInfo, betVal, fishValue, inst->gameConfig.header.lineCount, &ri, profile, &jpCandidateType, &jpCandidateTotal); //判定（含JP候选）
 		TableControl_OnEndShot(pUserInfo, bRes, fishValue);
 
-		
 		if (!bRes)
 		{
-			outRes->nJPType = JT_None;
-			outRes->nJPBet = 0;
 			//强制输局
 			GenerationResult_GenerateLose(inst, &mxu, idVec, gameId);
+			ri.nJPCount = 0;
+			for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+			{
+				ri.JPTypeArray[i] = JT_None;
+				ri.JPBetArray[i] = 0;
+			}
+			ri.nTotalJackpotBet = 0;
 			outRes->resType = RT_Lose;     // 标记输局
 			outRes->nMatrixBet = 0;        // 线奖清零
 			outRes->openType = OT_Normal;  // 仍属于普通付费开局
@@ -257,6 +287,14 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 			{
 				outRes->resType = RT_FreeWin;       // 落地免费触发结果
 				outRes->nMatrixBet = ri.nMatrixBet; // 回填触发局线奖倍数
+				ri.nJPCount = 0;
+				for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+				{
+					ri.JPTypeArray[i] = JT_None;
+					ri.JPBetArray[i] = 0;
+				}
+				ri.nTotalJackpotBet = 0;
+				outRes->nTotalJackpotBet = 0;
 				//存储免费信息
 				FreeGameInfo_t_Reset(&inst->freeGameInfo);                    // 清理旧免费态
 				RoundInfo_t_Copy(&inst->freeGameInfo.roundInfo, &ri);         // 保存本次免费round信息
@@ -279,12 +317,26 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 
 				//应用RoundInfo到outRes
 				ApplyMatrixToOutResByRound(outRes, RT_BonusWin, &ri, &mxu, idVec, gameId); // 写入Bonus输出数据
-				*ret = 3;                                                           // 返回Bonus触发编码
+				*ret = 3;                                                           
 			}
 			break;
 			case RT_Jackpot:
 			{
-				//outRes->resType = RT_Jackpot; // 落地Jackpot类型（预留）
+				int32_t jpTotal = 0;
+				outRes->resType = RT_Jackpot;     
+				outRes->nMatrixBet = ri.nMatrixBet; 
+				outRes->nJPCount = ri.nJPCount;
+
+				ApplyMatrixToOutResByRound(outRes, RT_Jackpot, &ri, &mxu, idVec, gameId);
+				*ret = 4;
+	
+				for (int32_t i = 0; i < ri.nJPCount && i < GAME_Local_JP_MAX; ++i)
+				{
+					if (ri.JPBetArray[i] > 0)
+					{
+						LotteryManager_CommitLottery(&gLotteryManager, ri.JPTypeArray[i], ri.JPBetArray[i]);
+					}
+				}
 			}
 			break;
 			default:
@@ -294,16 +346,12 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 			break;
 			}
 
-			// 主结果通过后，本地彩金候选再提交落账。
-			if (outRes->nJPBet > 0)
-			{
-				LotteryManager_CommitLottery(&gLotteryManager, outRes->nJPType, outRes->nJPBet);
-			}
 			outRes->openType = OT_Normal; // 付费局统一标记普通开局
-			g_GameManager.debugInfo.dwWinScore += betVal * (outRes->nMatrixBet + outRes->nTotalFreeBet + outRes->nBonusBet) + outRes->nJPBet; // 累计本局总赢分
+			g_GameManager.debugInfo.dwWinScore += betVal * (outRes->nMatrixBet + outRes->nTotalFreeBet + outRes->nBonusBet)+ outRes->nTotalJackpotBet; // 累计本局总赢分
 		}
 	}
 }
+
 //生成指定Id结果
 void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutResult_t* outRes, int32_t* ret, GameInstanceId_t gameId)
 {
@@ -332,11 +380,11 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 		g_GameManager.debugInfo.dwBaseWinScore += (uint32_t)(betValue * outRes->nMatrixBet);
 		g_GameManager.debugInfo.dwFreeWinScore += (uint32_t)(betValue * outRes->nTotalFreeBet);
 		g_GameManager.debugInfo.dwBonusWinScore += (uint32_t)(betValue * outRes->nBonusBet);
-		g_GameManager.debugInfo.dwJackpotWinScore += outRes->nJPBet;
+		g_GameManager.debugInfo.dwJackpotWinScore += (uint32_t)outRes->nTotalJackpotBet;
 	}
 
 	//本地彩金
-	if (outRes->nJPBet > 0) 
+	if (outRes->nTotalJackpotBet > 0) 
 	{
 		g_GameManager.debugInfo.dwJackpotTime++;
 	}
@@ -444,12 +492,14 @@ int32_t GetIDBetValue(int32_t ID)
 
 	return (int32_t)GET_BET_VALUE(betTableIdx, chessType, nEliminateNum - 2);
 }
+
 //控制台结果输出
 int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 {
 	GameInstance_t* inst = get_instance(gameId);
 	GenerationResult_OutResToJson(outRes, inst, gameId);
 }
+
 //嵌入式结果输出
 void DLL_OutResToSenvById(OutResult_t* outRes, int32_t* res, GameInstanceId_t gameId)
 {
@@ -462,6 +512,7 @@ void DLL_GetUserDebugInfo(DebugInfo* pDebugInfo)
 {
 	DebugInfo_accum(pDebugInfo, &g_GameManager.debugInfo);
 }
+
 // 关闭指定游戏实例并释放资源。
 void DLL_GameClose(GameInstanceId_t gameId)
 {

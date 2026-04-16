@@ -29,7 +29,7 @@ void GameResult_1700_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 	{
 		Matrix_u_reset(&mxu);
 		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu, inst->gameConfig.header.rowCount);
-		int32_t matrixBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId);
+		int32_t matrixBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 
 		info->nFreeBet += matrixBet;
 		Matrix_u_copy(&info->pFreeMxu[index], &mxu);
@@ -54,6 +54,11 @@ void GameResult_1700_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 
 	// 1700 的 Bonus 局逻辑：固定大奖注数（与原 switch case 保持一致）
 	info->nBonusBet = 1000;
+}
+
+void GameResult_1700_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* jackpotMxu, GameInstanceId_t gameId)
+{
+	GameResult_1700_GenBonus(info, betVal, inst, jackpotMxu, gameId);
 }
 
 void GameResult_1700_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId)
@@ -104,7 +109,7 @@ void GameResult_1700_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 		}
 	}
 
-	//res[pos++] = outRes->nJPBet;				// nJPBet
-	//res[pos++] = outRes->nJPType;				// nJPType
+	//res[pos++] = OutResult_GetLocalJPBetTotal(outRes);
+	//res[pos++] = (int32_t)outRes->JPTypeArray[0];
 }
 

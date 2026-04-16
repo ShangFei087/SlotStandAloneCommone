@@ -3,16 +3,17 @@
 
 #include "Control/CommonStruct.h"
 #include "Control/GameManager.h"
+#include "../../GameAlgo/common/JRand.h"
 
 // 按线方式计算
-int32_t computerMatrixById(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId);
+int32_t computerMatrixById(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId, RoundInfo_t* info);
 
 uint8_t  checkOnLine_Defaults(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResult_t* clr, SlotGameConfig_t* gameConfig);
 uint32_t computeLineWins_Defaults(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId);
-void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
+void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
 
 
-typedef void (*MatrixApplyTriggersFn)(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet);
+typedef void (*MatrixApplyTriggersFn)(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
 typedef void (*MatrixcheckOnLineWinsFn)(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResult_t* clr, SlotGameConfig_t* gameConfig);
 typedef uint32_t(*MatrixcomputeLineWinsFn)(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId);
 //3993免费奖特殊玩法

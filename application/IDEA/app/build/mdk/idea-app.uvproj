@@ -693,6 +693,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\source\Control\Matrix\MatrixApplyTriggers_3997.c</FilePath>
             </File>
+            <File>
+              <FileName>LotteryPersistManager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\LotteryPersistManager.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -54,3 +54,4 @@
 .\objects\matrixapplytriggers_3995.o: ..\..\source\Control/GameManager.h
 .\objects\matrixapplytriggers_3995.o: ..\..\source\Control/FreeGamePersistManager.h
 .\objects\matrixapplytriggers_3995.o: ..\..\source\Control/GameManager.h
+.\objects\matrixapplytriggers_3995.o: ..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h

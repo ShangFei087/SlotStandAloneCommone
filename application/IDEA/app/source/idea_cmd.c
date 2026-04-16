@@ -632,8 +632,6 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		int32_t res[150] = { 0 }; //250个以下的int32_t
 		uint32_t pos = 0;
 		uint32_t ret =0;
-		uint32_t jpType = 0;
-		uint32_t jpvaule = 0;
 		GameInstanceId_t gameId = g_CurrentGameInstance->id;
 		OutResult_t outres;
 		uint32_t TotalWin = 0;
@@ -657,16 +655,9 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		if (outres.openType == OT_Normal)
 		{
 			BOOL xret = player_bets_info_update(player_id, totalbet, 0);
-			if (xret) {
-				
-			}
-			LotteryManager_OnPlay(&gLotteryManager, totalbet);
-			//检测是否可以获得彩金
-			LotteryManager_TryGetLottery(&gLotteryManager, totalbet, &jpType, &jpvaule);
-			if (jpvaule > 0)
+			if (xret)
 			{
-				outres.nJPType = jpType;
-				outres.nJPBet = jpvaule;
+				
 			}
 		}
 
@@ -677,7 +668,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		if (outres.openType == OT_Normal)
 		{
 			//TotalWin = betmultiple *(outres.nMatrixBet + outres.nTotalFreeBet + outres.nBonusBet);
-			TotalWin = betmultiple *(outres.nMatrixBet + outres.nBonusBet);
+			TotalWin = betmultiple *(outres.nMatrixBet + outres.nBonusBet) + outres.nTotalJackpotBet;
 			player_bets_info_update(player_id, 0, TotalWin);
 		}
 		else
@@ -746,6 +737,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 			{
 				res[0] = gameid;
 				res[1] = 0;
+				QS_LOG("\r\n 切换游戏成功:%d", gameid);
 			}
 		}
 		else {

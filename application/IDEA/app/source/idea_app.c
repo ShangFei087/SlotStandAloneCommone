@@ -21,7 +21,10 @@
  */
 #include "app.h"
 #include "Control/GameManager.h"
+#include "Control/LotteryManager.h"
 #include "Control/FreeGamePersistManager.h"
+#include "Control/LotteryPersistManager.h"
+#include "Control/Test.h"
 #include "idea_qs.h"
 
 /**************************************************************************
@@ -96,8 +99,15 @@ void idea_app_init(void)
 
 	// 初始化 GameManager 数据，从持久化存储中加载
 	GameManager_Init();
+	// 初始化 LotteryManager 数据，从持久化存储中加载
+	LotteryManager_Init();
 
+#ifndef _LocalDebug
 	FreeGamePersist_Init();
+	LotteryPersist_Init();
+#else
+	QS_LOG("\r\n [GM] _LocalDebug enabled: skip persist init");
+#endif
 
 	idea_cmd_init();
 
