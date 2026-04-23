@@ -69,6 +69,12 @@ void GenerationResult_GenerateBonus(RoundInfo_t* info, int32_t betVal, GameInsta
 	if (ops == NULL || ops->genBonus == NULL) return;
 	ops->genBonus(info, betVal, inst, bonusMxu, gameId);
 }
+void GenerationResult_GenerateJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId)
+{
+	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
+	if (ops == NULL || ops->genJackpot == NULL) return;
+	ops->genJackpot(info, betVal, inst, bonusMxu, gameId);
+}
 //输
 void GenerationResult_GenerateLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId)
 {
@@ -94,8 +100,8 @@ void GenerationResult_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t*
 int8_t* GenerationResult_OutResToJson(OutResult_t* outRes, GameInstance_t* inst, GameInstanceId_t gameId)
 {
 	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
-	if (ops == NULL || ops->outResJson == NULL) return;
-	ops->outResJson(outRes, inst);
+	if (ops == NULL || ops->outResJson == NULL || outRes == NULL || inst == NULL) return NULL;
+	return ops->outResJson(outRes, inst);
 }
 //嵌入式输出结果
 void GenerationResult_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId)
@@ -490,6 +496,7 @@ void GameResult_3996_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 void GameResult_3996_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* jackpotMxu, GameInstanceId_t gameId);
 void GameResult_3996_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId);
 void GameResult_3996_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec);
+void GameResult_3996_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx);
 int8_t* GameResult_3996_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst);
 void GameResult_3996_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 //--------------------------------------------动物类--------------------------------------------//
@@ -561,19 +568,19 @@ void GameResultRegistry_InitDefaults(void)
 	memset(gReg, 0, sizeof(gReg));
 	gRegCount = 0;
 
-	GameResultOps_t ops1700 = {0};
-	ops1700.genNormal = GameResult_1700_GenNormal;
-	ops1700.genNormalWin = GameResult_Generic_NormalWin;
-	ops1700.genNormalLose = GameResult_Generic_NormalLose;
-	ops1700.genFree = GameResult_1700_GenFree;
-	ops1700.genBonus = GameResult_1700_GenBonus;
-	ops1700.genJackpot = GameResult_1700_GenJackpot;
-	ops1700.genLose = GameResult_1700_GenLose;
-	ops1700.applyRound = GameResult_Generic_ApplyMatrixToOutResByRound;
-	ops1700.applyFree = GameResult_Generic_ApplyMatrixToOutResForFree;
-	ops1700.outResJson = OutResToJson_Common;
-	ops1700.outResSenv = GameResult_1700_OutResToSenv;
-	(void)GameResultRegistry_Register(1700, &ops1700);
+	//GameResultOps_t ops1700 = {0};
+	//ops1700.genNormal = GameResult_1700_GenNormal;
+	//ops1700.genNormalWin = GameResult_Generic_NormalWin;
+	//ops1700.genNormalLose = GameResult_Generic_NormalLose;
+	//ops1700.genFree = GameResult_1700_GenFree;
+	//ops1700.genBonus = GameResult_1700_GenBonus;
+	//ops1700.genJackpot = GameResult_1700_GenJackpot;
+	//ops1700.genLose = GameResult_1700_GenLose;
+	//ops1700.applyRound = GameResult_Generic_ApplyMatrixToOutResByRound;
+	//ops1700.applyFree = GameResult_Generic_ApplyMatrixToOutResForFree;
+	//ops1700.outResJson = OutResToJson_Common;
+	//ops1700.outResSenv = GameResult_1700_OutResToSenv;
+	//(void)GameResultRegistry_Register(1700, &ops1700);
 
 	GameResultOps_t ops3999 = {0};
 	ops3999.genNormal = GameResult_3999_GenNormal;
@@ -626,7 +633,7 @@ void GameResultRegistry_InitDefaults(void)
 	ops3996.genJackpot = GameResult_3996_GenJackpot;
 	ops3996.genLose = GameResult_3996_GenLose;
 	ops3996.applyRound = GameResult_3996_ApplyMatrixToOutResByRound;
-	ops3996.applyFree = GameResult_Generic_ApplyMatrixToOutResForFree;
+	ops3996.applyFree = GameResult_3996_ApplyMatrixToOutResForFree;
 	ops3996.outResJson = GameResult_3996_OutResToJsonn;
 	ops3996.outResSenv = GameResult_3996_OutResToSenv;
 	(void)GameResultRegistry_Register(3996, &ops3996);

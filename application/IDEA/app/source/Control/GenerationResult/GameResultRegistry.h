@@ -4,11 +4,12 @@
 #include "Control/CommonStruct.h"
 #include "Control/GameManager.h"
 #include "Control/NatureAlg.h"
-
+#include "Control/Test.h"
 //------------------------------------------外部调用------------------------------------------//
 void GenerationResult_GenerateNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId);
 void GenerationResult_GenerateFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId);
 void GenerationResult_GenerateBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId);
+void GenerationResult_GenerateJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId);
 void GenerationResult_GenerateLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId);
 void GenerationResult_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec, GameInstanceId_t gameId);
 void GenerationResult_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx, GameInstanceId_t gameId);

@@ -72,7 +72,7 @@ void GameResult_3997_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 	{
 		if (bonusMxu->dataArray[i] == inst->gameConfig.header.Bonus)
 		{
-			uint16_t score = JRandFrom(10, 40) * inst->gameConfig.header.lineCount;
+			uint16_t score = JRandFrom(15, 40) * inst->gameConfig.header.lineCount;
 			info->BonusData[i] = 1000 + score;
 			info->nBonusBet += score;
 
@@ -106,7 +106,7 @@ void GameResult_3997_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 		randNum = JRandFrom(0, PosSize - 1);
 		// 获取该索引对应的实际落点位置
 		randPos = PosVec[randNum];
-		uint16_t score = JRandFrom(10, 40) * inst->gameConfig.header.lineCount;
+		uint16_t score = JRandFrom(15, 40) * inst->gameConfig.header.lineCount;
 		info->BonusData[randPos] = 1000 + score;
 		info->nBonusBet += score;
 
@@ -299,9 +299,9 @@ int8_t* GameResult_3997_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	int8_t* idVecStr = NULL;
 	int8_t* matrixStr = NULL;
 
+	// JSON 缓冲分配失败或输入无效时直接返回 NULL
+	if (strRes == NULL || outRes == NULL || inst == NULL) return NULL;
 	int8_t curwheelChessNum = inst->gameConfig.header.wheelChessNum;
-	// JSON 缓冲分配失败时直接返回 NULL
-	if (strRes == NULL || outRes == NULL) return NULL;
 
 	strRes[0] = '\0';
 	append_format(strRes, 2048, &used, "{");

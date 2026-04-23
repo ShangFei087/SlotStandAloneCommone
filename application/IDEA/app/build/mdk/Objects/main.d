@@ -72,4 +72,5 @@
 .\objects\main.o: ..\..\source\Control/Test.h
 .\objects\main.o: ..\..\source\Control/LotteryManager.h
 .\objects\main.o: ..\..\source\Control/Lottery.h
+.\objects\main.o: ..\..\source\Control/TableControl.h
 .\objects\main.o: ..\..\source\Control/GameRegistry.h

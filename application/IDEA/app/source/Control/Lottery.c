@@ -1,8 +1,8 @@
 #include "Lottery.h"
 #include "../GameAlgo/common/JRand.h"
 
-// mDrawRate 使用万分比配置（1/100000）
-#define LOTTERY_DRAW_RATE_DENOM 100000
+// mDrawRate 使用万分比配置（1/10000）
+#define LOTTERY_DRAW_RATE_DENOM 10000
 
 
 void Lottery_Init(Lottery* self,int32_t threshMax, int32_t threshMin, int32_t drawRate, int32_t scale)

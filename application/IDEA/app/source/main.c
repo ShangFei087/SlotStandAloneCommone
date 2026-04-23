@@ -30,6 +30,7 @@
 #include "Control/Test.h"
 #include "Control/LotteryManager.h"
 #include "Control/ComputerData.h"
+#include "Control/TableControl.h"
 #include "GameAlgo/common/JRand.h"
 #include "Control/GameManager.h"
 #include "Control/GameRegistry.h"
@@ -91,12 +92,12 @@ int32_t main(int32_t argc, char *argv[])
     DebugControlMode_Init(&debugMode);
 	//debugMode.resType = RT_Win;
 	//debugMode.resType = RT_Lose;
-	//debugMode.resType = RT_FreeWin;
+	debugMode.resType = RT_FreeWin;
 	//debugMode.resType = RT_BonusWin;
     //debugMode.resType = RT_Jackpot;
-    //debugMode.bonusType =1;
-	//debugMode.mode = DCM_PointResData;
-    debugMode.mode = DCM_Normal;
+   // debugMode.jpType = JT_Major;
+    //debugMode.bonusType =0;
+	debugMode.mode = DCM_PointResData;
     DLL_SetControlDebugMode(&debugMode);
 
     // 设置当前区域+RTP档位（这里使用国内 99.2 档）。
@@ -118,9 +119,9 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(3998))
+    if (DLL_GameSwitch(3996))
     {
-        gameId = 3998;
+        gameId = 3996;
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -141,7 +142,7 @@ int32_t main(int32_t argc, char *argv[])
     memset(giveBetVal, 0, sizeof(giveBetVal));
     for (int32_t i = 0; i < _TestMachineCount; ++i)
     {
-        testPlayers[i].Bet = 200;
+        testPlayers[i].Bet = 20;
     }
 
     int32_t ret = 0;
@@ -175,7 +176,6 @@ int32_t main(int32_t argc, char *argv[])
             else
             {
                 pItem->Bets += totalbet;
-                // 彩金检测统一放在 GetNormalResult 内部处理。
             }
             //获取一局数据
             DLL_GetGameResultById(pItem, betmultiple, &outres, &ret, gameId);
@@ -229,7 +229,7 @@ int32_t main(int32_t argc, char *argv[])
                     testPlayers[i].Wins);
             }
             QS_LOG("Round:%u MachineAvgRTP:%f\n", totalTime, totalMachineRtp / _TestMachineCount);
-            QS_LOG("\n");
+            
         }
       
     }
@@ -272,9 +272,9 @@ int32_t main(int32_t argc, char *argv[])
             userDebugInfo.dwBonusTime * 1.0f / userDebugInfo.dwTotalPlayTime,
             userDebugInfo.dwJackpotTime * 1.0f / userDebugInfo.dwTotalPlayTime,
             userDebugInfo.dwJackpotOnlineTime * 1.0f / userDebugInfo.dwTotalPlayTime,
-            (userDebugInfo.dwLooseTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwNormalWinTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwFreeGameTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwBonusTime * 1.0f / userDebugInfo.dwTotalPlayTime));
+            (userDebugInfo.dwLooseTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwNormalWinTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwFreeGameTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwBonusTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwJackpotTime * 1.0f / userDebugInfo.dwTotalPlayTime + userDebugInfo.dwJackpotOnlineTime * 1.0f / userDebugInfo.dwTotalPlayTime));
         QS_LOG("%s\n", finalString);
-
+        QS_LOG("\r\n");
         int8_t RTPStr[512];
         //输赢概率
         float LoseProb = userDebugInfo.dwLooseTime * 1.0f / userDebugInfo.dwTotalPlayTime;
@@ -319,6 +319,79 @@ int32_t main(int32_t argc, char *argv[])
             BaseRTP + FreeRTP + BounsRTP + JackpotRTP + JackpotOnlineRTP
        );
         QS_LOG("%s\n", RTPStr); 
+        QS_LOG("\r\n");
+        {
+            TableControlStats tableStats;
+            memset(&tableStats, 0, sizeof(tableStats));
+            
+            TableControl_GetStats(&tableStats);
+            QS_LOG("TableControlStats: totalBet:%lld totalFishValue:%lld paidBase:%lld paidFree:%lld paidBonus:%lld paidJackpotBonus:%lld paidJackpot:%lld paidNetJackpot:%lld\n",
+                (long long)tableStats.totalBet,
+                (long long)tableStats.totalFishValue,
+                (long long)tableStats.paidBase,
+                (long long)tableStats.paidFree,
+                (long long)tableStats.paidBonus,
+                (long long)tableStats.paidJackpotBonus,
+                (long long)tableStats.paidJackpot,
+                (long long)tableStats.paidNetJackpot);
+            QS_LOG("\r\n");
+
+            QS_LOG("TableControlStats: totalPass:%lld totalReject:%lld netJackpotHitCount:%lld netJackpotOverBudgetCount:%lld\n",
+                (long long)tableStats.totalPass,
+                (long long)tableStats.totalReject,
+                (long long)tableStats.netJackpotHitCount,
+                (long long)tableStats.netJackpotOverBudgetCount);
+            QS_LOG("\r\n");
+
+            QS_LOG("TableControlStatsReject: winPool:%lld freePool:%lld bonusPool:%lld jackpotPool:%lld freeRange:%lld bonusRange:%lld jackpotRange:%lld freePassRate:%lld bonusPassRate:%lld jackpotPassRate:%lld\n",
+                (long long)tableStats.winRejectByTargetPool,
+                (long long)tableStats.freeRejectByTargetPool,
+                (long long)tableStats.bonusRejectByTargetPool,
+                (long long)tableStats.jackpotRejectByTargetPool,
+                (long long)tableStats.freeRejectByRange,
+                (long long)tableStats.bonusRejectByRange,
+                (long long)tableStats.jackpotRejectByRange,
+                (long long)tableStats.freeRejectByPassRate,
+                (long long)tableStats.bonusRejectByPassRate,
+                (long long)tableStats.jackpotRejectByPassRate);
+            QS_LOG("\r\n");
+
+            QS_LOG("LotteryManager: totalPlayTime:%d totalPlay:%d totalDraw:%d frozenTime:%d scale:%d injectPermil:%d midBet:%d highBet:%d midInjectPermil:%d highInjectPermil:%d minPlayScoreToTrigger:%d minPlayGapAfterWin:%d playSinceLastWin:%d\n",
+                gLotteryManager.mTotalPlayTime,
+                gLotteryManager.mTotalPlay,
+                gLotteryManager.mTotalDraw,
+                gLotteryManager.mFrozenTime,
+                gLotteryManager.mScale,
+                gLotteryManager.mInjectRatePermil,
+                gLotteryManager.mTierMidBet,
+                gLotteryManager.mTierHighBet,
+                gLotteryManager.mTierMidInjectPermil,
+                gLotteryManager.mTierHighInjectPermil,
+                gLotteryManager.mMinPlayScoreToTrigger,
+                gLotteryManager.mMinPlayGapAfterWin,
+                gLotteryManager.mPlaySinceLastWin);
+            for (int32_t jpIdx = 0; jpIdx < GAME_Local_JP_MAX; ++jpIdx)
+            {
+                Lottery* lottery = &gLotteryManager.mLotterys[jpIdx];
+                QS_LOG("\r\n");
+                QS_LOG("LotteryPool[%d]: base:%d show:%d pool:%d nextThresh:%d totalAccum:%d totalGive:%d totalGiveTime:%u max:%u threshMin:%d threshMax:%d drawRate:%d accumDrawVal:%d accumScore:%d showSpeedPermil:%d\n",
+                    jpIdx,
+                    lottery->mBaseLottery,
+                    lottery->mShowLottery,
+                    lottery->mLotteryPool,
+                    lottery->mNextGiveLotteryThresh,
+                    lottery->mTotalAccumPool,
+                    lottery->mTotalGivePool,
+                    lottery->mTotalGiveTime,
+                    lottery->mMaxLottery,
+                    lottery->mThreshMin,
+                    lottery->mThreshMax,
+                    lottery->mDrawRate,
+                    lottery->mAccumDrawVal,
+                    lottery->mAccumScore,
+                    lottery->mShowSpeedPermil);
+            }
+        }
     }
 #endif
 

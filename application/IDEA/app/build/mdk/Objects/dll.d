@@ -61,7 +61,7 @@
 .\objects\dll.o: ..\..\source\Control\GenerationResult/GameResultRegistry.h
 .\objects\dll.o: ..\..\source\Control/NatureAlg.h
 .\objects\dll.o: ..\..\source\Control/../GameAlgo/common/JRand.h
+.\objects\dll.o: ..\..\source\Control/Test.h
 .\objects\dll.o: ..\..\source\Control\TableControl.h
 .\objects\dll.o: ..\..\source\Control\LotteryManager.h
 .\objects\dll.o: ..\..\source\Control\Lottery.h
-.\objects\dll.o: ..\..\source\Control\Test.h

@@ -40,7 +40,7 @@ void MatrixApplyTriggers_3996(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, u
     }
 }
 
-uint32_t computeLineFreeWins_3996(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId, int8_t* wildData)
+uint32_t computeLineFreeWins_3996(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, GameInstanceId_t gameId, int8_t wildMultiply)
 {
     if (pMatrix == NULL || idVec == NULL || gameConfig == NULL) return 0;
     const MatrixTriggerOps_t* ops = MatrixTriggerOps_t_Get(gameId);
@@ -57,11 +57,9 @@ uint32_t computeLineFreeWins_3996(Matrix_u* pMatrix, uint16_t* idVec, SlotGameCo
     uint32_t nLocalWinBet = 0;
     CheckOnLineResult_t clr;
     uint8_t idVecCount = 0;
-    int8_t wildMultiplied = 0; // Wild 倍数
     // 统计连线并计算本地赢注
     for (uint8_t i = 0; i < gameConfig->header.lineCount; ++i)
     {
-        wildMultiplied = 0;
         CheckOnLineResult_Init(&clr);
         ops->checkOnLine(pMatrix, i, &clr, gameConfig);
 
@@ -69,15 +67,7 @@ uint32_t computeLineFreeWins_3996(Matrix_u* pMatrix, uint16_t* idVec, SlotGameCo
         {
             if (clr.bHasWild)
             {
-                for (uint8_t k = 0; k < 5; ++k)
-                {
-                    int Pos = clr.posVec[k];
-                    if (pMatrix->dataArray[Pos] == gameConfig->header.Wild)
-                    {
-                        wildMultiplied += wildData[Pos];
-                    }
-                }
-                nLocalWinBet += GET_BET_VALUE(gameConfig->header.id, clr.nAvailChessType, clr.nEliminateNum - 2) * wildMultiplied;
+                nLocalWinBet += GET_BET_VALUE(gameConfig->header.id, clr.nAvailChessType, clr.nEliminateNum - 2) * wildMultiply;
             }
             else
             {

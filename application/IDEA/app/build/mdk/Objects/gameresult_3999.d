@@ -56,3 +56,4 @@
 .\objects\gameresult_3999.o: ..\..\source\Control/GameManager.h
 .\objects\gameresult_3999.o: ..\..\source\Control/NatureAlg.h
 .\objects\gameresult_3999.o: ..\..\source\Control/../GameAlgo/common/JRand.h
+.\objects\gameresult_3999.o: ..\..\source\Control/Test.h

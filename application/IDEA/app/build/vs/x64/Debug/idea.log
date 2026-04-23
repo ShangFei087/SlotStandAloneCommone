@@ -1,81 +1,156 @@
-﻿  GameResult_3998.c
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResult_3998.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResultRegistry.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
-  
+﻿  CommonStruct.c
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
+  (编译源文件“../../source/Control/CommonStruct.c”)
   
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
-  
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(120,15): warning C4305: “初始化”: 从“int”到“const uint8_t”截断
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
-  
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(121,10): warning C4305: “初始化”: 从“int”到“const uint8_t”截断
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
-  
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(121,15): warning C4305: “初始化”: 从“int”到“const uint8_t”截断
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
-  
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(170,16): warning C4305: “初始化”: 从“int”到“const uint8_t”截断
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
-  
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(171,16): warning C4305: “初始化”: 从“int”到“const uint8_t”截断
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
+  (编译源文件“../../source/Control/CommonStruct.c”)
   
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
+  (编译源文件“../../source/Control/CommonStruct.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Test.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/CommonStruct.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Matrix\Matrix_u_TriggersById.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/CommonStruct.c”)
   
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
+  (编译源文件“../../source/Control/CommonStruct.c”)
   
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\FreeGamePersistManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
+  (编译源文件“../../source/Control/CommonStruct.c”)
   
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
+  (编译源文件“../../source/Control/CommonStruct.c”)
   
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\GameAlgo\common\JRand.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
+  (编译源文件“../../source/Control/CommonStruct.c”)
   
-ideabase.lib(idea_coder.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(idea_coder.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(idea_comm.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(idea_comm.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(idea_pwd.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(idea_pwd.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(idea_player.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(idea_player.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_json.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_json.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_led.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_led.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_senv.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_senv.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_senv_manager.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_senv_manager.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_system_senv.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_system_senv.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_task.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_task.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_database.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_database.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_des_cbc.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_des_cbc.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_rand.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_rand.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_mem.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_mem.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_platform.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_platform.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_driver.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_driver.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_base64.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_base64.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_crc16.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_crc16.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_sha1.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_sha1.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_rsa.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_rsa.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_list.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_list.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_fifo.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_fifo.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_mm.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_mm.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_modules.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_modules.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_system.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_system.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_des.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_des.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(driver_led.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(driver_led.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(driver_iflash.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(driver_iflash.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(driver_fram.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(driver_fram.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(driver_timer.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(driver_timer.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(driver_serial.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(driver_serial.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_board.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_board.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_nn.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_nn.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_prime.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_prime.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_des_ecb.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_des_ecb.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_utility.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_utility.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-ideabase.lib(qs_algo.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_algo.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-    正在创建库 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\idea.lib 和对象 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\idea.exp
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.c(416,36): warning C4090: “函数”: 不同的“const”限定符
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.c(751,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Dll.c
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Dll.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\DllInterface.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\FreeGamePersistManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\RtpConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResultRegistry.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\GameAlgo\common\JRand.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Test.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\TableControl.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\LotteryManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Lottery.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+  FreeGamePersistManager.c
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\FreeGamePersistManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/FreeGamePersistManager.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/FreeGamePersistManager.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/FreeGamePersistManager.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/FreeGamePersistManager.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/FreeGamePersistManager.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\FreeGamePersistManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/FreeGamePersistManager.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Test.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/FreeGamePersistManager.c”)
+  
+  main.c
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\GameAlgo\common\JRand.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\DllInterface.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\FreeGamePersistManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\RtpConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Test.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\LotteryManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Lottery.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\TableControl.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameRegistry.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(86,12): warning C4244: “函数”: 从“time_t”转换到“U32”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(105,5): warning C4013: “DLL_SetDifficultyLevel”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(181,13): warning C4013: “DLL_GetGameResultById”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(209,26): warning C4474: printf: 格式字符串中传递的参数太多
+      F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(209,26):
+      占位符和其参数预计 0 可变参数，但提供的却是 1 参数
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(87,29): warning C4244: “初始化”: 从“time_t”转换到“U32”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(87,45): warning C4244: “初始化”: 从“time_t”转换到“U32”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(87,61): warning C4244: “初始化”: 从“time_t”转换到“U32”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(87,77): warning C4244: “初始化”: 从“time_t”转换到“U32”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(267,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(312,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  正在生成代码...
   idea.vcxproj -> F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\idea.exe

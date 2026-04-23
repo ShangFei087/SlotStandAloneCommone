@@ -91,10 +91,6 @@ static void TableControl_AccumulatePaid(int32_t betVal, const RoundInfo_t* ri, i
 	else if (ri->resType == RT_Jackpot)
 	{
 		gTableControlStats.paidJackpotBonus += (int64_t)betVal * ri->nBonusBet;
-	}
-
-	if (jpBet > 0)
-	{
 		gTableControlStats.paidJackpot += jpBet;
 	}
 
@@ -111,9 +107,6 @@ static void TableControl_AccumulatePaid(int32_t betVal, const RoundInfo_t* ri, i
 	else if (ri->resType == RT_Jackpot)
 	{
 		gWindowPaidJackpotBonus += (int64_t)betVal * ri->nBonusBet;
-	}
-	if (jpBet > 0)
-	{
 		gWindowPaidJackpot += jpBet;
 	}
 }
@@ -421,6 +414,13 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 	{
 		return 1;
 	}
+
+	// 本地 JP 是 RT_Jackpot 专属支付，其他结果类型统一清空候选 JP，避免串到后续统计。
+	if (ri->resType != RT_Jackpot)
+	{
+		TableControl_RejectJackpotAndRefund(jpType, jpBet);
+	}
+
 	if (ri != NULL && ri->resType == RT_Lose)
 	{
 	}
@@ -435,11 +435,11 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 
 		if (TableControl_SoftPoolAllowAndConsume(&gBasePool, paidAmount, TotalBet, kBaseDebtBetFactor, kSoftPoolScaleBase))
 		{
+
 		}
 		else
 		{
 			gTableControlStats.winRejectByTargetPool++;
-			TableControl_RejectJackpotAndRefund(jpType, jpBet); // 主结果拒绝时回补并清空本地彩金
 			return 0;
 		}
 	}
@@ -457,7 +457,6 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 			if (freePaidAmount < (int64_t)activeProfile->freeMinBet * TotalBet || freePaidAmount > (int64_t)activeProfile->freeMaxBet * TotalBet) 
 			{
 				gTableControlStats.freeRejectByRange++; // 记录免费区间拒绝
-				TableControl_RejectJackpotAndRefund(jpType, jpBet);
 				return 0;                               
 			}
 
@@ -465,7 +464,6 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 			if (!TableControl_SoftPoolAllowAndConsume(&gFreePool, paidAmount, TotalBet, kFreeDebtBetFactor, kSoftPoolScaleFree))
 			{
 				gTableControlStats.freeRejectByTargetPool++; // 记录免费目标池拒绝
-				TableControl_RejectJackpotAndRefund(jpType, jpBet);
 				return 0;                                  
 			}
 
@@ -480,7 +478,6 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 					gFreePool += TableControl_CalcRefundByPermyriad(paidAmount, kFreePassRejectRefundPermyriad);
 				}
 				gTableControlStats.freeRejectByPassRate++;
-				TableControl_RejectJackpotAndRefund(jpType, jpBet); // 主结果拒绝时回补并清空本地彩金
 				return 0;
 			}
 		}
@@ -494,7 +491,6 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 			if (bonusPaidAmount < (int64_t)activeProfile->bonusMinBet * TotalBet || bonusPaidAmount > (int64_t)activeProfile->bonusMaxBet * TotalBet) 
 			{
 				gTableControlStats.bonusRejectByRange++; // 记录 Bonus 区间拒绝
-				TableControl_RejectJackpotAndRefund(jpType, jpBet);
 				return 0;                              
 			}
 
@@ -502,7 +498,6 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 			if (!TableControl_SoftPoolAllowAndConsume(&gBonusPool, paidAmount, TotalBet, kBonusDebtBetFactor, kSoftPoolScaleBonus))
 			{
 				gTableControlStats.bonusRejectByTargetPool++; // 记录 Bonus 目标池拒绝
-				TableControl_RejectJackpotAndRefund(jpType, jpBet);
 				return 0;                                   
 			}
 
@@ -517,7 +512,6 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 					gBonusPool += TableControl_CalcRefundByPermyriad(paidAmount, kBonusPassRejectRefundPermyriad);
 				}
 				gTableControlStats.bonusRejectByPassRate++;
-				TableControl_RejectJackpotAndRefund(jpType, jpBet); // 主结果拒绝时回补并清空本地彩金
 				return 0;
 			}
 		}

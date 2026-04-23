@@ -24,6 +24,7 @@ void GameResult_3996_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 	uint8_t scatterCount = Matrix_u_getTypeNum(freeMxu, inst->gameConfig, inst->gameConfig.header.Scatter);
 	info->nFreeNum = GET_FREE_TIME(inst->gameConfig.header.id, scatterCount - 3);
 	info->nFreeBet = 0;
+	int8_t scatterNum = 0;
 
 	int8_t wildMultiplied = 0;// 当前轮 Wild 倍数
 	int8_t wildCount = 0; // Wild 符号数量统计
@@ -32,40 +33,57 @@ void GameResult_3996_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 	int8_t wildMultipliedArray[4] = { 1,2,3,4 }; // Wild 倍数表：与阈值一一对应
 	for (uint8_t index = 0; index < info->nFreeNum; index++)
 	{
-		Matrix_u_reset(&mxu);
-		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu, inst->gameConfig.header.rowCount);
-
-		// 统计本轮盘面 Wild 的数量
-		wildCount += Matrix_u_getTypeNum(&mxu, inst->gameConfig, inst->gameConfig.header.Wild);
-		// 根据 Wild 数量选择对应倍数
-		for (int8_t i = 3; i >= 0; --i)
+		while (1)
 		{
-			if (wildCount >= wildCollectArray[i])
+			Matrix_u_reset(&mxu);
+			NatureAlg_GenRndMxu(inst->gameConfig.header.freeRollTableId, &mxu, inst->gameConfig.header.rowCount);
+
+			// 统计本轮盘面 Wild 的数量
+			wildCount += Matrix_u_getTypeNum(&mxu, inst->gameConfig, inst->gameConfig.header.Wild);
+			// 根据 Wild 数量选择对应倍数
+			for (int8_t i = 3; i >= 0; --i)
 			{
-				wildMultiplied = wildMultipliedArray[i];
+				if (wildCount >= wildCollectArray[i])
+				{
+					wildMultiplied = wildMultipliedArray[i];
+					break;
+				}
+			}
+
+#ifdef _IMHERE
+			uint8_t mxudata[GE_WheelChessMaxNum] =
+			{
+			   4,6,10,2,9,
+			   0,7,4,2,0,
+			   10,0,9,9,0
+			};
+			Matrix_u_setIntData(&mxu, inst->gameConfig, mxudata);
+			wildMultiplied = 3;
+#endif
+			
+			info->BonusData[index] = wildMultiplied; //用BonusData当作每局wild的倍数
+
+			int32_t matrixBet = computeLineFreeWins_3996(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, wildMultiplied);
+
+			info->nFreeBet += matrixBet;
+			Matrix_u_copy(&info->pFreeMxu[index], &mxu);
+			info->FreeBetArray[index] = matrixBet;
+
+			if (matrixBet > 0)
+			{
+				for (uint8_t i = 0; i < mxu.idVecSize; ++i)
+				{
+					info->FreeIDVec[index][i] = idVec[i];
+				}
+			}
+
+			uint8_t scatterCount2 = Matrix_u_getTypeNum(&mxu, inst->gameConfig, inst->gameConfig.header.Scatter);
+			if (info->nFreeNum + scatterCount2 <= 20)
+			{
+				info->nFreeNum += scatterCount2;
 				break;
 			}
-		}
-
-		for (uint32_t i = 0; i < inst->gameConfig.header.wheelChessNum; i++)
-		{
-			if (mxu.dataArray[i] == inst->gameConfig.header.Wild)
-			{
-				info->WildPosArray[index][i] = wildMultiplied;
-			}
-		}
-		int32_t matrixBet = computeLineFreeWins_3996(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info->WildPosArray[index]);
-
-		info->nFreeBet += matrixBet;
-		Matrix_u_copy(&info->pFreeMxu[index], &mxu);
-		info->FreeBetArray[index] = matrixBet;
-
-		if (matrixBet > 0)
-		{
-			for (uint8_t i = 0; i < mxu.idVecSize; ++i)
-			{
-				info->FreeIDVec[index][i] = idVec[i];
-			}
+			continue;
 		}
 
 		info->pFreeMxu[index].idVecSize = mxu.idVecSize;
@@ -95,8 +113,9 @@ void GameResult_3996_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 	{
 		if (bonusMxu->dataArray[i] == inst->gameConfig.header.Bonus)
 		{
-			info->BonusData[i] = JRandFrom(10, 40) * inst->gameConfig.header.lineCount;
-			info->nBonusBet += info->BonusData[i];
+			uint16_t score = JRandFrom(15, 33) * inst->gameConfig.header.lineCount;
+			info->BonusData[i] = 1000 + score;
+			info->nBonusBet += score;
 
 			// 如果位置已被占用，则从 PosVec 中删除该位置
 			for (int j = 0; j < PosSize; j++)
@@ -129,8 +148,9 @@ void GameResult_3996_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 		randNum = JRandFrom(0, PosSize - 1);
 		// 获取该索引对应的实际落点位置
 		randPos = PosVec[randNum];
-		info->BonusData[randPos] = JRandFrom(10, 40) * inst->gameConfig.header.lineCount;
-		info->nBonusBet += info->BonusData[randPos];
+		uint16_t score = JRandFrom(15, 33) * inst->gameConfig.header.lineCount;
+		info->BonusData[randPos] = 1000 + score;
+		info->nBonusBet += score;
 
 		// 删除已使用的位置并向后移位
 		for (int j = randNum; j < PosSize - 1; j++)
@@ -236,6 +256,33 @@ void GameResult_3996_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_
 		}
 		PosSize--;
 	}
+}
+
+void GameResult_3996_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx)
+{
+	OutResult_reset(pRes);
+	int8_t resType = 0;
+	//设定结果类型
+	if (info->FreeBetArray[freeIdx] > 0)
+	{
+		resType = RT_Win;
+	}
+	else
+	{
+		resType = RT_Lose;
+	}
+
+	//设定矩阵数据
+	Matrix_u_copy(&pRes->matrix, &info->pFreeMxu[freeIdx]);
+	pRes->nMatrixBet = info->FreeBetArray[freeIdx];
+	pRes->BlindSymbol = info->BonusData[freeIdx];
+	// FreeIDVec 的元素类型为 uint16_t，直接按类型拷贝到 outRes->IDVec。
+	for (uint8_t i = 0; i < GE_MaxIDNum; ++i)
+	{
+		pRes->IDVec[i] = info->FreeIDVec[freeIdx][i];
+	}
+	memcpy(pRes->WildPosArray, info->WildPosArray[freeIdx], sizeof(pRes->WildPosArray));
+	pRes->resType = resType;
 }
 
 void GameResult_3996_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec)
@@ -348,7 +395,7 @@ int8_t* GameResult_3996_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	}
 	if (outRes->openType == OT_Give)
 	{
-
+		append_format(strRes, 2048, &used, "\"WildMultiply\":%d,", outRes->BlindSymbol);
 	}
 
 	int8_t* bonusStr;
@@ -422,7 +469,7 @@ void GameResult_3996_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 
 	if (outRes->openType == OT_Give)
 	{
-
+		res[pos++] = outRes->BlindSymbol;
 	}
 
 	if (outRes->resType == RT_BonusWin)

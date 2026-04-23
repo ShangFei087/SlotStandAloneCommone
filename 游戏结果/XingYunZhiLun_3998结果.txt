@@ -12,12 +12,15 @@
 -Matrix：滚轮阵列 先从左往右，再从上到下
 -TotalBet：总赔率
 
-------大奖类型-----
 【免费游戏】
 {"OpenType":0,"ResultType":2,"IDVec":[],"Matrix":[2,3,0,9,7,5,4,9,3,6,9,2,3,1,0],"TotalFreeBet":90,"TotalFreeTime":5,"FreeBetArray":[0,0,30,30,30,],"TotalBet":0}
 -FreeBetArray：每回合免费游戏的得分
 -TotalFreeBet：免费游戏总得分
 -TotalFreeTime：免费总次数
+
+【赠送局】
+{"OpenType":1,"ResultType":1,"IDVec":[3503,4400,9503,11400],"Matrix":[0,1,0,2,3,7,2,3,2,7,0,2,3,3,7],"WildPosArray":[1,0,0,0,0,0,1,0,1,0,0,0,0,0,0],"TotalBet":150}
+-WildPosArray:每一局wild的位置
 
 【wild游戏】
 //wildColCountArray[3] = { 1, 2, 3};//3个转盘图标可以得到1列wild图标，4个转盘可以的2列......
@@ -92,9 +95,9 @@ void GameResult_3998_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 	if (outRes->resType == RT_FreeWin)
 	{
 		res[pos++] = outRes->nTotalFreeTime;					// nTotalFreeTime
-		res[pos++] = outRes->nTotalFreeBet;					// nTotalFreeBet
+		res[pos++] = outRes->nTotalFreeBet;						// nTotalFreeBet
 		//FreeBetArray
-		for (int32_t i = 0; i < outRes->nTotalFreeTime; i++)
+		for (int8_t i = 0; i < outRes->nTotalFreeTime; i++)
 		{
 			res[pos++] = outRes->FreeBetArray[i];
 		}
@@ -102,7 +105,10 @@ void GameResult_3998_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 
 	if (outRes->openType == OT_Give)
 	{
-
+		for (int8_t i = 0; i < wheelChessNum; i++)
+		{
+			res[pos++] = outRes->WildPosArray[i];
+		}
 	}
 
 	if (outRes->resType == RT_BonusWin)
@@ -110,7 +116,7 @@ void GameResult_3998_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 		res[pos++] = outRes->nBonusBet;				// nBonusBet
 		res[pos++] = outRes->nBonusType;			// nBonusType
 		res[pos++] = outRes->BlindSymbol;			//当大奖为神秘游戏就是BlindSymbol ,乘数游戏或者彩金游戏时就是BonusMultiply
-		for (int32_t i = 0; i < wheelChessNum; i++)
+		for (int8_t i = 0; i < wheelChessNum; i++)
 		{
 			res[pos++] = outRes->BonusData[i];
 		}
@@ -119,11 +125,11 @@ void GameResult_3998_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 	if (outRes->resType == RT_Jackpot)
 	{
 		res[pos++] = outRes->nJPCount;
-		for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+		for (int8_t i = 0; i < GAME_Local_JP_MAX; ++i)
 		{
 			res[pos++] = outRes->JPTypeArray[i];
 		}
-		for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+		for (int8_t i = 0; i < GAME_Local_JP_MAX; ++i)
 		{
 			res[pos++] = outRes->JPBetArray[i];
 		}

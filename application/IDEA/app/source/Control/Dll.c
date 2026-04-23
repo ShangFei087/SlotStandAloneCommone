@@ -109,6 +109,7 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 			//matrixBet=Matrix_u_computerMatrix_243(mxu, idVec);
 			//有线计算
 			* matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
+			
 			if (mxu->resultType == gDebugControlMode.resType)
 			{
 				break;
@@ -137,6 +138,12 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 		{
 			//生成大奖结果
 			GenerationResult_GenerateBonus(info, betVal, inst, mxu, gameId);
+		}
+		break;
+		case RT_Jackpot:
+		{
+			//生成本地彩金结果
+			GenerationResult_GenerateJackpot(info, betVal, inst, mxu, gameId);
 		}
 		break;
 		default:
@@ -214,6 +221,20 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 		// 统一在主流程内进行奖池注入与多彩金检测，避免调用方重复或遗漏。
 		LotteryManager_OnPlay(&gLotteryManager, totalPlayScore);
 		jpCount = LotteryManager_TryGetLotterys(&gLotteryManager, totalPlayScore, jpTypeList, jpValueList, GAME_Local_JP_MAX);
+#ifdef _DebugControlMode
+		if (gDebugControlMode.mode == DCM_PointResData && gDebugControlMode.resType == RT_Jackpot && jpCount <= 0)
+		{
+			int32_t forceJpType = (gDebugControlMode.jpType >= JT_Major && gDebugControlMode.jpType <= JT_Mini) ? gDebugControlMode.jpType : JT_Mini;
+			int32_t forceJpBet = totalPlayScore * 50;
+			if (forceJpBet <= 0)
+			{
+				forceJpBet = 1;
+			}
+			jpTypeList[0] = forceJpType;
+			jpValueList[0] = forceJpBet;
+			jpCount = 1;
+		}
+#endif
 		if (jpCount > 0)
 		{
 			ri.nJPCount = (uint8_t)jpCount;
@@ -392,7 +413,7 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 
 //玩家日志
 #ifdef _WritePlayerLog
-	const char* resTypeNameStrVec[] = { "Lose", "Win", "FreeGame", "BonusGame" };
+	const char* resTypeNameStrVec[] = { "Lose", "Win", "FreeGame", "BonusGame", "Jackpot", "JackpotOnline" };
 	const char* optTypeNameStrVec[] = { "Normal", "Give" };
 	const size_t resTypeCount = sizeof(resTypeNameStrVec) / sizeof(resTypeNameStrVec[0]);
 	const size_t optTypeCount = sizeof(optTypeNameStrVec) / sizeof(optTypeNameStrVec[0]);
@@ -497,7 +518,11 @@ int32_t GetIDBetValue(int32_t ID)
 int8_t* OutResToJsonnById(OutResult_t* outRes, GameInstanceId_t gameId)
 {
 	GameInstance_t* inst = get_instance(gameId);
-	GenerationResult_OutResToJson(outRes, inst, gameId);
+	if (inst == NULL || outRes == NULL)
+	{
+		return NULL;
+	}
+	return GenerationResult_OutResToJson(outRes, inst, gameId);
 }
 
 //嵌入式结果输出

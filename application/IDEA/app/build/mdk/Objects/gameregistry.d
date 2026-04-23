@@ -60,4 +60,5 @@
 .\objects\gameregistry.o: ..\..\source\Control\GenerationResult/GameResultRegistry.h
 .\objects\gameregistry.o: ..\..\source\Control/NatureAlg.h
 .\objects\gameregistry.o: ..\..\source\Control/../GameAlgo/common/JRand.h
+.\objects\gameregistry.o: ..\..\source\Control/Test.h
 .\objects\gameregistry.o: ..\..\source\Control\Matrix/Matrix_u_TriggersById.h

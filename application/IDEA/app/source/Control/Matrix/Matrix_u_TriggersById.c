@@ -29,7 +29,7 @@ uint8_t checkOnLine_Defaults(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
 
     uint8_t nConWildNum = 0;  // 从左开始连续 Wild 数量
     uint8_t nWildIdx = 0;
-    uint8_t BetValue = 0;
+    uint32_t BetValue = 0;
 
     for (uint8_t idIndex = 0; idIndex < gameConfig->header.colCount; ++idIndex)
     {
@@ -123,7 +123,7 @@ uint8_t checkOnLine_Defaults(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
     // 至少连中 2 个才有机会构成线奖
     if (j >= 3)
     {
-        BetValue = GET_BET_VALUE(gameConfig->header.id, clr->nAvailChessType, j - 2);
+        BetValue = GET_BET_VALUE(gameConfig->header.id, nFirstAvailChessType, j - 2);
         if (BetValue > 0)
         {
             clr->bIsEliminate = 1;
@@ -175,8 +175,8 @@ uint8_t checkOnLine_Defaults(Matrix_u* matrix, uint8_t lineIdx, CheckOnLineResul
         else
         {
             // 3 连及以上 Wild 时，比较“按普通图标赔付”和“按 Wild 赔付”，取更优
-            int8_t nNormalBet = GET_BET_VALUE(gameConfig->header.id, clr->nAvailChessType, clr->nEliminateNum - 2);
-            int8_t nWildBet = GET_BET_VALUE(gameConfig->header.id, gameConfig->header.Wild, nConWildNum - 2);
+            uint32_t nNormalBet = GET_BET_VALUE(gameConfig->header.id, clr->nAvailChessType, clr->nEliminateNum - 2);
+            uint32_t nWildBet = GET_BET_VALUE(gameConfig->header.id, gameConfig->header.Wild, nConWildNum - 2);
 
             if (nNormalBet >= nWildBet)
             {
@@ -222,7 +222,8 @@ uint32_t computeLineWins_Defaults(Matrix_u* pMatrix, uint16_t* idVec, SlotGameCo
 
         if (clr.bIsEliminate)
         {
-            nLocalWinBet += GET_BET_VALUE(gameConfig->header.id, clr.nAvailChessType, clr.nEliminateNum - 2);
+            uint32_t odds = GET_BET_VALUE(gameConfig->header.id, clr.nAvailChessType, clr.nEliminateNum - 2);
+            nLocalWinBet += odds;
 
             // ID 编码：千位=线号，百位=连中数量，十位/个位=图标类型
             uint32_t nID = ((uint32_t)i * 1000u) + ((uint32_t)clr.nEliminateNum * 100u) + (uint32_t)clr.nAvailChessType;
@@ -325,11 +326,11 @@ void MatrixTriggerOps_t_InitDefaults(void)
     memset(gReg, 0, sizeof(gReg));
     gRegCount = 0;
 
-    MatrixTriggerOps_t ops1700 = { 0 };
-    ops1700.applyTriggers = MatrixApplyTriggers_Default;
-    ops1700.checkOnLine = checkOnLine_Defaults;
-    ops1700.computeLineWin = computeLineWins_Defaults;
-    (void)MatrixTrigger_Register(1700, &ops1700);
+    //MatrixTriggerOps_t ops1700 = { 0 };
+    //ops1700.applyTriggers = MatrixApplyTriggers_Default;
+    //ops1700.checkOnLine = checkOnLine_Defaults;
+    //ops1700.computeLineWin = computeLineWins_Defaults;
+    //(void)MatrixTrigger_Register(1700, &ops1700);
 
     MatrixTriggerOps_t ops3999 = { 0 };
     ops3999.applyTriggers = MatrixApplyTriggers_Default;
@@ -343,18 +344,6 @@ void MatrixTriggerOps_t_InitDefaults(void)
     ops3998.computeLineWin = computeLineWins_Defaults;
     (void)MatrixTrigger_Register(3998, &ops3998);
 
-    MatrixTriggerOps_t ops3993 = { 0 };
-    ops3993.applyTriggers = MatrixApplyTriggers_3993;
-    ops3993.checkOnLine = checkOnLine_Defaults;
-    ops3993.computeLineWin = computeLineWins_Defaults;
-    (void)MatrixTrigger_Register(3993, &ops3993);
-
-    MatrixTriggerOps_t ops3995 = { 0 };
-    ops3995.applyTriggers = MatrixApplyTriggers_Default;
-    ops3995.checkOnLine = checkOnLine_Defaults;
-    ops3995.computeLineWin = computeLineWins_Defaults;
-    (void)MatrixTrigger_Register(3995, &ops3995);
-
     MatrixTriggerOps_t ops3997 = { 0 };
     ops3997.applyTriggers = MatrixApplyTriggers_3997;
     ops3997.checkOnLine = checkOnLine_Defaults;
@@ -366,6 +355,18 @@ void MatrixTriggerOps_t_InitDefaults(void)
     ops3996.checkOnLine = checkOnLine_Defaults;
     ops3996.computeLineWin = computeLineWins_Defaults;
     (void)MatrixTrigger_Register(3996, &ops3996);
+
+    MatrixTriggerOps_t ops3995 = { 0 };
+    ops3995.applyTriggers = MatrixApplyTriggers_Default;
+    ops3995.checkOnLine = checkOnLine_Defaults;
+    ops3995.computeLineWin = computeLineWins_Defaults;
+    (void)MatrixTrigger_Register(3995, &ops3995);
+
+    MatrixTriggerOps_t ops3993 = { 0 };
+    ops3993.applyTriggers = MatrixApplyTriggers_3993;
+    ops3993.checkOnLine = checkOnLine_Defaults;
+    ops3993.computeLineWin = computeLineWins_Defaults;
+    (void)MatrixTrigger_Register(3993, &ops3993);
 }
 
 

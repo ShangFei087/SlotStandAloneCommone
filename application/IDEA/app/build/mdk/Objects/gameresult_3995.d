@@ -56,4 +56,5 @@
 .\objects\gameresult_3995.o: ..\..\source\Control/GameManager.h
 .\objects\gameresult_3995.o: ..\..\source\Control/NatureAlg.h
 .\objects\gameresult_3995.o: ..\..\source\Control/../GameAlgo/common/JRand.h
+.\objects\gameresult_3995.o: ..\..\source\Control/Test.h
 .\objects\gameresult_3995.o: ..\..\source\Control\GenerationResult\../Matrix/Matrix_u_TriggersById.h
