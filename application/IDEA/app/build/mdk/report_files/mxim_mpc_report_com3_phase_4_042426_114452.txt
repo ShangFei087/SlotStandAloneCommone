@@ -1,0 +1,5 @@
+11:44:52 - Process with SCP packets from file:
+F:/Control/SlotStandAloneControl/cn/SlotStandAloneCommone/application/IDEA/app/build/mdk/scp_packets/packet.list
+11:45:08 - ERROR
+Unabe to open SCP session !!!	D
+	

@@ -19,27 +19,30 @@ int32_t GetIDBetValue(int32_t ID);
 
 GameInstance_t* g_CurrentGameInstance = NULL;  // 定义并初始化
 
-
 // 设置区域与 RTP 档位；rtpPermyriad<=0 表示使用区域默认档。
 int32_t DLL_SetRtpDifficulty(uint8_t region, int32_t rtpPermyriad)
 {
 	return TableControl_SetRtpDifficulty(region, rtpPermyriad);
 }
+
 // 按等级设置当前区域 RTP 档位（1~5，对应低到高 RTP 档）。
 int32_t DLL_SetDifficultyLevel(int32_t level)
 {
 	return TableControl_SetDifficultyLevel(level);
 }
+
 // 调试:设置免费和大奖不同概率配置
 void DLL_SetRtpPassOverride(int32_t freePassPermyriad, int32_t bonusPassPermyriad)
 {
 	TableControl_SetRtpPassOverride(freePassPermyriad, bonusPassPermyriad);
 }
+
 // 调试:设置本地彩金放行概率覆盖（传负数清除覆盖）
 void DLL_SetJackpotPassOverride(int32_t jackpotPassPermyriad)
 {
 	TableControl_SetJackpotPassOverride(jackpotPassPermyriad);
 }
+
 // 上报联网 Jackpot 派彩给 TableControl 统计模块。
 void DLL_OnJackpotOnlineWin(int32_t jpOnlineBet)
 {
@@ -156,6 +159,89 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 #endif
 }
 
+// 保存展会模式矩阵数据（仅缓存，不立即参与结算）。
+int32_t DLL_SaveExhibitionData(const int32_t* pMatrixData, uint32_t dataLen, int32_t* pAppliedLen)
+{
+	if (pAppliedLen != NULL)
+	{
+		*pAppliedLen = 0;
+	}
+
+	if (pMatrixData == NULL || dataLen == 0)
+	{
+		return -1;
+	}
+
+#ifndef _ExhibitionMode
+	return -2; // 编译时未开启展会模式
+#else
+	GameInstance_t* inst = get_instance(GAME_ID_INVALID);
+	uint32_t expectedLen = 0;
+
+	if (inst == NULL)
+	{
+		return -3;
+	}
+
+	expectedLen = (uint32_t)inst->gameConfig.header.colCount * (uint32_t)inst->gameConfig.header.rowCount;
+	if (dataLen != expectedLen || dataLen > GE_WheelChessMaxNum)
+	{
+		return -4;
+	}
+	{
+		// 统一交给 CommonStruct 模块缓存，等待 DLL_GetGameResultById 消费。
+		int32_t setRet = ExhibitionMode_SetMatrix(pMatrixData, dataLen, &inst->gameConfig, pAppliedLen);
+		if (setRet != 0)
+		{
+			return setRet;
+		}
+	}
+
+	if (pAppliedLen != NULL)
+	{
+		*pAppliedLen = (int32_t)dataLen;
+	}
+
+	QS_LOG("\r\nExhibitionMode cache ok, len:%d", (int32_t)dataLen);
+	return 0;
+#endif
+}
+
+//应用展会模式
+int32_t DLL_ApplyExhibitionMode(GameInstance_t* inst, Matrix_u* mxu, uint16_t* idVec, RoundInfo_t* ri, int32_t betVal, int32_t* matrixBet, GameInstanceId_t gameId)
+{
+#ifndef _ExhibitionMode
+	return 0;
+#else
+	uint8_t exhibitionMatrixData[GE_WheelChessMaxNum] = { 0 };
+	uint32_t expectedLen = (uint32_t)inst->gameConfig.header.colCount * (uint32_t)inst->gameConfig.header.rowCount;
+	// 若有待消费展会矩阵，则本局优先使用（仅生效一次）。
+	if (!ExhibitionMode_TryConsumeMatrix(exhibitionMatrixData, expectedLen))
+	{
+		return 0;
+	}
+	Matrix_u_reset(mxu);
+	Matrix_u_setIntData(mxu, inst->gameConfig, exhibitionMatrixData);
+	*matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, ri);
+
+	switch (mxu->resultType)
+	{
+	case RT_FreeWin:
+		GenerationResult_GenerateFree(ri, betVal, inst, mxu, gameId);
+		break;
+	case RT_BonusWin:
+		GenerationResult_GenerateBonus(ri, betVal, inst, mxu, gameId);
+		break;
+	case RT_Jackpot:
+		GenerationResult_GenerateJackpot(ri, betVal, inst, mxu, gameId);
+		break;
+	default:
+		break;
+	}
+	return 1;
+#endif
+}
+
 //应用RoundInfo到输出结果
 void ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec, GameInstanceId_t gameId)
 {
@@ -206,6 +292,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 	{
 		Matrix_u mxu;
 		Matrix_u_reset(&mxu);
+		uint8_t useExhibitionMatrix = 0;
 		uint16_t idVec[GE_MaxIDNum] = { 0 };
 		int32_t jpTypeList[GAME_Local_JP_MAX] = { 0 };
 		int32_t jpValueList[GAME_Local_JP_MAX] = { 0 };
@@ -248,10 +335,14 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 			ri.nTotalJackpotBet = jpCandidateTotal;
 		}
 
+		
 		//生成结果
 		GenerateARound(&ri, inst, &mxu, betVal, &matrixBet, idVec, gameId);
 		//应用调试模式。
 		ApplyDebugMode(&ri, inst, &mxu, betVal, &matrixBet, idVec, gameId);
+		//应用展会模式
+		DLL_ApplyExhibitionMode(inst, &mxu, idVec, &ri, betVal, &matrixBet, gameId);
+
 		ri.resType = mxu.resultType;
 		ri.nMatrixBet = matrixBet;
 
@@ -489,7 +580,7 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 		QS_LOG("{\"err\":\"OutResToJsonnById failed\"}\n");
 	}
 
-	QS_LOG("-----------------\n");
+	QS_LOG("\r\n-----------------\n");
 #endif
 
 #endif

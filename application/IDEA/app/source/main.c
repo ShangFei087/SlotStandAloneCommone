@@ -119,9 +119,9 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(3996))
+    if (DLL_GameSwitch(3998))
     {
-        gameId = 3996;
+        gameId = 3998;
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -177,6 +177,17 @@ int32_t main(int32_t argc, char *argv[])
             {
                 pItem->Bets += totalbet;
             }
+#ifdef _ExhibitionMode
+            int32_t matrixData[GE_WheelChessMaxNum] = 
+            { 
+                1,0,2,1,1,
+                4,3,0,3,7,
+                0,1,0,7,0 
+            };
+            int32_t ArraySize = 15;
+            int32_t pAppliedLen = 0;
+            DLL_SaveExhibitionData(matrixData, ArraySize, &pAppliedLen);
+#endif
             //获取一局数据
             DLL_GetGameResultById(pItem, betmultiple, &outres, &ret, gameId);
 

@@ -8,6 +8,7 @@
 
 extern GameInstance_t* g_CurrentGameInstance;
 
+
 //设置调试信息
  void DLL_SetControlDebugMode(DebugControlMode_t* pDebugMode);
 //切换游戏
@@ -18,6 +19,10 @@ extern GameInstance_t* g_CurrentGameInstance;
  void GenerateARound(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId);
  //应用调试模式
  void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal,int32_t *matrixBet, uint16_t *idVec, GameInstanceId_t gameId);
+ //保持展会信息
+ int32_t DLL_SaveExhibitionData(const int32_t* pMatrixData, uint32_t dataLen, int32_t* pAppliedLen);
+// 展会模式：应用前端传入矩阵数据（成功返回0，失败返回负值）
+int32_t DLL_ApplyExhibitionMode(GameInstance_t* inst, Matrix_u* mxu, uint16_t* idVec, RoundInfo_t* ri, int32_t betVal, int32_t* matrixBet, GameInstanceId_t gameId);
  //生成一个免费局
  void GenerateARoundWithFreeWinById(RoundInfo_t* info, int32_t betVal, GameInstanceId_t gameId, Matrix_u* freeMxu);
  //生成一个大奖局

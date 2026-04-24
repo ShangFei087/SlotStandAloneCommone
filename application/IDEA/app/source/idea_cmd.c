@@ -839,6 +839,34 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		qs_senv_manager_write(gpCtx->pSenv, json);
 	}
 	break;
+	//展会模式计算（前端传入矩阵）
+	case 20204:
+	{
+		qs_json* pJsonArray = qs_json_GetObjectItem(json, "data");
+		size_t JsonArraySize = qs_json_GetArraySize(pJsonArray);
+		int32_t res[2] = { 0 };
+		int32_t matrixData[GE_WheelChessMaxNum] = { 0 };
+
+		if (JsonArraySize > 0 && JsonArraySize <= GE_WheelChessMaxNum)
+		{
+			for (size_t i = 0; i < JsonArraySize; ++i)
+			{
+				matrixData[i] = qs_json_GetArrayItem(pJsonArray, (int32_t)i)->valueint;
+			}
+			res[0] = DLL_SaveExhibitionData(matrixData, (uint32_t)JsonArraySize, &res[1]);
+		}
+		else
+		{
+			res[0] = -1;
+			res[1] = 0;
+		}
+
+		qs_json_DeleteItemFromObject(json, "data");
+		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
+		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
+		qs_senv_manager_write(gpCtx->pSenv, json);
+	}
+	break;
 	// 玩家赢得联网彩金的彩金信息
 	case 20030:
 	{

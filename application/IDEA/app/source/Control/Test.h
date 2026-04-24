@@ -9,18 +9,15 @@
 #ifdef _Release
 
 #else
-#define _DebugControlMode			// 启用调试控制模式
-#define _ShowDebugInfo				// 显示算法调试信息
+#define _DebugControlMode				// 启用调试控制模式
+#define _ShowDebugInfo					// 显示算法调试信息
 #define _DebugInfoInterval  10000		// 每 10000 局显示RTP
-#define  _LocalDebug                 // 本地调试
-//#define _IMHERE						// 临时调试标记位（调试完成后请移除）
-#define _WritePlayerData			// 写算法 Json 日志
-#define _WritePlayerLog				// 写玩家日志
+//#define _IMHERE	// 临时调试标记位（调试完成后请移除）
+#define _LocalDebug						// 本地调试
+#define _WritePlayerData				// 写算法 Json 日志
+#define _WritePlayerLog					// 写玩家日志
+//#define _ExhibitionMode					// 展会模式：启用前端传入矩阵进行计算
 #endif
 
-
-//#define _HighScore
-//#define _ShowFatalMessageBox  
-//#define _ShowMatrix
 
 #endif // __SF_Test_h__

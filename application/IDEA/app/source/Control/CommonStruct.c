@@ -5,6 +5,82 @@
 #include "Matrix/Matrix_u_TriggersById.h"
 DebugControlMode_t gDebugControlMode;
 //-------------------------------------------------------------------------------------
+// 展会模式矩阵缓存：仅保留最近一次下发数据，并在出结果时一次性消费。
+static uint8_t g_ExhibitionMatrixData[GE_WheelChessMaxNum] = { 0 };
+static uint32_t g_ExhibitionMatrixLen = 0;
+static uint8_t g_ExhibitionMatrixPending = 0;
+// 设置并缓存前端矩阵；成功返回0，失败返回负值错误码。
+int32_t ExhibitionMode_SetMatrix(const int32_t* pMatrixData, uint32_t dataLen, SlotGameConfig_t* pGameConfig, int32_t* pAppliedLen)
+{
+    if (pAppliedLen != NULL)
+    {
+        *pAppliedLen = 0;
+    }
+
+    if (pMatrixData == NULL || pGameConfig == NULL || dataLen == 0)
+    {
+        return -1;
+    }
+
+    // 只允许与当前游戏行列严格匹配的矩阵长度。
+    uint32_t expectedLen = (uint32_t)pGameConfig->header.colCount * (uint32_t)pGameConfig->header.rowCount;
+    if (dataLen != expectedLen || dataLen > GE_WheelChessMaxNum)
+    {
+        return -4;
+    }
+
+    for (uint32_t i = 0; i < dataLen; ++i)
+    {
+        // 前端按整型传值，限制到 uint8_t 有效范围。
+        if (pMatrixData[i] < 0 || pMatrixData[i] > 255)
+        {
+            return -5;
+        }
+        g_ExhibitionMatrixData[i] = (uint8_t)pMatrixData[i];
+    }
+
+    g_ExhibitionMatrixLen = dataLen;
+    g_ExhibitionMatrixPending = 1;
+
+    if (pAppliedLen != NULL)
+    {
+        *pAppliedLen = (int32_t)dataLen;
+    }
+    return 0;
+}
+// 尝试消费一份缓存矩阵；成功返回1并复制到输出缓冲区，失败返回0。
+uint8_t ExhibitionMode_TryConsumeMatrix(uint8_t* pOutMatrixData, uint32_t expectedLen)
+{
+    if (!g_ExhibitionMatrixPending || pOutMatrixData == NULL)
+    {
+        return 0;
+    }
+
+    if (expectedLen == 0 || expectedLen > GE_WheelChessMaxNum || g_ExhibitionMatrixLen != expectedLen)
+    {
+        // 缓存与当前期望不一致时直接丢弃，避免脏数据影响后续局。
+        ExhibitionMode_Clear();
+        return 0;
+    }
+
+    // 一次性消费：复制成功后立即清空缓存。
+    memcpy(pOutMatrixData, g_ExhibitionMatrixData, expectedLen);
+    ExhibitionMode_Clear();
+    return 1;
+}
+// 主动清空缓存矩阵与待消费状态。
+void ExhibitionMode_Clear(void)
+{
+    memset(g_ExhibitionMatrixData, 0, sizeof(g_ExhibitionMatrixData));
+    g_ExhibitionMatrixLen = 0;
+    g_ExhibitionMatrixPending = 0;
+}
+// 查询是否存在待消费矩阵（1:有，0:无）。
+uint8_t ExhibitionMode_HasPending(void)
+{
+    return g_ExhibitionMatrixPending;
+}
+//-------------------------------------------------------------------------------------
 void CheckOnLineResult_Init(CheckOnLineResult_t* pResult)
 {
     memset(pResult, 0, sizeof(CheckOnLineResult_t));

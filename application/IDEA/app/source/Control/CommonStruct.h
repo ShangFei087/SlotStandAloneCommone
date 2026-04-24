@@ -25,6 +25,16 @@ typedef struct {
 	uint8_t dataArray[GE_WheelChessMaxNum];
 } Matrix_u;
 
+// 展会模式矩阵缓存（一次性消费）
+// 设置并缓存前端矩阵；成功返回0，失败返回负值错误码。
+int32_t ExhibitionMode_SetMatrix(const int32_t* pMatrixData, uint32_t dataLen, SlotGameConfig_t* pGameConfig, int32_t* pAppliedLen);
+// 尝试消费一份缓存矩阵；成功返回1并复制到输出缓冲区，失败返回0。
+uint8_t ExhibitionMode_TryConsumeMatrix(uint8_t* pOutMatrixData, uint32_t expectedLen);
+// 主动清空缓存矩阵与待消费状态。
+void ExhibitionMode_Clear(void);
+// 查询是否存在待消费矩阵（1:有，0:无）。
+uint8_t ExhibitionMode_HasPending(void);
+
 // Matrix_u 生成/统计连线相关接口
 uint8_t Matrix_u_getIntData(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t pos);
 void Matrix_u_setIntData(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t* pData);

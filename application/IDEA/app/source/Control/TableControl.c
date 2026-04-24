@@ -172,7 +172,7 @@ static int64_t TableControl_CalcRefundByPermyriad(int64_t paidAmount, int32_t re
 	return (paidAmount * refundPermyriad) / 10000;
 }
 
-/**
+/** 
  * @brief 软池判定并在放行后扣减池值。
  * @param pool [in/out] 当前分项池（Base/Free/Bonus/Jackpot 对应池）。
  * @param paidAmount 本次候选应支付金额（金额口径）。
