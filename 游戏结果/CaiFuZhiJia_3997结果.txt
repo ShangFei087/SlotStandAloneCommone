@@ -91,7 +91,7 @@ void GameResult_3997_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 
 	if (outRes->openType == OT_Give)
 	{
-
+		res[pos++] = outRes->BlindSymbol;
 	}
 
 	if (outRes->resType == RT_BonusWin)

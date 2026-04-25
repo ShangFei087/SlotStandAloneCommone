@@ -27,24 +27,11 @@ Project File Date:  04/09/2026
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'Target 1'
-compiling app.c...
-..\..\source\./GameAlgo/algo/ga.h(87): warning:  #1-D: last line of file ends without a newline
-  /* END OF FILE */
-..\..\source\app.c: 1 warning, 0 errors
-compiling idea_app.c...
-..\..\source\./GameAlgo/algo/ga.h(87): warning:  #1-D: last line of file ends without a newline
-  /* END OF FILE */
-..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control/LotteryManager.h(74): warning:  #1-D: last line of file ends without a newline
-  #endif // _LotteryManager_H_
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
-  #endif // __SF_Test_h__
-..\..\source\idea_app.c(67): warning:  #177-D: variable "mdt"  was declared but never referenced
-  	static uint32_t mdt = 0;
-..\..\source\idea_app.c: 6 warnings, 0 errors
+compiling idea_qs.c...
+..\..\source\idea_qs.c(30): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\idea_qs.c: 1 warning, 0 errors
+compiling CMD_Fish.c...
 compiling GameConfig.c...
 ..\..\source\Control\GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
   void GameConfigRegistry_InitDefaults();
@@ -63,23 +50,114 @@ compiling GameConfig.c...
 ..\..\source\Control\GameConfig.c(228): warning:  #120-D: return value type does not match the function type
           return 0;
 ..\..\source\Control\GameConfig.c: 8 warnings, 0 errors
-compiling GameManager.c...
-..\..\source\Control\GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control\GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control\Test.h(26): warning:  #1-D: last line of file ends without a newline
-  #endif // __SF_Test_h__
-..\..\source\Control\GameManager.c: 3 warnings, 0 errors
-compiling CMD_Fish.c...
 compiling FreeGamePersistManager.c...
 ..\..\source\Control\GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
   void GameConfigRegistry_InitDefaults();
 ..\..\source\Control\GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
   #endif // _GAME_CONFIG_H_
-..\..\source\Control\Test.h(26): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control\Test.h(23): warning:  #1-D: last line of file ends without a newline
   #endif // __SF_Test_h__
 ..\..\source\Control\FreeGamePersistManager.c: 3 warnings, 0 errors
+compiling GameManager.c...
+..\..\source\Control\GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control\GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\Test.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\Control\GameManager.c: 3 warnings, 0 errors
+compiling NatureAlg.c...
+..\..\source\Control\../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control\GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control\GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\NatureAlg.c: 3 warnings, 0 errors
+compiling CommonStruct.c...
+..\..\source\Control\GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control\GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\Test.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\Control\Matrix/../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control\CommonStruct.c(110): warning:  #68-D: integer conversion resulted in a change of sign
+      if (pos > slotgameconfig.header.wheelChessNum) return -1;
+..\..\source\Control\CommonStruct.c(492): warning:  #167-D: argument of type "const Matrix_u *" is incompatible with parameter of type "Matrix_u *"
+      Matrix_u_copy(&dest->extraMxu, &src->extraMxu); // 注意：需要类型转�?
+..\..\source\Control\CommonStruct.c: 6 warnings, 0 errors
+compiling GameResult_1700.c...
+..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\Control\GenerationResult\GameResult_1700.c: 4 warnings, 0 errors
+compiling app.c...
+..\..\source\./GameAlgo/algo/ga.h(87): warning:  #1-D: last line of file ends without a newline
+  /* END OF FILE */
+..\..\source\app.c: 1 warning, 0 errors
+compiling GameResult_3998.c...
+..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\Control\GenerationResult\GameResult_3998.c(439): warning:  #177-D: variable "jpTotal"  was declared but never referenced
+  		int32_t jpTotal = 0;
+..\..\source\Control\GenerationResult\GameResult_3998.c(526): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "int8_t *"
+  	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
+..\..\source\Control\GenerationResult\GameResult_3998.c(682): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\Control\GenerationResult\GameResult_3998.c: 7 warnings, 0 errors
+compiling Lottery.c...
+..\..\source\Control\../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control\Lottery.c: 1 warning, 0 errors
+compiling main.c...
+..\..\source\./GameAlgo/algo/ga.h(87): warning:  #1-D: last line of file ends without a newline
+  /* END OF FILE */
+..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\Control/LotteryManager.h(74): warning:  #1-D: last line of file ends without a newline
+  #endif // _LotteryManager_H_
+..\..\source\Control/GameRegistry.h(7): warning:  #1295-D: Deprecated declaration GameRegistry_InitAndRegisterDefaults - give arg types
+  int8_t GameRegistry_InitAndRegisterDefaults();
+..\..\source\main.c(414): warning:  #111-D: statement is unreachable
+      idea_app_close();
+..\..\source\main.c: 8 warnings, 0 errors
+compiling GameResult_3999.c...
+..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\Control\GenerationResult\GameResult_3999.c(111): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "int8_t *"
+  	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
+..\..\source\Control\GenerationResult\GameResult_3999.c(123): warning:  #177-D: variable "wildStr"  was declared but never referenced
+  	int8_t* wildStr;
+..\..\source\Control\GenerationResult\GameResult_3999.c(129): warning:  #550-D: variable "bonusCount"  was set but never used
+  	uint8_t bonusCount = 0;
+..\..\source\Control\GenerationResult\GameResult_3999.c(130): warning:  #177-D: variable "wildColCountArray"  was declared but never referenced
+  	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3个转盘图标可以得�?1列wild图标�?4个转盘可以的2�?......
+..\..\source\Control\GenerationResult\GameResult_3999.c: 8 warnings, 0 errors
 compiling idea_cmd.c...
 ..\..\source\./GameAlgo/algo/ga.h(87): warning:  #1-D: last line of file ends without a newline
   /* END OF FILE */
@@ -107,79 +185,31 @@ compiling idea_cmd.c...
   		uint8_t wheelChessNum = g_CurrentGameInstance->gameConfig.header.wheelChessNum;
 ..\..\source\idea_cmd.c(699): warning:  #177-D: variable "pos"  was declared but never referenced
   		uint8_t pos = 0;
-..\..\source\idea_cmd.c(848): warning:  #550-D: variable "MachineId"  was set but never used
+..\..\source\idea_cmd.c(875): warning:  #550-D: variable "MachineId"  was set but never used
   		uint32_t MachineId = 0;
-..\..\source\idea_cmd.c(851): warning:  #177-D: variable "pos"  was declared but never referenced
+..\..\source\idea_cmd.c(878): warning:  #177-D: variable "pos"  was declared but never referenced
   		uint32_t pos = 0;
 ..\..\source\idea_cmd.c: 15 warnings, 0 errors
-compiling Lottery.c...
-..\..\source\Control\../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
-..\..\source\Control\Lottery.c: 1 warning, 0 errors
-compiling GameResult_1700.c...
-..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
-  #endif // __SF_Test_h__
-..\..\source\Control\GenerationResult\GameResult_1700.c: 4 warnings, 0 errors
-compiling ComputerData.c...
-..\..\source\Control\ComputerData.c(149): warning:  #1-D: last line of file ends without a newline
-  }
-..\..\source\Control\ComputerData.c: 1 warning, 0 errors
-compiling idea_qs.c...
-..\..\source\idea_qs.c(30): warning:  #1-D: last line of file ends without a newline
-  }
-..\..\source\idea_qs.c: 1 warning, 0 errors
-compiling main.c...
+compiling idea_app.c...
 ..\..\source\./GameAlgo/algo/ga.h(87): warning:  #1-D: last line of file ends without a newline
   /* END OF FILE */
-..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
 ..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
   void GameConfigRegistry_InitDefaults();
 ..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
   #endif // _GAME_CONFIG_H_
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
-  #endif // __SF_Test_h__
 ..\..\source\Control/LotteryManager.h(74): warning:  #1-D: last line of file ends without a newline
   #endif // _LotteryManager_H_
-..\..\source\Control/GameRegistry.h(7): warning:  #1295-D: Deprecated declaration GameRegistry_InitAndRegisterDefaults - give arg types
-  int8_t GameRegistry_InitAndRegisterDefaults();
-..\..\source\main.c(403): warning:  #111-D: statement is unreachable
-      idea_app_close();
-..\..\source\main.c: 8 warnings, 0 errors
-compiling NatureAlg.c...
-..\..\source\Control\../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
-..\..\source\Control\GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control\GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control\NatureAlg.c: 3 warnings, 0 errors
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\idea_app.c(67): warning:  #177-D: variable "mdt"  was declared but never referenced
+  	static uint32_t mdt = 0;
+..\..\source\idea_app.c: 6 warnings, 0 errors
 compiling LotteryManager.c...
 ..\..\source\Control\LotteryManager.h(74): warning:  #1-D: last line of file ends without a newline
   #endif // _LotteryManager_H_
-..\..\source\Control\Test.h(26): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control\Test.h(23): warning:  #1-D: last line of file ends without a newline
   #endif // __SF_Test_h__
 ..\..\source\Control\LotteryManager.c: 2 warnings, 0 errors
-compiling CommonStruct.c...
-..\..\source\Control\GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control\GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control\Test.h(26): warning:  #1-D: last line of file ends without a newline
-  #endif // __SF_Test_h__
-..\..\source\Control\Matrix/../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
-..\..\source\Control\CommonStruct.c(34): warning:  #68-D: integer conversion resulted in a change of sign
-      if (pos > slotgameconfig.header.wheelChessNum) return -1;
-..\..\source\Control\CommonStruct.c(416): warning:  #167-D: argument of type "const Matrix_u *" is incompatible with parameter of type "Matrix_u *"
-      Matrix_u_copy(&dest->extraMxu, &src->extraMxu); // 注意：需要类型转�?
-..\..\source\Control\CommonStruct.c: 6 warnings, 0 errors
 compiling Dll.c...
 ..\..\source\Control\GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
   void GameConfigRegistry_InitDefaults();
@@ -187,47 +217,49 @@ compiling Dll.c...
   #endif // _GAME_CONFIG_H_
 ..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
   #endif//JRAND_H
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
   #endif // __SF_Test_h__
 ..\..\source\Control\LotteryManager.h(74): warning:  #1-D: last line of file ends without a newline
   #endif // _LotteryManager_H_
-..\..\source\Control\Dll.c(346): warning:  #177-D: variable "jpTotal"  was declared but never referenced
+..\..\source\Control\Dll.c(433): warning:  #177-D: variable "jpTotal"  was declared but never referenced
   				int32_t jpTotal = 0;
-..\..\source\Control\Dll.c: 6 warnings, 0 errors
-compiling GameResult_3998.c...
-..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
-  #endif // __SF_Test_h__
-..\..\source\Control\GenerationResult\GameResult_3998.c(439): warning:  #177-D: variable "jpTotal"  was declared but never referenced
-  		int32_t jpTotal = 0;
-..\..\source\Control\GenerationResult\GameResult_3998.c(526): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "int8_t *"
-  	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
-..\..\source\Control\GenerationResult\GameResult_3998.c(682): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control\Dll.c(291): warning:  #177-D: variable "useExhibitionMatrix"  was declared but never referenced
+  		uint8_t useExhibitionMatrix = 0;
+..\..\source\Control\Dll.c: 7 warnings, 0 errors
+compiling ComputerData.c...
+..\..\source\Control\ComputerData.c(149): warning:  #1-D: last line of file ends without a newline
   }
-..\..\source\Control\GenerationResult\GameResult_3998.c: 7 warnings, 0 errors
-compiling GameResult_3999.c...
+..\..\source\Control\ComputerData.c: 1 warning, 0 errors
+compiling MatrixApplyTriggers_1700.c...
+..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control\Matrix\MatrixApplyTriggers_1700.c: 3 warnings, 0 errors
+compiling GameResultRegistry.c...
 ..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
   void GameConfigRegistry_InitDefaults();
 ..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
   #endif // _GAME_CONFIG_H_
 ..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
   #endif//JRAND_H
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
   #endif // __SF_Test_h__
-..\..\source\Control\GenerationResult\GameResult_3999.c(105): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "int8_t *"
+..\..\source\Control\GenerationResult\GameResultRegistry.c(9): warning:  #144-D: a value of type "const GameResultOps_t *" cannot be used to initialize an entity of type "GameResultOps_t *"
+  	GameResultOps_t* ops = GameResultRegistry_Get(gameId);
+..\..\source\Control\GenerationResult\GameResultRegistry.c(151): warning:  #177-D: variable "jpTotal"  was declared but never referenced
+  	int32_t jpTotal = 0;
+..\..\source\Control\GenerationResult\GameResultRegistry.c(345): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "int8_t *"
   	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
-..\..\source\Control\GenerationResult\GameResult_3999.c(117): warning:  #177-D: variable "wildStr"  was declared but never referenced
+..\..\source\Control\GenerationResult\GameResultRegistry.c(357): warning:  #177-D: variable "wildStr"  was declared but never referenced
   	int8_t* wildStr;
-..\..\source\Control\GenerationResult\GameResult_3999.c(123): warning:  #550-D: variable "bonusCount"  was set but never used
+..\..\source\Control\GenerationResult\GameResultRegistry.c(363): warning:  #177-D: variable "bonusCount"  was declared but never referenced
   	uint8_t bonusCount = 0;
-..\..\source\Control\GenerationResult\GameResult_3999.c(124): warning:  #177-D: variable "wildColCountArray"  was declared but never referenced
+..\..\source\Control\GenerationResult\GameResultRegistry.c(364): warning:  #177-D: variable "wildColCountArray"  was declared but never referenced
   	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3个转盘图标可以得�?1列wild图标�?4个转盘可以的2�?......
-..\..\source\Control\GenerationResult\GameResult_3999.c: 8 warnings, 0 errors
+..\..\source\Control\GenerationResult\GameResultRegistry.c: 10 warnings, 0 errors
 compiling Matrix_u_TriggersById.c...
 ..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
   void GameConfigRegistry_InitDefaults();
@@ -258,36 +290,6 @@ compiling Matrix_u_TriggersById.c...
 ..\..\source\Control\Matrix\Matrix_u_TriggersById.c(367): warning:  #513-D: a value of type "uint8_t (*)(Matrix_u *, uint8_t, CheckOnLineResult_t *, SlotGameConfig_t *)" cannot be assigned to an entity of type "MatrixcheckOnLineWinsFn"
       ops3993.checkOnLine = checkOnLine_Defaults;
 ..\..\source\Control\Matrix\Matrix_u_TriggersById.c: 14 warnings, 0 errors
-compiling GameResultRegistry.c...
-..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
-  #endif // __SF_Test_h__
-..\..\source\Control\GenerationResult\GameResultRegistry.c(9): warning:  #144-D: a value of type "const GameResultOps_t *" cannot be used to initialize an entity of type "GameResultOps_t *"
-  	GameResultOps_t* ops = GameResultRegistry_Get(gameId);
-..\..\source\Control\GenerationResult\GameResultRegistry.c(151): warning:  #177-D: variable "jpTotal"  was declared but never referenced
-  	int32_t jpTotal = 0;
-..\..\source\Control\GenerationResult\GameResultRegistry.c(345): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "int8_t *"
-  	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
-..\..\source\Control\GenerationResult\GameResultRegistry.c(357): warning:  #177-D: variable "wildStr"  was declared but never referenced
-  	int8_t* wildStr;
-..\..\source\Control\GenerationResult\GameResultRegistry.c(363): warning:  #177-D: variable "bonusCount"  was declared but never referenced
-  	uint8_t bonusCount = 0;
-..\..\source\Control\GenerationResult\GameResultRegistry.c(364): warning:  #177-D: variable "wildColCountArray"  was declared but never referenced
-  	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3个转盘图标可以得�?1列wild图标�?4个转盘可以的2�?......
-..\..\source\Control\GenerationResult\GameResultRegistry.c: 10 warnings, 0 errors
-compiling MatrixApplyTriggers_1700.c...
-..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
-..\..\source\Control\Matrix\MatrixApplyTriggers_1700.c: 3 warnings, 0 errors
 compiling MatrixApplyTriggers_3998.c...
 ..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
   void GameConfigRegistry_InitDefaults();
@@ -296,7 +298,6 @@ compiling MatrixApplyTriggers_3998.c...
 ..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
   #endif//JRAND_H
 ..\..\source\Control\Matrix\MatrixApplyTriggers_3998.c: 3 warnings, 0 errors
-compiling RtpConfig.c...
 compiling MatrixApplyTriggers_3999.c...
 ..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
   void GameConfigRegistry_InitDefaults();
@@ -316,9 +317,10 @@ compiling GameRegistry.c...
   #endif // _LotteryManager_H_
 ..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
   #endif//JRAND_H
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
   #endif // __SF_Test_h__
 ..\..\source\Control\GameRegistry.c: 6 warnings, 0 errors
+compiling RtpConfig.c...
 compiling TableControl.c...
 ..\..\source\Control\GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
   void GameConfigRegistry_InitDefaults();
@@ -326,9 +328,53 @@ compiling TableControl.c...
   #endif // _GAME_CONFIG_H_
 ..\..\source\Control\../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
   #endif//JRAND_H
-..\..\source\Control\Test.h(26): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control\Test.h(23): warning:  #1-D: last line of file ends without a newline
   #endif // __SF_Test_h__
 ..\..\source\Control\TableControl.c: 4 warnings, 0 errors
+compiling GameResult_3997.c...
+..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif // __SF_Test_h__
+..\..\source\Control\GenerationResult\GameResult_3997.c(232): warning:  #177-D: variable "jpTotal"  was declared but never referenced
+  		int32_t jpTotal = 0;
+..\..\source\Control\GenerationResult\GameResult_3997.c(352): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "int8_t *"
+  	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
+..\..\source\Control\GenerationResult\GameResult_3997.c(471): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\Control\GenerationResult\GameResult_3997.c: 7 warnings, 0 errors
+compiling MatrixApplyTriggers_3997.c...
+..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control\Matrix\MatrixApplyTriggers_3997.c(41): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\Control\Matrix\MatrixApplyTriggers_3997.c: 4 warnings, 0 errors
+compiling MatrixApplyTriggers_3996.c...
+..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control\Matrix\MatrixApplyTriggers_3996.c: 3 warnings, 0 errors
+compiling MatrixApplyTriggers_3993.c...
+..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
+  void GameConfigRegistry_InitDefaults();
+..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
+  #endif // _GAME_CONFIG_H_
+..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif//JRAND_H
+..\..\source\Control\Matrix\MatrixApplyTriggers_3993.c(91): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\source\Control\Matrix\MatrixApplyTriggers_3993.c: 4 warnings, 0 errors
 compiling GameResult_3993.c...
 ..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
   void GameConfigRegistry_InitDefaults();
@@ -336,7 +382,7 @@ compiling GameResult_3993.c...
   #endif // _GAME_CONFIG_H_
 ..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
   #endif//JRAND_H
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
   #endif // __SF_Test_h__
 ..\..\source\Control\GenerationResult\GameResult_3993.c(42): warning:  #177-D: variable "wildCount"  was declared but never referenced
   	int8_t wildCount = 0; // Wild 计数（保留字段）
@@ -358,7 +404,7 @@ compiling GameResult_3995.c...
   #endif // _GAME_CONFIG_H_
 ..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
   #endif//JRAND_H
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
   #endif // __SF_Test_h__
 ..\..\source\Control\GenerationResult\GameResult_3995.c(7): warning:  #144-D: a value of type "const MatrixTriggerOps_t *" cannot be used to initialize an entity of type "MatrixTriggerOps_t *"
   	MatrixTriggerOps_t* ops = MatrixTriggerOps_t_Get(gameId);
@@ -380,45 +426,19 @@ compiling GameResult_3996.c...
   #endif // _GAME_CONFIG_H_
 ..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
   #endif//JRAND_H
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control/Test.h(23): warning:  #1-D: last line of file ends without a newline
   #endif // __SF_Test_h__
 ..\..\source\Control\GenerationResult\GameResult_3996.c(27): warning:  #177-D: variable "scatterNum"  was declared but never referenced
   	int8_t scatterNum = 0;
 ..\..\source\Control\GenerationResult\GameResult_3996.c(31): warning:  #177-D: variable "wildindex"  was declared but never referenced
   	int8_t wildindex = 0; // Wild 位置索引（保留字段）
-..\..\source\Control\GenerationResult\GameResult_3996.c(291): warning:  #177-D: variable "jpTotal"  was declared but never referenced
-  		int32_t jpTotal = 0;
-..\..\source\Control\GenerationResult\GameResult_3996.c(384): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "int8_t *"
+..\..\source\Control\GenerationResult\GameResult_3996.c(297): warning:  #177-D: variable "freeTotal"  was declared but never referenced
+  		int32_t freeTotal = 0;
+..\..\source\Control\GenerationResult\GameResult_3996.c(391): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "int8_t *"
   	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
-..\..\source\Control\GenerationResult\GameResult_3996.c(503): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control\GenerationResult\GameResult_3996.c(510): warning:  #1-D: last line of file ends without a newline
   }
 ..\..\source\Control\GenerationResult\GameResult_3996.c: 9 warnings, 0 errors
-compiling GameResult_3997.c...
-..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control/../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
-..\..\source\Control/Test.h(26): warning:  #1-D: last line of file ends without a newline
-  #endif // __SF_Test_h__
-..\..\source\Control\GenerationResult\GameResult_3997.c(222): warning:  #177-D: variable "jpTotal"  was declared but never referenced
-  		int32_t jpTotal = 0;
-..\..\source\Control\GenerationResult\GameResult_3997.c(315): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "int8_t *"
-  	matrixStr = ByteArrayToString(outRes->matrix.dataArray, curwheelChessNum);
-..\..\source\Control\GenerationResult\GameResult_3997.c(434): warning:  #1-D: last line of file ends without a newline
-  }
-..\..\source\Control\GenerationResult\GameResult_3997.c: 7 warnings, 0 errors
-compiling MatrixApplyTriggers_3993.c...
-..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
-..\..\source\Control\Matrix\MatrixApplyTriggers_3993.c(91): warning:  #1-D: last line of file ends without a newline
-  }
-..\..\source\Control\Matrix\MatrixApplyTriggers_3993.c: 4 warnings, 0 errors
 compiling MatrixApplyTriggers_3995.c...
 ..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
   void GameConfigRegistry_InitDefaults();
@@ -427,30 +447,10 @@ compiling MatrixApplyTriggers_3995.c...
 ..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
   #endif//JRAND_H
 ..\..\source\Control\Matrix\MatrixApplyTriggers_3995.c: 3 warnings, 0 errors
-compiling MatrixApplyTriggers_3996.c...
-..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
-..\..\source\Control\Matrix\MatrixApplyTriggers_3996.c: 3 warnings, 0 errors
-compiling MatrixApplyTriggers_3997.c...
-..\..\source\Control/GameConfig.h(59): warning:  #1295-D: Deprecated declaration GameConfigRegistry_InitDefaults - give arg types
-  void GameConfigRegistry_InitDefaults();
-..\..\source\Control/GameConfig.h(62): warning:  #1-D: last line of file ends without a newline
-  #endif // _GAME_CONFIG_H_
-..\..\source\Control\Matrix\../../GameAlgo/common/JRand.h(50): warning:  #1-D: last line of file ends without a newline
-  #endif//JRAND_H
-..\..\source\Control\Matrix\MatrixApplyTriggers_3997.c(41): warning:  #1-D: last line of file ends without a newline
-  }
-..\..\source\Control\Matrix\MatrixApplyTriggers_3997.c: 4 warnings, 0 errors
-assembling startup_max3255X.s...
-..\..\..\board\startup_max3255X.s(140): warning: A1479W: Requested alignment 32 is greater than area alignment 4, which has been increased
 compiling LotteryPersistManager.c...
 ..\..\source\Control\LotteryManager.h(74): warning:  #1-D: last line of file ends without a newline
   #endif // _LotteryManager_H_
-..\..\source\Control\Test.h(26): warning:  #1-D: last line of file ends without a newline
+..\..\source\Control\Test.h(23): warning:  #1-D: last line of file ends without a newline
   #endif // __SF_Test_h__
 ..\..\source\Control\LotteryPersistManager.c: 2 warnings, 0 errors
 compiling ga.c...
@@ -467,11 +467,13 @@ compiling JRand.c...
 ..\..\source\GameAlgo\common\JRand.c(149): warning:  #1-D: last line of file ends without a newline
   }
 ..\..\source\GameAlgo\common\JRand.c: 2 warnings, 0 errors
-compiling cJSON_Utils.c...
+assembling startup_max3255X.s...
+..\..\..\board\startup_max3255X.s(140): warning: A1479W: Requested alignment 32 is greater than area alignment 4, which has been increased
 compiling SFMT.c...
 ..\..\source\GameAlgo\common\SFMT-params.h(7): warning:  #1215-D: #warning directive: "SFMT_MEXP is not defined. I assume MEXP is 19937."
     #warning "SFMT_MEXP is not defined. I assume MEXP is 19937."
 ..\..\source\GameAlgo\common\SFMT.c: 1 warning, 0 errors
+compiling cJSON_Utils.c...
 compiling cJSON.c...
 ..\..\source\GameAlgo\cJSON\cJSON.c(2025): warning:  #2803-D: unrecognized GCC pragma
       #pragma GCC diagnostic push
@@ -481,7 +483,7 @@ compiling cJSON.c...
       #pragma GCC diagnostic pop
 ..\..\source\GameAlgo\cJSON\cJSON.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=109656 RO-data=16568 RW-data=2148 ZI-data=72644  
+Program Size: Code=111248 RO-data=16676 RW-data=2148 ZI-data=72644  
 After Build - User command #1: fromelf.exe --bin -o ./scp_packets.bin ./Objects/idea-app.axf
 After Build - User command #2: casign.bat
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\build\mdk>.\ConstData.exe const.json scp_packets.bin 288 
@@ -490,14 +492,14 @@ F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\b
 	"rsa_key_bits":	960,
 	"system_data":	"",
 	"user_data":	"",
-	"device_id":	"D23C4E1CD5ADCE5F008D46ECBC757DBB",
-	"code_id":	"2DC7DAEC0736D465A389AABD529B5459",
-	"system_key":	"F1A7B9D4BDC222A4",
-	"fram_key":	"69A9EFFB6EBD89EC",
-	"flash_key":	"A34C97CF0D1275E6",
-	"nvram_key":	"F800E141463CF8DE",
-	"rsa_private_key":	"C0030000A09617101903A4D830A3DB54166C70EA7AF6DF050E1B57A94B6FAEF14E092B6E856CED65C07C223CD7E883FB5B5F78D447417B12F69913FA3C65675D9ED41B964D26E698D6DC50F235193A17F8D3A096FA4E2BCBF26689EFE8ED0302071A15CC6B9A0A7009D4916A2F5A6D2AB91A272518DBFE4A96D67F0100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000174A5B1A902D28FCA6E42880E239FAFC1D38241EBD51C6D67CF21182DB6269902D62E929F27DBC3AEF892B05444422C6DDE38A562D7F7C7F82C28E8948536C0A05382E12F07F0350FEE3E34D5F891846FB3FDB95B409114476AB7A64781AB001567B2C27D3049EBC5E95EAD6AEA7D41BE95CF063E6097C2D5CD21DA843A6D86111B73B7F25C41D63BD22B7582CC118840EBE0D27B345B9DA2641CAEB983D578B5BCDC902A6CE7612379142151E52C0469A328B28FC86862154B27C93334DD8F6650B7C0D925EC451F0D425BD544D344833F113CC43F08AFA727E3A9548AB28EF3096A0BC9DC2D4CA4AECC707AAE8B3D6F0F109668B195CB8BC4155A83FD0C84BC3DF21D1E2EF876A635EC7BE8BA6EA40402102D30C8A2CBCBA50419BE53E3263A21B13DC532EC69A28C6DF7B76D25948DBE51DBDD9CA4328E69D5BA1D49EF2532253987E45E48A5DEC9416D1400B48D5DFF76996966E49AC038D75DB641C9161DF6E9773509CCE1D700FC943A3F8222FEE1F3C26D908868A162964B261D51560BBC36A8107ED09D1040CB22FE040C9D696496EF0F9F1D2261F106EB2F9853F01BA71F34A8",
-	"rsa_public_key":	"C0030000A09617101903A4D830A3DB54166C70EA7AF6DF050E1B57A94B6FAEF14E092B6E856CED65C07C223CD7E883FB5B5F78D447417B12F69913FA3C65675D9ED41B964D26E698D6DC50F235193A17F8D3A096FA4E2BCBF26689EFE8ED0302071A15CC6B9A0A7009D4916A2F5A6D2AB91A272518DBFE4A96D67F01000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001"
+	"device_id":	"30898144E96326F438966CC9097134AA",
+	"code_id":	"F82D9ECBB7C88724B0115022ECFFE19C",
+	"system_key":	"3446EE08762C79EF",
+	"fram_key":	"6A99999E746E791F",
+	"flash_key":	"CD18A367DE657FD1",
+	"nvram_key":	"EC9616CBFAB51CCF",
+	"rsa_private_key":	"C0030000BDACD6121AD28C199BF956D72C2C88596F758B3968C0E29084B708E26960DBD83495797D8EC5010C9949FCC6CA3218A5681925BCF510B44E57BE29C1A01A762A0B701B6FAE14891B27AB645C5FCB5AD3ABABE20A9877B3CA56814676EE094A11BA2EC05130B1EF7D1D7F4AA60F23E76B235972DBF3C84F39000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001A1D788118AB17CB99D4CF3BC4604F992D6780583C6CE4E83E1BA0BEAA4DFF0B65AA7F032225016C51946F858E6CE38196AE98A39E1218FB80946497964BB7F197303B327F123310FD8F5B6991A015683F4EABE830FA489B703E4035AF53B3C22AC2421D14640C76EAAEBAA648CBC55FBDA9693CAA28C4301EB292E96E887588801ABDA7617082C8BF93C3F80CDE70610B2BE35ACA3DB496F9E57C854061BCAA747F3B8B9B8E554D8C5C0F97E4DF724C949B0343DCE7BC5E76F3F04C640C1E338FAA34B1565A1DB0FB8202EE702095CE1CAD7C375F2EF0747E2305759E2CCF27FC656EA14D11C28ECD4B6B18996DF2AADD1D893FC924F84CF093EC3D9B13FD810A83DFD25019870AF21F1DE8FCA407ACDA1ED0F94FB467D96BCFC5E114D4F486190465DDD39D19B000C43B2B91B895E27332AD0543026AB4ADA0214ED519478466C63BE5D8863FF430D6E20DF05FAE299AF8C8AD9ADE96F1DA331CC1DE29542CFF2BE3A8702DBD831351BDB7E49486A738D7875027D0A54047E5AE007FCF83DFCC49F78111566D15DED1D259B08A9CA65A77410D16E655A1EDC4F86093867C8DD5CA4CD76",
+	"rsa_public_key":	"C0030000BDACD6121AD28C199BF956D72C2C88596F758B3968C0E29084B708E26960DBD83495797D8EC5010C9949FCC6CA3218A5681925BCF510B44E57BE29C1A01A762A0B701B6FAE14891B27AB645C5FCB5AD3ABABE20A9877B3CA56814676EE094A11BA2EC05130B1EF7D1D7F4AA60F23E76B235972DBF3C84F39000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001"
 }
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\build\mdk>..\..\..\..\..\platform\max32555\sdk\tools\signit_fast_my.bat scp_packets MAX32555 
 Removing old build files
@@ -505,13 +507,13 @@ Sign binary file
 MAX32555 Signing Tool Selected
 CA signature build v1.5.2 (build 99-K) (c)Maxim Integrated 2006-2014
 Convert signed binary to packet stream for SCP loading.
-Read 127040 bytes.
+Read 128740 bytes.
 SBL/SCP packets builder v3.7.9 (build 99-K) (c)Maxim Integrated 2006-2014
 --warning: this tool does not handle keys in a PCI PTS compliant way --
 <scp_packets\scp_packets.output.log> created
 Build Succeeded.
-".\Objects\idea-app.axf" - 0 Error(s), 188 Warning(s).
-Build Time Elapsed:  00:00:04
+".\Objects\idea-app.axf" - 0 Error(s), 189 Warning(s).
+Build Time Elapsed:  00:00:06
 </pre>
 </body>
 </html>

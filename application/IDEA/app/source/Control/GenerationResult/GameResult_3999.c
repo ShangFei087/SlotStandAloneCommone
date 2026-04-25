@@ -57,6 +57,12 @@ void GameResult_3999_GenFree(RoundInfo_t* info,int32_t betVal,GameInstance_t* in
 				info->nFreeNum += scatterCount2;
 				break;
 			}
+			else
+			{
+				//补回matrixBet
+				info->nFreeBet -= matrixBet;
+				info->FreeBetArray[index] = 0;
+			}
 			continue;
 		}
 

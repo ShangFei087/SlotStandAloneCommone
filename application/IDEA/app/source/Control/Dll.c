@@ -102,11 +102,7 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 			Matrix_u_reset(mxu);
 			NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, mxu, inst->gameConfig.header.rowCount);
 #ifdef _IMHERE
-			uint8_t temp[GE_WheelChessMaxNum] =
-			{
-			   3,2,9,5,1,9,3,3,9,3,4,6,5,5,4
-			};
-			Matrix_u_setIntData(&mxu, inst->gameConfig, temp);
+			
 #endif // _IMHERE
 			//全线计算
 			//matrixBet=Matrix_u_computerMatrix_243(mxu, idVec);

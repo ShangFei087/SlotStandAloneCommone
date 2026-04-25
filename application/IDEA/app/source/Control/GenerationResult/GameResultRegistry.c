@@ -487,6 +487,7 @@ void GameResult_3997_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 void GameResult_3997_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* jackpotMxu, GameInstanceId_t gameId);
 void GameResult_3997_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId);
 void GameResult_3997_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec);
+void GameResult_3997_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx);
 int8_t* GameResult_3997_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst);
 void GameResult_3997_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 
@@ -619,7 +620,7 @@ void GameResultRegistry_InitDefaults(void)
 	ops3997.genJackpot = GameResult_3997_GenJackpot;
 	ops3997.genLose = GameResult_3997_GenLose;
 	ops3997.applyRound = GameResult_3997_ApplyMatrixToOutResByRound;
-	ops3997.applyFree = GameResult_Generic_ApplyMatrixToOutResForFree;
+	ops3997.applyFree = GameResult_3997_ApplyMatrixToOutResForFree;
 	ops3997.outResJson = GameResult_3997_OutResToJsonn;
 	ops3997.outResSenv = GameResult_3997_OutResToSenv;
 	(void)GameResultRegistry_Register(3997, &ops3997);

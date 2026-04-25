@@ -83,6 +83,12 @@ void GameResult_3996_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 				info->nFreeNum += scatterCount2;
 				break;
 			}
+			else
+			{
+				//补回matrixBet
+				info->nFreeBet -= matrixBet;
+				info->FreeBetArray[index] = 0;
+			}
 			continue;
 		}
 
@@ -288,7 +294,7 @@ void GameResult_3996_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* 
 void GameResult_3996_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec)
 {
 	{
-		int32_t jpTotal = 0;
+		int32_t freeTotal = 0;
 
 		pRes->resType = resType;
 		Matrix_u_copy(&pRes->matrix, Mxu);
@@ -306,6 +312,7 @@ void GameResult_3996_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resTyp
 			{
 				pRes->FreeBetArray[i] = info->FreeBetArray[i];
 			}
+
 		}
 		else if (resType == RT_BonusWin)
 		{

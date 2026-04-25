@@ -30,6 +30,16 @@ void GameResult_3997_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 		// Wild 触发：累积 Wild 倍数
 		WildMultiple += Matrix_u_getTypeNum(&mxu, inst->gameConfig, inst->gameConfig.header.Wild);
 		info->WildPosArray[index][0] = WildMultiple;
+#ifdef _IMHERE
+		//uint8_t mxudata[GE_WheelChessMaxNum] =
+		//{
+		//   4,0,5,5,5,
+		//   3,3,3,1,3,
+		//   0,1,3,11,7
+		//};
+		//Matrix_u_setIntData(&mxu, inst->gameConfig, mxudata);
+		//WildMultiple = 6;
+#endif
 		// 计算本轮矩阵收益并乘以 Wild 倍数
 		int32_t matrixBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 		matrixBet *= WildMultiple;
@@ -292,6 +302,33 @@ void GameResult_3997_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resTyp
 	}
 }
 
+void GameResult_3997_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx)
+{
+	OutResult_reset(pRes);
+	int8_t resType = 0;
+	//设定结果类型
+	if (info->FreeBetArray[freeIdx] > 0)
+	{
+		resType = RT_Win;
+	}
+	else
+	{
+		resType = RT_Lose;
+	}
+
+	//设定矩阵数据
+	pRes->BlindSymbol = info->WildPosArray[freeIdx][0];
+	Matrix_u_copy(&pRes->matrix, &info->pFreeMxu[freeIdx]);
+	pRes->nMatrixBet = info->FreeBetArray[freeIdx];
+	// FreeIDVec 的元素类型为 uint16_t，直接按类型拷贝到 outRes->IDVec。
+	for (uint8_t i = 0; i < GE_MaxIDNum; ++i)
+	{
+		pRes->IDVec[i] = info->FreeIDVec[freeIdx][i];
+	}
+	memcpy(pRes->WildPosArray, info->WildPosArray[freeIdx], sizeof(pRes->WildPosArray));
+	pRes->resType = resType;
+}
+
 int8_t* GameResult_3997_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 {
 	char* strRes = (char*)malloc(2048);
@@ -326,7 +363,7 @@ int8_t* GameResult_3997_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	}
 	if (outRes->openType == OT_Give)
 	{
-
+		append_format(strRes, 2048, &used, "\"WildMultiply\":%d,", outRes->BlindSymbol);
 	}
 
 	int8_t* bonusStr;
@@ -400,7 +437,7 @@ void GameResult_3997_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 
 	if (outRes->openType == OT_Give)
 	{
-
+		res[pos++] = outRes->BlindSymbol;
 	}
 
 	if (outRes->resType == RT_BonusWin)

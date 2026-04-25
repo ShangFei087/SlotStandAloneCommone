@@ -119,9 +119,9 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(3998))
+    if (DLL_GameSwitch(3997))
     {
-        gameId = 3998;
+        gameId = 3997;
     }
 
     if (gameId == GAME_ID_INVALID) 

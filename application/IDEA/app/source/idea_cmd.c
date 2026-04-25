@@ -844,7 +844,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 	{
 		qs_json* pJsonArray = qs_json_GetObjectItem(json, "data");
 		size_t JsonArraySize = qs_json_GetArraySize(pJsonArray);
-		int32_t res[2] = { 0 };
+		int32_t res[1] = { 0 };
 		int32_t matrixData[GE_WheelChessMaxNum] = { 0 };
 
 		if (JsonArraySize > 0 && JsonArraySize <= GE_WheelChessMaxNum)
@@ -853,12 +853,11 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 			{
 				matrixData[i] = qs_json_GetArrayItem(pJsonArray, (int32_t)i)->valueint;
 			}
-			res[0] = DLL_SaveExhibitionData(matrixData, (uint32_t)JsonArraySize, &res[1]);
+			res[0] = DLL_SaveExhibitionData(matrixData, (uint32_t)JsonArraySize, &res[0]);
 		}
 		else
 		{
-			res[0] = -1;
-			res[1] = 0;
+			res[0] = 0;
 		}
 
 		qs_json_DeleteItemFromObject(json, "data");
