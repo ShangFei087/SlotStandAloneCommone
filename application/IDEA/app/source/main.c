@@ -180,7 +180,7 @@ int32_t main(int32_t argc, char *argv[])
 #ifdef _ExhibitionMode
             int32_t matrixData[GE_WheelChessMaxNum] = 
             { 
-                1,0,2,1,1,
+                10,0,10,1,10,
                 4,3,0,3,7,
                 0,1,0,7,0 
             };

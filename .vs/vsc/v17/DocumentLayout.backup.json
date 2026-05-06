@@ -3,36 +3,64 @@
   "WorkspaceRootPath": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Test.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\Test.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Dll.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\Dll.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3997.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3997.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Test.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\Test.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResultRegistry.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResultRegistry.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\idea_cmd.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\idea_cmd.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3993.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3993.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3997.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3997.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3999.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3999.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3998.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3998.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Matrix\\Matrix_u_TriggersById.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\Matrix\\Matrix_u_TriggersById.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3995.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3995.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\idea_cmd.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\idea_cmd.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3996.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3996.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\DllInterface.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\DllInterface.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\NatureAlg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\NatureAlg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\idea_app.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\idea_app.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResultRegistry.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResultRegistry.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Matrix\\Matrix_u_TriggersById.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\Matrix\\Matrix_u_TriggersById.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\CommonStruct.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -43,24 +71,8 @@
       "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\CommonStruct.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\TableControl.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\TableControl.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\DllInterface.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\DllInterface.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\ComputerData.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\ComputerData.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\idea_app.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\idea_app.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\TableControl.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\TableControl.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Lottery.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -99,10 +111,6 @@
       "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\GameManager.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\NatureAlg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\NatureAlg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\NatureAlg.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{581F1FB6-8772-43B6-A249-6A79E9C7800C}|application\\IDEA\\app\\build\\vs\\idea.vcxproj|solutionrelative:application\\IDEA\\app\\source\\Control\\NatureAlg.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
@@ -114,17 +122,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Test.h",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Test.h",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\Test.h",
               "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Test.h",
               "RelativeToolTip": "application\\IDEA\\app\\source\\Control\\Test.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAApwBIAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-04-10T03:38:04.251Z",
               "IsPinned": true,
@@ -132,7 +140,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "idea_app.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\idea_app.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\idea_app.c",
@@ -141,17 +149,18 @@
               "ViewState": "AgIAAFcAAAAAAAAAAAAAAGgAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2026-04-13T07:48:03.965Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "idea_cmd.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\idea_cmd.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\idea_cmd.c",
               "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\idea_cmd.c",
               "RelativeToolTip": "application\\IDEA\\app\\source\\idea_cmd.c",
-              "ViewState": "AgIAAGUCAAAAAAAAAAAiwFcDAABJAAAAAAAAAA==",
+              "ViewState": "AgIAANECAAAAAAAAAAAiwFcDAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2026-04-22T10:05:16.516Z",
               "IsPinned": true,
@@ -159,13 +168,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "main.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\main.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\main.c",
               "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\main.c",
               "RelativeToolTip": "application\\IDEA\\app\\source\\main.c",
-              "ViewState": "AgIAAKoAAAAAAAAAAAAWwL8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKEAAAAAAAAAAAApwLwAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2026-01-08T09:42:26.941Z",
               "IsPinned": true,
@@ -173,7 +182,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": "DllInterface.h",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\DllInterface.h",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\DllInterface.h",
@@ -182,17 +191,18 @@
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABsAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-01-08T09:42:31.4Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Dll.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Dll.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\Dll.c",
               "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Dll.c",
               "RelativeToolTip": "application\\IDEA\\app\\source\\Control\\Dll.c",
-              "ViewState": "AgIAAOYBAAAAAAAAAAAWwPUBAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAKQAAAAAAAAAAAApwL8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2026-01-08T09:42:22.92Z",
               "IsPinned": true,
@@ -200,7 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 11,
               "Title": "NatureAlg.h",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\NatureAlg.h",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\NatureAlg.h",
@@ -209,11 +219,12 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-01-12T09:17:55.3Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "NatureAlg.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\NatureAlg.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\NatureAlg.c",
@@ -226,7 +237,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "GameConfig.h",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GameConfig.h",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GameConfig.h",
@@ -239,7 +250,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "GameConfig.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GameConfig.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GameConfig.c",
@@ -252,7 +263,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 17,
               "Title": "ComputerData.h",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\ComputerData.h",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\ComputerData.h",
@@ -265,7 +276,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "ComputerData.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\ComputerData.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\ComputerData.c",
@@ -278,7 +289,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "GameManager.h",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GameManager.h",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GameManager.h",
@@ -291,7 +302,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "GameManager.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GameManager.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GameManager.c",
@@ -304,7 +315,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "GameResultRegistry.h",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResultRegistry.h",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResultRegistry.h",
@@ -317,7 +328,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 13,
               "Title": "GameResultRegistry.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResultRegistry.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResultRegistry.c",
@@ -331,7 +342,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "Matrix_u_TriggersById.h",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Matrix\\Matrix_u_TriggersById.h",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\Matrix\\Matrix_u_TriggersById.h",
@@ -344,7 +355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "Matrix_u_TriggersById.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Matrix\\Matrix_u_TriggersById.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\Matrix\\Matrix_u_TriggersById.c",
@@ -358,7 +369,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 15,
               "Title": "CommonStruct.h",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\CommonStruct.h",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\CommonStruct.h",
@@ -371,7 +382,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 16,
               "Title": "CommonStruct.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\CommonStruct.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\CommonStruct.c",
@@ -384,7 +395,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "LotteryPersistManager.h",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\LotteryPersistManager.h",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\LotteryPersistManager.h",
@@ -397,7 +408,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "Lottery.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\Lottery.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\Lottery.c",
@@ -414,53 +425,81 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
+              "Title": "GameResult_3993.c",
+              "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3993.c",
+              "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3993.c",
+              "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3993.c",
+              "RelativeToolTip": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3993.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-04-25T02:18:37.759Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GameResult_3995.c",
+              "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3995.c",
+              "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3995.c",
+              "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3995.c",
+              "RelativeToolTip": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3995.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-04-25T02:18:26.039Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "GameResult_3998.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3998.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3998.c",
               "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3998.c",
               "RelativeToolTip": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3998.c",
-              "ViewState": "AgIAAGMBAAAAAAAAAAAiwHgBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2026-04-24T08:24:03.924Z",
+              "WhenOpened": "2026-04-25T02:18:01.015Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
+              "Title": "GameResult_3999.c",
+              "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3999.c",
+              "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3999.c",
+              "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3999.c",
+              "RelativeToolTip": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3999.c",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAABwAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-04-25T02:17:45.858Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "GameResult_3997.c",
               "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3997.c",
               "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3997.c",
               "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3997.c",
               "RelativeToolTip": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3997.c",
-              "ViewState": "AgIAAKABAAAAAAAAAAAWwLUBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2026-04-24T08:23:55.968Z",
+              "WhenOpened": "2026-04-25T02:17:32.137Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "TableControl.h",
-              "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\TableControl.h",
-              "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\TableControl.h",
-              "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\TableControl.h",
-              "RelativeToolTip": "application\\IDEA\\app\\source\\Control\\TableControl.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-23T06:45:36.602Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "TableControl.c",
-              "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\TableControl.c",
-              "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\TableControl.c",
-              "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\TableControl.c",
-              "RelativeToolTip": "application\\IDEA\\app\\source\\Control\\TableControl.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAABMAAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "GameResult_3996.c",
+              "DocumentMoniker": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3996.c",
+              "RelativeDocumentMoniker": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3996.c",
+              "ToolTip": "F:\\Control\\SlotStandAloneControl\\cn\\SlotStandAloneCommone\\application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3996.c",
+              "RelativeToolTip": "application\\IDEA\\app\\source\\Control\\GenerationResult\\GameResult_3996.c",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAADEBAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2026-04-23T06:45:24.663Z"
+              "WhenOpened": "2026-04-24T10:15:16.704Z",
+              "EditorCaption": ""
             }
           ]
         }

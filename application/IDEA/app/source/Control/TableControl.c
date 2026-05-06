@@ -402,13 +402,19 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 	TableControl_InjectFourPools(TotalBet, activeProfile);
 	gTableControlStats.totalFishValue += fishValue; // 记录累计
 
+// 调试模式中候选结果一律放行。
 #ifdef _DebugControlMode
-	// 调试模式中候选结果一律放行。
+	
 	if (gDebugControlMode.mode == DCM_PointResData)
 	{
 		return 1;
 	}
 #endif
+//展示模式中候选结果一律放行。
+#ifdef _ExhibitionMode
+	return 1;
+#endif
+
 	// 无候选结果信息时默认放行
 	if (ri == NULL) 
 	{

@@ -19,5 +19,4 @@
 #define _ExhibitionMode				// 展会模式：启用前端传入矩阵进行计算
 #endif
 
-
 #endif // __SF_Test_h__
