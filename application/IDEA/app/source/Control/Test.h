@@ -15,7 +15,7 @@
 //#define _IMHERE							// 临时调试标记位（调试完成后请移除）
 //#define _LocalDebug						// 本地调试
 //#define _WritePlayerData				// 写算法 Json 日志
-#define _WritePlayerLog					// 写玩家日志
+//#define _WritePlayerLog					// 写玩家日志
 #define _ExhibitionMode				// 展会模式：启用前端传入矩阵进行计算
 #endif
 

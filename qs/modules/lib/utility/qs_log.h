@@ -105,7 +105,8 @@ void qs_log_init(void);
 
 /// \sa printf
 #if (QS_PLATFORM == QS_PLATFORM_WIN32)
-#define qs_log                       printf
+#define qs_log                       ((void)0)
+//#define qs_log                       printf
 #elif (QS_PLATFORM == QS_PLATFORM_LINUX)
 #define qs_log                       ALOGW
 #endif
