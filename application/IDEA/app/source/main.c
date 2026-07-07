@@ -92,12 +92,13 @@ int32_t main(int32_t argc, char *argv[])
     DebugControlMode_Init(&debugMode);
 	//debugMode.resType = RT_Win;
 	//debugMode.resType = RT_Lose;
-	debugMode.resType = RT_FreeWin;
+	//debugMode.resType = RT_FreeWin;
 	//debugMode.resType = RT_BonusWin;
     //debugMode.resType = RT_Jackpot;
    // debugMode.jpType = JT_Major;
     //debugMode.bonusType =0;
-	debugMode.mode = DCM_PointResData;
+	//debugMode.mode = DCM_PointResData;
+    debugMode.mode = DCM_Normal;
     DLL_SetControlDebugMode(&debugMode);
 
     // 设置当前区域+RTP档位（这里使用国内 99.2 档）。
@@ -119,9 +120,9 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(3998))
+    if (DLL_GameSwitch(3997))
     {
-        gameId = 3998;
+        gameId = 3997;
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -148,7 +149,6 @@ int32_t main(int32_t argc, char *argv[])
     int32_t ret = 0;
     uint32_t TotalWin = 0;
 #define _TestTime 300000
-
     while (totalTime < _TestTime)
     {
         totalTime++;
@@ -178,7 +178,7 @@ int32_t main(int32_t argc, char *argv[])
                 pItem->Bets += totalbet;
             }
 #ifdef _ExhibitionMode
-            int32_t matrixData[GE_WheelChessMaxNum] = 
+    /*        int32_t matrixData[GE_WheelChessMaxNum] = 
             { 
                 9,0,9,1,10,
                 9,1,2,3,7,
@@ -186,7 +186,7 @@ int32_t main(int32_t argc, char *argv[])
             };
             int32_t ArraySize = 15;
             int32_t pAppliedLen = 0;
-            DLL_SaveExhibitionData(matrixData, ArraySize, &pAppliedLen);
+            DLL_SaveExhibitionData(matrixData, ArraySize, &pAppliedLen);*/
 #endif
             //获取一局数据
             DLL_GetGameResultById(pItem, betmultiple, &outres, &ret, gameId);

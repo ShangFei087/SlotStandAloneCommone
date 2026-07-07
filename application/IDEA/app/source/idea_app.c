@@ -24,6 +24,7 @@
 #include "Control/LotteryManager.h"
 #include "Control/FreeGamePersistManager.h"
 #include "Control/LotteryPersistManager.h"
+#include "Control/TableControlPersistManager.h"
 #include "Control/Test.h"
 #include "idea_qs.h"
 
@@ -105,6 +106,7 @@ void idea_app_init(void)
 #ifndef _LocalDebug
 	FreeGamePersist_Init();
 	LotteryPersist_Init();
+	TableControlPersist_Init(); /* 闸门运行时（池子/档位/窗口）Flash 恢复 */
 #else
 	QS_LOG("\r\n [GM] _LocalDebug enabled: skip persist init");
 #endif

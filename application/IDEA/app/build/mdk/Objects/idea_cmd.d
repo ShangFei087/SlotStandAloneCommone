@@ -71,3 +71,4 @@
 .\objects\idea_cmd.o: ..\..\source\Control/LotteryManager.h
 .\objects\idea_cmd.o: ..\..\source\Control/Lottery.h
 .\objects\idea_cmd.o: ..\..\source\Control/GameRegistry.h
+.\objects\idea_cmd.o: ..\..\source\Control/TableControl.h

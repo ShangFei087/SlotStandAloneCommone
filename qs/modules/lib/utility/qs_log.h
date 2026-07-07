@@ -61,52 +61,51 @@ extern "C" {
  **************************************************************************/
 
 /**
- *   \brief    ¸ñÊ½»¯Êä³öÄÚÈÝµ½Ö¸¶¨»º³åÇøÖÐ
- *   \param    dest      Êä³ö»º³åÇø
- *   \param    format    ¸ñÊ½»¯¸ñÊ½×Ö·û´®
- *   \param    ...       Êý¾ÝÁÐ±í
+ *   \brief    ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ *   \param    dest      ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ *   \param    format    ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ö·ï¿½ï¿½ï¿½
+ *   \param    ...       ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
  */
 void qs_vprintf(char *dest, const char *format, ...);
 
 /**
- *   \brief    ¸ñÊ½»¯Êä³öÄÚÈÝµ½ÏÔÊ¾Éè±¸ÉÏ
- *   \param    format    ¸ñÊ½»¯¸ñÊ½×Ö·û´®
- *   \param    ...       Êý¾ÝÁÐ±í
+ *   \brief    ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Ê¾ï¿½è±¸ï¿½ï¿½
+ *   \param    format    ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ö·ï¿½ï¿½ï¿½
+ *   \param    ...       ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
  */
 void qs_log(const char *format, ...);
 
 /**
- *   \brief    16½øÖÆ¸ñÊ½Êä³öÊý¾Ýµ½ÏÔÊ¾Éè±¸ÉÏ
- *   \param    desc      Êä³öÄÚÈÝµÄÃèÊö
- *   \param    pData     ÐèÒª±»Êä³öÊý¾ÝµØÖ·
- *   \param    DataSize  Êý¾ÝµÄÊýÁ¿
+ *   \brief    16ï¿½ï¿½ï¿½Æ¸ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Ê¾ï¿½è±¸ï¿½ï¿½
+ *   \param    desc      ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½
+ *   \param    pData     ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½Ö·
+ *   \param    DataSize  ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½
  */
 void qs_log_buf(const char *desc, uint8_t *pData, size_t DataSize);
 
 /**
- *   \brief    °Ñ×Ö·û´®ÏÔÊ¾ÔÚÉè±¸ÉÏ
- *   \param    desc      ×Ö·û´®µÄÃèÊö
- *   \param    pStr      ÐèÒª±»Êä³öµÄ×Ö·û´®µØÖ·
+ *   \brief    ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½è±¸ï¿½ï¿½
+ *   \param    desc      ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ *   \param    pStr      ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
  */
 void qs_log_str(const char *desc, const char *pStr);
 
 /**
- *   \brief    ×Ö·û´®¸ñÊ½Êä³öÊý¾Ýµ½ÏÔÊ¾Éè±¸ÉÏ
- *   \param    desc      Êä³öÄÚÈÝµÄÃèÊö
- *   \param    pData     ÐèÒª±»Êä³öÊý¾ÝµØÖ·
- *   \param    DataSize  Êý¾ÝµÄÊýÁ¿
+ *   \brief    ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Ê¾ï¿½è±¸ï¿½ï¿½
+ *   \param    desc      ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½
+ *   \param    pData     ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½Ö·
+ *   \param    DataSize  ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½
  */
 void qs_log_str_by_size(const char *desc, uint8_t *pData, size_t DataSize);
 
 /**
- *   \brief    ÏÔÊ¾Éè±¸µÄ³õÊ¼»¯
+ *   \brief    ï¿½ï¿½Ê¾ï¿½è±¸ï¿½Ä³ï¿½Ê¼ï¿½ï¿½
  */
 void qs_log_init(void);
 
 /// \sa printf
 #if (QS_PLATFORM == QS_PLATFORM_WIN32)
-#define qs_log                       ((void)0)
-//#define qs_log                       printf
+#define qs_log                       printf
 #elif (QS_PLATFORM == QS_PLATFORM_LINUX)
 #define qs_log                       ALOGW
 #endif

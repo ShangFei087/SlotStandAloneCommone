@@ -4,11 +4,12 @@
 #include <stdint.h> 
 
 // RTP 区域定义
-#define RTP_REGION_DOMESTIC 0 // 国内区域
-#define RTP_REGION_OVERSEAS 1 // 海外区域
-#define RTP_PROFILE_COUNT 5 // 每个区域固定 5 个难度档位
-#define RTP_DEFAULT_DOMESTIC 9920  // 国内默认 RTP（99.2%）
-#define RTP_DEFAULT_OVERSEAS 9200  // 海外默认 RTP（92.0%）
+#define RTP_REGION_DOMESTIC_JPOnline 0      // 国内有联网彩金区域
+#define RTP_REGION_DOMESTIC 1               // 国内无联网彩金区域
+#define RTP_REGION_OVERSEAS 2               // 海外区域
+#define RTP_PROFILE_COUNT 5                 // 每个区域固定 5 个难度档位
+#define RTP_DEFAULT_DOMESTIC 9920           // 国内默认 RTP（99.2%）
+#define RTP_DEFAULT_OVERSEAS 9200           // 海外默认 RTP（92.0%）
 
 // RTP 档位配置（万分比口径）
 typedef struct RtpProfileConfig { 
@@ -29,16 +30,25 @@ typedef struct RtpProfileConfig {
     int32_t jackpotMaxBet;        // Jackpot 金额倍数上限（相对 TotalBet）
 } RtpProfileConfig; // RTP 档位结构结束
 
-// 国内 RTP 档位：98.5 / 98.8 / 99.2 / 99.5 / 99.8（默认 99.2）
-static const RtpProfileConfig gDomesticProfiles[] = { // 国内档位表（从低到高）
+// 国内有联网彩金 RTP 档位：98.5 / 98.8 / 99.2 / 99.5 / 99.8（默认 99.2） 
+static const RtpProfileConfig gDomesticJPOnlineProfiles[] = { // 国内档位表（从低到高）
 	{ 9850, 2500, 2000, 4500, 500, 500, 9000, 9000, 10000, 60, 150, 200, 600, 0, 4500 }, // Level1
 	{ 9880, 2500, 2000, 4500, 500, 500, 9300, 9300, 10000, 60, 150, 200, 600, 0, 4500 }, // Level2
-	{ 9920, 2500, 2000, 4420, 500, 500, 9920, 9920, 10000, 60, 150, 200, 600, 0, 4500 }, // Level3（默认档）
+	{ 9920, 2500, 2000, 4500, 500, 500, 9920, 9920, 10000, 60, 150, 200, 600, 0, 4500 }, // Level3（默认档）
 	{ 9950, 2500, 2000, 4500, 500, 500, 9700, 9700, 10000, 60, 150, 200, 600, 0, 4500 }, // Level4
 	{ 9980, 2500, 2000, 4500, 500, 500, 9980, 9980, 10000, 60, 150, 200, 600, 0, 4500 }, // Level5
 }; 
 
-// 海外 RTP 档位：85 / 88 / 92 / 95 / 98（默认 92）
+// 国内无联网彩金 RTP 档位：98.5 / 98.8 / 99.2 / 99.5 / 99.8（默认 99.2） 
+static const RtpProfileConfig gDomesticProfiles[] = { // 国内档位表（从低到高）
+    { 9850, 2500, 2000, 5000, 500, 0, 9850, 9850, 10000, 60, 150, 200, 600, 0, 4500 }, // Level1
+    { 9880, 2500, 2000, 5000, 500, 0, 9880, 9880, 10000, 60, 150, 200, 600, 0, 4500 }, // Level2
+    { 9920, 2500, 2000, 5000, 500, 0, 9920, 9920, 10000, 60, 150, 200, 600, 0, 4500 }, // Level3（默认档）
+    { 9950, 2500, 2000, 5000, 500, 0, 9950, 9950, 10000, 60, 150, 200, 600, 0, 4500 }, // Level4
+    { 9980, 2500, 2000, 5000, 500, 0, 9980, 9980, 10000, 60, 150, 200, 600, 0, 4500 }, // Level5
+};
+
+// 海外有联网彩金 RTP 档位：85 / 88 / 92 / 95 / 98（默认 92）
 static const RtpProfileConfig gOverseasProfiles[] = { // 海外档位表（从低到高）
     { 8500, 3000, 2000, 4000, 500, 500, 7600, 7600, 7600, 30, 100, 50, 200, 0, 3000 }, // Level1
     { 8800, 3000, 2000, 4000, 500, 500, 8200, 8200, 8200, 30, 100, 50, 200, 0, 3000 }, // Level2
@@ -48,7 +58,7 @@ static const RtpProfileConfig gOverseasProfiles[] = { // 海外档位表（从�
 }; 
 
 // 获取某区域的档位表指针、档位数量和默认 RTP；成功返回 1，失败返回 0。
-int32_t RtpConfig_GetProfiles(uint8_t region,const RtpProfileConfig** outProfiles,int32_t* outCount,int32_t* outDefaultRtpPermyriad); // 导出区域档位表
+int32_t RtpConfig_GetProfiles(uint8_t regio,const RtpProfileConfig** outProfiles,int32_t* outCount,int32_t* outDefaultRtpPermyriad); // 导出区域档位表
 // 按 RTP 数值精确查找档位；找不到返回 NULL。
 const RtpProfileConfig* RtpConfig_FindProfile(uint8_t region, int32_t rtpPermyriad); // 查找指定档位
 // 获取某区域的默认档位配置；找不到返回 NULL。

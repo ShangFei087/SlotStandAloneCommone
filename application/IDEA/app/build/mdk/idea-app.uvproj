@@ -698,6 +698,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\source\Control\LotteryPersistManager.c</FilePath>
             </File>
+            <File>
+              <FileName>TableControlPersistManager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\TableControlPersistManager.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

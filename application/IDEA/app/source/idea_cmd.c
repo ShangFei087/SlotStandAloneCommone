@@ -27,6 +27,7 @@
 #include "Control/LotteryManager.h"
 #include "Control/GameRegistry.h"
 #include "Control/GameManager.h"
+#include <Control/TableControl.h>
 
 /**************************************************************************
  *                   G E N E R A L    C O N S T A N T S                   *
@@ -94,9 +95,9 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		int32_t res[6] = { 0 };
 		uint8_t pos = 0;
 		int32_t ret = 0;
-		// 设置当前区域+RTP档位（这里使用国内 99.2 档）。
-		DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 3);
-		
+		// 设置当前区域与难度等级（level 1~5）；区域固定国内，档位由 level 决定。
+		DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 0);
+		DLL_SetDifficultyLevel(3);
 		if (GameRegistry_InitAndRegisterDefaults())
 		{
 			ret = 0;
@@ -737,7 +738,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 			{
 				res[0] = gameid;
 				res[1] = 0;
-				QS_LOG("\r\n 切换游戏成功:%d", gameid);
+				//QS_LOG("\r\n 切换游戏成功:%d", gameid);
 			}
 		}
 		else {
@@ -754,6 +755,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 	//获取显示值彩金
 	case 20201:
 	{
+		QS_LOG("\r\n [20201] enter");
 		qs_json* pJsonArray = qs_json_GetObjectItem(json, "data");
 		size_t JsonArraySize = qs_json_GetArraySize(pJsonArray);
 		int32_t res[4] = { 0 }; 
@@ -763,11 +765,13 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		{
 			res[pos++] = Lottery_GetShowValue(&gLotteryManager.mLotterys[i]);
 		}
+		QS_LOG("\r\n [20201] before write");
 		//TODO
 		qs_json_DeleteItemFromObject(json, "data");
 		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
 		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
 		qs_senv_manager_write(gpCtx->pSenv, json);
+		QS_LOG("\r\n [20201] after write");
 	}
 	break;
 	//调试模式
@@ -860,6 +864,66 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 			res[0] = 0;
 		}
 
+		qs_json_DeleteItemFromObject(json, "data");
+		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
+		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
+		qs_senv_manager_write(gpCtx->pSenv, json);
+	}
+	break;
+	//获取调控信息
+	case 20205:
+	{
+		qs_json* pJsonArray = qs_json_GetObjectItem(json, "data");
+		size_t JsonArraySize = qs_json_GetArraySize(pJsonArray);
+		int32_t res[23] = { 0 };
+		int32_t pos = 0;
+		res[pos++] = 1;
+		TableControlStats tableStats;
+		memset(&tableStats, 0, sizeof(tableStats));
+		TableControl_GetStats(&tableStats);
+
+		res[pos++] = (int32_t)tableStats.totalBet;
+		res[pos++] = (int32_t)tableStats.totalFishValue;
+		res[pos++] = (int32_t)tableStats.paidBase;
+		res[pos++] = (int32_t)tableStats.paidFree;
+		res[pos++] = (int32_t)tableStats.paidBonus;
+		res[pos++] = (int32_t)tableStats.paidJackpotBonus;
+		res[pos++] = (int32_t)tableStats.paidJackpot;
+		res[pos++] = (int32_t)tableStats.paidNetJackpot;
+		res[pos++] = (int32_t)tableStats.netJackpotHitCount;
+		res[pos++] = (int32_t)tableStats.netJackpotOverBudgetCount;
+		res[pos++] = (int32_t)tableStats.totalPass;
+		res[pos++] = (int32_t)tableStats.totalReject;
+		res[pos++] = (int32_t)tableStats.winRejectByTargetPool;
+		res[pos++] = (int32_t)tableStats.freeRejectByTargetPool;
+		res[pos++] = (int32_t)tableStats.bonusRejectByTargetPool;
+		res[pos++] = (int32_t)tableStats.jackpotRejectByTargetPool;
+		res[pos++] = (int32_t)tableStats.freeRejectByRange;
+		res[pos++] = (int32_t)tableStats.bonusRejectByRange;
+		res[pos++] = (int32_t)tableStats.jackpotRejectByRange;
+		res[pos++] = (int32_t)tableStats.freeRejectByPassRate;
+		res[pos++] = (int32_t)tableStats.bonusRejectByPassRate;
+		res[pos++] = (int32_t)tableStats.jackpotRejectByPassRate;
+		qs_json_DeleteItemFromObject(json, "data");
+		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
+		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
+		qs_senv_manager_write(gpCtx->pSenv, json);
+	}
+	break;
+	//获取五池信息
+	case 20206:
+	{
+		qs_json* pJsonArray = qs_json_GetObjectItem(json, "data");
+		size_t JsonArraySize = qs_json_GetArraySize(pJsonArray);
+		int32_t res[6] = { 0 };
+		int32_t pos = 0;
+		res[pos++] = 1;
+		res[pos++] = (int32_t)TableControl_GetPool(0);
+		res[pos++] = (int32_t)TableControl_GetPool(1);
+		res[pos++] = (int32_t)TableControl_GetPool(2);
+		res[pos++] = (int32_t)TableControl_GetPool(3);
+		res[pos++] = (int32_t)TableControl_GetPool(4);
+	
 		qs_json_DeleteItemFromObject(json, "data");
 		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
 		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);

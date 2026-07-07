@@ -54,5 +54,6 @@
 .\objects\tablecontrol.o: ..\..\source\Control\CommonStruct.h
 .\objects\tablecontrol.o: ..\..\source\Control\ComputerData.h
 .\objects\tablecontrol.o: ..\..\source\Control\GameConfig.h
+.\objects\tablecontrol.o: ..\..\source\Control\TableControlPersistManager.h
 .\objects\tablecontrol.o: ..\..\source\Control\../GameAlgo/common/JRand.h
 .\objects\tablecontrol.o: ..\..\source\Control\Test.h

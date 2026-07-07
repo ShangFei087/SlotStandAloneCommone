@@ -2,22 +2,35 @@
 #include "RtpConfig.h"
 
 // 获取区域配置数组与默认 RTP 档位；返回 1 表示成功，0 表示失败。
-int32_t RtpConfig_GetProfiles(uint8_t region,const RtpProfileConfig** outProfiles,int32_t* outCount,int32_t* outDefaultRtpPermyriad) // 导出区域档位表
+int32_t RtpConfig_GetProfiles(uint8_t region,const RtpProfileConfig** outProfiles,int32_t* outCount,int32_t* outDefaultRtpPermyriad)
 {
-    if (outProfiles == NULL || outCount == NULL || outDefaultRtpPermyriad == NULL) // 校验输出参数
+    if (outProfiles == NULL || outCount == NULL || outDefaultRtpPermyriad == NULL)
     {
-        return 0; // 参数不合法直接失败
+        return 0; 
     }
 
-    if (region == RTP_REGION_DOMESTIC) // 国内区域分支
+    // 国内有联网彩金区域分支
+    if (region == RTP_REGION_DOMESTIC_JPOnline) 
     {
-        *outProfiles = gDomesticProfiles; // 返回国内档位数组
-        *outCount = RTP_PROFILE_COUNT; // 返回国内档位数量
-        *outDefaultRtpPermyriad = RTP_DEFAULT_DOMESTIC; // 返回国内默认 RTP
-        return 1; // 成功
+
+        *outProfiles = gDomesticJPOnlineProfiles;
+        *outCount = RTP_PROFILE_COUNT;
+        *outDefaultRtpPermyriad = RTP_DEFAULT_DOMESTIC;
+        return 1; 
     }
 
-    if (region == RTP_REGION_OVERSEAS) // 海外区域分支
+    //国内无联网彩金区
+    if (region == RTP_REGION_DOMESTIC) 
+    {
+       
+        *outProfiles = gDomesticProfiles; 
+        *outCount = RTP_PROFILE_COUNT; 
+        *outDefaultRtpPermyriad = RTP_DEFAULT_DOMESTIC; 
+        return 1;
+    }
+
+    // 海外区域分支
+    if (region == RTP_REGION_OVERSEAS) 
     {
         *outProfiles = gOverseasProfiles; // 返回海外档位数组
         *outCount = RTP_PROFILE_COUNT; // 返回海外档位数量

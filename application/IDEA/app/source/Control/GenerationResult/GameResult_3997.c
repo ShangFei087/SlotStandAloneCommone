@@ -26,7 +26,7 @@ void GameResult_3997_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 	for (uint8_t index = 0; index < info->nFreeNum; index++)
 	{
 		Matrix_u_reset(&mxu);
-		NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, &mxu, inst->gameConfig.header.rowCount);
+		NatureAlg_GenRndMxu(inst->gameConfig.header.freeRollTableId, &mxu, inst->gameConfig.header.rowCount);
 		// Wild 触发：累积 Wild 倍数
 		WildMultiple += Matrix_u_getTypeNum(&mxu, inst->gameConfig, inst->gameConfig.header.Wild);
 		info->WildPosArray[index][0] = WildMultiple;

@@ -30,6 +30,80 @@ typedef struct TableControlStats {
 	int64_t jackpotRejectByPassRate; // Jackpot 因概率门拒绝次数
 } TableControlStats; // 统计结构结束
 
+/** 闸门运行时状态：区域/档位、目标池、闭环调参窗口、概率门覆盖与自适应偏移。 */
+typedef struct TableControlRuntime {
+	uint8_t region;                    // 当前区域（默认国内）
+	int32_t rtpPermyriad;              // 当前 RTP 档位，0 表示使用区域默认档
+	int32_t overrideFreePass;          // 免费放行概率覆盖，-1 表示使用档位默认
+	int32_t overrideBonusPass;         // Bonus 放行概率覆盖
+	int32_t overrideJackpotPass;       // Jackpot 放行概率覆盖
+
+	int64_t basePool;                  // Base 目标池（RT_Win 放行判定）
+	int64_t freePool;                  // Free 目标池（RT_FreeWin 放行判定）
+	int64_t bonusPool;                 // Bonus 目标池（RT_BonusWin 放行判定）
+	int64_t jackpotPool;               // 本地 Jackpot 目标池
+	int64_t netJackpotPool;            // 联网 Jackpot 预算池
+	int64_t basePoolRemainder;         // Base 目标池注入余量
+	int64_t freePoolRemainder;         // Free 目标池注入余量
+	int64_t bonusPoolRemainder;        // Bonus 目标池注入余量
+	int64_t jackpotPoolRemainder;      // Jackpot 目标池注入余量
+	int64_t netJackpotPoolRemainder;   // 联网 Jackpot 目标池注入余量
+
+	int32_t adaptiveFreePassDelta;     // Free 自适应概率偏移（万分比）
+	int32_t adaptiveBonusPassDelta;    // Bonus 自适应概率偏移（万分比）
+	int32_t adaptiveJackpotPassDelta;  // Jackpot 自适应概率偏移（万分比）
+
+	int64_t windowBet;                 // 调参窗口累计下注
+	int64_t windowPaidBase;            // 调参窗口 Base 派彩
+	int64_t windowPaidFree;            // 调参窗口 Free 派彩
+	int64_t windowPaidBonus;           // 调参窗口 Bonus 派彩
+	int64_t windowPaidJackpotBonus;    // 调参窗口 Jackpot 局内 Bonus 派彩
+	int64_t windowPaidJackpot;         // 调参窗口 Jackpot 派彩
+	int32_t windowRounds;              // 调参窗口累计局数
+} TableControlRuntime;
+
+/** 闭环/软池/概率门等调参常量（运行时只读，切档时不重置）。 */
+typedef struct TableControlTuning {
+	int32_t adjustWindowRounds;          // 每满 N 局按窗口实测分项 RTP 微调概率门
+	int32_t adjustStepPermyriad;         // 单次微调步长（万分比）
+	int32_t adjustDeadbandPermyriad;     // 死区（万分比）
+	int32_t adaptiveDeltaMax;            // 最大自适应偏移（万分比）
+
+	int32_t baseDebtBetFactor;           // Base 最大负债 = -factor * TotalBet
+	int32_t freeDebtBetFactor;           // Free 最大负债倍数
+	int32_t bonusDebtBetFactor;          // Bonus 最大负债倍数
+	int32_t jackpotDebtBetFactor;        // Jackpot 最大负债倍数
+	int32_t softPoolScaleBase;           // 恢复随机软放行时使用（Base）
+	int32_t softPoolScaleFree;           // 同上（Free）
+	int32_t softPoolScaleBonus;          // 同上（Bonus）
+	int32_t softPoolScaleJackpot;        // 同上（Jackpot）
+
+	int32_t freePassRejectRefundPermyriad;   // Free 概率拒绝时池子回补比例（万分比）
+	int32_t bonusPassRejectRefundPermyriad;  // Bonus 概率拒绝时池子回补比例（万分比）
+} TableControlTuning;
+
+/** 闸门模块全部状态：统计 + 运行时 + 调参常量。 */
+typedef struct TableControlState {
+	TableControlStats stats;
+	TableControlRuntime runtime;
+	TableControlTuning tuning;
+} TableControlState;
+
+/**
+ * @brief 导出当前 RAM 中的闸门运行时快照。
+ * @param out 输出缓冲区；为 NULL 时不写入。
+ */
+void TableControl_ExportRuntime(TableControlRuntime* out);
+/**
+ * @brief 导入闸门运行时快照到 RAM（含区域/档位/池子/窗口合法性校验）。
+ * @param in 待导入快照；非法时保持 RAM 不变。
+ */
+void TableControl_ImportRuntime(const TableControlRuntime* in);
+/**
+ * @brief 恢复运行时默认值：国内区域、默认 RTP 档、清除概率覆盖，并重置池子与调参窗口。
+ */
+void TableControl_ResetRuntimeDefaults(void);
+
 // 获取当前生效 RTP 配置（优先指定档位，其次区域默认，最后国内默认兜底）。
 const RtpProfileConfig* TableControl_GetActiveProfile(void);
 /**
@@ -98,5 +172,11 @@ void TableControl_GetRtpDifficulty(RtpProfileConfig* outProfile);
  * @param outStats 输出参数，返回累计放行/拒绝及各类拒绝原因计数。
  */
 void TableControl_GetStats(TableControlStats* outStats); 
+
+/**
+ * @brief 导出当前闸门五池信息。
+ * @param id参数。
+ */
+int64_t TableControl_GetPool(int8_t id);
 
 #endif // _TABLE_CONTROL_H_ 

@@ -67,4 +67,7 @@
 .\objects\idea_app.o: ..\..\source\Control/Lottery.h
 .\objects\idea_app.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\idea_app.o: ..\..\source\Control/LotteryPersistManager.h
+.\objects\idea_app.o: ..\..\source\Control/TableControlPersistManager.h
+.\objects\idea_app.o: ..\..\source\Control/TableControl.h
+.\objects\idea_app.o: ..\..\source\Control/RtpConfig.h
 .\objects\idea_app.o: ..\..\source\Control/Test.h

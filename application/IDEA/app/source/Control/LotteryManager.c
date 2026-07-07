@@ -48,8 +48,7 @@ void LotteryManager_Init(void)
     LotteryPersist_TryRestore(&gLotteryManager);
     if (lottery_persist_is_blob_valid())
     {
-        QS_LOG("\r\n [JP] persist restore ok: totalPlay=%d totalDraw=%d",
-            gLotteryManager.mTotalPlay, gLotteryManager.mTotalDraw);
+        QS_LOG("\r\n [JP] persist restore ok: totalPlay=%d totalDraw=%d",gLotteryManager.mTotalPlay, gLotteryManager.mTotalDraw);
     }
 }
 
@@ -187,6 +186,10 @@ int32_t LotteryManager_TryGetLotterys(LotteryManager* manager, int32_t playScore
         if (Lottery_TryGet(&manager->mLotterys[i], playScore, &vals[hitCount], &fRate))
         {
             ids[hitCount] = i;
+            if (i == 0)
+            {
+                int32_t k = 0;
+            }
             hitCount++;
         }
     }
