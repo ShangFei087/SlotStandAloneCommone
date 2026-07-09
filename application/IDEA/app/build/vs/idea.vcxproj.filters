@@ -278,5 +278,11 @@
     <ClCompile Include="..\..\source\Control\TableControlPersistManager.c">
       <Filter>源文件\source\Control\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3994.c">
+      <Filter>源文件\source\Control\GenerationResult</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3994.c">
+      <Filter>源文件\source\Control\Matrix</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

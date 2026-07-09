@@ -293,7 +293,6 @@ void GameResult_3996_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* 
 
 void GameResult_3996_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec)
 {
-	{
 		int32_t freeTotal = 0;
 
 		pRes->resType = resType;
@@ -365,7 +364,6 @@ void GameResult_3996_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resTyp
 		{
 			//失败结果
 		}
-	}
 }
 
 int8_t* GameResult_3996_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)

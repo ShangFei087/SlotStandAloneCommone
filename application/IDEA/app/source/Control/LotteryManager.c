@@ -24,7 +24,7 @@ void LotteryManager_Init(void)
     gLotteryManager.mTierMidInjectPermil = 1200;  // 中档注入：1.2x
     gLotteryManager.mTierHighInjectPermil = 1500; // 高档注入：1.5x
     gLotteryManager.mWinFreezeTime = 0;         // 命中彩金后的冷却局数
-    gLotteryManager.mMinPlayScoreToTrigger = 20;  // 触发开奖的最小下注
+    gLotteryManager.mMinPlayScoreToTrigger = 0;  // 触发开奖的最小下注
     gLotteryManager.mMinPlayGapAfterWin = 10;     // 两次开奖最小间隔局数
     gLotteryManager.mPlaySinceLastWin = gLotteryManager.mMinPlayGapAfterWin;
 

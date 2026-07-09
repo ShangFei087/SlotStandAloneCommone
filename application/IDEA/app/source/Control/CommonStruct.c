@@ -127,7 +127,7 @@ void Matrix_u_reset(Matrix_u* pMatrix)
     pMatrix->resultType = RT_Lose;
     pMatrix->idVecSize = 0;
 }
-void Matrix_u_copy(Matrix_u* pDest, Matrix_u* pSrc)
+void Matrix_u_copy(Matrix_u* pDest, Matrix_u* pSrc) //pDest 目标   pSrc源
 {
     if (pDest == NULL || pSrc == NULL) {
         return; // 输入为空，直接返回
@@ -147,7 +147,34 @@ void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col)
         pMatrix->dataArray[index] = type;
     }
 }
+void Matrix_u_insertSymbol(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t type, uint8_t num)
+{
+    uint8_t dataArray[15] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14};
+    uint8_t  PosVec[15];
+    uint8_t  PosSize = 15;
+    // 复制原始数组
+    for (uint8_t i = 0; i < PosSize; i++)
+    {
+        PosVec[i] = dataArray[i];
+    }
 
+    uint8_t randNum = 0;
+    uint8_t randPos = 0;
+    for (uint8_t i = 0; i < num; ++i)
+    {
+        // 随机选择一个位置索引
+        randNum = JRandFrom(0, PosSize - 1);
+        // 获取实际的列位置
+        randPos = PosVec[randNum];
+        pMatrix->dataArray[randPos] = type;
+        // 从数组中删除已使用的位置
+        for (int j = randNum; j < PosSize - 1; j++)
+        {
+            PosVec[j] = PosVec[j + 1];
+        }
+        PosSize--;
+    }
+}
 //243
 
 //------------------------------------------------------------------------------------
@@ -441,6 +468,7 @@ void RoundInfo_t_Reset(RoundInfo_t* obj) {
 
     // 重置extraMxu
     Matrix_u_reset(&obj->extraMxu);
+    //彩金
     obj->nJPCount = 0;
     for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
     {
@@ -475,7 +503,51 @@ void RoundInfo_t_Reset(RoundInfo_t* obj) {
     obj->nBonusBet = 0;
     obj->nBonusType = 0;
     obj->BlindSymbol = 0;
-    for (int8_t i = 0; i < GE_WheelChessMaxNum; i++) {
+    for (int8_t i = 0; i < GE_WheelChessMaxNum; i++)
+    {
+        obj->BonusData[i] = 0;
+    }
+}
+// RoundInfo_t 重置函数 除了彩金信息
+void RoundInfo_t_ResetexceptJp(RoundInfo_t* obj)
+{
+    if (obj == NULL) return;
+
+    // 重置基本数据
+    obj->resType = RT_Lose;
+    obj->nMatrixBet = 0;
+    obj->nPlayBetValue = 0;
+
+    // 重置extraMxu
+    Matrix_u_reset(&obj->extraMxu);
+
+    // 重置免费数据相关指针（不释放内存，只置NULL）
+    obj->pCurCri = NULL;
+    obj->nFreeNum = 0;
+    obj->nFreeBet = 0;
+
+    for (int8_t i = 0; i < GE_MaxFreeNum; i++)
+    {
+        // 重置pFreeMxu数组
+        Matrix_u_reset(&obj->pFreeMxu[i]);
+        // 重置FreeBetArray数组
+        obj->FreeBetArray[i] = 0;
+        // 重置FreeIDVec二维数组
+        for (int32_t j = 0; j < GE_MaxIDNum; j++) {
+            obj->FreeIDVec[i][j] = 0;
+        }
+        for (int32_t j = 0; j < GE_WheelChessMaxNum; j++) {
+            obj->WildPosArray[i][j] = 0;
+        }
+        // NOTE: LooseMxus 在 RoundInfo_t 中已移除/不再使用
+    }
+
+    // 重置彩金数据
+    obj->nBonusBet = 0;
+    obj->nBonusType = 0;
+    obj->BlindSymbol = 0;
+    for (int8_t i = 0; i < GE_WheelChessMaxNum; i++)
+    {
         obj->BonusData[i] = 0;
     }
 }
@@ -608,6 +680,13 @@ void OutResult_Init(OutResult_t* pResult)
         pResult->BonusData[i] = 0;
     }
 
+    for (int8_t i = 0; i < GE_MaxFreeNum; i++)
+    {
+        for (int8_t j = 0; j < GE_WheelChessMaxNum; j++) {
+            pResult->BonusPosArray[i][j] = 0;
+        }
+    }
+
     pResult->nJPCount = 0;
     for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
     {
@@ -655,6 +734,13 @@ void OutResult_reset(OutResult_t* pResult)
     // 重置 Bonus 数据
     for (int8_t i = 0; i < GE_WheelChessMaxNum; i++) {
         pResult->BonusData[i] = 0;
+    }
+
+    for (int8_t i = 0; i < GE_MaxFreeNum; i++)
+    {
+        for (int8_t j = 0; j < GE_WheelChessMaxNum; j++) {
+            pResult->BonusPosArray[i][j] = 0;
+        }
     }
 
     pResult->nJPCount = 0;

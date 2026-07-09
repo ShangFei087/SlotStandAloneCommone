@@ -44,6 +44,8 @@ void Matrix_u_copy(Matrix_u* pDest, Matrix_u* pSrc);
 
 void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col);// 在指定列插入指定棋子类型
 // 插入 Scatter/Bonus 并生成任意/Loose 结果
+void Matrix_u_insertSymbol(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig,uint8_t type, uint8_t num);
+
 void Matrix_u_insertScatter(Matrix_u* pMatrix, uint8_t num);
 void Matrix_u_insertBonus(Matrix_u* pMatrix, uint8_t num);
 void Matrix_u_GenerateAnyResult(Matrix_u* pMatrix, uint8_t hasWild, uint8_t hasScatter, uint8_t hasBonus);
@@ -91,6 +93,7 @@ typedef struct {
 // RoundInfo_t 初始化/重置/复制
 void RoundInfo_t_Init(RoundInfo_t* obj);
 void RoundInfo_t_Reset(RoundInfo_t* obj);
+void RoundInfo_t_ResetexceptJp(RoundInfo_t* obj);
 void RoundInfo_t_Copy(RoundInfo_t* dest, const RoundInfo_t* src);
 int32_t Matrix_u_computerMatrixById(Matrix_u* pMatrix, uint16_t* idVec, SlotGameConfig_t* gameConfig, uint32_t gameId, RoundInfo_t* info);// 根据组合 ID 生成矩阵
 //-------------------------------------------------------------------------------------
@@ -137,6 +140,7 @@ typedef struct {
 	int32_t nBonusBet;
 	uint8_t BlindSymbol;                   // 盲符号/转轮等级
 	uint16_t BonusData[GE_WheelChessMaxNum];   // Bonus 金额
+	uint16_t BonusPosArray[GE_MaxFreeNum][GE_WheelChessMaxNum];
 	uint8_t nBonusType;
 	//Jp仅在bonus将中开出
 	uint8_t nJPCount;                       // 本局命中的本地彩金数量

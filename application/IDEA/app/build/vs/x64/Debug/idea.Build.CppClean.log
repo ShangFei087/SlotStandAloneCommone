@@ -1,6 +1,5 @@
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\vc143.pdb
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\vc143.idb
-f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\matrixapplytriggers_1700.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\lotterypersistmanager.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\lotterymanager.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\lottery.obj
@@ -9,6 +8,7 @@ f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\b
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\gameresult_3997.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\gameresult_3996.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\gameresult_3995.obj
+f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\gameresult_3994.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\gameresult_3993.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\gameresult_1700.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\gameresultregistry.obj
@@ -20,8 +20,6 @@ f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\b
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\computerdata.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\commonstruct.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\app.obj
-f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\main.obj
-f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\idea_qs.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\idea_cmd.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\idea_app.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\sfmt.obj
@@ -29,6 +27,7 @@ f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\b
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\cjson_utils.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\cjson.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\ga.obj
+f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\tablecontrolpersistmanager.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\tablecontrol.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\rtpconfig.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\naturealg.obj
@@ -38,7 +37,11 @@ f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\b
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\matrixapplytriggers_3997.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\matrixapplytriggers_3996.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\matrixapplytriggers_3995.obj
+f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\matrixapplytriggers_3994.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\matrixapplytriggers_3993.obj
+f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\matrixapplytriggers_1700.obj
+f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\main.obj
+f:\control\slotstandalonecontrol\cn\slotstandalonecommone\application\idea\app\build\vs\x64\debug\idea_qs.obj
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\x64\debug\idea.exe
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\x64\debug\idea.pdb
 f:\control\slotstandalonecontrol\cn\slotstandalonecommone\x64\debug\idea.lib

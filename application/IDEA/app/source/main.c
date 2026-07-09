@@ -93,11 +93,11 @@ int32_t main(int32_t argc, char *argv[])
 	//debugMode.resType = RT_Win;
 	//debugMode.resType = RT_Lose;
 	//debugMode.resType = RT_FreeWin;
-	//debugMode.resType = RT_BonusWin;
+	debugMode.resType = RT_BonusWin;
     //debugMode.resType = RT_Jackpot;
-   // debugMode.jpType = JT_Major;
+    //debugMode.jpType = JT_Major;
     //debugMode.bonusType =0;
-	//debugMode.mode = DCM_PointResData;
+	debugMode.mode = DCM_PointResData;
     debugMode.mode = DCM_Normal;
     DLL_SetControlDebugMode(&debugMode);
 
@@ -120,9 +120,9 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(3997))
+    if (DLL_GameSwitch(3994))
     {
-        gameId = 3997;
+        gameId = 3994;
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -143,7 +143,7 @@ int32_t main(int32_t argc, char *argv[])
     memset(giveBetVal, 0, sizeof(giveBetVal));
     for (int32_t i = 0; i < _TestMachineCount; ++i)
     {
-        testPlayers[i].Bet = 20;
+        testPlayers[i].Bet = 25;
     }
 
     int32_t ret = 0;
