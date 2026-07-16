@@ -29,18 +29,18 @@ void Lottery_SetBaseValue(Lottery* self, int32_t baseValue, int32_t maxValue)
     self->mShowSpeedPermil = 300;
 
     // 上限边界校验：限制在基础值的 1.5~10 倍范围
-    if (maxValue < self->mBaseLottery * 1.5)
-    {
-        maxValue = self->mBaseLottery * 1.5;
-    }
-    if (maxValue > self->mBaseLottery * 10)
-    {
-        maxValue = self->mBaseLottery * 10;
-    }
+    //if (maxValue < self->mBaseLottery * 1.5)
+    //{
+    //    maxValue = self->mBaseLottery * 1.5;
+    //}
+    //if (maxValue > self->mBaseLottery * 10)
+    //{
+    //    maxValue = self->mBaseLottery * 10;
+    //}
     self->mMaxLottery = maxValue;
 
     // 计算下一次开奖阈值：基础值 + (上限-基础) * 随机系数
-    self->mNextGiveLotteryThresh = self->mBaseLottery * 1 +(self->mMaxLottery - self->mBaseLottery) * JRandFrom(45, 95) /100;
+    self->mNextGiveLotteryThresh = self->mBaseLottery +(self->mMaxLottery - self->mBaseLottery) * JRandFrom(45, 95) /100;
 }
 
 int32_t Lottery_TryGet(Lottery* self, int32_t playScore, int32_t* val, int32_t* rate)

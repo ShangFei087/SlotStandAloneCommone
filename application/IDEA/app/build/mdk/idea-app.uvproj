@@ -703,6 +703,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\source\Control\TableControlPersistManager.c</FilePath>
             </File>
+            <File>
+              <FileName>GameResult_3994.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\GenerationResult\GameResult_3994.c</FilePath>
+            </File>
+            <File>
+              <FileName>MatrixApplyTriggers_3994.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\Matrix\MatrixApplyTriggers_3994.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1069,6 +1079,9 @@
               <FilePath>..\..\source\GameAlgo\common\SFMT-params19937.h</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>New Group</GroupName>
         </Group>
       </Groups>
     </Target>

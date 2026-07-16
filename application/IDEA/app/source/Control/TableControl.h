@@ -22,9 +22,15 @@ typedef struct TableControlStats {
 	int64_t freeRejectByTargetPool;  // Free 因目标池不足被拒绝次数
 	int64_t bonusRejectByTargetPool; // Bonus 因目标池不足被拒绝次数
 	int64_t jackpotRejectByTargetPool; // Jackpot 因目标池不足被拒绝次数
-	int64_t freeRejectByRange;       // Free 因倍数区间不合法被拒绝次数
-	int64_t bonusRejectByRange;      // Bonus 因倍数区间不合法被拒绝次数
-	int64_t jackpotRejectByRange;    // Jackpot 因金额区间不合法被拒绝次数
+	int64_t freeRejectByRange;       // Free 因倍数区间不合法被拒绝次数（= Low + High）
+	int64_t bonusRejectByRange;      // Bonus 因倍数区间不合法被拒绝次数（= Low + High）
+	int64_t jackpotRejectByRange;    // Jackpot 因金额区间不合法被拒绝次数（= Low + High）
+	int64_t freeRejectByRangeLow;    // Free 因倍数 < Min 被拒绝次数
+	int64_t freeRejectByRangeHigh;   // Free 因倍数 > Max 被拒绝次数
+	int64_t bonusRejectByRangeLow;   // Bonus 因倍数 < Min 被拒绝次数
+	int64_t bonusRejectByRangeHigh;  // Bonus 因倍数 > Max 被拒绝次数
+	int64_t jackpotRejectByRangeLow; // Jackpot 因金额 < Min 被拒绝次数
+	int64_t jackpotRejectByRangeHigh;// Jackpot 因金额 > Max 被拒绝次数
 	int64_t freeRejectByPassRate;    // Free 因概率门拒绝次数
 	int64_t bonusRejectByPassRate;   // Bonus 因概率门拒绝次数
 	int64_t jackpotRejectByPassRate; // Jackpot 因概率门拒绝次数

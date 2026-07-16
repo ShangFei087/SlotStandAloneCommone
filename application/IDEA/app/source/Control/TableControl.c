@@ -528,10 +528,17 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 			int64_t freePaidAmount = 0; 
 
 			freePaidAmount = (int64_t)betVal * ri->nFreeBet; 
-			if (freePaidAmount < (int64_t)activeProfile->freeMinBet * TotalBet || freePaidAmount > (int64_t)activeProfile->freeMaxBet * TotalBet) 
+			if (freePaidAmount < (int64_t)activeProfile->freeMinBet * TotalBet)
 			{
-				gTableControl.stats.freeRejectByRange++; // 记录免费区间拒绝
-				return 0;                               
+				gTableControl.stats.freeRejectByRange++;
+				gTableControl.stats.freeRejectByRangeLow++;
+				return 0;
+			}
+			if (freePaidAmount > (int64_t)activeProfile->freeMaxBet * TotalBet)
+			{
+				gTableControl.stats.freeRejectByRange++;
+				gTableControl.stats.freeRejectByRangeHigh++;
+				return 0;
 			}
 
 			paidAmount = freePaidAmount;
@@ -562,10 +569,17 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 
 			// Bonus 倍数区间校验
 			bonusPaidAmount = (int64_t)betVal * ri->nBonusBet; 
-			if (bonusPaidAmount < (int64_t)activeProfile->bonusMinBet * TotalBet || bonusPaidAmount > (int64_t)activeProfile->bonusMaxBet * TotalBet) 
+			if (bonusPaidAmount < (int64_t)activeProfile->bonusMinBet * TotalBet)
 			{
-				gTableControl.stats.bonusRejectByRange++; // 记录 Bonus 区间拒绝
-				return 0;                              
+				gTableControl.stats.bonusRejectByRange++;
+				gTableControl.stats.bonusRejectByRangeLow++;
+				return 0;
+			}
+			if (bonusPaidAmount > (int64_t)activeProfile->bonusMaxBet * TotalBet)
+			{
+				gTableControl.stats.bonusRejectByRange++;
+				gTableControl.stats.bonusRejectByRangeHigh++;
+				return 0;
 			}
 
 			paidAmount = bonusPaidAmount;
@@ -617,9 +631,17 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 			if (jpBet != NULL && *jpBet > 0)
 			{
 				jackpotPaidAmount = *jpBet;
-				if (jackpotPaidAmount < (int64_t)activeProfile->jackpotMinBet * TotalBet || jackpotPaidAmount > (int64_t)activeProfile->jackpotMaxBet * TotalBet)
+				if (jackpotPaidAmount < (int64_t)activeProfile->jackpotMinBet * TotalBet)
 				{
 					gTableControl.stats.jackpotRejectByRange++;
+					gTableControl.stats.jackpotRejectByRangeLow++;
+					TableControl_RejectJackpotAndRefund(jpType, jpBet);
+					return 0;
+				}
+				if (jackpotPaidAmount > (int64_t)activeProfile->jackpotMaxBet * TotalBet)
+				{
+					gTableControl.stats.jackpotRejectByRange++;
+					gTableControl.stats.jackpotRejectByRangeHigh++;
 					TableControl_RejectJackpotAndRefund(jpType, jpBet);
 					return 0;
 				}

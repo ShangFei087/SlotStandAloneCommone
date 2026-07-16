@@ -36,7 +36,7 @@
 -BlindSymbol：盲盒图标转换成的实际图标
 
 【乘数游戏】
-{"OpenType":0,"ResultType":3,"IDVec":[],"Matrix":[0,0,6,9,6,0,9,9,3,6,3,1,7,1,6],"BonusBet":480,"BonusType":2,"BonusMultiply":7,"TotalBet":0}
+{"OpenType":0,"ResultType":3,"IDVec":[],"Matrix":[0,0,6,9,6,0,9,9,3,6,3,1,7,1,6],"BonusBet":2800,"BonusType":2,"BonusMultiply":70,"TotalBet":0}
 -BonusMultiply：bonus图标携带的乘数
 
 【大奖游戏】
@@ -50,24 +50,19 @@
 -JPBetArray：彩金得分数组
 
 //赔率
-int gBetArray[GE_10][4] = {
-	{0, 0, 15, 45},//0
-	{0, 0, 15, 50},//1
-	{0, 0, 50, 55},//2
-	{0, 0, 20, 60},//3
-	{0, 0, 30, 80},//4
-	{0, 0, 30, 90},//5
-	{0, 0, 45, 125},//6
-	{0, 0, 50, 150},//7
-	{0, 0, 60, 200},//8
-	{0, 0, 0, 0},//9
-
-	{0, 0, 0, 0},    // 10 (新增)
-	{0, 0, 0, 0},    // 11 (新增)
+// 幸运转轮（3998）下注表
+static const uint16_t gXingYunZhiLun_3998_BetArray[10][4] = {
+	{0, 2, 4, 10},//0   
+	{0, 2, 4, 10},//1   
+	{0, 4, 10, 30},//2  
+	{0, 4, 10, 30},//3  
+	{0, 6, 15, 40},//4  
+	{0, 6, 15, 40},//5  
+	{0, 10, 20, 50},//6  
+	{0, 12, 25, 60},//7  
+	{0, 20, 30, 100},//8 Wild 
+	{0, 0, 0, 0},//9 Wheel
 };
-
-	CT_Wild = 8,				//万能牌
-	CT_Bonus = 11,				//3个转盘或以上出发大奖或者免费奖
 
 //嵌入式结果输出
 void GameResult_3998_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId)

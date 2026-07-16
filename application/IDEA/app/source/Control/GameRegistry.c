@@ -10,8 +10,11 @@
 
 int8_t GameRegistry_InitAndRegisterDefaults()
 {
-    int32_t baseValueArray[3] = { 3000, 1500, 500 };
-    int32_t maxValueArray[3] = { JPWeight[1], JPWeight[2], JPWeight[3] };
+    //int32_t baseValueArray[3] = { 3000, 1500, 500 };
+    //int32_t maxValueArray[3] = { JPWeight[1], JPWeight[2], JPWeight[3] };
+
+    int32_t baseValueArray[3] = { 1000, 300, 50 };     // Major / Minor / Mini 下限（初始值）
+    int32_t maxValueArray[3] = { 5000, 1000, 200 };   // Major / Minor / Mini 上限
 
     // 每次初始化都从干净状态开始，避免热重载后残留旧实例。
     //GameManager_Init();

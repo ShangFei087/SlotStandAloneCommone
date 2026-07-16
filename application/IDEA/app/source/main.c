@@ -93,7 +93,7 @@ int32_t main(int32_t argc, char *argv[])
 	//debugMode.resType = RT_Win;
 	//debugMode.resType = RT_Lose;
 	//debugMode.resType = RT_FreeWin;
-	debugMode.resType = RT_BonusWin;
+	//debugMode.resType = RT_BonusWin;
     //debugMode.resType = RT_Jackpot;
     //debugMode.jpType = JT_Major;
     //debugMode.bonusType =0;
@@ -102,10 +102,10 @@ int32_t main(int32_t argc, char *argv[])
     DLL_SetControlDebugMode(&debugMode);
 
     // 设置当前区域+RTP档位（这里使用国内 99.2 档）。
-    DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 3);   // 可选：先固定区域并使用该区域默认基准
-    DLL_SetDifficultyLevel(3);                      // 难度
+    DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 9920);   // 可选：先固定区域并使用该区域默认基准
+    DLL_SetDifficultyLevel(3);                      // 难度3  baseRTP:24.80  freeRTP:19.84  bonusRTP:4960  jackpotRTP:496  
     // 设置免费/Bonus概率覆盖（-1 表示不覆盖，沿用档位默认）。
-    //DLL_SetRtpPassOverride(9920, 9920);// 99.2
+    //DLL_SetRtpPassOverride(9920, 9920);// 99.2  
     //DLL_SetRtpPassOverride(9980, 9980);//99.8
    
     //初始化配置
@@ -120,9 +120,9 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(3994))
+    if (DLL_GameSwitch(3998))
     {
-        gameId = 3994;
+        gameId = 3998;
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -143,7 +143,7 @@ int32_t main(int32_t argc, char *argv[])
     memset(giveBetVal, 0, sizeof(giveBetVal));
     for (int32_t i = 0; i < _TestMachineCount; ++i)
     {
-        testPlayers[i].Bet = 25;
+        testPlayers[i].Bet = 20;
     }
 
     int32_t ret = 0;
@@ -217,7 +217,7 @@ int32_t main(int32_t argc, char *argv[])
             int32_t res[150] = { 0 }; //250个以下的int32_t
             //输出游戏结果到Senv
             DLL_OutResToSenvById(&outres, res, gameId);
-            QS_LOG("\n", res);
+            //QS_LOG("\n", res);
         }
 
         // 每10000局输出一次10台机子的实时RTP
@@ -354,14 +354,20 @@ int32_t main(int32_t argc, char *argv[])
                 (long long)tableStats.netJackpotOverBudgetCount);
             QS_LOG("\r\n");
 
-            QS_LOG("TableControlStatsReject: winPool:%lld freePool:%lld bonusPool:%lld jackpotPool:%lld freeRange:%lld bonusRange:%lld jackpotRange:%lld freePassRate:%lld bonusPassRate:%lld jackpotPassRate:%lld\n",
+            QS_LOG("TableControlStatsReject: winPool:%lld freePool:%lld bonusPool:%lld jackpotPool:%lld freeRange:%lld freeRangeLow:%lld freeRangeHigh:%lld bonusRange:%lld bonusRangeLow:%lld bonusRangeHigh:%lld jackpotRange:%lld jackpotRangeLow:%lld jackpotRangeHigh:%lld freePassRate:%lld bonusPassRate:%lld jackpotPassRate:%lld\n",
                 (long long)tableStats.winRejectByTargetPool,
                 (long long)tableStats.freeRejectByTargetPool,
                 (long long)tableStats.bonusRejectByTargetPool,
                 (long long)tableStats.jackpotRejectByTargetPool,
                 (long long)tableStats.freeRejectByRange,
+                (long long)tableStats.freeRejectByRangeLow,
+                (long long)tableStats.freeRejectByRangeHigh,
                 (long long)tableStats.bonusRejectByRange,
+                (long long)tableStats.bonusRejectByRangeLow,
+                (long long)tableStats.bonusRejectByRangeHigh,
                 (long long)tableStats.jackpotRejectByRange,
+                (long long)tableStats.jackpotRejectByRangeLow,
+                (long long)tableStats.jackpotRejectByRangeHigh,
                 (long long)tableStats.freeRejectByPassRate,
                 (long long)tableStats.bonusRejectByPassRate,
                 (long long)tableStats.jackpotRejectByPassRate);

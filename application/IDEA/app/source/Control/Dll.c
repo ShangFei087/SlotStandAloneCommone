@@ -274,7 +274,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 		//如果全部免费局获取完，将剩余免费次数设为0
 		if (inst->freeGameInfo.nCurFreeIdx == inst->freeGameInfo.nTotalFreeTime)
 		{
-			QS_LOG("\r\ninst->freeGameInfo.nRemainFreeBet :%d", inst->freeGameInfo.nRemainFreeBet);
+			//QS_LOG("\r\ninst->freeGameInfo.nRemainFreeBet :%d", inst->freeGameInfo.nRemainFreeBet);
 		}
 		outRes->openType = OT_Give;
 		*ret = 5;

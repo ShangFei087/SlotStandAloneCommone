@@ -27,7 +27,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 	info->nBonusBet = 0;
 	uint32_t randNum = 0;
 	uint8_t bonusMulpitly = 0;
-	uint8_t bonusMulpitlyArray[4] = { 50,100,150,200 };
+	uint16_t bonusMulpitlyArray[4] = { 200,300,400,500 };
 
 	// 随机大奖
 	randNum = JRandFrom(0, 10000);
@@ -86,7 +86,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 			{
 				// 神秘游戏
 				info->nBonusType = 1;
-				uint8_t BlindSymbol = JRandFrom(0, 7);
+				uint8_t BlindSymbol = JRandFrom(5, 7);
 				uint8_t BlindBoxCountArray[3] = { 6, 8, 11 };
 				uint8_t BlindBoxCount = BlindBoxCountArray[bonusCount - 3];
 
@@ -181,7 +181,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 				{
 					// 乘数游戏
 					info->nBonusType = 2;
-					uint8_t WheelArray[3][4] = { { 3, 4, 5, 7 } ,{6,7,8,10},{9,10,11,15} };
+					uint8_t WheelArray[3][4] = { { 70, 80, 90, 100 } ,{100,120,140,160},{180,200,220,240} };
 					uint8_t WheelMulptiy = WheelArray[bonusCount - 3][JRandFrom(0, 3)];
 					info->BlindSymbol = WheelMulptiy; //代替一下
 					info->nBonusBet = WheelMulptiy * inst->gameConfig.header.lineCount * bonusCount;
@@ -203,12 +203,12 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 #endif // _DebugControlMode
 
 	// Wild 游戏功能
-	if (randNum < 2500)
+	if (randNum < 3000)
 	{
 	
 		info->nBonusType = 0;
-		uint8_t wildColCountArray[4] = { 1, 2, 3,3 };
-		uint8_t wildArray[COL_MAX] = { 0, 1, 2, 3 , 4 };
+		uint8_t wildColCountArray[4] = { 1, 2, 3, 3 };
+		uint8_t wildArray[COL_MAX] = { 0, 1, 2, 3, 4 };
 		uint8_t  wildPosVec[COL_MAX];
 		uint8_t  wildSize = COL_MAX;
 		uint8_t randNum = 0;
@@ -248,10 +248,10 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 	else
 	{
 		// 神秘游戏
-		if (randNum < 5000)
+		if (randNum < 6000)
 		{
 			info->nBonusType = 1;
-			uint8_t  BlindSymbol = JRandFrom(0, 7);
+			uint8_t  BlindSymbol = JRandFrom(5, 7);
 			uint8_t BlindBoxCountArray[3] = { 6, 8, 11 };
 			uint8_t BlindBoxCount = BlindBoxCountArray[bonusCount - 3];
 
@@ -311,23 +311,24 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 		else
 		{
 			// 乘数游戏
-			if (randNum < 7500)
+			if (randNum < 9000)
 			{
 				
 				info->nBonusType = 2;
-				uint8_t WheelArray[3][4] = { { 3, 4, 5, 7 } ,{6,7,8,10},{9,10,11,15} };
+				uint8_t WheelArray[3][4] = { { 70, 80, 90, 100 } ,{100,120,140,160},{180,200,220,240} };
 				uint8_t WheelMulptiy = WheelArray[bonusCount - 3][JRandFrom(0, 3)];
-				info->BlindSymbol = WheelMulptiy; //代替一下
 				info->nBonusBet = WheelMulptiy * inst->gameConfig.header.lineCount * bonusCount;
+				info->BlindSymbol = WheelMulptiy; //代替一下
 			}
+			// 大奖游戏
 			else
 			{
 				info->nBonusType = 3;
-				// 大奖游戏
-				randNum = JRandFrom(0, 4);
+				
+				randNum = JRandFrom(0, 3);
 				bonusMulpitly = bonusMulpitlyArray[randNum];
-				info->BlindSymbol = bonusMulpitly; //代替一下
 				info->nBonusBet = inst->gameConfig.header.lineCount * bonusMulpitly;
+				info->BlindSymbol = bonusMulpitly; //代替一下
 			}
 		}
 	}

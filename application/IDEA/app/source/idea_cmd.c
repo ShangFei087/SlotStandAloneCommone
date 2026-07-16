@@ -875,7 +875,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 	{
 		qs_json* pJsonArray = qs_json_GetObjectItem(json, "data");
 		size_t JsonArraySize = qs_json_GetArraySize(pJsonArray);
-		int32_t res[23] = { 0 };
+		int32_t res[29] = { 0 };
 		int32_t pos = 0;
 		res[pos++] = 1;
 		TableControlStats tableStats;
@@ -904,6 +904,13 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		res[pos++] = (int32_t)tableStats.freeRejectByPassRate;
 		res[pos++] = (int32_t)tableStats.bonusRejectByPassRate;
 		res[pos++] = (int32_t)tableStats.jackpotRejectByPassRate;
+		// 追加区间 Low/High，保持前 23 项下标兼容旧协议
+		res[pos++] = (int32_t)tableStats.freeRejectByRangeLow;
+		res[pos++] = (int32_t)tableStats.freeRejectByRangeHigh;
+		res[pos++] = (int32_t)tableStats.bonusRejectByRangeLow;
+		res[pos++] = (int32_t)tableStats.bonusRejectByRangeHigh;
+		res[pos++] = (int32_t)tableStats.jackpotRejectByRangeLow;
+		res[pos++] = (int32_t)tableStats.jackpotRejectByRangeHigh;
 		qs_json_DeleteItemFromObject(json, "data");
 		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
 		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
