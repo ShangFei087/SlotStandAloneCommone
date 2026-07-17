@@ -147,7 +147,7 @@ int32_t main(int32_t argc, char *argv[])
     memset(giveBetVal, 0, sizeof(giveBetVal));
     for (int32_t i = 0; i < _TestMachineCount; ++i)
     {
-        testPlayers[i].Bet = 20;
+        testPlayers[i].Bet = 200;
     }
 
     int32_t ret = 0;

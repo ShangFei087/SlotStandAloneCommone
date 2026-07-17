@@ -4,7 +4,7 @@
 
 #define   _InternalVersion 1  // 内部版本号
 #define   _Version "2026324.100" // 版本字符串
-//#define   _Release    // 定义后为发布版本；该宏仅允许在本文件中配置
+#define   _Release    // 定义后为发布版本；该宏仅允许在本文件中配置
 
 #ifdef _Release
 //#define _ShowDebugInfo					// 显示算法调试信息

@@ -490,12 +490,7 @@ void GameResult_3998_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resTyp
 				pRes->JPTypeArray[i] = info->JPTypeArray[i];
 			}
 			pRes->nTotalJackpotBet = info->nTotalJackpotBet;
-
-			pRes->matrix.idVecSize = Mxu->idVecSize;
-			for (uint8_t i = 0; i < Mxu->idVecSize; ++i)
-			{
-				pRes->IDVec[i] = info->FreeIDVec[0][i];
-			}
+			// IDVec 沿用上方从 idVec 的拷贝（Win/Lose 来源 JP 无 FreeIDVec）
 		}
 		else
 		{

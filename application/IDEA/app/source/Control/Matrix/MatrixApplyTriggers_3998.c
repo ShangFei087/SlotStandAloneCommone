@@ -3,41 +3,56 @@
 
 void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info)
 {
-    (void)gameId;
-    if (pMatrix == NULL || gameConfig == NULL || pLocalWinBet == NULL) return;
+	(void)gameId;
+	if (pMatrix == NULL || gameConfig == NULL || pLocalWinBet == NULL) return;
 
-    uint8_t _bonusCount = 0;
-    uint8_t bounsOdds = 0; // 原始实现中恒为 0，这里保持一致
+	uint8_t _bonusCount = 0;
+	uint8_t bounsOdds = 0; // 原始实现中恒为 0，这里保持一致
 
-    // 判定 Bonus
-    for (uint8_t i = 0; i < gameConfig->header.wheelChessNum; ++i)
-    {
-        if (pMatrix->dataArray[i] == gameConfig->header.Bonus)
-        {
-            ++_bonusCount;
-        }
-    }
+	// 判定 Bonus
+	for (uint8_t i = 0; i < gameConfig->header.wheelChessNum; ++i)
+	{
+		if (pMatrix->dataArray[i] == gameConfig->header.Bonus)
+		{
+			++_bonusCount;
+		}
+	}
 
-    if (_bonusCount >= 3)
-    {
-        if (info != NULL && info->nJPCount > 0)
-        {
-            pMatrix->resultType = RT_Jackpot;
-        }
-        else
-        {
-            if (JRandFrom(0, 10000) < 2000)
-            {
-                pMatrix->resultType = RT_BonusWin;
-            }
-            else
-            {
-                pMatrix->resultType = RT_FreeWin;
-            }
-        }
-      
+	int32_t randnum = JRandFrom(0, 10000);
+	if (_bonusCount >= 3)
+	{
+		if (info != NULL && info->nJPCount > 0)
+		{
+			if (randnum < 9000)
+			{
+				pMatrix->resultType = RT_Jackpot;
+			}
+			else
+			{
+				if (randnum < 9500)
+				{
+					pMatrix->resultType = RT_BonusWin;
+				}
+				else
+				{
+					pMatrix->resultType = RT_FreeWin;
+				}
+			}
+			
+		}
+		else
+		{
+			if (randnum < 4000)
+			{
+				pMatrix->resultType = RT_BonusWin;
+			}
+			else
+			{
+				pMatrix->resultType = RT_FreeWin;
+			}
+		}
 
-        *pLocalWinBet += bounsOdds;
-    }
+		*pLocalWinBet += bounsOdds;
+	}
 }
 
