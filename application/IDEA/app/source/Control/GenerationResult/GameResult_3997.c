@@ -1,8 +1,41 @@
 #include "GameResultRegistry.h"
 
+/* 软强制概率（万分比）：1000=10%，2000=20%，10000=必出 */
+#define JP_SOFT_FORCE_PERMYRIAD_3997 2000
+
 void GameResult_3997_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
+	int8_t haveBonus = 0;
+	uint8_t needBonus = 0;
+	if (inst == NULL || mxu == NULL || matrixBet == NULL || idVec == NULL)
+	{
+		return;
+	}
+	/* 1) 先正常随一局 */
 	GameResult_Generic_Normal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
+	/* 2) 彩金未满：不处理 */
+	if (info == NULL || info->nJPCount <= 0)
+	{
+		return;
+	}
+	/* 3) 自然已经是彩金局：不处理 */
+	if (mxu->resultType == RT_Jackpot)
+	{
+		return;
+	}
+	/* 4) 软强制骰子未命中：保持自然盘面 */
+	if (JP_SOFT_FORCE_PERMYRIAD_3997 < 10000&& JRandFrom(1, 10000) >(U32)JP_SOFT_FORCE_PERMYRIAD_3997)
+	{
+		return;
+	}
+	/* 5) 补 Bonus 到至少 6 个，再结算一次 */
+	haveBonus = Matrix_u_getTypeNum(mxu, inst->gameConfig, inst->gameConfig.header.Bonus);
+	if (haveBonus < 6)
+	{
+		needBonus = (uint8_t)(6 - haveBonus);
+		Matrix_u_insertBonus(mxu, inst->gameConfig, needBonus);
+	}
+	*matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 }
 
 void GameResult_3997_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId)

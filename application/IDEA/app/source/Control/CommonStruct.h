@@ -36,20 +36,17 @@ void ExhibitionMode_Clear(void);
 uint8_t ExhibitionMode_HasPending(void);
 
 // Matrix_u 生成/统计连线相关接口
-uint8_t Matrix_u_getIntData(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t pos);
-void Matrix_u_setIntData(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t* pData);
-uint8_t Matrix_u_getTypeNum(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t type);
-void Matrix_u_reset(Matrix_u* pMatrix);
-void Matrix_u_copy(Matrix_u* pDest, Matrix_u* pSrc);
-
-void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col);// 在指定列插入指定棋子类型
-// 插入 Scatter/Bonus 并生成任意/Loose 结果
-void Matrix_u_insertSymbol(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig,uint8_t type, uint8_t num);
-
-void Matrix_u_insertScatter(Matrix_u* pMatrix, uint8_t num);
-void Matrix_u_insertBonus(Matrix_u* pMatrix, uint8_t num);
-void Matrix_u_GenerateAnyResult(Matrix_u* pMatrix, uint8_t hasWild, uint8_t hasScatter, uint8_t hasBonus);
-void Matrix_u_GenerateLooseResult(Matrix_u* pMatrix, uint8_t hasWild, uint8_t hasScatter, uint8_t hasBonus, uint8_t hasBoost);
+uint8_t Matrix_u_getIntData(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t pos); // 读取指定格子的图标类型
+void Matrix_u_setIntData(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t* pData); // 用外部数组整体写入盘面
+uint8_t Matrix_u_getTypeNum(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t type); // 统计盘面上某类图标数量
+void Matrix_u_reset(Matrix_u* pMatrix); // 清空盘面并重置为输局状态
+void Matrix_u_copy(Matrix_u* pDest, Matrix_u* pSrc); // 复制整盘矩阵（含结果类型）
+void Matrix_u_insertCol(Matrix_u* pMatrix, uint8_t type, uint8_t col); // 在指定列整列写入同一图标
+void Matrix_u_insertSymbol(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t type, uint8_t num); // 随机不重复位置插入 num 个指定图标
+void Matrix_u_insertScatter(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t num); // 随机插入 num 个 Scatter
+void Matrix_u_insertBonus(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t num); // 随机插入 num 个 Bonus
+void Matrix_u_GenerateAnyResult(Matrix_u* pMatrix, uint8_t hasWild, uint8_t hasScatter, uint8_t hasBonus); // 按开关生成任意合法盘面（可含 Wild/Scatter/Bonus）
+void Matrix_u_GenerateLooseResult(Matrix_u* pMatrix, uint8_t hasWild, uint8_t hasScatter, uint8_t hasBonus, uint8_t hasBoost); // 按开关生成输局盘面（可附带特殊图标约束）
 
 uint8_t Matrix_u_computerMatrix_243(Matrix_u* pMatri, uint16_t* idVec); // 计算 243 条线组合结果
 //-------------------------------------------------------------------------------------

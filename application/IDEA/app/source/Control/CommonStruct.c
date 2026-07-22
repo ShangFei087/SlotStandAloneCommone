@@ -175,6 +175,22 @@ void Matrix_u_insertSymbol(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, u
         PosSize--;
     }
 }
+void Matrix_u_insertScatter(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t num)
+{
+    if (pMatrix == NULL || num == 0)
+    {
+        return;
+    }
+    Matrix_u_insertSymbol(pMatrix, slotgameconfig, slotgameconfig.header.Scatter, num);
+}
+void Matrix_u_insertBonus(Matrix_u* pMatrix, SlotGameConfig_t slotgameconfig, uint8_t num)
+{
+    if (pMatrix == NULL || num == 0)
+    {
+        return;
+    }
+    Matrix_u_insertSymbol(pMatrix, slotgameconfig, slotgameconfig.header.Bonus, num);
+}
 //243
 
 //------------------------------------------------------------------------------------

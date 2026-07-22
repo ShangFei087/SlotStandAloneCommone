@@ -83,10 +83,16 @@ void Lottery_CommitGet(Lottery* self, int32_t val)
     {
         self->mLotteryPool = 0;
     }
-    if (self->mLotteryPool > self->mBaseLottery * 1)
-    {
-        self->mLotteryPool = self->mBaseLottery;
-    }
+    //if (self->mLotteryPool > self->mBaseLottery * 1)
+    //{
+    //    self->mLotteryPool = self->mBaseLottery;
+    //}
+
+    //if (self->mMaxLottery > 0 && self->mLotteryPool > (int32_t)self->mMaxLottery)
+    //{
+    //    self->mLotteryPool = (int32_t)self->mMaxLottery;
+    //}
+
     self->mNextGiveLotteryThresh = self->mBaseLottery * 1 + (self->mMaxLottery - self->mBaseLottery) * JRandFrom(40, 95) / 100;
     self->mShowSpeedPermil = 300;
     self->mTotalGivePool += val;

@@ -305,7 +305,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 		LotteryManager_OnPlay(&gLotteryManager, totalPlayScore);
 		//jpCount = LotteryManager_TryGetLotterys(&gLotteryManager, totalPlayScore, jpTypeList, jpValueList, GAME_Local_JP_MAX);
 		//一次开出一个本地彩金
-		jpCount = LotteryManager_TryGetLotterys(&gLotteryManager, totalPlayScore, jpTypeList, jpValueList, 1);
+		jpCount = LotteryManager_TryGetLotterys(&gLotteryManager, totalPlayScore, jpTypeList, jpValueList, 3);
 #ifdef _DebugControlMode
 		if (gDebugControlMode.mode == DCM_PointResData && gDebugControlMode.resType == RT_Jackpot && jpCount <= 0)
 		{
