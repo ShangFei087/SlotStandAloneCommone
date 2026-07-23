@@ -2,7 +2,15 @@
 #include "../Matrix/Matrix_u_TriggersById.h"
 
 /* 软强制概率（万分比）：1000=10%，2000=20%，10000=必出 */
-#define JP_SOFT_FORCE_PERMYRIAD_3996 1200
+#define JP_SOFT_FORCE_PERMYRIAD_3996 500
+
+void GameResult_3996_Reward(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
+{
+	if (inst == NULL || mxu == NULL || matrixBet == NULL || idVec == NULL) return;
+
+	NatureAlg_GenRndMxu(15, mxu, inst->gameConfig.header.rowCount);
+	*matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
+}
 
 void GameResult_3996_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
@@ -12,31 +20,41 @@ void GameResult_3996_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u
 	{
 		return;
 	}
-	/* 1) 先正常随一局 */
+	/*  先正常随一局 */
 	GameResult_Generic_Normal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
-	/* 2) 彩金未满：不处理 */
-	if (info == NULL || info->nJPCount <= 0)
-	{
-		return;
-	}
-	/* 3) 自然已经是彩金局：不处理 */
+	return;
+
+	/*自然已经是彩金局：不处理 */
 	if (mxu->resultType == RT_Jackpot)
 	{
 		return;
 	}
-	/* 4) 软强制骰子未命中：保持自然盘面 */
-	if (JP_SOFT_FORCE_PERMYRIAD_3996 < 10000 && JRandFrom(1, 10000) >(U32)JP_SOFT_FORCE_PERMYRIAD_3996)
+	
+	//调高滚轮表彩金概率
+	if (info == NULL || info->nJPCount <= 0)
 	{
-		return;
+		GameResult_Generic_Normal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
+
 	}
-	/* 5) 补 Bonus 到至少 6 个，再结算一次 */
-	haveBonus = Matrix_u_getTypeNum(mxu, inst->gameConfig, inst->gameConfig.header.Bonus);
-	if (haveBonus < 6)
+	else
 	{
-		needBonus = (uint8_t)(6 - haveBonus);
-		Matrix_u_insertBonus(mxu, inst->gameConfig, needBonus);
+		GameResult_3996_Reward(info, inst, mxu, betVal, matrixBet, idVec, gameId);
 	}
-	*matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
+
+	
+	//软强制骰子未命中：保持自然盘面 */
+	//if (JP_SOFT_FORCE_PERMYRIAD_3996 < 10000 && JRandFrom(1, 10000) >(U32)JP_SOFT_FORCE_PERMYRIAD_3996)
+	//{
+	//	return;
+	//}
+	/// 补 Bonus 到至少 6 个，再结算一次 */
+	//haveBonus = Matrix_u_getTypeNum(mxu, inst->gameConfig, inst->gameConfig.header.Bonus);
+	//if (haveBonus < 6)
+	//{
+	//	needBonus = (uint8_t)(6 - haveBonus);
+	//	Matrix_u_insertBonus(mxu, inst->gameConfig, needBonus);
+	//}
+	//*matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 }
 
 void GameResult_3996_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId)
