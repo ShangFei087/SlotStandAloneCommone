@@ -9,14 +9,12 @@ void GameConfig_Init(SlotGameConfig_t* slotConfig)
 
 void GameConfig_Copy(SlotGameConfig_t* pDest, SlotGameConfig_t* pSrc)
 {
-    // 复制固定大小的结构部分
     memcpy(&pDest->header, &pSrc->header, sizeof(GameConfigHeader_t));
     memcpy(&pDest->paytable, &pSrc->paytable, sizeof(PaytableConfig_t));
 
 }
 
 
-// 注册单个游戏并拷贝配置
 int8_t RegisterGameWithConfig(const int8_t* gameName, GameInstanceId_t gameId, const SlotGameConfig_t* config)
 {
     GameInstanceId_t registeredGameId = GAME_ID_INVALID;
@@ -67,6 +65,7 @@ void GameConfigRegistry_InitDefaults()
     tempConfig.header.Bonus = 11;
     tempConfig.header.normalRollTableId = 0;
     tempConfig.header.freeRollTableId = 1;
+    tempConfig.header.localJpMaxCount = 1;
     if (!RegisterGameWithConfig("CaiFuZhiMen_3999", 3999, &tempConfig))
     {
         return 0;
@@ -93,6 +92,7 @@ void GameConfigRegistry_InitDefaults()
     tempConfig.header.Scatter = 10;
     tempConfig.header.normalRollTableId = 2;
     tempConfig.header.freeRollTableId = 3;
+    tempConfig.header.localJpMaxCount = 1;
     if (!RegisterGameWithConfig("XingYunZhiLun_3998", 3998, &tempConfig))
     {
         return 0;
@@ -119,6 +119,7 @@ void GameConfigRegistry_InitDefaults()
     tempConfig.header.Bonus = 11;
     tempConfig.header.normalRollTableId = 4;
     tempConfig.header.freeRollTableId = 5;
+    tempConfig.header.localJpMaxCount = 3;
     if (!RegisterGameWithConfig("CaiFuZhiJia_3997", 3997, &tempConfig))
     {
         return 0;
@@ -145,6 +146,7 @@ void GameConfigRegistry_InitDefaults()
     tempConfig.header.Bonus = 11;
     tempConfig.header.normalRollTableId = 6;
     tempConfig.header.freeRollTableId = 7;
+    tempConfig.header.localJpMaxCount = 3;
     if (!RegisterGameWithConfig("CaiFuHuoChe_3996", 3996, &tempConfig))
     {
         return 0;
@@ -171,6 +173,7 @@ void GameConfigRegistry_InitDefaults()
     tempConfig.header.Bonus = 13;
     tempConfig.header.normalRollTableId = 8;
     tempConfig.header.freeRollTableId = 9;
+    tempConfig.header.localJpMaxCount = 1;
     if (!RegisterGameWithConfig("HuoYanGongNiu_3995", 3995, &tempConfig))
     {
         return 0;
@@ -197,6 +200,7 @@ void GameConfigRegistry_InitDefaults()
 	tempConfig.header.Bonus = 11;
 	tempConfig.header.normalRollTableId = 10;
     tempConfig.header.freeRollTableId = 11;
+	tempConfig.header.localJpMaxCount = 1;
 	if (!RegisterGameWithConfig("FeiZhouHeiXX_3994", 3994, &tempConfig))
 	{
 		return 0;
@@ -223,6 +227,7 @@ void GameConfigRegistry_InitDefaults()
     tempConfig.header.Bonus = 12;
     tempConfig.header.normalRollTableId = 13;
     tempConfig.header.freeRollTableId = 14;
+    tempConfig.header.localJpMaxCount = 1;
     if (!RegisterGameWithConfig("MeiZhouHeiBao_3993", 3993, &tempConfig))
     {
         return 0;

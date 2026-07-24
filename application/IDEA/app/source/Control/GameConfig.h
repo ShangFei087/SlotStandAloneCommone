@@ -24,7 +24,8 @@ typedef struct {
 	uint8_t		Bonus;				// Bonus 图标
 	uint8_t		normalRollTableId;	// 普通卷轴表 ID
 	uint8_t		freeRollTableId;	// 免费卷轴表 ID
-	uint8_t reserved[2];			// 预留字段（对齐）
+	uint8_t		localJpMaxCount;	// 本局最多同时开出本地彩金数（1~GAME_Local_JP_MAX）
+	uint8_t		reserved[1];		// 预留字段（对齐）
 } GameConfigHeader_t;
 
 typedef struct 
