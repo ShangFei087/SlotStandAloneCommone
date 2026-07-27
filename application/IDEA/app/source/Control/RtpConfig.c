@@ -77,3 +77,28 @@ const RtpProfileConfig* RtpConfig_GetDefaultProfile(uint8_t region)
     (void)count; // 当前函数不直接使用数量，避免编译器告警
     return RtpConfig_FindProfile(region, defaultRtpPermyriad); // 按默认 RTP 值返回默认档位
 } // RtpConfig_GetDefaultProfile 结束
+
+// 由 RTP 万分比反查难度档位（1~5）；rtpPermyriad<=0 用区域默认档；失败返回 0。
+int32_t RtpConfig_GetLevelByRtp(uint8_t region, int32_t rtpPermyriad)
+{
+    const RtpProfileConfig* profiles = NULL;
+    int32_t count = 0;
+    int32_t defaultRtp = 0;
+    int32_t target = 0;
+    int32_t i = 0;
+
+    if (!RtpConfig_GetProfiles(region, &profiles, &count, &defaultRtp) || profiles == NULL)
+    {
+        return 0;
+    }
+
+    target = (rtpPermyriad > 0) ? rtpPermyriad : defaultRtp;
+    for (i = 0; i < count; ++i)
+    {
+        if (profiles[i].rtpPermyriad == target)
+        {
+            return i + 1;
+        }
+    }
+    return 0;
+}

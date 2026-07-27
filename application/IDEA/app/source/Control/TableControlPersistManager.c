@@ -38,9 +38,11 @@ void TableControlPersist_Init(void)
 	(void)idea_database_connect(&g_TableControlPersistBlob, sizeof(g_TableControlPersistBlob));
 	if (!table_control_persist_is_blob_valid())
 	{
-		/* 首次启动或版本升级：初始化空白镜像，RAM 保持编译期默认值 */
+		/* 首次启动或版本升级：空白镜像 + 产品默认国内难度 3（仅此次，之后由 Flash 恢复） */
 		table_control_persist_reset_blob();
-		QS_LOG("\r\n [TC] runtime persist blob init/reinit version=%u", (unsigned)TABLE_CONTROL_PERSIST_VERSION);
+		TableControl_ResetRuntimeDefaults();
+		(void)TableControl_SetDifficultyLevel(3);
+		QS_LOG("\r\n [TC] runtime persist blob init/reinit version=%u defaultLv=3", (unsigned)TABLE_CONTROL_PERSIST_VERSION);
 		return;
 	}
 

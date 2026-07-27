@@ -27,6 +27,7 @@
 #include "Control/LotteryManager.h"
 #include "Control/GameRegistry.h"
 #include "Control/GameManager.h"
+#include "Control/Test.h"
 #include <Control/TableControl.h>
 
 /**************************************************************************
@@ -95,9 +96,6 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		int32_t res[6] = { 0 };
 		uint8_t pos = 0;
 		int32_t ret = 0;
-		// 设置当前区域与难度等级（level 1~5）；区域固定国内，档位由 level 决定。
-		DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 0);
-		DLL_SetDifficultyLevel(3);
 		if (GameRegistry_InitAndRegisterDefaults())
 		{
 			ret = 0;
@@ -877,40 +875,40 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		size_t JsonArraySize = qs_json_GetArraySize(pJsonArray);
 		int32_t res[29] = { 0 };
 		int32_t pos = 0;
-		res[pos++] = 1;
+		res[pos++] = 1;//0
 		TableControlStats tableStats;
 		memset(&tableStats, 0, sizeof(tableStats));
 		TableControl_GetStats(&tableStats);
 
-		res[pos++] = (int32_t)tableStats.totalBet;
-		res[pos++] = (int32_t)tableStats.totalFishValue;
-		res[pos++] = (int32_t)tableStats.paidBase;
-		res[pos++] = (int32_t)tableStats.paidFree;
-		res[pos++] = (int32_t)tableStats.paidBonus;
-		res[pos++] = (int32_t)tableStats.paidJackpotBonus;
-		res[pos++] = (int32_t)tableStats.paidJackpot;
-		res[pos++] = (int32_t)tableStats.paidNetJackpot;
-		res[pos++] = (int32_t)tableStats.netJackpotHitCount;
-		res[pos++] = (int32_t)tableStats.netJackpotOverBudgetCount;
-		res[pos++] = (int32_t)tableStats.totalPass;
-		res[pos++] = (int32_t)tableStats.totalReject;
-		res[pos++] = (int32_t)tableStats.winRejectByTargetPool;
-		res[pos++] = (int32_t)tableStats.freeRejectByTargetPool;
-		res[pos++] = (int32_t)tableStats.bonusRejectByTargetPool;
-		res[pos++] = (int32_t)tableStats.jackpotRejectByTargetPool;
-		res[pos++] = (int32_t)tableStats.freeRejectByRange;
-		res[pos++] = (int32_t)tableStats.bonusRejectByRange;
-		res[pos++] = (int32_t)tableStats.jackpotRejectByRange;
-		res[pos++] = (int32_t)tableStats.freeRejectByPassRate;
-		res[pos++] = (int32_t)tableStats.bonusRejectByPassRate;
-		res[pos++] = (int32_t)tableStats.jackpotRejectByPassRate;
+		res[pos++] = (int32_t)tableStats.totalBet;//1
+		res[pos++] = (int32_t)tableStats.totalFishValue;//2
+		res[pos++] = (int32_t)tableStats.paidBase;//3
+		res[pos++] = (int32_t)tableStats.paidFree;//4
+		res[pos++] = (int32_t)tableStats.paidBonus;//5
+		res[pos++] = (int32_t)tableStats.paidJackpotBonus;//6
+		res[pos++] = (int32_t)tableStats.paidJackpot;//7
+		res[pos++] = (int32_t)tableStats.paidNetJackpot;//8
+		res[pos++] = (int32_t)tableStats.netJackpotHitCount;//9
+		res[pos++] = (int32_t)tableStats.netJackpotOverBudgetCount;//10
+		res[pos++] = (int32_t)tableStats.totalPass;//11
+		res[pos++] = (int32_t)tableStats.totalReject;//12
+		res[pos++] = (int32_t)tableStats.winRejectByTargetPool;//13
+		res[pos++] = (int32_t)tableStats.freeRejectByTargetPool;//14
+		res[pos++] = (int32_t)tableStats.bonusRejectByTargetPool;//15
+		res[pos++] = (int32_t)tableStats.jackpotRejectByTargetPool;//16
+		res[pos++] = (int32_t)tableStats.freeRejectByRange;//17
+		res[pos++] = (int32_t)tableStats.bonusRejectByRange;//18
+		res[pos++] = (int32_t)tableStats.jackpotRejectByRange;//19
+		res[pos++] = (int32_t)tableStats.freeRejectByPassRate;//20
+		res[pos++] = (int32_t)tableStats.bonusRejectByPassRate;//21
+		res[pos++] = (int32_t)tableStats.jackpotRejectByPassRate;//22
 		// 追加区间 Low/High，保持前 23 项下标兼容旧协议
-		res[pos++] = (int32_t)tableStats.freeRejectByRangeLow;
-		res[pos++] = (int32_t)tableStats.freeRejectByRangeHigh;
-		res[pos++] = (int32_t)tableStats.bonusRejectByRangeLow;
-		res[pos++] = (int32_t)tableStats.bonusRejectByRangeHigh;
-		res[pos++] = (int32_t)tableStats.jackpotRejectByRangeLow;
-		res[pos++] = (int32_t)tableStats.jackpotRejectByRangeHigh;
+		res[pos++] = (int32_t)tableStats.freeRejectByRangeLow;//23
+		res[pos++] = (int32_t)tableStats.freeRejectByRangeHigh;//24
+		res[pos++] = (int32_t)tableStats.bonusRejectByRangeLow;//25
+		res[pos++] = (int32_t)tableStats.bonusRejectByRangeHigh;//26
+		res[pos++] = (int32_t)tableStats.jackpotRejectByRangeLow;//27
+		res[pos++] = (int32_t)tableStats.jackpotRejectByRangeHigh;//28
 		qs_json_DeleteItemFromObject(json, "data");
 		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
 		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
@@ -931,6 +929,83 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		res[pos++] = (int32_t)TableControl_GetPool(3);
 		res[pos++] = (int32_t)TableControl_GetPool(4);
 	
+		qs_json_DeleteItemFromObject(json, "data");
+		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
+		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
+		qs_senv_manager_write(gpCtx->pSenv, json);
+	}
+	break;
+	//获取算法版本号：ret, region, NetJackpot, level, AlgoVerMain, AlgoVerSub, AlgoVerFix
+	case 20207:
+	{
+		int32_t res[7] = { 0 };
+		TableControlRuntime rt;
+		comm_data CommData;
+
+		memset(&rt, 0, sizeof(rt));
+		memset(&CommData, 0, sizeof(CommData));
+		TableControl_ExportRuntime(&rt);
+
+		if (comm_data_get(&CommData) == TRUE)
+		{
+			res[0] = 1;                                              // ret：成功
+			res[1] = (int32_t)rt.region;                             // region：1=国内，2=海外
+			res[2] = (int32_t)CommData.NetJackpot;                   // NetJackpot：0/1
+			res[3] = RtpConfig_GetLevelByRtp(rt.region, rt.rtpPermyriad); // level：1~5
+			res[4] = _AlgoVerMain; //主版本
+			res[5] = _AlgoVerSub; //次版本
+			res[6] = _AlgoVerFix; //修改版本
+		}
+		else
+		{
+			res[0] = 0; // ret：读取机台配置失败
+		}
+
+		qs_json_DeleteItemFromObject(json, "data");
+		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
+		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
+		qs_senv_manager_write(gpCtx->pSenv, json);
+	}
+	break;
+	//重置算法信息：清五池/窗口/自适应/覆盖与 20205 统计，保留区域与难度并写回 Flash
+	case 20208:
+	{
+		int32_t res[2] = { 0 };
+
+		TableControl_ResetRegulationKeepDifficulty(); // 清调控过程量，保留 region/rtp
+		TableControl_ClearStats();                    // 清零 20205 调控累计统计（仅 RAM）
+		res[0] = 1;
+
+		qs_json_DeleteItemFromObject(json, "data");
+		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
+		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);
+		qs_senv_manager_write(gpCtx->pSenv, json);
+	}
+	break;
+	//修改算法区域/难度 data=[region, level]；成功后已落盘，并清 stats/override
+	case 20209:
+	{
+		qs_json* pJsonArray = qs_json_GetObjectItem(json, "data");
+		size_t JsonArraySize = qs_json_GetArraySize(pJsonArray);
+		int32_t res[1] = { 0 };
+		int32_t ok = 0;
+
+		if (JsonArraySize == 2)
+		{
+			uint8_t region = (uint8_t)qs_json_GetArrayItem(pJsonArray, 0)->valueint;
+			int32_t level = qs_json_GetArrayItem(pJsonArray, 1)->valueint;
+			/* 先切区域（默认档），再按 level 落到具体 RTP；均会写 Flash */
+			ok = DLL_SetRtpDifficulty(region, 0) && DLL_SetDifficultyLevel(level);
+			if (ok)
+			{
+				TableControl_ClearStats();              // 新档从 0 重新累计 20205
+				DLL_SetRtpPassOverride(-1, -1);         // 清除 Free/Bonus 概率覆盖
+				DLL_SetJackpotPassOverride(-1);         // 清除 Jackpot 概率覆盖
+			}
+		}
+
+		res[0] = ok ? 1 : 0; // ret：1 成功，0 失败（参数非法或档位不存在）
+
 		qs_json_DeleteItemFromObject(json, "data");
 		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));
 		qs_json_SetNumberValue(qs_json_GetObjectItem(json, "target"), qs_json_GetObjectItem(json, "source")->valueint);

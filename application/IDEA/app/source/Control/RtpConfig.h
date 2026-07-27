@@ -63,5 +63,7 @@ int32_t RtpConfig_GetProfiles(uint8_t regio,const RtpProfileConfig** outProfiles
 const RtpProfileConfig* RtpConfig_FindProfile(uint8_t region, int32_t rtpPermyriad); // 查找指定档位
 // 获取某区域的默认档位配置；找不到返回 NULL。
 const RtpProfileConfig* RtpConfig_GetDefaultProfile(uint8_t region); // 获取默认档
+// 由 RTP 万分比反查难度档位（1~5）；rtpPermyriad<=0 用区域默认档；失败返回 0。
+int32_t RtpConfig_GetLevelByRtp(uint8_t region, int32_t rtpPermyriad);
 
 #endif // _RTP_CONFIG_H_ // 头文件结束

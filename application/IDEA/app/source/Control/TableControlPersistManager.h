@@ -8,6 +8,7 @@
  *
  * 整块绑定 idea_database_connect，由 idea_database_exec 周期刷写到 Flash。
  * 断电重启后恢复：区域/档位、五池余额、注入余量、概率门覆盖、自适应偏移、闭环调参窗口。
+ * 区域与难度（rtpPermyriad）随 runtime 持久化；20000 不再强写，改档走 20209。
  * TableControlStats 累计统计不参与持久化。
  */
 #define TABLE_CONTROL_PERSIST_BLOB_MAGIC   ((uint32_t)0x54435042u) /* 'TCPB' 数据魔数 */

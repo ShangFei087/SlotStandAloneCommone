@@ -97,6 +97,16 @@ void TableControl_ResetRuntimeDefaults(void)
 	TableControl_ResetPoolsAdaptiveAndWindow();
 }
 
+void TableControl_ResetRegulationKeepDifficulty(void)
+{
+	/* 保留 region / rtpPermyriad，只清调控过程量与调试覆盖 */
+	gTableControl.runtime.overrideFreePass = -1;
+	gTableControl.runtime.overrideBonusPass = -1;
+	gTableControl.runtime.overrideJackpotPass = -1;
+	TableControl_ResetPoolsAdaptiveAndWindow();
+	TableControl_FlushRuntimePersist();
+}
+
 /**
  * @brief 切档后重置目标池、注入余量、自适应偏移与调参窗口（保留 region/rtp/override）。
  */
@@ -814,6 +824,11 @@ void TableControl_GetStats(TableControlStats* outStats) // 导出闸门统计
 {
 	if (outStats == NULL) return;
 	*outStats = gTableControl.stats;
+}
+
+void TableControl_ClearStats(void)
+{
+	memset(&gTableControl.stats, 0, sizeof(gTableControl.stats));
 }
 
 int64_t TableControl_GetPool(int8_t id)

@@ -109,6 +109,10 @@ void TableControl_ImportRuntime(const TableControlRuntime* in);
  * @brief 恢复运行时默认值：国内区域、默认 RTP 档、清除概率覆盖，并重置池子与调参窗口。
  */
 void TableControl_ResetRuntimeDefaults(void);
+/**
+ * @brief 重置调控状态：清五池/窗口/自适应/概率覆盖，保留区域与 RTP 档位，并写回 Flash。
+ */
+void TableControl_ResetRegulationKeepDifficulty(void);
 
 // 获取当前生效 RTP 配置（优先指定档位，其次区域默认，最后国内默认兜底）。
 const RtpProfileConfig* TableControl_GetActiveProfile(void);
@@ -177,7 +181,11 @@ void TableControl_GetRtpDifficulty(RtpProfileConfig* outProfile);
  * @brief 导出当前闸门统计信息。
  * @param outStats 输出参数，返回累计放行/拒绝及各类拒绝原因计数。
  */
-void TableControl_GetStats(TableControlStats* outStats); 
+void TableControl_GetStats(TableControlStats* outStats);
+/**
+ * @brief 清零闸门累计统计（仅 RAM，不参与 Flash 持久化）。
+ */
+void TableControl_ClearStats(void);
 
 /**
  * @brief 导出当前闸门五池信息。
