@@ -143,12 +143,12 @@ static void TableControl_RejectJackpotAndRefund(uint8_t* jpType, int32_t* jpBet)
 {
 	if (jpBet == NULL || *jpBet <= 0)
 	{
-		if (jpType != NULL) *jpType = JT_None;
+		if (jpType != NULL) *jpType = 0;
 		return;
 	}
 
 	*jpBet = 0;
-	if (jpType != NULL) *jpType = JT_None;
+	if (jpType != NULL) *jpType = 0;
 }
 
 /**

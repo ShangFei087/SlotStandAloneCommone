@@ -437,7 +437,7 @@ void RoundInfo_t_Init(RoundInfo_t* obj) {
     obj->nJPCount = 0;
     for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
     {
-        obj->JPTypeArray[i] = JT_None;
+        obj->JPTypeArray[i] = 0;
         obj->JPBetArray[i] = 0;
     }
     obj->nTotalJackpotBet = 0;
@@ -489,7 +489,7 @@ void RoundInfo_t_Reset(RoundInfo_t* obj) {
     obj->nJPCount = 0;
     for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
     {
-        obj->JPTypeArray[i] = JT_None;
+        obj->JPTypeArray[i] = 0;
         obj->JPBetArray[i] = 0;
     }
     obj->nTotalJackpotBet = 0;
@@ -716,7 +716,7 @@ void OutResult_Init(OutResult_t* pResult)
     pResult->nJPCount = 0;
     for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
     {
-        pResult->JPTypeArray[i] = JT_None;
+        pResult->JPTypeArray[i] = 0;
         pResult->JPBetArray[i] = 0;
     }
     pResult->nTotalJackpotBet = 0;
@@ -778,7 +778,7 @@ void OutResult_reset(OutResult_t* pResult)
     pResult->nJPCount = 0;
     for (int8_t i = 0; i < GAME_Local_JP_MAX; i++)
     {
-        pResult->JPTypeArray[i] = JT_None;
+        pResult->JPTypeArray[i] = 0;
         pResult->JPBetArray[i] = 0;
     }
     pResult->nTotalJackpotBet = 0;

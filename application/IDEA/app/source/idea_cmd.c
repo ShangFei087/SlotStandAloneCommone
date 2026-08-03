@@ -967,13 +967,15 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		qs_senv_manager_write(gpCtx->pSenv, json);
 	}
 	break;
-	//重置算法信息：清五池/窗口/自适应/覆盖与 20205 统计，保留区域与难度并写回 Flash
+	//重置算法信息：清五池/窗口/自适应/覆盖、20205 统计与 debugInfo，保留区域与难度并写回 Flash
 	case 20208:
 	{
 		int32_t res[2] = { 0 };
 
 		TableControl_ResetRegulationKeepDifficulty(); // 清调控过程量，保留 region/rtp
 		TableControl_ClearStats();                    // 清零 20205 调控累计统计（仅 RAM）
+		DebugInfo_reset(&g_GameManager.debugInfo);   // 清零 20203 调试累计（持久化镜像同步清零）
+		g_GameManager.debugInfo.dwFlag = GAMEMANAGER_DEBUGINFO_FLAG_MAGIC;
 		res[0] = 1;
 
 		qs_json_DeleteItemFromObject(json, "data");
@@ -982,7 +984,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		qs_senv_manager_write(gpCtx->pSenv, json);
 	}
 	break;
-	//修改算法区域/难度 data=[region, level]；成功后已落盘，并清 stats/override
+	//修改算法区域/难度 data=[region, level]；成功后已落盘，并清 stats/override/debugInfo
 	case 20209:
 	{
 		qs_json* pJsonArray = qs_json_GetObjectItem(json, "data");
@@ -999,6 +1001,8 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 			if (ok)
 			{
 				TableControl_ClearStats();              // 新档从 0 重新累计 20205
+				DebugInfo_reset(&g_GameManager.debugInfo); // 新档从 0 重新累计 20203
+				g_GameManager.debugInfo.dwFlag = GAMEMANAGER_DEBUGINFO_FLAG_MAGIC;
 				DLL_SetRtpPassOverride(-1, -1);         // 清除 Free/Bonus 概率覆盖
 				DLL_SetJackpotPassOverride(-1);         // 清除 Jackpot 概率覆盖
 			}

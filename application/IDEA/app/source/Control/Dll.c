@@ -298,7 +298,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 		int64_t fishValue = 0;                                       // 候选理论支付分
 		const RtpProfileConfig* profile = TableControl_GetActiveProfile(); // 当前生效难度配置
 		int32_t jpCount = 0;
-		uint8_t jpCandidateType = JT_None;
+		uint8_t jpCandidateType = 0;
 		int32_t jpCandidateTotal = 0;
 
 		// 统一在主流程内进行奖池注入与多彩金检测，避免调用方重复或遗漏。
@@ -364,7 +364,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 			ri.nJPCount = 0;
 			for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
 			{
-				ri.JPTypeArray[i] = JT_None;
+				ri.JPTypeArray[i] = 0;
 				ri.JPBetArray[i] = 0;
 			}
 			ri.nTotalJackpotBet = 0;
@@ -405,7 +405,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 				ri.nJPCount = 0;
 				for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
 				{
-					ri.JPTypeArray[i] = JT_None;
+					ri.JPTypeArray[i] = 0;
 					ri.JPBetArray[i] = 0;
 				}
 				ri.nTotalJackpotBet = 0;
