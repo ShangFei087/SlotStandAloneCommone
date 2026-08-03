@@ -516,8 +516,8 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 		TableControl_RejectJackpotAndRefund(jpType, jpBet);
 	}
 
-	// 对 RT_Win 使用 BasePool 判定放行：池子够付才放。
-	if (ri != NULL && ri->resType == RT_Win)
+	// 普通中奖：线奖直接走 Base 池。
+	if (ri != NULL && ri->resType == RT_Win && ri->nMatrixBet > 0)
 	{
 		paidAmount = (int64_t)betVal * ri->nMatrixBet;
 
@@ -528,14 +528,15 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 		}
 	}
 
-	// 免费,大奖,彩金区间校验
+	// 免费,大奖,彩金：先过区间，再扣 Base 线奖与特征池；后续拒绝需回补已扣池。
 	if (activeProfile != NULL) 
 	{
 		// 免费倍数区间校验
 		if (ri->resType == RT_FreeWin) 
 		{
 			int32_t freePassPermyriad = 10000;
-			int64_t freePaidAmount = 0; 
+			int64_t freePaidAmount = 0;
+			int64_t matrixPaidAmount = 0;
 
 			freePaidAmount = (int64_t)betVal * ri->nFreeBet; 
 			if (freePaidAmount < (int64_t)activeProfile->freeMinBet * TotalBet)
@@ -551,9 +552,24 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 				return 0;
 			}
 
+			// 区间通过后再扣触发局线奖（与 paidBase 对齐；拒绝时回补）。
+			matrixPaidAmount = (int64_t)betVal * ri->nMatrixBet;
+			if (matrixPaidAmount > 0)
+			{
+				if (!TableControl_SoftPoolAllowAndConsume(&gTableControl.runtime.basePool, matrixPaidAmount, TotalBet, gTableControl.tuning.baseDebtBetFactor, gTableControl.tuning.softPoolScaleBase))
+				{
+					gTableControl.stats.winRejectByTargetPool++;
+					return 0;
+				}
+			}
+
 			paidAmount = freePaidAmount;
 			if (!TableControl_SoftPoolAllowAndConsume(&gTableControl.runtime.freePool, paidAmount, TotalBet, gTableControl.tuning.freeDebtBetFactor, gTableControl.tuning.softPoolScaleFree))
 			{
+				if (matrixPaidAmount > 0)
+				{
+					gTableControl.runtime.basePool += matrixPaidAmount;
+				}
 				gTableControl.stats.freeRejectByTargetPool++; // 记录免费目标池拒绝
 				return 0;                                  
 			}
@@ -563,10 +579,14 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 			freePassPermyriad = TableControl_ClampPass(freePassPermyriad + gTableControl.runtime.adaptiveFreePassDelta);
 			if (!TableControl_HitPassRate(freePassPermyriad))
 			{
-				// 概率拒绝时只部分回补，剩余部分作为难度消耗。
+				// 概率拒绝：特征池按比例回补，线奖 Base 全额回补。
 				if (paidAmount > 0)
 				{
 					gTableControl.runtime.freePool += TableControl_CalcRefundByPermyriad(paidAmount, gTableControl.tuning.freePassRejectRefundPermyriad);
+				}
+				if (matrixPaidAmount > 0)
+				{
+					gTableControl.runtime.basePool += matrixPaidAmount;
 				}
 				gTableControl.stats.freeRejectByPassRate++;
 				return 0;
@@ -575,7 +595,8 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 		else if (ri->resType == RT_BonusWin) 
 		{
 			int32_t bonusPassPermyriad = 10000;
-			int64_t bonusPaidAmount = 0; 
+			int64_t bonusPaidAmount = 0;
+			int64_t matrixPaidAmount = 0;
 
 			// Bonus 倍数区间校验
 			bonusPaidAmount = (int64_t)betVal * ri->nBonusBet; 
@@ -592,9 +613,23 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 				return 0;
 			}
 
+			matrixPaidAmount = (int64_t)betVal * ri->nMatrixBet;
+			if (matrixPaidAmount > 0)
+			{
+				if (!TableControl_SoftPoolAllowAndConsume(&gTableControl.runtime.basePool, matrixPaidAmount, TotalBet, gTableControl.tuning.baseDebtBetFactor, gTableControl.tuning.softPoolScaleBase))
+				{
+					gTableControl.stats.winRejectByTargetPool++;
+					return 0;
+				}
+			}
+
 			paidAmount = bonusPaidAmount;
 			if (!TableControl_SoftPoolAllowAndConsume(&gTableControl.runtime.bonusPool, paidAmount, TotalBet, gTableControl.tuning.bonusDebtBetFactor, gTableControl.tuning.softPoolScaleBonus))
 			{
+				if (matrixPaidAmount > 0)
+				{
+					gTableControl.runtime.basePool += matrixPaidAmount;
+				}
 				gTableControl.stats.bonusRejectByTargetPool++; // 记录 Bonus 目标池拒绝
 				return 0;                                   
 			}
@@ -604,10 +639,14 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 			bonusPassPermyriad = TableControl_ClampPass(bonusPassPermyriad + gTableControl.runtime.adaptiveBonusPassDelta);
 			if (!TableControl_HitPassRate(bonusPassPermyriad))
 			{
-				// 概率拒绝时只部分回补，剩余部分作为难度消耗。
+				// 概率拒绝：特征池按比例回补，线奖 Base 全额回补。
 				if (paidAmount > 0)
 				{
 					gTableControl.runtime.bonusPool += TableControl_CalcRefundByPermyriad(paidAmount, gTableControl.tuning.bonusPassRejectRefundPermyriad);
+				}
+				if (matrixPaidAmount > 0)
+				{
+					gTableControl.runtime.basePool += matrixPaidAmount;
 				}
 				gTableControl.stats.bonusRejectByPassRate++;
 				return 0;
@@ -618,26 +657,12 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 			int32_t jackpotPassPermyriad = 10000;
 			int64_t jackpotBonusPaidAmount = 0;
 			int64_t jackpotPaidAmount = 0;
+			int64_t matrixPaidAmount = 0;
 
-			//对本地彩金中生成的bonusbet做四池判断
 			jackpotBonusPaidAmount = (int64_t)betVal * ri->nBonusBet;
-			if (jackpotBonusPaidAmount > 0)
-			{
-				//应该不用bonus最大最小倍数判断，暂时保留接口
-				/*if (jackpotBonusPaidAmount < (int64_t)activeProfile->bonusMinBet * TotalBet || jackpotBonusPaidAmount > (int64_t)activeProfile->bonusMaxBet * TotalBet)
-				{
-					gTableControl.stats.bonusRejectByRange++;
-					TableControl_RejectJackpotAndRefund(jpType, jpBet);
-					return 0;
-				}*/
-				if (!TableControl_SoftPoolAllowAndConsume(&gTableControl.runtime.bonusPool, jackpotBonusPaidAmount, TotalBet, gTableControl.tuning.bonusDebtBetFactor, gTableControl.tuning.softPoolScaleBonus))
-				{
-					gTableControl.stats.bonusRejectByTargetPool++;
-					TableControl_RejectJackpotAndRefund(jpType, jpBet);
-					return 0;
-				}
-			}
+			matrixPaidAmount = (int64_t)betVal * ri->nMatrixBet;
 
+			// 先做彩金区间校验（未扣池，失败无需回补）。
 			if (jpBet != NULL && *jpBet > 0)
 			{
 				jackpotPaidAmount = *jpBet;
@@ -655,9 +680,53 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 					TableControl_RejectJackpotAndRefund(jpType, jpBet);
 					return 0;
 				}
+			}
 
+			// 区间通过后扣触发局线奖。
+			if (matrixPaidAmount > 0)
+			{
+				if (!TableControl_SoftPoolAllowAndConsume(&gTableControl.runtime.basePool, matrixPaidAmount, TotalBet, gTableControl.tuning.baseDebtBetFactor, gTableControl.tuning.softPoolScaleBase))
+				{
+					gTableControl.stats.winRejectByTargetPool++;
+					TableControl_RejectJackpotAndRefund(jpType, jpBet);
+					return 0;
+				}
+			}
+
+			// 对本地彩金中生成的 bonusbet 做 Bonus 池判断。
+			if (jackpotBonusPaidAmount > 0)
+			{
+				//应该不用bonus最大最小倍数判断，暂时保留接口
+				/*if (jackpotBonusPaidAmount < (int64_t)activeProfile->bonusMinBet * TotalBet || jackpotBonusPaidAmount > (int64_t)activeProfile->bonusMaxBet * TotalBet)
+				{
+					gTableControl.stats.bonusRejectByRange++;
+					TableControl_RejectJackpotAndRefund(jpType, jpBet);
+					return 0;
+				}*/
+				if (!TableControl_SoftPoolAllowAndConsume(&gTableControl.runtime.bonusPool, jackpotBonusPaidAmount, TotalBet, gTableControl.tuning.bonusDebtBetFactor, gTableControl.tuning.softPoolScaleBonus))
+				{
+					if (matrixPaidAmount > 0)
+					{
+						gTableControl.runtime.basePool += matrixPaidAmount;
+					}
+					gTableControl.stats.bonusRejectByTargetPool++;
+					TableControl_RejectJackpotAndRefund(jpType, jpBet);
+					return 0;
+				}
+			}
+
+			if (jpBet != NULL && *jpBet > 0)
+			{
 				if (!TableControl_SoftPoolAllowAndConsume(&gTableControl.runtime.jackpotPool, jackpotPaidAmount, TotalBet, gTableControl.tuning.jackpotDebtBetFactor, gTableControl.tuning.softPoolScaleJackpot))
 				{
+					if (matrixPaidAmount > 0)
+					{
+						gTableControl.runtime.basePool += matrixPaidAmount;
+					}
+					if (jackpotBonusPaidAmount > 0)
+					{
+						gTableControl.runtime.bonusPool += jackpotBonusPaidAmount;
+					}
 					gTableControl.stats.jackpotRejectByTargetPool++;
 					TableControl_RejectJackpotAndRefund(jpType, jpBet);
 					return 0;
@@ -667,6 +736,16 @@ int32_t TableControl_GetShotResult(player_data_item* pUserInfo, int32_t betVal, 
 				jackpotPassPermyriad = TableControl_ClampPass(jackpotPassPermyriad + gTableControl.runtime.adaptiveJackpotPassDelta);
 				if (!TableControl_HitPassRate(jackpotPassPermyriad))
 				{
+					// 概率拒绝：已扣的 Base/Bonus/Jackpot 一并回补。
+					if (matrixPaidAmount > 0)
+					{
+						gTableControl.runtime.basePool += matrixPaidAmount;
+					}
+					if (jackpotBonusPaidAmount > 0)
+					{
+						gTableControl.runtime.bonusPool += jackpotBonusPaidAmount;
+					}
+					gTableControl.runtime.jackpotPool += jackpotPaidAmount;
 					gTableControl.stats.jackpotRejectByPassRate++;
 					TableControl_RejectJackpotAndRefund(jpType, jpBet);
 					return 0;

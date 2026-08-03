@@ -468,6 +468,7 @@ void RoundInfo_t_Init(RoundInfo_t* obj) {
     obj->nBonusBet = 0;
     obj->nBonusType = 0;
     obj->BlindSymbol = 0;
+    obj->nBonusIDVecSize = 0;
     for (int8_t i = 0; i < GE_WheelChessMaxNum; i++) 
     {
         obj->BonusData[i] = 0;
@@ -519,6 +520,7 @@ void RoundInfo_t_Reset(RoundInfo_t* obj) {
     obj->nBonusBet = 0;
     obj->nBonusType = 0;
     obj->BlindSymbol = 0;
+    obj->nBonusIDVecSize = 0;
     for (int8_t i = 0; i < GE_WheelChessMaxNum; i++)
     {
         obj->BonusData[i] = 0;
@@ -562,6 +564,7 @@ void RoundInfo_t_ResetexceptJp(RoundInfo_t* obj)
     obj->nBonusBet = 0;
     obj->nBonusType = 0;
     obj->BlindSymbol = 0;
+    obj->nBonusIDVecSize = 0;
     for (int8_t i = 0; i < GE_WheelChessMaxNum; i++)
     {
         obj->BonusData[i] = 0;
@@ -613,6 +616,7 @@ void RoundInfo_t_Copy(RoundInfo_t* dest, const RoundInfo_t* src) {
     dest->nBonusBet = src->nBonusBet;
     dest->nBonusType = src->nBonusType;
     dest->BlindSymbol = src->BlindSymbol;
+    dest->nBonusIDVecSize = src->nBonusIDVecSize;
     for (int8_t i = 0; i < GE_WheelChessMaxNum; i++) {
         dest->BonusData[i] = src->BonusData[i];
     }
@@ -676,6 +680,7 @@ void OutResult_Init(OutResult_t* pResult)
     pResult->nBonusBet = 0;             // Bonus 倍数
     pResult->nBonusType = 0;            // Bonus 类型
     pResult->BlindSymbol = 0;           // 神秘图标/乘数
+    pResult->nBonusIDVecSize = 0;
 
     // 初始化矩阵
     Matrix_u_reset(&pResult->matrix);
@@ -694,6 +699,11 @@ void OutResult_Init(OutResult_t* pResult)
     for (int8_t i = 0; i < GE_WheelChessMaxNum; i++)
     {
         pResult->BonusData[i] = 0;
+    }
+
+    for (int8_t i = 0; i < GE_MaxIDNum; i++)
+    {
+        pResult->BonusIDVec[i] = 0;
     }
 
     for (int8_t i = 0; i < GE_MaxFreeNum; i++)
@@ -733,6 +743,7 @@ void OutResult_reset(OutResult_t* pResult)
     pResult->nBonusBet = 0;
     pResult->nBonusType = 0;
     pResult->BlindSymbol = 0;            // 神秘图标/乘数
+    pResult->nBonusIDVecSize = 0;
 
     // 重置矩阵
     Matrix_u_reset(&pResult->matrix);
@@ -750,6 +761,11 @@ void OutResult_reset(OutResult_t* pResult)
     // 重置 Bonus 数据
     for (int8_t i = 0; i < GE_WheelChessMaxNum; i++) {
         pResult->BonusData[i] = 0;
+    }
+
+    for (int8_t i = 0; i < GE_MaxIDNum; i++)
+    {
+        pResult->BonusIDVec[i] = 0;
     }
 
     for (int8_t i = 0; i < GE_MaxFreeNum; i++)

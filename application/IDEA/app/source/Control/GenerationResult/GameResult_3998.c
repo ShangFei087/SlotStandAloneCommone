@@ -1,5 +1,26 @@
 #include "GameResultRegistry.h"
 
+/* 保存 Wild/神秘 变化后盘的中奖线到 FreeIDVec[0]，不覆盖原始盘 idVecSize */
+ void GameResult_3998_SaveBonusIDVec(RoundInfo_t* info, Matrix_u* changedMxu, uint16_t* idVec)
+{
+	uint8_t i;
+	uint8_t size;
+
+	if (info == NULL || changedMxu == NULL || idVec == NULL) return;
+
+	size = changedMxu->idVecSize;
+	if (size > GE_MaxIDNum) size = GE_MaxIDNum;
+
+	info->nBonusIDVecSize = size;
+	for (i = 0; i < GE_MaxIDNum; ++i)
+	{
+		info->FreeIDVec[0][i] = 0;
+	}
+	for (i = 0; i < size; ++i)
+	{
+		info->FreeIDVec[0][i] = idVec[i];
+	}
+}
 
 void GameResult_3998_GenNormal(RoundInfo_t* info,GameInstance_t* inst,Matrix_u* mxu,int32_t betVal,int32_t* matrixBet,uint16_t* idVec,GameInstanceId_t gameId)
 {
@@ -25,6 +46,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 	Matrix_u_copy(&mxu, bonusMxu);
 
 	info->nBonusBet = 0;
+	info->nBonusIDVecSize = 0;
 	uint32_t randNum = 0;
 	uint8_t bonusMulpitly = 0;
 	uint16_t bonusMulpitlyArray[4] = { 200,300,400,500 };
@@ -73,12 +95,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 
 			info->BlindSymbol = bonusCount;
 			info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
-
-			bonusMxu->idVecSize = mxu.idVecSize;
-			for (uint8_t i = 0; i < mxu.idVecSize; ++i)
-			{
-				info->FreeIDVec[0][i] = idVec[i];
-			}
+			GameResult_3998_SaveBonusIDVec(info, &mxu, idVec);
 		}
 		else
 		{
@@ -167,11 +184,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 #endif 
 
 				info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
-				bonusMxu->idVecSize = mxu.idVecSize;
-				for (uint8_t i = 0; i < mxu.idVecSize; ++i)
-				{
-					info->FreeIDVec[0][i] = idVec[i];
-				}
+				GameResult_3998_SaveBonusIDVec(info, &mxu, idVec);
 
 				info->BlindSymbol = BlindSymbol; //代替一下
 			}
@@ -185,6 +198,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 					uint8_t WheelMulptiy = WheelArray[bonusCount - 3][JRandFrom(0, 3)];
 					info->BlindSymbol = WheelMulptiy; //代替一下
 					info->nBonusBet = WheelMulptiy * inst->gameConfig.header.lineCount * bonusCount;
+					info->nBonusIDVecSize = 0;
 				}
 				else
 				{
@@ -194,6 +208,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 					bonusMulpitly = bonusMulpitlyArray[randNum];
 					info->BlindSymbol = bonusMulpitly; //代替一下
 					info->nBonusBet = inst->gameConfig.header.lineCount * bonusMulpitly;
+					info->nBonusIDVecSize = 0;
 				}
 			}
 		}
@@ -238,12 +253,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 
 		info->BlindSymbol = bonusCount;
 		info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
-
-		bonusMxu->idVecSize = mxu.idVecSize;
-		for (uint8_t i = 0; i < mxu.idVecSize; ++i)
-		{
-			info->FreeIDVec[0][i] = idVec[i];
-		}
+		GameResult_3998_SaveBonusIDVec(info, &mxu, idVec);
 	}
 	else
 	{
@@ -302,33 +312,30 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 			}
 
 			info->nBonusBet = Matrix_u_computerMatrixById(&mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
-			bonusMxu->idVecSize = mxu.idVecSize;
-			for (uint8_t i = 0; i < mxu.idVecSize; ++i)
-			{
-				info->FreeIDVec[0][i] = idVec[i];
-			}
+			GameResult_3998_SaveBonusIDVec(info, &mxu, idVec);
+			info->BlindSymbol = BlindSymbol;
 		}
 		else
 		{
 			// 乘数游戏
 			if (randNum < 9000)
 			{
-				
 				info->nBonusType = 2;
 				uint8_t WheelArray[3][4] = { { 70, 80, 90, 100 } ,{100,120,140,160},{180,200,220,240} };
 				uint8_t WheelMulptiy = WheelArray[bonusCount - 3][JRandFrom(0, 3)];
 				info->nBonusBet = WheelMulptiy * inst->gameConfig.header.lineCount * bonusCount;
 				info->BlindSymbol = WheelMulptiy; //代替一下
+				info->nBonusIDVecSize = 0;
 			}
 			// 大奖游戏
 			else
 			{
 				info->nBonusType = 3;
-				
 				randNum = JRandFrom(0, 3);
 				bonusMulpitly = bonusMulpitlyArray[randNum];
 				info->nBonusBet = inst->gameConfig.header.lineCount * bonusMulpitly;
 				info->BlindSymbol = bonusMulpitly; //代替一下
+				info->nBonusIDVecSize = 0;
 			}
 		}
 	}
@@ -458,20 +465,29 @@ void GameResult_3998_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resTyp
 		}
 		else if (resType == RT_BonusWin)
 		{
+			uint8_t i;
+			uint8_t bonusIdSize;
+
 			pRes->nBonusBet = info->nBonusBet;
 			pRes->nBonusType = info->nBonusType;
 			pRes->BlindSymbol = info->BlindSymbol;
-			for (uint8_t i = 0; i < GE_WheelChessMaxNum; ++i)
+			for (i = 0; i < GE_WheelChessMaxNum; ++i)
 			{
 				pRes->BonusData[i] = info->BonusData[i];
 			}
 
-			pRes->matrix.idVecSize = Mxu->idVecSize;
-			for (uint8_t i = 0; i < Mxu->idVecSize; ++i)
+			/* IDVec 保持原始盘中奖线（上方已从 idVec 拷贝），变化后线奖进 BonusIDVec */
+			bonusIdSize = info->nBonusIDVecSize;
+			if (bonusIdSize > GE_MaxIDNum) bonusIdSize = GE_MaxIDNum;
+			pRes->nBonusIDVecSize = bonusIdSize;
+			for (i = 0; i < GE_MaxIDNum; ++i)
 			{
-				pRes->IDVec[i] = info->FreeIDVec[0][i];
+				pRes->BonusIDVec[i] = 0;
 			}
-
+			for (i = 0; i < bonusIdSize; ++i)
+			{
+				pRes->BonusIDVec[i] = info->FreeIDVec[0][i];
+			}
 		}
 		else if (resType == RT_Win)
 		{
@@ -561,6 +577,9 @@ int8_t* GameResult_3998_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 			if (bonusCount > 6) bonusCount = 6;
 			bonusStr = ArrayU16ToString(outRes->BonusData, wildColCountArray[bonusCount - 3], 1);
 			append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
+			int8_t* bonusIdStr = ArrayU16ToString(outRes->BonusIDVec, outRes->nBonusIDVecSize, 1);
+			append_format(strRes, 2048, &used, "\"BonusIDVec\":%s,", bonusIdStr ? (const char*)bonusIdStr : "[]");
+			free(bonusIdStr);
 			free(bonusStr);
 		}
 		break;
@@ -570,6 +589,9 @@ int8_t* GameResult_3998_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 			bonusStr = ArrayU16ToString(outRes->BonusData, curwheelChessNum, 1);
 			append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
 			append_format(strRes, 2048, &used, "\"BlindSymbol\":%d,", outRes->BlindSymbol);
+			int8_t* bonusIdStr = ArrayU16ToString(outRes->BonusIDVec, outRes->nBonusIDVecSize, 1);
+			append_format(strRes, 2048, &used, "\"BonusIDVec\":%s,", bonusIdStr ? (const char*)bonusIdStr : "[]");
+			free(bonusIdStr);
 			free(bonusStr);
 		}
 		break;
@@ -586,7 +608,6 @@ int8_t* GameResult_3998_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 		}
 		break;
 		}
-
 	}
 
 	if (outRes->resType == RT_Jackpot)
@@ -659,6 +680,15 @@ void GameResult_3998_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 		for (int8_t i = 0; i < wheelChessNum; i++)
 		{
 			res[pos++] = outRes->BonusData[i];
+		}
+		// Wild/神秘：变化后盘中奖线（乘数/彩金为 0）
+		if (outRes->nBonusType == 1 || outRes->nBonusType == 0)
+		{
+			res[pos++] = outRes->nBonusIDVecSize;
+			for (uint8_t i = 0; i < outRes->nBonusIDVecSize; i++)
+			{
+				res[pos++] = outRes->BonusIDVec[i];
+			}
 		}
 	}
 

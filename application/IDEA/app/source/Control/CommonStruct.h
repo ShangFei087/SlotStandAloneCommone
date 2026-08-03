@@ -81,6 +81,7 @@ typedef struct {
 	int8_t nBonusType;
 	int8_t BlindSymbol; // 盲符号/转轮等级
 	uint16_t BonusData[GE_WheelChessMaxNum];
+	uint8_t nBonusIDVecSize;                // 变化后盘中奖线数量（Wild/神秘，存于 FreeIDVec[0]）
 
 	uint8_t nJPCount;                       // 本局命中的本地彩金数量（候选）
 	uint8_t JPTypeArray[GAME_Local_JP_MAX]; // 本局彩金类型（1~N）
@@ -139,6 +140,8 @@ typedef struct {
 	uint16_t BonusData[GE_WheelChessMaxNum];   // Bonus 金额
 	uint16_t BonusPosArray[GE_MaxFreeNum][GE_WheelChessMaxNum];
 	uint8_t nBonusType;
+	uint16_t BonusIDVec[GE_MaxIDNum];      // 变化后盘中奖线（Wild/神秘）
+	uint8_t nBonusIDVecSize;               // BonusIDVec 有效长度
 	//Jp仅在bonus将中开出
 	uint8_t nJPCount;                       // 本局命中的本地彩金数量
 	uint8_t JPTypeArray[GAME_Local_JP_MAX]; // 本局彩金类型（1~N）

@@ -50,10 +50,10 @@ typedef uint32_t GameInstanceId_t;			// 游戏实例 ID（取值范围）
 #define OT_Give   1
 
 // JP 类型（JT）
-#define JT_None 0
-#define JT_Major 1
-#define JT_Minor 2
-#define JT_Mini 3
+#define JT_None -1
+#define JT_Major 0
+#define JT_Minor 1
+#define JT_Mini 2
 
 void append_raw(char* buffer, size_t buffer_size, size_t* used, const char* src);
 void append_char(char* buffer, size_t buffer_size, size_t* used, char c);

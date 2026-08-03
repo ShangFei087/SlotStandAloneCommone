@@ -320,7 +320,7 @@ void GetNormalResult(player_data_item* pUserInfo, int32_t betVal, OutResult_t* o
 			{
 				forceJpBet = 1;
 			}
-			jpTypeList[0] = forceJpType;
+			jpTypeList[0] = forceJpType-1;
 			jpValueList[0] = forceJpBet;
 			jpCount = 1;
 		}

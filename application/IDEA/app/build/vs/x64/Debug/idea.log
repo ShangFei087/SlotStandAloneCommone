@@ -1,8 +1,8 @@
 ﻿  app.c
-  CommonStruct.c
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\qs\modules\lib\utility\qs_log.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/app.c”)
   
+  CommonStruct.c
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/Control/CommonStruct.c”)
@@ -34,8 +34,8 @@ F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\s
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\GameAlgo\common\JRand.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/Control/CommonStruct.c”)
   
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.c(580,36): warning C4090: “函数”: 不同的“const”限定符
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.c(929,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.c(583,36): warning C4090: “函数”: 不同的“const”限定符
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.c(945,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   ComputerData.c
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -486,8 +486,8 @@ F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\s
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Test.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/Control/GenerationResult/GameResult_3998.c”)
   
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResult_3998.c(194,40): warning C4244: “=”: 从“uint16_t”转换到“uint8_t”，可能丢失数据
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResult_3998.c(329,39): warning C4244: “=”: 从“uint16_t”转换到“uint8_t”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResult_3998.c(208,40): warning C4244: “=”: 从“uint16_t”转换到“uint8_t”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResult_3998.c(335,39): warning C4244: “=”: 从“uint16_t”转换到“uint8_t”，可能丢失数据
   GameResult_3999.c
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResult_3999.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GenerationResult\GameResultRegistry.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -886,7 +886,7 @@ F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\s
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Test.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/Control/TableControl.c”)
   
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\TableControl.c(704,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\TableControl.c(706,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   TableControlPersistManager.c
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\TableControlPersistManager.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\TableControlPersistManager.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -1048,10 +1048,12 @@ F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\s
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(966,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(981,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(998,44): warning C4013: “DLL_SetDifficultyLevel”未定义；假设外部返回 int
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1006,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1042,4): warning C4013: “DLL_OnJackpotOnlineWin”未定义；假设外部返回 int
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1054,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1115,4): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1002,5): warning C4013: “DLL_SetRtpPassOverride”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1003,5): warning C4013: “DLL_SetJackpotPassOverride”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1011,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1047,4): warning C4013: “DLL_OnJackpotOnlineWin”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1059,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1120,4): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
   正在生成代码...
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Matrix\Matrix_u_TriggersById.c(238,1): warning C4715: “computeLineWins_Defaults”: 不是所有的控件路径都返回值
   正在编译...
@@ -1107,4 +1109,43 @@ F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\s
   (编译源文件“../../source/main.c”)
   
   正在生成代码...
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_qs.c(1,1): error C1090: PDB API 调用失败，错误代码“3”: F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\build\vs\x64\Debug\vc143.pdb
+ideabase.lib(idea_coder.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(idea_coder.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(idea_comm.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(idea_comm.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(idea_pwd.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(idea_pwd.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(idea_player.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(idea_player.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_json.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_json.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_led.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_led.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_senv.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_senv.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_senv_manager.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_senv_manager.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_system_senv.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_system_senv.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_task.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_task.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_database.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_database.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_des_cbc.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_des_cbc.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_rand.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_rand.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_mem.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_mem.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_platform.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_platform.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_driver.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_driver.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_base64.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_base64.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_crc16.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_crc16.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_sha1.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_sha1.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_rsa.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_rsa.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_list.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_list.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_fifo.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_fifo.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_mm.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_mm.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_modules.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_modules.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_system.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_system.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_des.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_des.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(driver_led.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(driver_led.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(driver_iflash.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(driver_iflash.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(driver_fram.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(driver_fram.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(driver_timer.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(driver_timer.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(driver_serial.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(driver_serial.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_board.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_board.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_nn.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_nn.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_prime.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_prime.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_des_ecb.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_des_ecb.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_utility.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_utility.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+ideabase.lib(qs_algo.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(qs_algo.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+    正在创建库 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\idea.lib 和对象 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\idea.exp
+  idea.vcxproj -> F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\idea.exe

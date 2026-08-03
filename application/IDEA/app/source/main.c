@@ -94,7 +94,7 @@ int32_t main(int32_t argc, char *argv[])
 	//debugMode.resType = RT_Lose;
 	//debugMode.resType = RT_FreeWin;
 	//debugMode.resType = RT_BonusWin;
-    //debugMode.resType = RT_Jackpot;
+    debugMode.resType = RT_Jackpot;
     //debugMode.jpType = JT_Major;
     //debugMode.bonusType =0;
 	debugMode.mode = DCM_PointResData;
@@ -103,9 +103,9 @@ int32_t main(int32_t argc, char *argv[])
 
     // 设置当前区域+RTP档位（这里使用国内 99.2 档）。
     DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 9920);   // 可选：先固定区域并使用该区域默认基准
-    //DLL_SetDifficultyLevel(1); // 难度1  baseRTP:24.62  freeRTP:19.70  bonusRTP:4925  jackpotRTP:492
+    DLL_SetDifficultyLevel(1); // 难度1  baseRTP:24.62  freeRTP:19.70  bonusRTP:4925  jackpotRTP:492
     //DLL_SetDifficultyLevel(2); // 难度2  baseRTP:24.70  freeRTP:19.76  bonusRTP:4940  jackpotRTP:494
-    DLL_SetDifficultyLevel(3); // 难度3  baseRTP:24.80  freeRTP:19.84  bonusRTP:4960  jackpotRTP:496
+    //DLL_SetDifficultyLevel(3); // 难度3  baseRTP:24.80  freeRTP:19.84  bonusRTP:4960  jackpotRTP:496
     //DLL_SetDifficultyLevel(4); // 难度4  baseRTP:24.87  freeRTP:19.90  bonusRTP:4975  jackpotRTP:497
     //DLL_SetDifficultyLevel(5); // 难度5  baseRTP:24.95  freeRTP:19.96  bonusRTP:4990  jackpotRTP:499
     //设置免费/Bonus概率覆盖（-1 表示不覆盖，沿用档位默认）。
@@ -124,9 +124,9 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(3996))
+    if (DLL_GameSwitch(3998))
     {
-        gameId = 3996;
+        gameId = 3998;
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -147,7 +147,7 @@ int32_t main(int32_t argc, char *argv[])
     memset(giveBetVal, 0, sizeof(giveBetVal));
     for (int32_t i = 0; i < _TestMachineCount; ++i)
     {
-        testPlayers[i].Bet = 300;
+        testPlayers[i].Bet = 20;
     }
 
     int32_t ret = 0;
@@ -375,6 +375,14 @@ int32_t main(int32_t argc, char *argv[])
                 (long long)tableStats.freeRejectByPassRate,
                 (long long)tableStats.bonusRejectByPassRate,
                 (long long)tableStats.jackpotRejectByPassRate);
+            QS_LOG("\r\n");
+
+            QS_LOG("TableControlPools: basePool:%lld freePool:%lld bonusPool:%lld jackpotPool:%lld netJackpotPool:%lld\n",
+                (long long)TableControl_GetPool(0),
+                (long long)TableControl_GetPool(1),
+                (long long)TableControl_GetPool(2),
+                (long long)TableControl_GetPool(3),
+                (long long)TableControl_GetPool(4));
             QS_LOG("\r\n");
 
             QS_LOG("LotteryManager: totalPlayTime:%d totalPlay:%d totalDraw:%d frozenTime:%d scale:%d injectPermil:%d midBet:%d highBet:%d midInjectPermil:%d highInjectPermil:%d minPlayScoreToTrigger:%d minPlayGapAfterWin:%d playSinceLastWin:%d\n",

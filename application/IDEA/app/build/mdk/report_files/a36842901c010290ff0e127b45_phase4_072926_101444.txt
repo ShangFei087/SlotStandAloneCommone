@@ -1,0 +1,3 @@
+10:14:37 - Process with SCP packets from file:
+F:/Control/SlotStandAloneControl/cn/SlotStandAloneCommone/application/IDEA/app/build/mdk/scp_packets/packet.list
+10:15:41 - SUCCESSFULLY DONE
