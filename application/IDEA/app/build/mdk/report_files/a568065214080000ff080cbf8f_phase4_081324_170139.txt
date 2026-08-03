@@ -1,3 +1,0 @@
-17:00:48 - Process with SCP packets from file:
-E:/slotmath/QSoftUnitest/application/IDEA/app/build/mdk/scp_packets/packet.list
-17:02:08 - SUCCESSFULLY DONE

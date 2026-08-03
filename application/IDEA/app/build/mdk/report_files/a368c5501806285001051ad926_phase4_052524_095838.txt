@@ -1,3 +1,0 @@
-09:58:27 - Process with SCP packets from file:
-F:/common/QSoft-1.2/application/IDEA-Dragon/app/build/mdk/scp_packets/packet.list
-09:59:21 - SUCCESSFULLY DONE

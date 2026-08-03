@@ -1,1 +1,32 @@
+# IDE / Visual Studio
 .vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Keil / MDK local UI & options (keep *.uvproj)
+*.uvgui.*
+*.uvopt
+
+# Keil / MDK build outputs
+**/build/mdk/Objects/
+**/build/mdk/Listings/
+*.o
+*.crf
+*.d
+*.axf
+*.map
+*.htm
+*.dep
+*.lnp
+*.sct
+*.build_log.htm
+
+# SCP / debug download packets
+**/build/mdk/scp_packets.bin
+**/build/mdk/scp_packets.sbin
+**/build/mdk/scp_packets/
+
+# Test / MPC report outputs
+**/build/mdk/report_files/
