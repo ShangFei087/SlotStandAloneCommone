@@ -248,18 +248,6 @@
     <ClCompile Include="..\..\source\Control\LotteryManager.c">
       <Filter>源文件\source\Control\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3993.c">
-      <Filter>源文件\source\Control\GenerationResult</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3995.c">
-      <Filter>源文件\source\Control\GenerationResult</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3993.c">
-      <Filter>源文件\source\Control\Matrix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3995.c">
-      <Filter>源文件\source\Control\Matrix</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3997.c">
       <Filter>源文件\source\Control\GenerationResult</Filter>
     </ClCompile>
@@ -277,12 +265,6 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Control\TableControlPersistManager.c">
       <Filter>源文件\source\Control\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3994.c">
-      <Filter>源文件\source\Control\GenerationResult</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3994.c">
-      <Filter>源文件\source\Control\Matrix</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
