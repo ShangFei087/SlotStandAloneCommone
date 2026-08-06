@@ -268,11 +268,6 @@ void MatrixApplyTriggers_Default(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig
 }
 //--------------------------------------------解耦--------------------------------------------//
 void MatrixApplyTriggers_1700(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
-//--------------------------------------------财富类--------------------------------------------//
-void MatrixApplyTriggers_3999(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
-void MatrixApplyTriggers_3998(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
-void MatrixApplyTriggers_3997(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
-void MatrixApplyTriggers_3996(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
 //--------------------------------------------动物类--------------------------------------------//
 void MatrixApplyTriggers_3995(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
 void MatrixApplyTriggers_3994(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, uint32_t gameId, uint32_t* pLocalWinBet, RoundInfo_t* info);
@@ -327,30 +322,6 @@ void MatrixTriggerOps_t_InitDefaults(void)
 {
     memset(gReg, 0, sizeof(gReg));
     gRegCount = 0;
-
-    MatrixTriggerOps_t ops3999 = { 0 };
-    ops3999.applyTriggers = MatrixApplyTriggers_Default;
-    ops3999.checkOnLine = checkOnLine_Defaults;
-    ops3999.computeLineWin = computeLineWins_Defaults;
-    (void)MatrixTrigger_Register(3999, &ops3999);
-
-    MatrixTriggerOps_t ops3998 = { 0 };
-    ops3998.applyTriggers = MatrixApplyTriggers_3998;
-    ops3998.checkOnLine = checkOnLine_Defaults;
-    ops3998.computeLineWin = computeLineWins_Defaults;
-    (void)MatrixTrigger_Register(3998, &ops3998);
-
-    MatrixTriggerOps_t ops3997 = { 0 };
-    ops3997.applyTriggers = MatrixApplyTriggers_3997;
-    ops3997.checkOnLine = checkOnLine_Defaults;
-    ops3997.computeLineWin = computeLineWins_Defaults;
-    (void)MatrixTrigger_Register(3997, &ops3997);
-
-    MatrixTriggerOps_t ops3996 = { 0 };
-    ops3996.applyTriggers = MatrixApplyTriggers_3996;
-    ops3996.checkOnLine = checkOnLine_Defaults;
-    ops3996.computeLineWin = computeLineWins_Defaults;
-    (void)MatrixTrigger_Register(3996, &ops3996);
 
     MatrixTriggerOps_t ops3995 = { 0 };
     ops3995.applyTriggers = MatrixApplyTriggers_Default;

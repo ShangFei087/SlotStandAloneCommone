@@ -129,7 +129,7 @@ void GameResult_3994_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 {
 	uint8_t spinsLeft = 3;
 	uint8_t spinTime = 0;
-	uint8_t RewardRollTableId = 12;
+	uint8_t RewardRollTableId = 4;
 	uint8_t xingxingSymbol = 12; //猩猩下标
 	uint8_t bananaSymbol = 13;//香蕉下标
 	uint8_t xingxingSymbolNum = 0; //猩猩个数
@@ -142,7 +142,7 @@ void GameResult_3994_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 		{
 			--spinsLeft;//2 1 0
 
-			//随机大奖矩阵 inst->gameConfig.header.RewardRollTableId=12
+			//随机大奖矩阵 inst->gameConfig.header.RewardRollTableId=4
 			NatureAlg_GenRndMxu(RewardRollTableId, &mxu, inst->gameConfig.header.rowCount);
 			Matrix_u_copy(&info->pFreeMxu[spinTime], &mxu);
 			//随机猩猩神像图标		//30%可以得猩猩神像
@@ -189,7 +189,7 @@ void GameResult_3994_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_
 {
 	uint8_t spinsLeft = 3;
 	uint8_t spinTime = 0;
-	uint8_t RewardRollTableId = 12;
+	uint8_t RewardRollTableId = 4;
 	uint8_t xingxingSymbol = 12; //猩猩下标
 	uint8_t bananaSymbol = 13;//香蕉下标
 	uint8_t xingxingSymbolNum = 0; //猩猩个数
@@ -206,7 +206,7 @@ void GameResult_3994_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_
 		{
 			--spinsLeft;//2 1 0
 
-			//随机大奖矩阵 inst->gameConfig.header.RewardRollTableId=12
+			//随机大奖矩阵 inst->gameConfig.header.RewardRollTableId=4
 			NatureAlg_GenRndMxu(RewardRollTableId, &mxu, inst->gameConfig.header.rowCount);
 			Matrix_u_copy(&info->pFreeMxu[spinTime], &mxu);
 			//随机猩猩神像图标		//30%可以得猩猩神像

@@ -196,10 +196,6 @@
     <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3993.c" />
     <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3994.c" />
     <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3995.c" />
-    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3996.c" />
-    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3997.c" />
-    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3998.c" />
-    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3999.c" />
     <ClCompile Include="..\..\source\Control\Lottery.c" />
     <ClCompile Include="..\..\source\Control\LotteryManager.c" />
     <ClCompile Include="..\..\source\Control\LotteryPersistManager.c" />
@@ -207,10 +203,6 @@
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3993.c" />
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3994.c" />
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3995.c" />
-    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3996.c" />
-    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3997.c" />
-    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3998.c" />
-    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3999.c" />
     <ClCompile Include="..\..\source\Control\Matrix\Matrix_u_TriggersById.c" />
     <ClCompile Include="..\..\source\Control\NatureAlg.c" />
     <ClCompile Include="..\..\source\Control\RtpConfig.c" />

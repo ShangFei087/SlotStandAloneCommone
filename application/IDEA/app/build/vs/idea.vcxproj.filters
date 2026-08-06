@@ -209,12 +209,6 @@
     <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_1700.c">
       <Filter>源文件\source\Control\GenerationResult</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3998.c">
-      <Filter>源文件\source\Control\GenerationResult</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3999.c">
-      <Filter>源文件\source\Control\GenerationResult</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\Control\GenerationResult\GameResultRegistry.c">
       <Filter>源文件\source\Control\GenerationResult</Filter>
     </ClCompile>
@@ -222,12 +216,6 @@
       <Filter>源文件\source\Control\Matrix</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_1700.c">
-      <Filter>源文件\source\Control\Matrix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3998.c">
-      <Filter>源文件\source\Control\Matrix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3999.c">
       <Filter>源文件\source\Control\Matrix</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Control\RtpConfig.c">
@@ -258,18 +246,6 @@
       <Filter>源文件\source\Control\Matrix</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3995.c">
-      <Filter>源文件\source\Control\Matrix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3997.c">
-      <Filter>源文件\source\Control\GenerationResult</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3997.c">
-      <Filter>源文件\source\Control\Matrix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\GenerationResult\GameResult_3996.c">
-      <Filter>源文件\source\Control\GenerationResult</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3996.c">
       <Filter>源文件\source\Control\Matrix</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Control\LotteryPersistManager.c">

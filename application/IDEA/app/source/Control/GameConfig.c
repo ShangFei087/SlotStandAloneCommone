@@ -44,117 +44,9 @@ int8_t RegisterGameWithConfig(const int8_t* gameName, GameInstanceId_t gameId, c
 void GameConfigRegistry_InitDefaults()
 {
     SlotGameConfig_t tempConfig;
-    // gameId=3999: CaiFuZhiMen_3999
-    GameConfig_Init(&tempConfig);
-    tempConfig.header.id = 0;
-    tempConfig.header.enabled = 0;
-    tempConfig.header.gameMode = 0;
-    tempConfig.header.difficulty = 0;
-    tempConfig.header.minBet = 0;
-    tempConfig.header.maxBet = 0;
-    tempConfig.header.ChessTypeNum = 12;
-    tempConfig.header.ChessNorTypeNum = 9;
-    tempConfig.header.lineCount = 20;
-    tempConfig.header.colCount = 5;
-    tempConfig.header.rowCount = 3;
-    tempConfig.header.wheelChessNum = 15;
-    tempConfig.header.MaxIDNyn = 20;
-    tempConfig.header.freeGameMax = 12;
-    tempConfig.header.Wild = 9;
-    tempConfig.header.Scatter = 10;
-    tempConfig.header.Bonus = 11;
-    tempConfig.header.normalRollTableId = 0;
-    tempConfig.header.freeRollTableId = 1;
-    tempConfig.header.localJpMaxCount = 1;
-    if (!RegisterGameWithConfig("CaiFuZhiMen_3999", 3999, &tempConfig))
-    {
-        return 0;
-    }
-
-    // gameId=3998: XingYunZhiLun_3998
-    GameConfig_Init(&tempConfig);
-    tempConfig.header.id = 1;
-    tempConfig.header.enabled = 0;
-    tempConfig.header.gameMode = 0;
-    tempConfig.header.difficulty = 0;
-    tempConfig.header.minBet = 0;
-    tempConfig.header.maxBet = 0;
-    tempConfig.header.ChessTypeNum = 10;
-    tempConfig.header.ChessNorTypeNum = 8;
-    tempConfig.header.lineCount = 20;
-    tempConfig.header.colCount = 5;
-    tempConfig.header.rowCount = 3;
-    tempConfig.header.wheelChessNum = 15;
-    tempConfig.header.MaxIDNyn = 20;
-    tempConfig.header.freeGameMax = 6;
-    tempConfig.header.Wild = 8;
-    tempConfig.header.Bonus = 9;
-    tempConfig.header.Scatter = 10;
-    tempConfig.header.normalRollTableId = 2;
-    tempConfig.header.freeRollTableId = 3;
-    tempConfig.header.localJpMaxCount = 1;
-    if (!RegisterGameWithConfig("XingYunZhiLun_3998", 3998, &tempConfig))
-    {
-        return 0;
-    }
-
-    // gameId=3997: CaiFuZhiJia_3997
-    GameConfig_Init(&tempConfig);
-    tempConfig.header.id = 2;
-    tempConfig.header.enabled = 0;
-    tempConfig.header.gameMode = 0;
-    tempConfig.header.difficulty = 0;
-    tempConfig.header.minBet = 0;
-    tempConfig.header.maxBet = 0;
-    tempConfig.header.ChessTypeNum = 12;
-    tempConfig.header.ChessNorTypeNum = 9;
-    tempConfig.header.lineCount = 20;
-    tempConfig.header.colCount = 5;
-    tempConfig.header.rowCount = 3;
-    tempConfig.header.wheelChessNum = 15;
-    tempConfig.header.MaxIDNyn = 20;
-    tempConfig.header.freeGameMax = 10;
-    tempConfig.header.Wild = 9;
-    tempConfig.header.Scatter = 10;
-    tempConfig.header.Bonus = 11;
-    tempConfig.header.normalRollTableId = 4;
-    tempConfig.header.freeRollTableId = 5;
-    tempConfig.header.localJpMaxCount = 3;
-    if (!RegisterGameWithConfig("CaiFuZhiJia_3997", 3997, &tempConfig))
-    {
-        return 0;
-    }
-
-    // gameId=3996: CaiFuHuoChe_3996
-    GameConfig_Init(&tempConfig);
-    tempConfig.header.id = 3;
-    tempConfig.header.enabled = 0;
-    tempConfig.header.gameMode = 0;
-    tempConfig.header.difficulty = 0;
-    tempConfig.header.minBet = 0;
-    tempConfig.header.maxBet = 0;
-    tempConfig.header.ChessTypeNum = 12;
-    tempConfig.header.ChessNorTypeNum = 9;
-    tempConfig.header.lineCount = 30;
-    tempConfig.header.colCount = 5;
-    tempConfig.header.rowCount = 3;
-    tempConfig.header.wheelChessNum = 15;
-    tempConfig.header.MaxIDNyn = 30;
-    tempConfig.header.freeGameMax = 12;
-    tempConfig.header.Wild = 9;
-    tempConfig.header.Scatter = 10;
-    tempConfig.header.Bonus = 11;
-    tempConfig.header.normalRollTableId = 6;
-    tempConfig.header.freeRollTableId = 7;
-    tempConfig.header.localJpMaxCount = 3;
-    if (!RegisterGameWithConfig("CaiFuHuoChe_3996", 3996, &tempConfig))
-    {
-        return 0;
-    }
-
     // gameId=3995: HuoYanGongNiu_3995
     GameConfig_Init(&tempConfig);
-    tempConfig.header.id = 4;
+    tempConfig.header.id = 0;
     tempConfig.header.enabled = 0;
     tempConfig.header.gameMode = 0;
     tempConfig.header.difficulty = 0;
@@ -171,17 +63,17 @@ void GameConfigRegistry_InitDefaults()
     tempConfig.header.Wild = 11;
     tempConfig.header.Scatter = 12;
     tempConfig.header.Bonus = 13;
-    tempConfig.header.normalRollTableId = 8;
-    tempConfig.header.freeRollTableId = 9;
+    tempConfig.header.normalRollTableId = 0;
+    tempConfig.header.freeRollTableId = 1;
     tempConfig.header.localJpMaxCount = 1;
     if (!RegisterGameWithConfig("HuoYanGongNiu_3995", 3995, &tempConfig))
     {
         return 0;
     }
 
-	// gameId=3995: FeiZhouHeiXX_3994
+	// gameId=3994: FeiZhouHeiXX_3994
 	GameConfig_Init(&tempConfig);
-	tempConfig.header.id = 5;
+	tempConfig.header.id = 1;
 	tempConfig.header.enabled = 0;
 	tempConfig.header.gameMode = 0;
 	tempConfig.header.difficulty = 0;
@@ -198,8 +90,8 @@ void GameConfigRegistry_InitDefaults()
 	tempConfig.header.Wild = 9;
 	tempConfig.header.Scatter = 10;
 	tempConfig.header.Bonus = 11;
-	tempConfig.header.normalRollTableId = 10;
-    tempConfig.header.freeRollTableId = 11;
+	tempConfig.header.normalRollTableId = 2;
+    tempConfig.header.freeRollTableId = 3;
 	tempConfig.header.localJpMaxCount = 1;
 	if (!RegisterGameWithConfig("FeiZhouHeiXX_3994", 3994, &tempConfig))
 	{
@@ -208,7 +100,7 @@ void GameConfigRegistry_InitDefaults()
 
     // gameId=3993: MeiZhouHeiBao_3993
     GameConfig_Init(&tempConfig);
-    tempConfig.header.id = 6;
+    tempConfig.header.id = 2;
     tempConfig.header.enabled = 0;
     tempConfig.header.gameMode = 0;
     tempConfig.header.difficulty = 0;
@@ -225,12 +117,11 @@ void GameConfigRegistry_InitDefaults()
     tempConfig.header.Wild = 10;
     tempConfig.header.Scatter = 11;
     tempConfig.header.Bonus = 12;
-    tempConfig.header.normalRollTableId = 13;
-    tempConfig.header.freeRollTableId = 14;
+    tempConfig.header.normalRollTableId = 5;
+    tempConfig.header.freeRollTableId = 6;
     tempConfig.header.localJpMaxCount = 1;
     if (!RegisterGameWithConfig("MeiZhouHeiBao_3993", 3993, &tempConfig))
     {
         return 0;
     }
 }
-
