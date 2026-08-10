@@ -54,6 +54,13 @@ static void Bucket_Add(BucketStat* b, uint64_t bet, uint64_t win)
 	b->winSum += win;
 }
 
+/* Attribute win only (no round count / bet). Used for trigger-spin line wins. */
+static void Bucket_AddWinOnly(BucketStat* b, uint64_t win)
+{
+	if (b == NULL || win == 0) return;
+	b->winSum += win;
+}
+
 static void Bucket_Accum(BucketStat* dst, const BucketStat* src)
 {
 	if (dst == NULL || src == NULL) return;
@@ -114,6 +121,21 @@ static int32_t PickPrimaryJpType(const OutResult_t* outRes)
 	return bestType;
 }
 
+/* Line win on Free/Bonus/Jackpot trigger spins goes into Normal win (not round count). */
+static void AttributeTriggerMatrixToNormal(int32_t betValue, double invLine, const OutResult_t* outRes)
+{
+	double mul;
+	uint64_t win;
+	int32_t idx;
+
+	if (outRes == NULL || betValue <= 0 || outRes->nMatrixBet <= 0) return;
+
+	mul = (double)outRes->nMatrixBet * invLine;
+	win = (uint64_t)betValue * (uint64_t)outRes->nMatrixBet;
+	idx = PickNormalBucket(mul);
+	Bucket_AddWinOnly(&gNormal[idx], win);
+}
+
 void RtpBucketReport_OnRound(int32_t betValue, int32_t lineCount, const OutResult_t* outRes)
 {
 	uint64_t totalBet = 0;
@@ -143,6 +165,7 @@ void RtpBucketReport_OnRound(int32_t betValue, int32_t lineCount, const OutResul
 		uint64_t win = (uint64_t)betValue * (uint64_t)outRes->nBonusBet;
 		int32_t idx = PickBonusBucket(mul);
 		Bucket_Add(&gBonus[idx], totalBet, win);
+		AttributeTriggerMatrixToNormal(betValue, invLine, outRes);
 		break;
 	}
 	case RT_FreeWin:
@@ -151,6 +174,7 @@ void RtpBucketReport_OnRound(int32_t betValue, int32_t lineCount, const OutResul
 		uint64_t win = (uint64_t)betValue * (uint64_t)outRes->nTotalFreeBet;
 		int32_t idx = PickFreeBucket(mul);
 		Bucket_Add(&gFree[idx], totalBet, win);
+		AttributeTriggerMatrixToNormal(betValue, invLine, outRes);
 		break;
 	}
 	case RT_Jackpot:
@@ -159,6 +183,7 @@ void RtpBucketReport_OnRound(int32_t betValue, int32_t lineCount, const OutResul
 		uint64_t win = (uint64_t)outRes->nTotalJackpotBet;
 		if (jpType < JT_Major || jpType > JT_Mini) jpType = JT_Mini;
 		Bucket_Add(&gJackpot[jpType], totalBet, win);
+		AttributeTriggerMatrixToNormal(betValue, invLine, outRes);
 		break;
 	}
 	default:
