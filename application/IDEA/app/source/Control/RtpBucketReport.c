@@ -31,7 +31,7 @@ static const char* kBonusNames[BONUS_BUCKET_COUNT] = {
 	"<200x", "200-300x", "300-400x", "400-500x", "500-600x", ">600x"
 };
 static const char* kFreeNames[FREE_BUCKET_COUNT] = {
-	"<60x", "60-80x", "80-100x", "100-120x", "120-150x", ">150x"
+	"<50x", "50-80x", "80-100x", "100-120x", "120-150x", ">150x"
 };
 static const char* kJpNames[JP_BUCKET_COUNT] = {
 	"Major", "Minor", "Mini"
@@ -92,7 +92,7 @@ static int32_t PickBonusBucket(double mul)
 
 static int32_t PickFreeBucket(double mul)
 {
-	if (mul < 60.0) return 0;
+	if (mul < 50.0) return 0;
 	if (mul < 80.0) return 1;
 	if (mul < 100.0) return 2;
 	if (mul < 120.0) return 3;
