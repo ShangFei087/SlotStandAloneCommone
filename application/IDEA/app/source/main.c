@@ -106,7 +106,7 @@ int32_t main(int32_t argc, char *argv[])
     DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 9850);   // 可选：先固定区域并使用该区域默认基准
     //DLL_SetDifficultyLevel(1); // 难度1 总RTP:97.5  baseRTP:29.25  freeRTP:19.50  bonusRTP:4387  jackpotRTP:487
     //DLL_SetDifficultyLevel(2); // 难度2 总RTP:98.0  baseRTP:29.40  freeRTP:19.60  bonusRTP:4410  jackpotRTP:490
-    DLL_SetDifficultyLevel(3); // 难度3 总RTP:98.5  baseRTP:29.55  freeRTP:19.70  bonusRTP:4432  jackpotRTP:492
+    //DLL_SetDifficultyLevel(3); // 难度3 总RTP:98.5  baseRTP:29.55  freeRTP:19.70  bonusRTP:4432  jackpotRTP:492
     //DLL_SetDifficultyLevel(4); // 难度4 总RTP:99.0  baseRTP:29.70  freeRTP:19.80  bonusRTP:4455  jackpotRTP:495
     //DLL_SetDifficultyLevel(5); // 难度5 总RTP:99.5  baseRTP:29.85  freeRTP:19.90  bonusRTP:4477  jackpotRTP:497
     //设置免费/Bonus概率覆盖（-1 表示不覆盖，沿用档位默认）。

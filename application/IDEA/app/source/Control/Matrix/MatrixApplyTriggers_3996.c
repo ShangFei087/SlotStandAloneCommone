@@ -8,7 +8,7 @@ void MatrixApplyTriggers_3996(Matrix_u* pMatrix, SlotGameConfig_t* gameConfig, u
     uint8_t scatterCount = 0;
     uint8_t _bonusCount = 0;
 
-    for (uint8_t i = 0; i < gameConfig->header.lineCount; ++i)
+    for (uint8_t i = 0; i < gameConfig->header.wheelChessNum; ++i)
     {
         if (pMatrix->dataArray[i] == gameConfig->header.Scatter)
         {

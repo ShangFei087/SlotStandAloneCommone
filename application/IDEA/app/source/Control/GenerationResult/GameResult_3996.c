@@ -1,17 +1,6 @@
 #include "GameResultRegistry.h"
 #include "../Matrix/Matrix_u_TriggersById.h"
 
-/* 软强制概率（万分比）：1000=10%，2000=20%，10000=必出 */
-#define JP_SOFT_FORCE_PERMYRIAD_3996 500
-
-void GameResult_3996_Reward(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
-{
-	if (inst == NULL || mxu == NULL || matrixBet == NULL || idVec == NULL) return;
-
-	NatureAlg_GenRndMxu(15, mxu, inst->gameConfig.header.rowCount);
-	*matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
-}
-
 void GameResult_3996_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
 	int8_t haveBonus = 0;
@@ -22,39 +11,6 @@ void GameResult_3996_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u
 	}
 	/*  先正常随一局 */
 	GameResult_Generic_Normal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
-	return;
-
-	/*自然已经是彩金局：不处理 */
-	if (mxu->resultType == RT_Jackpot)
-	{
-		return;
-	}
-	
-	//调高滚轮表彩金概率
-	if (info == NULL || info->nJPCount <= 0)
-	{
-		GameResult_Generic_Normal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
-
-	}
-	else
-	{
-		GameResult_3996_Reward(info, inst, mxu, betVal, matrixBet, idVec, gameId);
-	}
-
-	
-	//软强制骰子未命中：保持自然盘面 */
-	//if (JP_SOFT_FORCE_PERMYRIAD_3996 < 10000 && JRandFrom(1, 10000) >(U32)JP_SOFT_FORCE_PERMYRIAD_3996)
-	//{
-	//	return;
-	//}
-	/// 补 Bonus 到至少 6 个，再结算一次 */
-	//haveBonus = Matrix_u_getTypeNum(mxu, inst->gameConfig, inst->gameConfig.header.Bonus);
-	//if (haveBonus < 6)
-	//{
-	//	needBonus = (uint8_t)(6 - haveBonus);
-	//	Matrix_u_insertBonus(mxu, inst->gameConfig, needBonus);
-	//}
-	//*matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 }
 
 void GameResult_3996_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId)
@@ -127,15 +83,15 @@ void GameResult_3996_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 				}
 			}
 
-			uint8_t scatterCount2 = Matrix_u_getTypeNum(&mxu, inst->gameConfig, inst->gameConfig.header.Scatter);
-			if (info->nFreeNum + scatterCount2 <= 20)
+			uint8_t addFree = Matrix_u_getTypeNum(&mxu, inst->gameConfig, inst->gameConfig.header.Scatter);
+			if (info->nFreeNum + addFree <= 20)
 			{
-				info->nFreeNum += scatterCount2;
+				info->nFreeNum += addFree;
 				break;
 			}
 			else
 			{
-				//补回matrixBet
+				// 超上限：丢弃本盘重抽（建议同时回滚 wildCount / FreeIDVec）
 				info->nFreeBet -= matrixBet;
 				info->FreeBetArray[index] = 0;
 			}
@@ -376,7 +332,7 @@ void GameResult_3996_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resTyp
 			pRes->matrix.idVecSize = Mxu->idVecSize;
 			for (uint8_t i = 0; i < Mxu->idVecSize; ++i)
 			{
-				pRes->IDVec[i] = info->FreeIDVec[0][i];
+				pRes->IDVec[i] = idVec[i];
 			}
 
 		}
@@ -407,7 +363,7 @@ void GameResult_3996_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resTyp
 			pRes->matrix.idVecSize = Mxu->idVecSize;
 			for (uint8_t i = 0; i < Mxu->idVecSize; ++i)
 			{
-				pRes->IDVec[i] = info->FreeIDVec[0][i];
+				pRes->IDVec[i] = idVec[i];
 			}
 		}
 		else
