@@ -10,6 +10,7 @@
 #include "LotteryManager.h"
 #include "Test.h"
 #include "GameManager.h"
+#include "RtpBucketReport.h"
 #include "../GameAlgo/common/JRand.h"
 
 
@@ -496,6 +497,7 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 		g_GameManager.debugInfo.dwFreeWinScore += (uint32_t)(betValue * outRes->nTotalFreeBet);
 		g_GameManager.debugInfo.dwBonusWinScore += (uint32_t)(betValue * outRes->nBonusBet);
 		g_GameManager.debugInfo.dwJackpotWinScore += (uint32_t)outRes->nTotalJackpotBet;
+		RtpBucketReport_OnRound(betValue, inst->gameConfig.header.lineCount, outRes);
 	}
 
 	//本地彩金

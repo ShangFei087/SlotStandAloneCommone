@@ -1,8 +1,8 @@
 ﻿  app.c
-  CommonStruct.c
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\qs\modules\lib\utility\qs_log.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/app.c”)
   
+  CommonStruct.c
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/Control/CommonStruct.c”)
@@ -89,6 +89,9 @@ F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\s
   (编译源文件“../../source/Control/Dll.c”)
   
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Lottery.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/Dll.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\RtpBucketReport.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/Control/Dll.c”)
   
   GameConfig.c
@@ -856,6 +859,22 @@ F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\s
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\RtpConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/Control/RtpConfig.c”)
   
+  RtpBucketReport.c
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\RtpBucketReport.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/RtpBucketReport.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\CommonStruct.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/RtpBucketReport.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\ComputerData.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/RtpBucketReport.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\qs\modules\lib\utility\qs_log.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/RtpBucketReport.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameConfig.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/Control/RtpBucketReport.c”)
+  
   TableControl.c
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\TableControl.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\TableControl.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -974,6 +993,9 @@ F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\s
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Test.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/idea_app.c”)
   
+  正在生成代码...
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Matrix\Matrix_u_TriggersById.c(238,1): warning C4715: “computeLineWins_Defaults”: 不是所有的控件路径都返回值
+  正在编译...
   idea_cmd.c
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\qs\modules\lib\utility\qs_log.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -1045,17 +1067,14 @@ F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\s
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(914,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(934,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(966,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(981,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(998,44): warning C4013: “DLL_SetDifficultyLevel”未定义；假设外部返回 int
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1002,5): warning C4013: “DLL_SetRtpPassOverride”未定义；假设外部返回 int
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1003,5): warning C4013: “DLL_SetJackpotPassOverride”未定义；假设外部返回 int
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1011,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1047,4): warning C4013: “DLL_OnJackpotOnlineWin”未定义；假设外部返回 int
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1059,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1120,4): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-  正在生成代码...
-F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\Matrix\Matrix_u_TriggersById.c(238,1): warning C4715: “computeLineWins_Defaults”: 不是所有的控件路径都返回值
-  正在编译...
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(983,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1000,44): warning C4013: “DLL_SetDifficultyLevel”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1006,5): warning C4013: “DLL_SetRtpPassOverride”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1007,5): warning C4013: “DLL_SetJackpotPassOverride”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1015,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1051,4): warning C4013: “DLL_OnJackpotOnlineWin”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1063,3): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\idea_cmd.c(1124,4): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
   idea_qs.c
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\qs\modules\lib\utility\qs_log.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/idea_qs.c”)
@@ -1107,6 +1126,18 @@ F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\s
 F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\GameRegistry.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   (编译源文件“../../source/main.c”)
   
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\Control\RtpBucketReport.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“../../source/main.c”)
+  
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(87,12): warning C4244: “函数”: 从“time_t”转换到“U32”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(109,5): warning C4013: “DLL_SetDifficultyLevel”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(199,13): warning C4013: “DLL_GetGameResultById”未定义；假设外部返回 int
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(88,29): warning C4244: “初始化”: 从“time_t”转换到“U32”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(88,45): warning C4244: “初始化”: 从“time_t”转换到“U32”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(88,61): warning C4244: “初始化”: 从“time_t”转换到“U32”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(88,77): warning C4244: “初始化”: 从“time_t”转换到“U32”，可能丢失数据
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(288,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\application\IDEA\app\source\main.c(333,9): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   正在生成代码...
 ideabase.lib(idea_coder.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(idea_coder.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样
 ideabase.lib(idea_comm.obj) : warning LNK4099: 未找到 PDB“ideabase.pdb”(使用“ideabase.lib(idea_comm.obj)”或在“F:\Control\SlotStandAloneControl\cn\SlotStandAloneCommone\x64\Debug\ideabase.pdb”中寻找)；正在链接对象，如同没有调试信息一样

@@ -34,6 +34,7 @@
 #include "GameAlgo/common/JRand.h"
 #include "Control/GameManager.h"
 #include "Control/GameRegistry.h"
+#include "Control/RtpBucketReport.h"
 /**************************************************************************
  *                   G E N E R A L    C O N S T A N T S                   *
  **************************************************************************/
@@ -103,11 +104,11 @@ int32_t main(int32_t argc, char *argv[])
 
     // 设置当前区域+RTP档位（这里使用国内 99.2 档）。
     DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 9920);   // 可选：先固定区域并使用该区域默认基准
-    DLL_SetDifficultyLevel(1); // 难度1  baseRTP:24.62  freeRTP:19.70  bonusRTP:4925  jackpotRTP:492
-    //DLL_SetDifficultyLevel(2); // 难度2  baseRTP:24.70  freeRTP:19.76  bonusRTP:4940  jackpotRTP:494
-    //DLL_SetDifficultyLevel(3); // 难度3  baseRTP:24.80  freeRTP:19.84  bonusRTP:4960  jackpotRTP:496
-    //DLL_SetDifficultyLevel(4); // 难度4  baseRTP:24.87  freeRTP:19.90  bonusRTP:4975  jackpotRTP:497
-    //DLL_SetDifficultyLevel(5); // 难度5  baseRTP:24.95  freeRTP:19.96  bonusRTP:4990  jackpotRTP:499
+    //DLL_SetDifficultyLevel(1); // 难度1 总RTP:97.5  baseRTP:29.25  freeRTP:19.50  bonusRTP:4387  jackpotRTP:487
+    //DLL_SetDifficultyLevel(2); // 难度2 总RTP:98.0  baseRTP:29.40  freeRTP:19.60  bonusRTP:4410  jackpotRTP:490
+    DLL_SetDifficultyLevel(3); // 难度3 总RTP:98.5  baseRTP:29.55  freeRTP:19.70  bonusRTP:4432  jackpotRTP:492
+    //DLL_SetDifficultyLevel(4); // 难度4 总RTP:99.0  baseRTP:29.70  freeRTP:19.80  bonusRTP:4455  jackpotRTP:495
+    //DLL_SetDifficultyLevel(5); // 难度5 总RTP:99.5  baseRTP:29.85  freeRTP:19.90  bonusRTP:4477  jackpotRTP:497
     //设置免费/Bonus概率覆盖（-1 表示不覆盖，沿用档位默认）。
     //DLL_SetRtpPassOverride(9920, 9920);// 99.2  
     //DLL_SetRtpPassOverride(9980, 9980);//99.8
@@ -134,6 +135,8 @@ int32_t main(int32_t argc, char *argv[])
         QS_LOG("init game failed\n");
         return -1;
     }
+
+    RtpBucketReport_Reset();
   
     // 本地压测机位：每个元素代表一台独立机子的账户状态（不依赖 PLAYER_NUM_MAX）。
     #define _TestMachineCount 1
@@ -270,6 +273,9 @@ int32_t main(int32_t argc, char *argv[])
         QS_LOG("MachineAvgRTP:%f\n", totalMachineRtp / _TestMachineCount);
        
     }
+
+    // 分桶 RTP 报表（输/普通/大奖/彩金/免费）
+    RtpBucketReport_Print();
 
     //汇总测试信息
     {

@@ -135,6 +135,9 @@
     <ClInclude Include="..\..\source\Control\RtpConfig.h">
       <Filter>源文件\source\Control\Config</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\Control\RtpBucketReport.h">
+      <Filter>源文件\source\Control\Config</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\source\Control\GameRegistry.h">
       <Filter>源文件\source\Control\Config</Filter>
     </ClInclude>
@@ -219,6 +222,9 @@
       <Filter>源文件\source\Control\Matrix</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Control\RtpConfig.c">
+      <Filter>源文件\source\Control\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\RtpBucketReport.c">
       <Filter>源文件\source\Control\Config</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\Control\GameRegistry.c">

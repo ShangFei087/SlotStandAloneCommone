@@ -5,7 +5,7 @@
 #define _AlgoVerMain 1  // 算法版本主段 xxx.xxx.xxx
 #define _AlgoVerSub  0
 #define _AlgoVerFix  26
-#define   _Release    // 定义后为发布版本；该宏仅允许在本文件中配置
+//#define   _Release    // 定义后为发布版本；该宏仅允许在本文件中配置
 
 #ifdef _Release
 //#define _ShowDebugInfo					// 显示算法调试信息
@@ -18,7 +18,7 @@
 #define _DebugInfoInterval  1000		// 每 10000 局显示RTP
 //#define _ExhibitionMode				// 展会模式：启用前端传入矩阵进行计算	
 //#define _IMHERE							// 临时调试标记位（调试完成后请移除）
-//#define _LocalDebug						// 本地调试
+#define _LocalDebug						// 本地调试
 //#define _WritePlayerData				// 写算法 Json 日志
 //#define _WritePlayerLog					// 写玩家日志
 #endif
