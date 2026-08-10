@@ -519,6 +519,11 @@
               <FilePath>..\..\source\Control\Dll.c</FilePath>
             </File>
             <File>
+              <FileName>RtpBucketReport.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\Control\RtpBucketReport.c</FilePath>
+            </File>
+            <File>
               <FileName>NatureAlg.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\source\Control\NatureAlg.c</FilePath>
