@@ -80,8 +80,8 @@ int32_t main(int32_t argc, char *argv[])
 	app_init();
 	qs_start();
 
- //测试
-#ifdef _LocalDebug
+ //测试 Treasury
+#ifdef _LocalDebug 
      //初始化随机种子
     //测试用时间作为种子，正式的时候种子需要另外处理
     JSrand(time(NULL));
@@ -103,7 +103,7 @@ int32_t main(int32_t argc, char *argv[])
     DLL_SetControlDebugMode(&debugMode);
 
     // 设置当前区域+RTP档位（这里使用国内 99.2 档）。
-    DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 9920);   // 可选：先固定区域并使用该区域默认基准
+    DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 9850);   // 可选：先固定区域并使用该区域默认基准
     //DLL_SetDifficultyLevel(1); // 难度1 总RTP:97.5  baseRTP:29.25  freeRTP:19.50  bonusRTP:4387  jackpotRTP:487
     //DLL_SetDifficultyLevel(2); // 难度2 总RTP:98.0  baseRTP:29.40  freeRTP:19.60  bonusRTP:4410  jackpotRTP:490
     DLL_SetDifficultyLevel(3); // 难度3 总RTP:98.5  baseRTP:29.55  freeRTP:19.70  bonusRTP:4432  jackpotRTP:492
@@ -364,7 +364,7 @@ int32_t main(int32_t argc, char *argv[])
                 (long long)tableStats.netJackpotOverBudgetCount);
             QS_LOG("\r\n");
 
-            QS_LOG("TableControlStatsReject: winPool:%lld freePool:%lld bonusPool:%lld jackpotPool:%lld freeRange:%lld freeRangeLow:%lld freeRangeHigh:%lld bonusRange:%lld bonusRangeLow:%lld bonusRangeHigh:%lld jackpotRange:%lld jackpotRangeLow:%lld jackpotRangeHigh:%lld freePassRate:%lld bonusPassRate:%lld jackpotPassRate:%lld\n",
+            QS_LOG("TableControlStatsReject: winRejecPool:%lld freeRejectPool:%lld bonusRejectPool:%lld jackpotRejectPool:%lld freeRange:%lld freeRangeLow:%lld freeRangeHigh:%lld bonusRange:%lld bonusRangeLow:%lld bonusRangeHigh:%lld jackpotRange:%lld jackpotRangeLow:%lld jackpotRangeHigh:%lld freePassRate:%lld bonusPassRate:%lld jackpotPassRate:%lld\n",
                 (long long)tableStats.winRejectByTargetPool,
                 (long long)tableStats.freeRejectByTargetPool,
                 (long long)tableStats.bonusRejectByTargetPool,

@@ -160,6 +160,7 @@
     <ClInclude Include="..\..\source\Control\LotteryPersistManager.h" />
     <ClInclude Include="..\..\source\Control\Matrix\Matrix_u_TriggersById.h" />
     <ClInclude Include="..\..\source\Control\NatureAlg.h" />
+    <ClInclude Include="..\..\source\Control\RtpBucketReport.h" />
     <ClInclude Include="..\..\source\Control\RtpConfig.h" />
     <ClInclude Include="..\..\source\Control\TableControl.h" />
     <ClInclude Include="..\..\source\Control\TableControlPersistManager.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="..\..\source\Control\Matrix\MatrixApplyTriggers_3999.c" />
     <ClCompile Include="..\..\source\Control\Matrix\Matrix_u_TriggersById.c" />
     <ClCompile Include="..\..\source\Control\NatureAlg.c" />
+    <ClCompile Include="..\..\source\Control\RtpBucketReport.c" />
     <ClCompile Include="..\..\source\Control\RtpConfig.c" />
     <ClCompile Include="..\..\source\Control\TableControl.c" />
     <ClCompile Include="..\..\source\Control\TableControlPersistManager.c" />

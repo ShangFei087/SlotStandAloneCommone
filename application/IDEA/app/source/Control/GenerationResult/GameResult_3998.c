@@ -48,8 +48,8 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 	info->nBonusBet = 0;
 	info->nBonusIDVecSize = 0;
 	uint32_t randNum = 0;
-	uint8_t bonusMulpitly = 0;
-	uint16_t bonusMulpitlyArray[4] = { 200,300,400,500 };
+	uint16_t bonusMulpitly = 0;
+	uint16_t bonusMulpitlyArray[4] = { 300,400,500,600 };
 
 	// 随机大奖
 	randNum = JRandFrom(0, 10000);
@@ -194,8 +194,8 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 				{
 					// 乘数游戏
 					info->nBonusType = 2;
-					uint8_t WheelArray[3][4] = { { 70, 80, 90, 100 } ,{100,120,140,160},{180,200,220,240} };
-					uint8_t WheelMulptiy = WheelArray[bonusCount - 3][JRandFrom(0, 3)];
+					uint16_t WheelArray[3][4] = { { 140,160,180,200 } ,{160,180,200,220},{180,200,220,240} };
+					uint16_t WheelMulptiy = WheelArray[bonusCount - 3][JRandFrom(0, 3)];
 					info->BlindSymbol = WheelMulptiy; //代替一下
 					info->nBonusBet = WheelMulptiy * inst->gameConfig.header.lineCount * bonusCount;
 					info->nBonusIDVecSize = 0;
@@ -218,7 +218,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 #endif // _DebugControlMode
 
 	// Wild 游戏功能
-	if (randNum < 3000)
+	if (randNum < 1000)
 	{
 	
 		info->nBonusType = 0;
@@ -258,7 +258,7 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 	else
 	{
 		// 神秘游戏
-		if (randNum < 6000)
+		if (randNum < 2000)
 		{
 			info->nBonusType = 1;
 			uint8_t  BlindSymbol = JRandFrom(5, 7);
@@ -318,11 +318,11 @@ void GameResult_3998_GenBonus(RoundInfo_t* info,int32_t betVal,GameInstance_t* i
 		else
 		{
 			// 乘数游戏
-			if (randNum < 9000)
+			if (randNum < 6000)
 			{
 				info->nBonusType = 2;
-				uint8_t WheelArray[3][4] = { { 70, 80, 90, 100 } ,{100,120,140,160},{180,200,220,240} };
-				uint8_t WheelMulptiy = WheelArray[bonusCount - 3][JRandFrom(0, 3)];
+				uint16_t WheelArray[3][4] = { { 140,160,180,200 } ,{160,180,200,220},{180,200,220,240} };
+				uint16_t WheelMulptiy = WheelArray[bonusCount - 3][JRandFrom(0, 3)];
 				info->nBonusBet = WheelMulptiy * inst->gameConfig.header.lineCount * bonusCount;
 				info->BlindSymbol = WheelMulptiy; //代替一下
 				info->nBonusIDVecSize = 0;

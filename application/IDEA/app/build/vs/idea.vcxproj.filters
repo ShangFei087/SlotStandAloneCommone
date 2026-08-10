@@ -156,6 +156,9 @@
     <ClInclude Include="..\..\source\Control\TableControlPersistManager.h">
       <Filter>源文件\source\Control\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\Control\RtpBucketReport.h">
+      <Filter>源文件\source\Control\Config</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\app.c">
@@ -265,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Control\TableControlPersistManager.c">
       <Filter>源文件\source\Control\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Control\RtpBucketReport.c">
+      <Filter>源文件\source\Control\Config</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
