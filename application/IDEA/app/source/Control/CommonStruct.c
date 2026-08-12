@@ -461,7 +461,9 @@ void RoundInfo_t_Init(RoundInfo_t* obj) {
         for (int8_t j = 0; j < GE_WheelChessMaxNum; j++) {
             obj->WildPosArray[i][j] = 0;
         }
-        // NOTE: LooseMxus 在 RoundInfo_t 中已移除/不再使用
+       
+
+        obj->nGoldBullCount[i] = 0;
     }
 
     // 初始化彩金数据
@@ -513,7 +515,7 @@ void RoundInfo_t_Reset(RoundInfo_t* obj) {
         for (int32_t j = 0; j < GE_WheelChessMaxNum; j++) {
             obj->WildPosArray[i][j] = 0;
         }
-        // NOTE: LooseMxus 在 RoundInfo_t 中已移除/不再使用
+        obj->nGoldBullCount[i] = 0;
     }
 
     // 重置彩金数据
@@ -557,7 +559,7 @@ void RoundInfo_t_ResetexceptJp(RoundInfo_t* obj)
         for (int32_t j = 0; j < GE_WheelChessMaxNum; j++) {
             obj->WildPosArray[i][j] = 0;
         }
-        // NOTE: LooseMxus 在 RoundInfo_t 中已移除/不再使用
+        obj->nGoldBullCount[i] = 0;
     }
 
     // 重置彩金数据
@@ -609,7 +611,7 @@ void RoundInfo_t_Copy(RoundInfo_t* dest, const RoundInfo_t* src) {
         for (int32_t j = 0; j < GE_WheelChessMaxNum; j++) {
             dest->WildPosArray[i][j] = src->WildPosArray[i][j];
         }
-        // NOTE: LooseMxus 在 RoundInfo_t 中已移除/不再使用
+        dest->nGoldBullCount[i] = src->nGoldBullCount[i];
     }
   
     // 拷贝彩金数据
@@ -681,7 +683,7 @@ void OutResult_Init(OutResult_t* pResult)
     pResult->nBonusType = 0;            // Bonus 类型
     pResult->BlindSymbol = 0;           // 神秘图标/乘数
     pResult->nBonusIDVecSize = 0;
-
+    pResult->nGoldBullCount = 0;
     // 初始化矩阵
     Matrix_u_reset(&pResult->matrix);
 
@@ -744,7 +746,7 @@ void OutResult_reset(OutResult_t* pResult)
     pResult->nBonusType = 0;
     pResult->BlindSymbol = 0;            // 神秘图标/乘数
     pResult->nBonusIDVecSize = 0;
-
+    pResult->nGoldBullCount = 0;
     // 重置矩阵
     Matrix_u_reset(&pResult->matrix);
 

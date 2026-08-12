@@ -52,12 +52,12 @@ void GameConfigRegistry_InitDefaults()
     tempConfig.header.difficulty = 0;
     tempConfig.header.minBet = 0;
     tempConfig.header.maxBet = 0;
-    tempConfig.header.ChessTypeNum = 14;
+    tempConfig.header.ChessTypeNum = 15;
     tempConfig.header.ChessNorTypeNum = 11;
     tempConfig.header.lineCount = 50;
     tempConfig.header.colCount = 5;
-    tempConfig.header.rowCount = 4;
-    tempConfig.header.wheelChessNum = 20;
+    tempConfig.header.rowCount = 3;
+    tempConfig.header.wheelChessNum = 15;
     tempConfig.header.MaxIDNyn = 50;
     tempConfig.header.freeGameMax = 20;
     tempConfig.header.Wild = 11;
@@ -65,7 +65,7 @@ void GameConfigRegistry_InitDefaults()
     tempConfig.header.Bonus = 13;
     tempConfig.header.normalRollTableId = 0;
     tempConfig.header.freeRollTableId = 1;
-    tempConfig.header.localJpMaxCount = 1;
+    tempConfig.header.localJpMaxCount = 3;
     if (!RegisterGameWithConfig("HuoYanGongNiu_3995", 3995, &tempConfig))
     {
         return 0;

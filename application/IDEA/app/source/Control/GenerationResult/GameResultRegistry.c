@@ -471,6 +471,7 @@ void GameResult_3995_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 void GameResult_3995_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* jackpotMxu, GameInstanceId_t gameId);
 void GameResult_3995_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId);
 void GameResult_3995_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec);
+void GameResult_3995_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx);
 int8_t* GameResult_3995_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst);
 void GameResult_3995_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 //非洲黑猩猩 3394
@@ -551,7 +552,7 @@ void GameResultRegistry_InitDefaults(void)
 	ops3995.genJackpot = GameResult_3995_GenJackpot;
 	ops3995.genLose = GameResult_3995_GenLose;
 	ops3995.applyRound = GameResult_3995_ApplyMatrixToOutResByRound;
-	ops3995.applyFree = GameResult_Generic_ApplyMatrixToOutResForFree;
+	ops3995.applyFree = GameResult_3995_ApplyMatrixToOutResForFree;
 	ops3995.outResJson = GameResult_3995_OutResToJsonn;
 	ops3995.outResSenv = GameResult_3995_OutResToSenv;
 	(void)GameResultRegistry_Register(3995, &ops3995);

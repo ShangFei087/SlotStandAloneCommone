@@ -75,6 +75,7 @@ typedef struct {
 	uint8_t nFreeNum;
 	uint32_t nFreeBet;
 	//Matrix_u LooseMxus[GE_MaxFreeNum];
+	uint16_t nGoldBullCount[GE_MaxFreeNum];			// 金牛图标数量
 	int8_t WildPosArray[GE_MaxFreeNum][GE_WheelChessMaxNum];
 	// Bonus 结果
 	uint32_t nBonusBet;
@@ -133,7 +134,7 @@ typedef struct {
 	uint8_t nTotalFreeTime;                 // 免费局次数（预留）
 	int32_t FreeBetArray[GE_MaxFreeNum];
 	int8_t WildPosArray[GE_WheelChessMaxNum];
-
+	uint16_t nGoldBullCount;			// 金牛图标数量
 	/* 当 resType 为 RT_BonusWin 时，下列字段生效 */
 	int32_t nBonusBet;
 	uint8_t BlindSymbol;                   // 盲符号/转轮等级

@@ -324,7 +324,7 @@ void MatrixTriggerOps_t_InitDefaults(void)
     gRegCount = 0;
 
     MatrixTriggerOps_t ops3995 = { 0 };
-    ops3995.applyTriggers = MatrixApplyTriggers_Default;
+    ops3995.applyTriggers = MatrixApplyTriggers_3995;
     ops3995.checkOnLine = checkOnLine_Defaults;
     ops3995.computeLineWin = computeLineWins_Defaults;
     (void)MatrixTrigger_Register(3995, &ops3995);
