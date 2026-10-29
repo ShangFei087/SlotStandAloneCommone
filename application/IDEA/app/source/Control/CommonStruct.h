@@ -80,7 +80,7 @@ typedef struct {
 	// Bonus 结果
 	uint32_t nBonusBet;
 	int8_t nBonusType;
-	int8_t BlindSymbol; // 盲符号/转轮等级
+	int8_t BlindSymbol;  //3993如果为1则标识普通游戏特殊奖
 	uint16_t BonusData[GE_WheelChessMaxNum];
 	uint8_t nBonusIDVecSize;                // 变化后盘中奖线数量（Wild/神秘，存于 FreeIDVec[0]）
 

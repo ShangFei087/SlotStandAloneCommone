@@ -73,7 +73,6 @@ void GameResult_3995_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 {
 	int32_t pos = 0;
 	uint8_t wheelChessNum = inst->gameConfig.header.wheelChessNum;
-
 	res[pos++] = (int32_t)gameId;						// ret
 	res[pos++] = (int32_t)outRes->openType;				// OpenType
 	res[pos++] = (int32_t)outRes->resType;				// ResultType
@@ -90,17 +89,23 @@ void GameResult_3995_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 	{
 		res[pos++] = outRes->matrix.dataArray[i];
 	}
+	//WildData
+	for (int32_t i = 0; i < wheelChessNum; i++)
+	{
+		res[pos++] = outRes->WildPosArray[i];
+	}
 
 	if (outRes->resType == RT_FreeWin)
 	{
 		res[pos++] = outRes->nTotalFreeTime;					// nTotalFreeTime
 		res[pos++] = outRes->nTotalFreeBet;					// nTotalFreeBet
+		res[pos++] = outRes->BlindSymbol;					//转盘次数			
 		//FreeBetArray
 		for (int32_t i = 0; i < outRes->nTotalFreeTime; i++)
 		{
 			res[pos++] = outRes->FreeBetArray[i];
 		}
-		//WildData
+		//WheelData（转盘下标，长度=BlindSymbol）
 		for (int32_t i = 0; i < outRes->BlindSymbol; i++)
 		{
 			res[pos++] = outRes->BonusData[i];
@@ -109,19 +114,34 @@ void GameResult_3995_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 
 	if (outRes->openType == OT_Give)
 	{
-
+		res[pos++] = outRes->nGoldBullCount;   //金牛图标
 	}
 
 	if (outRes->resType == RT_BonusWin)
 	{
-		res[pos++] = outRes->nBonusBet;						// nBonusBet
-		res[pos++] = outRes->nBonusType;						// nBonusType
+		res[pos++] = outRes->nBonusBet;							// nBonusBet
 		for (int32_t i = 0; i < wheelChessNum; i++)
 		{
 			res[pos++] = outRes->BonusData[i];
 		}
 	}
 
-	//res[pos++] = outRes->nJPBet;				// nJPBet
-	//res[pos++] = outRes->nJPType;				// nJPType
+	if (outRes->resType == RT_Jackpot)
+	{
+		res[pos++] = outRes->nBonusBet;
+		for (int32_t i = 0; i < wheelChessNum; i++)
+		{
+			res[pos++] = outRes->BonusData[i];
+		}
+		res[pos++] = outRes->nJPCount;
+		for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+		{
+			res[pos++] = outRes->JPTypeArray[i];
+		}
+		for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+		{
+			res[pos++] = outRes->JPBetArray[i];
+		}
+		res[pos++] = outRes->nTotalJackpotBet;
+	}
 }

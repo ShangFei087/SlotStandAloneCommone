@@ -34,7 +34,6 @@ void AssignWildMul_3995(Matrix_u* mxu, GameInstance_t* inst, int8_t* wildRow)
 
 void GameResult_3995_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
-	(void)betVal;
 	if (inst == NULL || mxu == NULL || matrixBet == NULL || idVec == NULL)
 		return;
 	MatrixTriggerOps_t* ops = MatrixTriggerOps_t_Get(gameId);
@@ -88,8 +87,6 @@ void GameResult_3995_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 	int8_t randNum = 0;
 	int32_t WheelData = 0;
 	int8_t DataKind = 0;
-	// 若 betVal 已是总押注，改为：int32_t totalbetBase = betVal;
-	int32_t totalbetBase = betVal * (int32_t)inst->gameConfig.header.lineCount;
 	// —— 转盘 ——
 	while (turnTime < 5)
 	{
@@ -114,7 +111,7 @@ void GameResult_3995_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 		}
 		else if (DataKind == 2)
 		{
-			info->nFreeBet += (WheelData % 20000) * totalbetBase;
+			info->nFreeBet += (WheelData % 20000) * (int32_t)inst->gameConfig.header.lineCount;
 		}
 		else if (DataKind == 1)
 		{
@@ -175,9 +172,6 @@ void GameResult_3995_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 // 奖励/彩金结果生成
 void GameResult_3995_GenBonus(RoundInfo_t * info, int32_t betVal, GameInstance_t * inst, Matrix_u * bonusMxu, GameInstanceId_t gameId)
 {
-	(void)betVal;
-	(void)bonusMxu;
-	(void)gameId;
 	if (info == NULL) return;
 	int dataArray[GE_WheelChess3x5Num] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
 	uint8_t PosVec[GE_WheelChess3x5Num];
@@ -448,13 +442,14 @@ int8_t* GameResult_3995_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 
 	wildStr = ByteArrayToString(outRes->WildPosArray, curwheelChessNum);
 	append_format(strRes, 2048, &used, "\"WildData\":%s,", wildStr ? (const char*)wildStr : "[]");
+	free(wildStr);
 
 	if (outRes->openType == OT_Give)
 	{
 		append_format(strRes, 2048, &used, "\"GoldBullCount\":%d,", outRes->nGoldBullCount);
 	}
 
-	free(wildStr);
+
 	if (outRes->resType == RT_BonusWin)
 	{
 		append_format(strRes, 2048, &used, "\"BonusType\":%d,", outRes->nBonusType);
@@ -463,8 +458,8 @@ int8_t* GameResult_3995_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 		append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
 		free(bonusStr);
 	}
-	// JP 奖金/积分（仅当有 JP 投注时输出）
-	if (outRes->nJPCount > 0)
+
+	if (outRes->resType == RT_Jackpot)
 	{
 		int8_t* jpTypeStr = ByteArrayToString((int8_t*)outRes->JPTypeArray, (int8_t)outRes->nJPCount);
 		int8_t* jpBetStr = ArrayToString((int32_t*)outRes->JPBetArray, outRes->nJPCount, 1);
@@ -472,9 +467,14 @@ int8_t* GameResult_3995_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 		append_format(strRes, 2048, &used, "\"JPTypeArray\":%s,", jpTypeStr ? (const char*)jpTypeStr : "[]");
 		append_format(strRes, 2048, &used, "\"JPBetArray\":%s,", jpBetStr ? (const char*)jpBetStr : "[]");
 		append_format(strRes, 2048, &used, "\"TotalJackpotBet\":%d,", outRes->nTotalJackpotBet);
+		append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
+		bonusStr = ArrayU16ToString(outRes->BonusData, curwheelChessNum, 1);
+		append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
+		free(bonusStr);
 		free(jpTypeStr);
 		free(jpBetStr);
 	}
+
 	append_format(strRes, 2048, &used, "\"TotalBet\":%d", outRes->nMatrixBet);
 	append_format(strRes, 2048, &used, "}");
 	free(idVecStr);

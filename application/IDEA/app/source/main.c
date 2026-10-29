@@ -80,7 +80,7 @@ int32_t main(int32_t argc, char *argv[])
 	app_init();
 	qs_start();
 
- //测试
+ //测试 SlotStandAloneSavage
 #ifdef _LocalDebug
      //初始化随机种子
     //测试用时间作为种子，正式的时候种子需要另外处理
@@ -94,16 +94,16 @@ int32_t main(int32_t argc, char *argv[])
 	//debugMode.resType = RT_Win;
 	//debugMode.resType = RT_Lose;
 	//debugMode.resType = RT_FreeWin;
-	//debugMode.resType = RT_BonusWin;
-    debugMode.resType = RT_Jackpot;
-    //debugMode.jpType = JT_Major;
+	debugMode.resType = RT_BonusWin;
+    //debugMode.resType = RT_Jackpot;
+    //debugMode.jpType = JT_Mini;
     //debugMode.bonusType =0;
 	debugMode.mode = DCM_PointResData;
-    debugMode.mode = DCM_Normal;
+    //debugMode.mode = DCM_Normal;
     DLL_SetControlDebugMode(&debugMode);
 
     // 设置当前区域+RTP档位（这里使用国内 99.2 档）。
-    DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 9920);   // 可选：先固定区域并使用该区域默认基准
+    DLL_SetRtpDifficulty(RTP_REGION_DOMESTIC, 9850);   // 可选：先固定区域并使用该区域默认基准
     //DLL_SetDifficultyLevel(1); // 难度1 总RTP:97.5  baseRTP:29.25  freeRTP:19.50  bonusRTP:4387  jackpotRTP:487
     //DLL_SetDifficultyLevel(2); // 难度2 总RTP:98.0  baseRTP:29.40  freeRTP:19.60  bonusRTP:4410  jackpotRTP:490
     DLL_SetDifficultyLevel(3); // 难度3 总RTP:98.5  baseRTP:29.55  freeRTP:19.70  bonusRTP:4432  jackpotRTP:492
@@ -125,9 +125,9 @@ int32_t main(int32_t argc, char *argv[])
     OutResult_Init(&outres);
     uint32_t totalTime = 0; // 每台机子的总玩次数
 	//切换游戏
-    if (DLL_GameSwitch(3998))
+    if (DLL_GameSwitch(3994))
     {
-        gameId = 3998;
+        gameId = 3994;
     }
 
     if (gameId == GAME_ID_INVALID) 
@@ -150,7 +150,7 @@ int32_t main(int32_t argc, char *argv[])
     memset(giveBetVal, 0, sizeof(giveBetVal));
     for (int32_t i = 0; i < _TestMachineCount; ++i)
     {
-        testPlayers[i].Bet = 20;
+        testPlayers[i].Bet = 25;
     }
 
     int32_t ret = 0;
@@ -224,7 +224,7 @@ int32_t main(int32_t argc, char *argv[])
             int32_t res[150] = { 0 }; //250个以下的int32_t
             //输出游戏结果到Senv
             DLL_OutResToSenvById(&outres, res, gameId);
-            //QS_LOG("\n", res);
+            QS_LOG("%d\n", res);
         }
 
         // 每10000局输出一次10台机子的实时RTP

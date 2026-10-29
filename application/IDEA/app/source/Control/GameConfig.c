@@ -92,7 +92,7 @@ void GameConfigRegistry_InitDefaults()
 	tempConfig.header.Bonus = 11;
 	tempConfig.header.normalRollTableId = 2;
     tempConfig.header.freeRollTableId = 3;
-	tempConfig.header.localJpMaxCount = 1;
+	tempConfig.header.localJpMaxCount = 3;
 	if (!RegisterGameWithConfig("FeiZhouHeiXX_3994", 3994, &tempConfig))
 	{
 		return 0;
@@ -119,7 +119,7 @@ void GameConfigRegistry_InitDefaults()
     tempConfig.header.Bonus = 12;
     tempConfig.header.normalRollTableId = 5;
     tempConfig.header.freeRollTableId = 6;
-    tempConfig.header.localJpMaxCount = 1;
+    tempConfig.header.localJpMaxCount = 3;
     if (!RegisterGameWithConfig("MeiZhouHeiBao_3993", 3993, &tempConfig))
     {
         return 0;

@@ -23,31 +23,38 @@
 -WildData：wild图标携带的倍数
 
 【Bonus游戏】
-{"OpenType":0,"ResultType":3,"IDVec":[],"Matrix":[12,9,6,12,4,3,12,1,12,7,5,12,8,0,12],"BonusType":0,"BonusData":[500,0,0,750,0,0,1000,0,650,0,0,800,0,0,1200],"BonusBet":4900,"TotalBet":0}
--BonusType：3993固定为0
+{"OpenType":0,"ResultType":3,"IDVec":[],"Matrix":[12,9,6,12,4,3,12,1,12,7,5,12,8,0,12],"BonusData":[500,0,0,750,0,0,1000,0,650,0,0,800,0,0,1200],"BonusBet":4900,"TotalBet":0}
 -BonusData：每个格子对应的Bonus得分
 -BonusBet：Bonus总赔率（BonusData求和）
 
+【彩金游戏】
+{"OpenType":0,"ResultType":4,"IDVec":[],"Matrix":[12,5,12,0,12,6,0,6,2,6,12,3,12,2,12],"JPCount":1,"JPTypeArray":[1],"JPBetArray":[901],"TotalJackpotBet":901,"BonusBet":5550,"BonusData":[1300,1550,1525,1325,1425,1725,4001,1475,0,1375,1325,0,1675,1450,1400],"TotalBet":0}
+
+-JPCount：中本地彩金数量
+-JPTypeArray：彩金类型数组
+-JPBetArray：彩金得分数组
+
 //赔率
 int gBetArray[GE_13][4] = {
-	{0, 10, 20, 80},   //0
-	{0, 10, 25, 90},   //1
-	{0, 15, 30, 100},  //2
-	{0, 15, 35, 120},  //3
-	{0, 20, 40, 150},  //4
-	{0, 20, 45, 180},  //5
-	{0, 25, 50, 220},  //6
-	{0, 25, 60, 260},  //7
-	{0, 30, 80, 320},  //8
-	{0, 40, 120, 500}, //9(黑豹)
-	{0, 0, 0, 0},      //10(Wild)
-	{0, 0, 0, 0},      //11(Scatter)
-	{0, 0, 0, 0},      //12(Bonus)
+	{0, 3, 10, 25},//0 10
+	{0, 4, 15, 30},//1 J
+	{0, 5, 15, 40},//2 Q
+	{0, 5, 15, 50},//3 K
+	{0, 5, 20, 70},//4 A
+	{0, 7, 25, 100},//5 蛇
+	{0, 7, 25, 100},//6 鸟
+	{0, 7, 30, 150},//7 猴子
+	{0, 7, 30, 150},//8 鳄鱼
+	{0, 10, 50, 250},//9 黑豹
+	{0, 0, 0, 0},    //10 wild
+	{0, 0, 0, 0},    //11 scatter
+	{0, 0, 0, 0},    //12 bonus
 };
 
 	CT_Wild = 10,				//万能牌
 	CT_Scater = 11,				//3个或以上触发免费游戏
 	CT_Bonus = 12,				//6个或以上触发Bonus游戏
+
 
 void GameResult_3993_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId)
 {
@@ -84,6 +91,7 @@ void GameResult_3993_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 
 	if (outRes->openType == OT_Give)
 	{
+		res[pos++] = outRes->nGoldBullCount;					// 免费收集黑豹数量
 		//WildPosArray
 		for (int32_t i = 0; i < wheelChessNum; i++)
 		{
@@ -94,13 +102,28 @@ void GameResult_3993_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 	if (outRes->resType == RT_BonusWin)
 	{
 		res[pos++] = outRes->nBonusBet;						// nBonusBet
-		res[pos++] = outRes->nBonusType;						// nBonusType
 		for (int32_t i = 0; i < wheelChessNum; i++)
 		{
 			res[pos++] = outRes->BonusData[i];
 		}
 	}
 
-	//res[pos++] = outRes->nJPBet;				// nJPBet
-	//res[pos++] = outRes->nJPType;				// nJPType
+	if (outRes->resType == RT_Jackpot)
+	{
+		res[pos++] = outRes->nBonusBet;
+		for (int32_t i = 0; i < wheelChessNum; i++)
+		{
+			res[pos++] = outRes->BonusData[i];
+		}
+		res[pos++] = outRes->nJPCount;
+		for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+		{
+			res[pos++] = outRes->JPTypeArray[i];
+		}
+		for (int32_t i = 0; i < GAME_Local_JP_MAX; ++i)
+		{
+			res[pos++] = outRes->JPBetArray[i];
+		}
+		res[pos++] = outRes->nTotalJackpotBet;
+	}
 }

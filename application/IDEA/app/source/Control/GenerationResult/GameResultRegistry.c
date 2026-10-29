@@ -55,26 +55,7 @@ void GenerationResult_GenerateNormal(RoundInfo_t* info, GameInstance_t* inst, Ma
 	break;
 	}
 }
-//调试模式生成免费结果
-void GenerationResult_GenerateFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId)
-{
-	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
-	if (ops == NULL || ops->genFree == NULL) return;
-	ops->genFree(info, betVal, inst, freeMxu, gameId);
-}
-//调试模式生成大奖结果
-void GenerationResult_GenerateBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId)
-{
-	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
-	if (ops == NULL || ops->genBonus == NULL) return;
-	ops->genBonus(info, betVal, inst, bonusMxu, gameId);
-}
-void GenerationResult_GenerateJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId)
-{
-	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
-	if (ops == NULL || ops->genJackpot == NULL) return;
-	ops->genJackpot(info, betVal, inst, bonusMxu, gameId);
-}
+
 //输
 void GenerationResult_GenerateLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId)
 {
@@ -82,6 +63,29 @@ void GenerationResult_GenerateLose(GameInstance_t* inst, Matrix_u* loseMxu, uint
 	if (ops == NULL || ops->genLose == NULL) return;
 	ops->genLose(inst, loseMxu, idVec, gameId);
 }
+//展会模式生成免费结果
+void GenerationResult_GenerateFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId)
+{
+	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
+	if (ops == NULL || ops->genFree == NULL) return;
+	ops->genFree(info, betVal, inst, freeMxu, gameId);
+}
+//展会模式生成大奖结果
+void GenerationResult_GenerateBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId)
+{
+	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
+	if (ops == NULL || ops->genBonus == NULL) return;
+	ops->genBonus(info, betVal, inst, bonusMxu, gameId);
+}
+//展会模式生成彩金结果
+void GenerationResult_GenerateJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId)
+{
+	const GameResultOps_t* ops = GameResultRegistry_Get(gameId);
+	if (ops == NULL || ops->genJackpot == NULL) return;
+	ops->genJackpot(info, betVal, inst, bonusMxu, gameId);
+}
+
+
 //应用一局结果到OutRes
 void GenerationResult_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec, GameInstanceId_t gameId)
 {
@@ -489,6 +493,8 @@ void GameResult_3993_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 void GameResult_3993_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* bonusMxu, GameInstanceId_t gameId);
 void GameResult_3993_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* jackpotMxu, GameInstanceId_t gameId);
 void GameResult_3993_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* idVec, GameInstanceId_t gameId);
+void GameResult_3993_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resType, RoundInfo_t* info, Matrix_u* Mxu, uint16_t* idVec);
+void GameResult_3993_ApplyMatrixToOutResForFree(OutResult_t* pRes, RoundInfo_t* info, int8_t freeIdx);
 int8_t* GameResult_3993_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst);
 void GameResult_3993_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId);
 
@@ -580,8 +586,8 @@ void GameResultRegistry_InitDefaults(void)
 	ops3993.genBonus = GameResult_3993_GenBonus;
 	ops3993.genJackpot = GameResult_3993_GenJackpot;
 	ops3993.genLose = GameResult_3993_GenLose;
-	ops3993.applyRound = GameResult_Generic_ApplyMatrixToOutResByRound;
-	ops3993.applyFree = GameResult_Generic_ApplyMatrixToOutResForFree;
+	ops3993.applyRound = GameResult_3993_ApplyMatrixToOutResByRound;
+	ops3993.applyFree = GameResult_3993_ApplyMatrixToOutResForFree;
 	ops3993.outResJson = GameResult_3993_OutResToJsonn;
 	ops3993.outResSenv = GameResult_3993_OutResToSenv;
 	(void)GameResultRegistry_Register(3993, &ops3993);

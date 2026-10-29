@@ -24,14 +24,24 @@
 -TotalBet：本次赠送局结算赔率
 
 【Bonus游戏】
-{"OpenType":0,"ResultType":3,"IDVec":[],"Matrix":[11,7,11,10,2,0,10,8,4,1,9,2,1,5,11],"BonusBet":8450,"BonusData":[1350,2250,550,2975,1325,0,0,0,0,0,0,0,0,0,0],"BonusPos0":[0,0,0,30750,30600,0,20001,0,0,0,20001,20001,0,0,0],"BonusPos1":[0,30750,0,30700,0,20001,0,30800,0,0,0,0,0,0,0],"BonusPos2":[0,30550,0,0,0,0,0,0,0,0,0,0,0,0,0],"BonusPos3":[0,0,30700,0,0,0,30600,0,0,30650,30600,0,0,30425,0],"TotalBet":0}
--BonusData：每局对应的 Bonus 得分
--BonusPos: 每次重转每格携带的香蕉图标和猩猩神像图标信息，未命中格为0（长度=15）万位代表种类 3:标识为香蕉，2:标识为猩猩神像 ，个十百千位为奖金  
+{"OpenType":0,"ResultType":3,"IDVec":[8306,17306],"Matrix":[0,6,6,8,5,6,3,4,4,3,11,9,11,0,11],"BonusBet":13025,"TotalBonusSpinTime":6,"BonusData":[1600,1500,3475,2675,1500,2275,0,0,0,0,0,0,0,0,0],"BonusPos":[[42082324,725,500,375],[1104,475,600,425],[1073822736,800,625,825,500,725],[24641,475,625,750,825],[11,500,450,550],[4448,575,700,525,475]],"TotalBet":40}
+
+-BonusData：每圈 Bonus 得分（下标对应重转序号）
+-BonusPos：
+每圈一个数组。第1个数是位置掩码，后面是香蕉金额（从左到右）
+掩码 bit0~14=香蕉所在格，bit16~30=猩猩所在格。
+例：[42082324, 725, 500, 375] 
+低 16 位 = 香蕉图 = 42082324 & 65535 = 8212   =>8212 = 2^2 + 2^4 + 2^13  =>香蕉在 2、4、13格
+高 16 位 = 猩猩图 = 42082324 >> 16  = 642       => 642=2^1 +2^7 +2^9 	=>猩猩在  1、7、9格
+还原：[0, 20001, 30725, 0, 30500, 0, 0, 20001, 0, 20001, 0, 0, 0, 30375, 0]
+
+
 -BonusBet：BonusData 求和
 
 【Jackpot游戏】
-{"OpenType":0,"ResultType":4,"IDVec":[],"Matrix":[2,0,11,2,5,11,3,0,0,3,2,1,10,1,11],"BonusBet":8275,"BonusData":[1675,450,475,850,1750,925,2150,0,0,0,0,0,0,0,0],"BonusPos0":[0,30375,0,0,30425,20001,0,0,20001,0,30450,0,0,0,30425],"BonusPos1":[0,0,0,0,0,0,0,0,30450,0,0,0,0,0,0],"BonusPos2":[0,0,0,0,20001,20001,0,0,0,0,0,0,0,0,30475],"BonusPos3":[30400,0,0,20001,20001,0,0,20001,0,0,0,0,0,0,30450],"BonusPos4":[0,30425,0,30375,0,0,0,0,30450,30500,0,0,0,0,0],"BonusPos5":[0,0,30450,0,0,0,0,0,0,0,0,0,0,30475,0],"BonusPos6":[0,0,0,0,0,30375,30500,30475,30375,30425,0,0,0,0,0],"JPCount":1,"JPTypeArray":[2],"JPBetArray":[715],"TotalJackpotBet":715,"TotalBet":0}
+{"OpenType":0,"ResultType":4,"IDVec":[],"Matrix":[7,2,11,4,6,7,7,6,10,7,11,5,5,9,11],"BonusBet":6725,"TotalBonusSpinTime":8,"BonusData":[750,825,0,425,1500,1000,1750,475,0,0,0,0,0,0,0],"BonusPos":[[16392,375,375],[258,400,425],[65536],[403177488,425],[272762897,500,500,500],[320,500,500],[2565,425,500,450,375],[64,475]],"JPCount":1,"JPTypeArray":[2],"JPBetArray":[1250],"TotalJackpotBet":1250,"TotalBet":0}
 
+-BonusPos：同 Bonus 游戏
 -JPCount：中本地彩金数量
 -JPTypeArray：彩金类型数组
 -JPBetArray：彩金得分数组
@@ -58,84 +68,158 @@ CT_Wild = 9,				//万能牌
 CT_Scater = 10,				//Scatter，达到阈值触发免费
 CT_Bonus = 11,				//Bonus，达到阈值触发 Bonus 游戏
 
-//嵌入式结果输出
-int32_t pos = 0;
-uint8_t wheelChessNum = inst->gameConfig.header.wheelChessNum;
+/void GameResult_3994_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int32_t* res, GameInstanceId_t gameId)
+{
+	int32_t pos = 0;
+	uint8_t wheelChessNum = inst->gameConfig.header.wheelChessNum;
 
-res[pos++] = (int32_t)gameId;						// ret
-res[pos++] = (int32_t)outRes->openType;				// OpenType
-res[pos++] = (int32_t)outRes->resType;				// ResultType
-res[pos++] = outRes->matrix.idVecSize;				// lineNum
-res[pos++] = outRes->nMatrixBet;					// TotalBet
-res[pos++] = wheelChessNum;							// MatrixLength
-// IDVec
-for (int32_t i = 0; i < outRes->matrix.idVecSize; i++)
-{
-	res[pos++] = outRes->IDVec[i];
-}
-//Matrix
-for (int32_t i = 0; i < wheelChessNum; i++)
-{
-	res[pos++] = outRes->matrix.dataArray[i];
-}
-
-if (outRes->resType == RT_FreeWin)
-{
-	res[pos++] = outRes->nTotalFreeTime;					// nTotalFreeTime
-	res[pos++] = outRes->nTotalFreeBet;					// nTotalFreeBet
-	//FreeBetArray
-	for (int32_t i = 0; i < outRes->nTotalFreeTime; i++)
+	res[pos++] = (int32_t)gameId;						// ret
+	res[pos++] = (int32_t)outRes->openType;				// OpenType
+	res[pos++] = (int32_t)outRes->resType;				// ResultType
+	res[pos++] = outRes->matrix.idVecSize;				// lineNum
+	res[pos++] = outRes->nMatrixBet;					// TotalBet
+	res[pos++] = wheelChessNum;							// MatrixLength
+	// IDVec
+	for (int32_t i = 0; i < outRes->matrix.idVecSize; i++)
 	{
-		res[pos++] = outRes->FreeBetArray[i];
+		res[pos++] = outRes->IDVec[i];
 	}
-}
-
-if (outRes->openType == OT_Give)
-{
-
-}
-
-if (outRes->resType == RT_BonusWin)
-{
-	res[pos++] = outRes->nBonusBet;						// nBonusBet
+	//Matrix
 	for (int32_t i = 0; i < wheelChessNum; i++)
 	{
-		res[pos++] = outRes->BonusData[i];
+		res[pos++] = outRes->matrix.dataArray[i];
 	}
 
-	for (int32_t i = 0; i < outRes->BlindSymbol; i++) //bonusPos
+	if (outRes->resType == RT_FreeWin)
 	{
-		for (int32_t j = 0; j < wheelChessNum; j++)
+		res[pos++] = outRes->nTotalFreeTime;					// nTotalFreeTime
+		res[pos++] = outRes->nTotalFreeBet;					// nTotalFreeBet
+		//FreeBetArray
+		for (int32_t i = 0; i < outRes->nTotalFreeTime; i++)
 		{
-			res[pos++] = outRes->BonusPosArray[i][j];
-		}
-	}
-}
-
-if (outRes->resType == RT_Jackpot)
-{
-	res[pos++] = outRes->nBonusBet;						// nBonusBet
-	for (int32_t i = 0; i < wheelChessNum; i++)
-	{
-		res[pos++] = outRes->BonusData[i];
-	}
-
-	for (int32_t i = 0; i < outRes->BlindSymbol; i++) //bonusPos
-	{
-		for (int32_t j = 0; j < wheelChessNum; j++)
-		{
-			res[pos++] = outRes->BonusPosArray[i][j];
+			res[pos++] = outRes->FreeBetArray[i];
 		}
 	}
 
-	res[pos++] = outRes->nJPCount;
-	for (int32_t i = 0; i < outRes->nJPCount; ++i)
+	if (outRes->openType == OT_Give)
 	{
-		res[pos++] = outRes->JPTypeArray[i];
+
 	}
-	for (int32_t i = 0; i < outRes->nJPCount; ++i)
+
+	if (outRes->resType == RT_BonusWin)
 	{
-		res[pos++] = outRes->JPBetArray[i];
+		res[pos++] = outRes->BlindSymbol;					//大奖旋转次数
+		res[pos++] = outRes->nBonusBet;						// nBonusBet
+		for (int32_t i = 0; i < wheelChessNum; i++)
+		{
+			res[pos++] = outRes->BonusData[i];
+		}
+		pos = GameResult_3994_WriteBonusPosSenv(outRes, wheelChessNum, res, pos);
 	}
-	res[pos++] = outRes->nTotalJackpotBet;
+
+	if (outRes->resType == RT_Jackpot)
+	{
+		res[pos++] = outRes->BlindSymbol;					//大奖旋转次数
+		res[pos++] = outRes->nBonusBet;						// nBonusBet
+		for (int32_t i = 0; i < wheelChessNum; i++)
+		{
+			res[pos++] = outRes->BonusData[i];
+		}
+		pos = GameResult_3994_WriteBonusPosSenv(outRes, wheelChessNum, res, pos);
+
+		res[pos++] = outRes->nJPCount;
+		for (int32_t i = 0; i < outRes->nJPCount; ++i)
+		{
+			res[pos++] = outRes->JPTypeArray[i];
+		}
+		for (int32_t i = 0; i < outRes->nJPCount; ++i)
+		{
+			res[pos++] = outRes->JPBetArray[i];
+		}
+		res[pos++] = outRes->nTotalJackpotBet;
+	}
+}
+
+
+//c#解析BonusPos参考代码
+public static class GameResult3994SenvParser
+{
+    public const int ResultTypeBonus = 3;
+    public const int ResultTypeJackpot = 4;
+    public const int GorillaValue = 20001;
+    public const int BananaBase = 30000;
+
+    /// <summary>
+    /// 从 senv res[] 解析每圈 15 格盘面。
+    /// 格值：0=空，20001=猩猩，30000+金额=香蕉。
+    /// </summary>
+    public static List<int[]> ParseBonusPosFromRes(int[] res)
+    {
+        var boards = new List<int[]>();
+        if (res == null || res.Length < 6)
+            return boards;
+
+        int resultType = res[2];
+        if (resultType != ResultTypeBonus && resultType != ResultTypeJackpot)
+            return boards;
+
+        int lineNum = res[3];
+        int matrixLen = res[5];
+        int i = 6 + lineNum + matrixLen;
+        // ResultType==2 才会先写免费字段，大奖/彩金不会走到
+
+        if (i + 2 + matrixLen > res.Length)
+            return boards;
+
+        int spinCount = res[i++];   // BlindSymbol / TotalBonusSpinTime
+        i++;                        // BonusBet
+        i += matrixLen;             // BonusData 固定 matrixLen 个
+
+        for (int s = 0; s < spinCount; s++)
+        {
+            if (i >= res.Length)
+                break;
+
+            uint mask = (uint)res[i];
+            int nBanana = CountBanana(mask, matrixLen);
+            int len = 1 + nBanana;
+            if (i + len > res.Length)
+                break;
+
+            boards.Add(DecodeSpin(res, i, len, matrixLen));
+            i += len;
+        }
+        return boards;
+    }
+
+    static int CountBanana(uint mask, int cellCount)
+    {
+        uint bananaMap = mask & 65535u;
+        int n = 0;
+        for (int c = 0; c < cellCount; c++)
+        {
+            if ((bananaMap & (1u << c)) != 0)
+                n++;
+        }
+        return n;
+    }
+
+    static int[] DecodeSpin(int[] res, int start, int len, int cellCount)
+    {
+        var board = new int[cellCount];
+        uint mask = (uint)res[start];
+        uint bananaMap = mask & 65535u;
+        uint gorillaMap = mask >> 16;
+
+        int p = start + 1;
+        int end = start + len;
+        for (int c = 0; c < cellCount; c++)
+        {
+            if ((gorillaMap & (1u << c)) != 0)
+                board[c] = GorillaValue;
+            else if ((bananaMap & (1u << c)) != 0)
+                board[c] = BananaBase + (p < end ? res[p++] : 0);
+        }
+        return board;
+    }
 }

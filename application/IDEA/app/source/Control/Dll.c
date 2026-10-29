@@ -100,57 +100,27 @@ void ApplyDebugMode(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int3
 	{
 		while (1)
 		{
+			RoundInfo_t_ResetexceptJp(info);
 			Matrix_u_reset(mxu);
-			NatureAlg_GenRndMxu(inst->gameConfig.header.normalRollTableId, mxu, inst->gameConfig.header.rowCount);
+			GenerationResult_GenerateNormal(info, inst, mxu, betVal, matrixBet, idVec, gameId);
 #ifdef _IMHERE
 			
 #endif // _IMHERE
 			//全线计算
 			//matrixBet=Matrix_u_computerMatrix_243(mxu, idVec);
 			//有线计算
-			* matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
+			//* matrixBet = Matrix_u_computerMatrixById(mxu, idVec, &inst->gameConfig, (uint32_t)gameId, info);
 			
 			if (mxu->resultType == gDebugControlMode.resType)
 			{
 				break;
 			}
-		}
 
-		switch (mxu->resultType)
-		{
-		case RT_Lose:
-		{
-
-		}
-		break;
-		case RT_Win:
-		{
-
-		}
-		break;
-		case RT_FreeWin:
-		{
-			//生成免费局数
-			GenerationResult_GenerateFree(info, betVal, inst, mxu, gameId);
-		}
-		break;
-		case RT_BonusWin:
-		{
-			//生成大奖结果
-			GenerationResult_GenerateBonus(info, betVal, inst, mxu, gameId);
-		}
-		break;
-		case RT_Jackpot:
-		{
-			//生成本地彩金结果
-			GenerationResult_GenerateJackpot(info, betVal, inst, mxu, gameId);
-		}
-		break;
-		default:
-		{
-
-		}
-		break;
+			//折中方案，bug点:当彩金池已满,bonus奖无法调试出来
+			if (mxu->resultType == RT_Jackpot && gDebugControlMode.resType == RT_BonusWin)
+			{
+				break;
+			}
 		}
 	}
 #endif
@@ -570,24 +540,22 @@ void DLL_GetGameResultById(player_data_item* pUserInfo, int32_t betValue, OutRes
 	int64_t expScore = (int64_t)pUserInfo->Wins + ((int64_t)betValue * (int64_t)outRes->nMatrixBet);
 	append_format(finalString, sizeof(finalString), &finalUsed, "totalscore:%lld expectation:%lld %s",
 		(long long)pUserInfo->Wins, (long long)expScore, resString);
-
-
 	QS_LOG("\r\n%s", finalString);
+#endif
+
 #ifdef _WritePlayerData
 	int8_t* jsonStr = OutResToJsonnById(outRes, gameId);
 	if (jsonStr != NULL)
 	{
-		QS_LOG("%s\n", jsonStr);
+		QS_LOG("\n%s\n", jsonStr);
 		free(jsonStr);
 	}
 	else
 	{
-		QS_LOG("{\"err\":\"OutResToJsonnById failed\"}\n");
+		QS_LOG("{\"err\":\"OutResToJsonnById failed\"}");
 	}
 
 	QS_LOG("\r\n-----------------\n");
-#endif
-
 #endif
 }
 

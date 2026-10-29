@@ -753,7 +753,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 	//获取显示值彩金
 	case 20201:
 	{
-		QS_LOG("\r\n [20201] enter");
+		//QS_LOG("\r\n [20201] enter");
 		qs_json* pJsonArray = qs_json_GetObjectItem(json, "data");
 		size_t JsonArraySize = qs_json_GetArraySize(pJsonArray);
 		int32_t res[4] = { 0 }; 
@@ -763,7 +763,7 @@ static void SenvReadCallback(qs_senv *pSenv, qs_json *json)
 		{
 			res[pos++] = Lottery_GetShowValue(&gLotteryManager.mLotterys[i]);
 		}
-		QS_LOG("\r\n [20201] before write");
+		//QS_LOG("\r\n [20201] before write");
 		//TODO
 		qs_json_DeleteItemFromObject(json, "data");
 		qs_json_AddItemToObject(json, "data", qs_json_CreateIntArray(res, sizeof(res) / sizeof(int32_t)));

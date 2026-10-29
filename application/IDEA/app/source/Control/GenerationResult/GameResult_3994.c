@@ -1,5 +1,91 @@
 #include "GameResultRegistry.h"
 
+#define BONUSPOS_KIND_GORILLA 2
+#define BONUSPOS_KIND_BANANA  3
+
+/* ä¸‡ä½2=çŒ©çŒ©->bit(i+16)ï¼Œä¸‡ä½3=é¦™è•‰->bit(i)ï¼Œé¦™è•‰é‡‘é¢ä»å·¦åˆ°å³ã€‚è¿”å›é¦™è•‰ä¸ªæ•°ã€‚ */
+uint8_t GameResult_3994_PackBonusPos(const uint16_t* cells, uint8_t cellCount, uint32_t* pMask, uint16_t* bananaBets)
+{
+	uint32_t mask = 0;
+	uint8_t bananaNum = 0;
+	uint8_t j;
+	if (pMask == NULL)
+	{
+		return 0;
+	}
+	if (cells == NULL || bananaBets == NULL)
+	{
+		*pMask = 0;
+		return 0;
+	}
+	if (cellCount > GE_WheelChessMaxNum)
+	{
+		cellCount = GE_WheelChessMaxNum;
+	}
+	for (j = 0; j < cellCount; ++j)
+	{
+		uint16_t kind = (uint16_t)(cells[j] / 10000);
+		if (kind == BONUSPOS_KIND_BANANA)
+		{
+			mask |= (1u << j);
+			bananaBets[bananaNum++] = (uint16_t)(cells[j] % 10000);
+		}
+		else if (kind == BONUSPOS_KIND_GORILLA)
+		{
+			mask |= (1u << (j + 16));
+		}
+	}
+	*pMask = mask;
+	return bananaNum;
+}
+
+void GameResult_3994_AppendBonusPosJson(char* strRes, size_t cap, size_t* used, const OutResult_t* outRes, uint8_t cellCount)
+{
+	uint8_t i;
+	uint8_t k;
+	uint8_t spinCount;
+	if (strRes == NULL || used == NULL || outRes == NULL)
+	{
+		return;
+	}
+	spinCount = outRes->BlindSymbol;
+	append_format(strRes, cap, used, "\"BonusPos\":[");
+	for (i = 0; i < spinCount; ++i)
+	{
+		uint32_t mask = 0;
+		uint16_t bananaBets[GE_WheelChessMaxNum];
+		uint8_t bananaNum = GameResult_3994_PackBonusPos(outRes->BonusPosArray[i], cellCount, &mask, bananaBets);
+		append_format(strRes, cap, used, "[%d", (int32_t)mask);
+		for (k = 0; k < bananaNum; ++k)
+		{
+			append_format(strRes, cap, used, ",%d", (int32_t)bananaBets[k]);
+		}
+		append_format(strRes, cap, used, "]%s", (i + 1 < spinCount) ? "," : "");
+	}
+	append_format(strRes, cap, used, "],");
+}
+
+int32_t GameResult_3994_WriteBonusPosSenv(const OutResult_t* outRes, uint8_t cellCount, int32_t* res, int32_t pos)
+{
+	uint8_t i;
+	uint8_t k;
+	if (outRes == NULL || res == NULL)
+	{
+		return pos;
+	}
+	for (i = 0; i < outRes->BlindSymbol; ++i)
+	{
+		uint32_t mask = 0;
+		uint16_t bananaBets[GE_WheelChessMaxNum];
+		uint8_t bananaNum = GameResult_3994_PackBonusPos(outRes->BonusPosArray[i], cellCount, &mask, bananaBets);
+		res[pos++] = (int32_t)mask;
+		for (k = 0; k < bananaNum; ++k)
+		{
+			res[pos++] = (int32_t)bananaBets[k];
+		}
+	}
+	return pos;
+}
 
 void GameResult_3994_GenNormal(RoundInfo_t* info, GameInstance_t* inst, Matrix_u* mxu, int32_t betVal, int32_t* matrixBet, uint16_t* idVec, GameInstanceId_t gameId)
 {
@@ -13,9 +99,6 @@ void GameResult_3994_GenLose(GameInstance_t* inst, Matrix_u* loseMxu, uint16_t* 
 
 void GameResult_3994_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* inst, Matrix_u* freeMxu, GameInstanceId_t gameId)
 {
-	(void)betVal;
-	(void)gameId;
-
 	if (info == NULL || inst == NULL || freeMxu == NULL) return;
 	RoundInfo_t_Reset(info);
 	Matrix_u mxu, tempMxu;
@@ -31,7 +114,7 @@ void GameResult_3994_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 	{
 		Matrix_u_reset(&mxu);
 		Matrix_u_reset(&tempMxu);
-		//Éú³ÉÈÎÒâ¾ØÕó
+		//ç”Ÿæˆä»»æ„çŸ©é˜µ
 		NatureAlg_GenRndMxu(inst->gameConfig.header.freeRollTableId, &mxu, inst->gameConfig.header.rowCount);
 		Matrix_u_copy(&tempMxu, &mxu);
 #ifdef _IMHERE
@@ -40,8 +123,8 @@ void GameResult_3994_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 #endif // _IMHERE
 
 
-		//Èç¹ûÓĞwildÔòÒ»ÕûÁĞ±ä³Éwild
-		for (uint8_t i = 1; i < inst->gameConfig.header.colCount; i++)
+		//å¦‚æœæœ‰wildåˆ™ä¸€æ•´åˆ—å˜æˆwild
+		for (uint8_t i = 0; i < inst->gameConfig.header.colCount; i++)
 		{
 			for (int8_t j = 0; j < inst->gameConfig.header.rowCount; j++)
 			{
@@ -54,55 +137,67 @@ void GameResult_3994_GenFree(RoundInfo_t* info, int32_t betVal, GameInstance_t* 
 			}
 		}
 
-		//¸ß·ÖÍ¼±ê×ª»»´ÎÒ»¼¶Í¼±êÎª×Ô¼º,´Ó×î¸ßµ½×îµÍ
-		//8 7 6 5 4  Ò»¹²Îå¸öĞèÒª×ª»»µÄÍ¼±ê
+		//é«˜åˆ†å›¾æ ‡è½¬æ¢æ¬¡ä¸€çº§å›¾æ ‡ä¸ºè‡ªå·±,ä»æœ€é«˜åˆ°æœ€ä½
+		//8 7 6 5 4  ä¸€å…±äº”ä¸ªéœ€è¦è½¬æ¢çš„å›¾æ ‡
 		uint8_t hightSymbols[5] = { 8, 7, 6, 5, 4 };
-		//µ±Ç°ĞèÒªÅĞ¶ÏµÄ¸ß·ÖÍ¼±ê
+		//å½“å‰éœ€è¦åˆ¤æ–­çš„é«˜åˆ†å›¾æ ‡
 		uint8_t curHightSymbol = 0;
-		//´ÎÒ»¼¶¸ß·ÖÍ¼±ê
+		//æ¬¡ä¸€çº§é«˜åˆ†å›¾æ ‡
 		uint8_t nextHightSymbol = 0;
-		//ÉÏÏÂ×óÓÒÏÂ±ê
+		//ä¸Šä¸‹å·¦å³ä¸‹æ ‡
 		int8_t dirindex = 0;
+		uint8_t colCount = inst->gameConfig.header.colCount;
+		uint8_t wheelNum = inst->gameConfig.header.wheelChessNum;
+		uint8_t wild = inst->gameConfig.header.Wild;
 		for (uint8_t s = 0; s < 4; s++)
 		{
 			curHightSymbol = hightSymbols[s];
 			nextHightSymbol = hightSymbols[s + 1];
-			//ÅĞ¶Ï4¸ö·½Ïò£¬Ô½½ç,wild,²»ÊÇ´ÎÒ»¼¶²»ĞèÒª×ª»»
+			//åˆ¤æ–­4ä¸ªæ–¹å‘ï¼Œè¶Šç•Œ,wild,ä¸æ˜¯æ¬¡ä¸€çº§ä¸éœ€è¦è½¬æ¢
 			for (uint8_t i = 0; i < inst->gameConfig.header.wheelChessNum; i++)
 			{
 				if (Matrix_u_getIntData(&tempMxu, inst->gameConfig, i) == curHightSymbol)
 				{
-					//ÉÏ·½Ïò
-					dirindex = i - inst->gameConfig.header.colCount;
-					if ((dirindex > 0 && dirindex < inst->gameConfig.header.wheelChessNum) &&
-						Matrix_u_getIntData(&tempMxu, inst->gameConfig, dirindex) != inst->gameConfig.header.Wild &&
-						Matrix_u_getIntData(&tempMxu, inst->gameConfig, dirindex) == nextHightSymbol)
+					uint8_t col = i % colCount;
+
+					// ä¸Š
+					dirindex = (int8_t)i - (int8_t)colCount;
+					if (dirindex >= 0
+						&& Matrix_u_getIntData(&tempMxu, inst->gameConfig, (uint8_t)dirindex) != wild
+						&& Matrix_u_getIntData(&tempMxu, inst->gameConfig, (uint8_t)dirindex) == nextHightSymbol)
 					{
-						tempMxu.dataArray[dirindex] = nextHightSymbol;
+						tempMxu.dataArray[dirindex] = curHightSymbol;
 					}
-					//ÏÂ·½Ïò
-					dirindex = i + inst->gameConfig.header.colCount;
-					if ((dirindex > 0 && dirindex < inst->gameConfig.header.wheelChessNum) &&
-						Matrix_u_getIntData(&tempMxu, inst->gameConfig, dirindex) != inst->gameConfig.header.Wild &&
-						Matrix_u_getIntData(&tempMxu, inst->gameConfig, dirindex) == nextHightSymbol)
+
+					// ä¸‹
+					dirindex = (int8_t)i + (int8_t)colCount;
+					if (dirindex < (int8_t)wheelNum
+						&& Matrix_u_getIntData(&tempMxu, inst->gameConfig, (uint8_t)dirindex) != wild
+						&& Matrix_u_getIntData(&tempMxu, inst->gameConfig, (uint8_t)dirindex) == nextHightSymbol)
 					{
-						tempMxu.dataArray[dirindex] = nextHightSymbol;
+						tempMxu.dataArray[dirindex] = curHightSymbol;
 					}
-					//×ó·½Ïò
-					dirindex = i - 1;
-					if ((dirindex > 0 && dirindex < inst->gameConfig.header.wheelChessNum) &&
-						Matrix_u_getIntData(&tempMxu, inst->gameConfig, dirindex) != inst->gameConfig.header.Wild &&
-						Matrix_u_getIntData(&tempMxu, inst->gameConfig, dirindex) == nextHightSymbol)
+
+					// å·¦ï¼šå¿…é¡»åœ¨åŒä¸€è¡Œ
+					if (col > 0)
 					{
-						tempMxu.dataArray[dirindex] = nextHightSymbol;
+						dirindex = (int8_t)i - 1;
+						if (Matrix_u_getIntData(&tempMxu, inst->gameConfig, (uint8_t)dirindex) != wild
+							&& Matrix_u_getIntData(&tempMxu, inst->gameConfig, (uint8_t)dirindex) == nextHightSymbol)
+						{
+							tempMxu.dataArray[dirindex] = curHightSymbol;
+						}
 					}
-					//ÓÒ·½Ïò
-					dirindex = i + 1;
-					if ((dirindex > 0 && dirindex < inst->gameConfig.header.wheelChessNum) &&
-						Matrix_u_getIntData(&tempMxu, inst->gameConfig, dirindex) != inst->gameConfig.header.Wild &&
-						Matrix_u_getIntData(&tempMxu, inst->gameConfig, dirindex) == nextHightSymbol)
+
+					// å³ï¼šå¿…é¡»åœ¨åŒä¸€è¡Œ
+					if (col + 1 < colCount)
 					{
-						tempMxu.dataArray[dirindex] = nextHightSymbol;
+						dirindex = (int8_t)i + 1;
+						if (Matrix_u_getIntData(&tempMxu, inst->gameConfig, (uint8_t)dirindex) != wild
+							&& Matrix_u_getIntData(&tempMxu, inst->gameConfig, (uint8_t)dirindex) == nextHightSymbol)
+						{
+							tempMxu.dataArray[dirindex] = curHightSymbol;
+						}
 					}
 				}
 			}
@@ -130,9 +225,9 @@ void GameResult_3994_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 	uint8_t spinsLeft = 3;
 	uint8_t spinTime = 0;
 	uint8_t RewardRollTableId = 4;
-	uint8_t xingxingSymbol = 12; //ĞÉĞÉÏÂ±ê
-	uint8_t bananaSymbol = 13;//Ïã½¶ÏÂ±ê
-	uint8_t xingxingSymbolNum = 0; //ĞÉĞÉ¸öÊı
+	uint8_t xingxingSymbol = 12; //çŒ©çŒ©ä¸‹æ ‡
+	uint8_t bananaSymbol = 13;//é¦™è•‰ä¸‹æ ‡
+	uint8_t xingxingSymbolNum = 0; //çŒ©çŒ©ä¸ªæ•°
 	if (info == NULL || inst == NULL || bonusMxu == NULL) return;
 	RoundInfo_t_Reset(info);
 	Matrix_u mxu;
@@ -142,15 +237,14 @@ void GameResult_3994_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 		{
 			--spinsLeft;//2 1 0
 
-			//Ëæ»ú´ó½±¾ØÕó inst->gameConfig.header.RewardRollTableId=4
+			//éšæœºå¤§å¥–çŸ©é˜µ inst->gameConfig.header.RewardRollTableId=4
 			NatureAlg_GenRndMxu(RewardRollTableId, &mxu, inst->gameConfig.header.rowCount);
 			Matrix_u_copy(&info->pFreeMxu[spinTime], &mxu);
-			//Ëæ»úĞÉĞÉÉñÏñÍ¼±ê		//30%¿ÉÒÔµÃĞÉĞÉÉñÏñ
+			//éšæœºçŒ©çŒ©ç¥åƒå›¾æ ‡		//30%å¯ä»¥å¾—çŒ©çŒ©ç¥åƒ
 			if (xingxingSymbolNum < 4 && JRandFrom(0, 10000) >3000)
 			{
 				uint8_t randxingxingcout = JRandFrom(1, 3);
 				Matrix_u_insertSymbol(&mxu, inst->gameConfig, xingxingSymbol, randxingxingcout);
-				spinsLeft = 3;
 				xingxingSymbolNum += randxingxingcout;
 			}
 
@@ -162,11 +256,13 @@ void GameResult_3994_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 					info->FreeIDVec[spinTime][i] =30000+data;
 					info->nBonusBet += data;
 					info->BonusData[spinTime] += data;
+					//spinsLeft = 3;
 				}
 
 				if (Matrix_u_getIntData(&mxu, inst->gameConfig, i) == xingxingSymbol)
 				{
 					info->FreeIDVec[spinTime][i] = 20001;
+					spinsLeft = 3;
 				}
 			}
 
@@ -180,7 +276,7 @@ void GameResult_3994_GenBonus(RoundInfo_t* info, int32_t betVal, GameInstance_t*
 			RoundInfo_t_Reset(info);
 			continue;
 		}
-		info->BlindSymbol = spinTime-1; //BlindSymbol´úÌæ ´ó½±Ğı×ª´ÎÊı
+		info->BlindSymbol = spinTime; //BlindSymbolä»£æ›¿ å¤§å¥–æ—‹è½¬æ¬¡æ•°
 		break;
 	}
 }
@@ -190,12 +286,12 @@ void GameResult_3994_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_
 	uint8_t spinsLeft = 3;
 	uint8_t spinTime = 0;
 	uint8_t RewardRollTableId = 4;
-	uint8_t xingxingSymbol = 12; //ĞÉĞÉÏÂ±ê
-	uint8_t bananaSymbol = 13;//Ïã½¶ÏÂ±ê
-	uint8_t xingxingSymbolNum = 0; //ĞÉĞÉ¸öÊı
-	uint8_t jackpotxingxingSymbolArray[3] = { 15,10,5 };//²Ê½ğĞèÒªµÄĞÉĞÉÉñÏñ¸öÊıÊı×é
-	uint8_t randxingxingSymbolArray[3] = { 3,2,1 };//Ã¿´ÎËæ»úĞÉĞÉÉñÏñ¸öÊıÊı×é
-	uint8_t jackpotxingxingSymbol = jackpotxingxingSymbolArray[info->JPTypeArray[0]]; //²Ê½ğĞèÒªµÄĞÉĞÉÉñÏñ¸öÊı
+	uint8_t xingxingSymbol = 12; //çŒ©çŒ©ä¸‹æ ‡
+	uint8_t bananaSymbol = 13;//é¦™è•‰ä¸‹æ ‡
+	uint8_t xingxingSymbolNum = 0; //çŒ©çŒ©ä¸ªæ•°
+	uint8_t jackpotxingxingSymbolArray[3] = { 15,10,5 };//å½©é‡‘éœ€è¦çš„çŒ©çŒ©ç¥åƒä¸ªæ•°æ•°ç»„
+	uint8_t randxingxingSymbolArray[3] = { 3,2,1 };//æ¯æ¬¡éšæœºçŒ©çŒ©ç¥åƒä¸ªæ•°æ•°ç»„
+	uint8_t jackpotxingxingSymbol = jackpotxingxingSymbolArray[info->JPTypeArray[0]]; //å½©é‡‘éœ€è¦çš„çŒ©çŒ©ç¥åƒä¸ªæ•°
 
 	if (info == NULL || inst == NULL || jackpotMxu == NULL) return;
 	RoundInfo_t_ResetexceptJp(info);
@@ -206,16 +302,16 @@ void GameResult_3994_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_
 		{
 			--spinsLeft;//2 1 0
 
-			//Ëæ»ú´ó½±¾ØÕó inst->gameConfig.header.RewardRollTableId=4
+			//éšæœºå¤§å¥–çŸ©é˜µ inst->gameConfig.header.RewardRollTableId=4
 			NatureAlg_GenRndMxu(RewardRollTableId, &mxu, inst->gameConfig.header.rowCount);
 			Matrix_u_copy(&info->pFreeMxu[spinTime], &mxu);
-			//Ëæ»úĞÉĞÉÉñÏñÍ¼±ê		//30%¿ÉÒÔµÃĞÉĞÉÉñÏñ
+			//éšæœºçŒ©çŒ©ç¥åƒå›¾æ ‡		//30%å¯ä»¥å¾—çŒ©çŒ©ç¥åƒ
 			if (xingxingSymbolNum <jackpotxingxingSymbol && JRandFrom(0, 10000) <7000)
 			{
 				uint8_t multiply= randxingxingSymbolArray[info->JPTypeArray[0]];
 				uint8_t randxingxingcout = JRandFrom(1* multiply, 3* multiply);
 				Matrix_u_insertSymbol(&mxu, inst->gameConfig, xingxingSymbol, randxingxingcout);
-				spinsLeft = 3;
+				
 				xingxingSymbolNum += randxingxingcout;
 			}
 
@@ -223,15 +319,17 @@ void GameResult_3994_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_
 			{
 				if (Matrix_u_getIntData(&mxu, inst->gameConfig, i) == bananaSymbol)
 				{
-					uint32_t data = JRandFrom(15, 20) * inst->gameConfig.header.lineCount;
+					uint32_t data = JRandFrom(15, 20) * inst->gameConfig.header.lineCount ;
 					info->FreeIDVec[spinTime][i] = 30000 + data;
 					info->nBonusBet += data;
 					info->BonusData[spinTime] += data;
+					//spinsLeft = 3;
 				}
 
 				if (Matrix_u_getIntData(&mxu, inst->gameConfig, i) == xingxingSymbol)
 				{
 					info->FreeIDVec[spinTime][i] = 20001;
+					spinsLeft = 3;
 				}
 			}
 
@@ -245,7 +343,7 @@ void GameResult_3994_GenJackpot(RoundInfo_t* info, int32_t betVal, GameInstance_
 			RoundInfo_t_ResetexceptJp(info);
 			continue;
 		}
-		info->BlindSymbol = spinTime; //BlindSymbol´úÌæ ´ó½±Ğı×ª´ÎÊı
+		info->BlindSymbol = spinTime; //BlindSymbolä»£æ›¿ å¤§å¥–æ—‹è½¬æ¬¡æ•°
 		break;
 	}
 }
@@ -322,7 +420,7 @@ void GameResult_3994_ApplyMatrixToOutResByRound(OutResult_t* pRes, int8_t resTyp
 	}
 	else
 	{
-		//Ê§°Ü½á¹û
+		//å¤±è´¥ç»“æœ
 	}
 }
 
@@ -334,7 +432,7 @@ int8_t* GameResult_3994_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	int8_t* matrixStr = NULL;
 
 	int8_t curwheelChessNum = inst->gameConfig.header.wheelChessNum;
-	// ·µ»Ø¶ÑÄÚ´æ£¬µ÷ÓÃ·½¸ºÔğ free£»Ê§°Ü·µ»Ø NULL¡£
+	// è¿”å›å †å†…å­˜ï¼Œè°ƒç”¨æ–¹è´Ÿè´£ freeï¼›å¤±è´¥è¿”å› NULLã€‚
 	if (strRes == NULL || outRes == NULL) return NULL;
 
 	strRes[0] = '\0';
@@ -365,9 +463,9 @@ int8_t* GameResult_3994_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	}
 
 	uint8_t bonusCount = 0;
-	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3¸ö×ªÅÌÍ¼±ê¿ÉÒÔµÃµ½1ÁĞwildÍ¼±ê£¬4¸ö×ªÅÌ¿ÉÒÔµÄ2ÁĞ......
+	uint8_t wildColCountArray[4] = { 1, 2, 3,3 };//3ä¸ªè½¬ç›˜å›¾æ ‡å¯ä»¥å¾—åˆ°1åˆ—wildå›¾æ ‡ï¼Œ4ä¸ªè½¬ç›˜å¯ä»¥çš„2åˆ—......
 	int8_t* bonusStr;
-	// gameId Ê§ÅäÊ±¸øÄ¬ÈÏÖµ£¬±ÜÃâ¿ÕÊµÀıµ¼ÖÂ·ÃÎÊ·Ç·¨ÄÚ´æ¡£
+	// gameId å¤±é…æ—¶ç»™é»˜è®¤å€¼ï¼Œé¿å…ç©ºå®ä¾‹å¯¼è‡´è®¿é—®éæ³•å†…å­˜ã€‚
 	if (inst != NULL)
 	{
 		bonusCount = Matrix_u_getTypeNum(&outRes->matrix, inst->gameConfig, inst->gameConfig.header.Bonus);
@@ -375,29 +473,24 @@ int8_t* GameResult_3994_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 	if (outRes->resType == RT_BonusWin)
 	{
 		append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
-		bonusStr = ArrayU16ToString(outRes->BonusData, curwheelChessNum, 1);
-		append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
-		for (uint8_t i = 0; i < outRes->BlindSymbol; i++)
-		{
-			bonusStr = ArrayU16ToString(outRes->BonusPosArray[i], curwheelChessNum, 1);
-			append_format(strRes, 2048, &used, "\"BonusPos%d\":%s,",i, bonusStr ? (const char*)bonusStr : "[]");
-		}
-		free(bonusStr);
+		append_format(strRes, 2048, &used, "\"TotalBonusSpinTime\":%d,", outRes->BlindSymbol);
+		//bonusStr = ArrayU16ToString(outRes->BonusData, curwheelChessNum, 1);
+		//append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
+		//free(bonusStr);
+		//GameResult_3994_AppendBonusPosJson(strRes, 2048, &used, outRes, (uint8_t)curwheelChessNum);
 	}
 
-	//ÖĞÁË²Ê½ğ
-	if (outRes->nJPCount > 0)
+	//ä¸­äº†å½©é‡‘
+	if (outRes->resType == RT_Jackpot)
 	{
 		int8_t* jpTypeStr = ByteArrayToString((int8_t*)outRes->JPTypeArray, (int8_t)outRes->nJPCount);
 		int8_t* jpBetStr = ArrayToString((int32_t*)outRes->JPBetArray, outRes->nJPCount, 1);
 		append_format(strRes, 2048, &used, "\"BonusBet\":%d,", outRes->nBonusBet);
+		append_format(strRes, 2048, &used, "\"TotalBonusSpinTime\":%d,", outRes->BlindSymbol);
 		bonusStr = ArrayU16ToString(outRes->BonusData, curwheelChessNum, 1);
 		append_format(strRes, 2048, &used, "\"BonusData\":%s,", bonusStr ? (const char*)bonusStr : "[]");
-		for (uint8_t i = 0; i < outRes->BlindSymbol; i++)
-		{
-			bonusStr = ArrayU16ToString(outRes->BonusPosArray[i], curwheelChessNum, 1);
-			append_format(strRes, 2048, &used, "\"BonusPos%d\":%s,", i, bonusStr ? (const char*)bonusStr : "[]");
-		}
+		free(bonusStr);
+		GameResult_3994_AppendBonusPosJson(strRes, 2048, &used, outRes, (uint8_t)curwheelChessNum);
 
 		append_format(strRes, 2048, &used, "\"JPCount\":%d,", outRes->nJPCount);
 		append_format(strRes, 2048, &used, "\"JPTypeArray\":%s,", jpTypeStr ? (const char*)jpTypeStr : "[]");
@@ -406,7 +499,6 @@ int8_t* GameResult_3994_OutResToJsonn(OutResult_t* outRes, GameInstance_t* inst)
 
 		free(jpTypeStr);
 		free(jpBetStr);
-		free(bonusStr);
 	}
 
 	append_format(strRes, 2048, &used, "\"TotalBet\":%d", outRes->nMatrixBet);
@@ -458,36 +550,24 @@ void GameResult_3994_OutResToSenv(OutResult_t* outRes, GameInstance_t* inst, int
 
 	if (outRes->resType == RT_BonusWin)
 	{
+		res[pos++] = outRes->BlindSymbol;					//å¤§å¥–æ—‹è½¬æ¬¡æ•°
 		res[pos++] = outRes->nBonusBet;						// nBonusBet
 		for (int32_t i = 0; i < wheelChessNum; i++)
 		{
 			res[pos++] = outRes->BonusData[i];
 		}
-
-		for (int32_t i = 0; i < outRes->BlindSymbol; i++) //bonusPos
-		{
-			for (int32_t j = 0; j < wheelChessNum; j++)
-			{
-				res[pos++] = outRes->BonusPosArray[i][j];
-			}
-		}
+		pos = GameResult_3994_WriteBonusPosSenv(outRes, wheelChessNum, res, pos);
 	}
 
 	if (outRes->resType == RT_Jackpot)
 	{
+		res[pos++] = outRes->BlindSymbol;					//å¤§å¥–æ—‹è½¬æ¬¡æ•°
 		res[pos++] = outRes->nBonusBet;						// nBonusBet
 		for (int32_t i = 0; i < wheelChessNum; i++)
 		{
 			res[pos++] = outRes->BonusData[i];
 		}
-
-		for (int32_t i = 0; i < outRes->BlindSymbol; i++) //bonusPos
-		{
-			for (int32_t j = 0; j < wheelChessNum; j++)
-			{
-				res[pos++] = outRes->BonusPosArray[i][j];
-			}
-		}
+		pos = GameResult_3994_WriteBonusPosSenv(outRes, wheelChessNum, res, pos);
 
 		res[pos++] = outRes->nJPCount;
 		for (int32_t i = 0; i < outRes->nJPCount; ++i)
